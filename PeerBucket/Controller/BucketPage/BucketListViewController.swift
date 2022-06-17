@@ -17,9 +17,10 @@ class BucketListViewController: UIViewController {
     lazy var addCategoryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .lightGray
+        button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
-        button.setTitle("Add Category", for: .normal)
+        button.setTitle("Add", for: .normal)
+        button.setTitleColor(UIColor.textGray, for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         return button
@@ -63,11 +64,12 @@ class BucketListViewController: UIViewController {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = 0
             self.blackView.alpha = 0.5
+//            self.layoutIfNeeded()
         }
     }
     
     func fetchFromFirebase() {
-        BucketListManager.shared.fetchBucketList(completion: { [weak self] result in
+        BucketListManager.shared.fetchBucketCategory(completion: { [weak self] result in
             
             guard let self = self else { return }
             
@@ -105,9 +107,9 @@ extension BucketListViewController: UICollectionViewDataSource {
         
         cell.clipsToBounds = true
         cell.layer.cornerRadius = cell.frame.height/30
-        cell.backgroundColor = .darkGray
+        cell.backgroundColor = UIColor.bgGray
         
-        cell.categoryLabel.text = bucketLists[indexPath.row].category
+        cell.configureCell(category: bucketLists[indexPath.row])
         
         return cell
         

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		74B4B91B40E80E30D31E4BD9 /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
+		AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */; };
+		AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */; };
+		AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
@@ -17,7 +20,7 @@
 		AC72A0D7285984CC007FC767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC72A0D6285984CC007FC767 /* Assets.xcassets */; };
 		AC72A0DA285984CC007FC767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC72A0D8285984CC007FC767 /* LaunchScreen.storyboard */; };
 		AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0E228598998007FC767 /* UIViewExtension.swift */; };
-		AC72A0E5285989EE007FC767 /* ExploreDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0E4285989EE007FC767 /* ExploreDataModal.swift */; };
+		AC72A0E5285989EE007FC767 /* ExploreMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0E4285989EE007FC767 /* ExploreMockData.swift */; };
 		AC72A0ED28599135007FC767 /* ExploreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0EC28599135007FC767 /* ExploreCollectionViewCell.swift */; };
 		AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0EE2859918C007FC767 /* ChallengeCollectionViewCell.swift */; };
 		AC72A0F1285991D3007FC767 /* ExploreHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0F0285991D3007FC767 /* ExploreHeaderView.swift */; };
@@ -28,7 +31,7 @@
 		AC72A0FB285A1057007FC767 /* AddToBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */; };
 		AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0FC285A1451007FC767 /* AddToBucketCollectionViewCell.swift */; };
 		AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0FF285AC20C007FC767 /* BucketListManager.swift */; };
-		AC72A102285AC2C0007FC767 /* FirebaseDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A101285AC2C0007FC767 /* FirebaseDataModal.swift */; };
+		AC72A102285AC2C0007FC767 /* BucketDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A101285AC2C0007FC767 /* BucketDataModal.swift */; };
 		AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A103285AC389007FC767 /* BucketListViewController.swift */; };
 		AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */; };
 		ACC3D26D285AD66900676F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */; };
@@ -41,6 +44,9 @@
 		6870EF865073BC240D7C9165 /* Pods-PeerBucket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeerBucket.release.xcconfig"; path = "Target Support Files/Pods-PeerBucket/Pods-PeerBucket.release.xcconfig"; sourceTree = "<group>"; };
 		9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PeerBucket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
+		AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
+		AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC72A0CC285984CB007FC767 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,7 +57,7 @@
 		AC72A0D9285984CC007FC767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC72A0DB285984CC007FC767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC72A0E228598998007FC767 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		AC72A0E4285989EE007FC767 /* ExploreDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreDataModal.swift; sourceTree = "<group>"; };
+		AC72A0E4285989EE007FC767 /* ExploreMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreMockData.swift; sourceTree = "<group>"; };
 		AC72A0EC28599135007FC767 /* ExploreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreCollectionViewCell.swift; sourceTree = "<group>"; };
 		AC72A0EE2859918C007FC767 /* ChallengeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCollectionViewCell.swift; sourceTree = "<group>"; };
 		AC72A0F0285991D3007FC767 /* ExploreHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeaderView.swift; sourceTree = "<group>"; };
@@ -62,7 +68,7 @@
 		AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBucketViewController.swift; sourceTree = "<group>"; };
 		AC72A0FC285A1451007FC767 /* AddToBucketCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToBucketCollectionViewCell.swift; sourceTree = "<group>"; };
 		AC72A0FF285AC20C007FC767 /* BucketListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListManager.swift; sourceTree = "<group>"; };
-		AC72A101285AC2C0007FC767 /* FirebaseDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDataModal.swift; sourceTree = "<group>"; };
+		AC72A101285AC2C0007FC767 /* BucketDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDataModal.swift; sourceTree = "<group>"; };
 		AC72A103285AC389007FC767 /* BucketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
 		AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListCollectionViewCell.swift; sourceTree = "<group>"; };
 		ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -93,6 +99,35 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AC21CEA8285B567C00157B4D /* BucketPage */ = {
+			isa = PBXGroup;
+			children = (
+				AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */,
+				AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */,
+			);
+			path = BucketPage;
+			sourceTree = "<group>";
+		};
+		AC21CEA9285B579500157B4D /* ExplorePage */ = {
+			isa = PBXGroup;
+			children = (
+				AC72A0CE285984CB007FC767 /* ExploreViewController.swift */,
+				AC72A0F62859B54F007FC767 /* ExploreDetailViewController.swift */,
+				AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */,
+			);
+			path = ExplorePage;
+			sourceTree = "<group>";
+		};
+		AC21CEAA285B57A700157B4D /* BucketPage */ = {
+			isa = PBXGroup;
+			children = (
+				AC72A103285AC389007FC767 /* BucketListViewController.swift */,
+				ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */,
+				ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */,
+			);
+			path = BucketPage;
+			sourceTree = "<group>";
+		};
 		AC72A0BE285984CB007FC767 = {
 			isa = PBXGroup;
 			children = (
@@ -114,10 +149,10 @@
 		AC72A0C9285984CB007FC767 /* PeerBucket */ = {
 			isa = PBXGroup;
 			children = (
-				AC72A0EA28598A38007FC767 /* View */,
-				AC72A0E928598A23007FC767 /* Extension */,
-				AC72A0E828598A0E007FC767 /* Controller */,
 				AC72A0E6285989F4007FC767 /* Modal */,
+				AC72A0EA28598A38007FC767 /* View */,
+				AC72A0E828598A0E007FC767 /* Controller */,
+				AC72A0E928598A23007FC767 /* Extension */,
 				AC72A0EB28598A4E007FC767 /* Resource */,
 				AC72A0D6285984CC007FC767 /* Assets.xcassets */,
 				AC72A0D0285984CB007FC767 /* Main.storyboard */,
@@ -131,9 +166,9 @@
 		AC72A0E6285989F4007FC767 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				AC72A0E4285989EE007FC767 /* ExploreDataModal.swift */,
 				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
-				AC72A101285AC2C0007FC767 /* FirebaseDataModal.swift */,
+				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
+				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -141,12 +176,8 @@
 		AC72A0E828598A0E007FC767 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				AC72A0CE285984CB007FC767 /* ExploreViewController.swift */,
-				AC72A0F62859B54F007FC767 /* ExploreDetailViewController.swift */,
-				AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */,
-				AC72A103285AC389007FC767 /* BucketListViewController.swift */,
-				ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */,
-				ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */,
+				AC21CEAA285B57A700157B4D /* BucketPage */,
+				AC21CEA9285B579500157B4D /* ExplorePage */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -154,9 +185,12 @@
 		AC72A0E928598A23007FC767 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				ACC3D272285B0EFA00676F46 /* DateHelper.swift */,
 				AC72A0E228598998007FC767 /* UIViewExtension.swift */,
 				AC72A0F42859AF8B007FC767 /* UIColorExtension.swift */,
-				ACC3D272285B0EFA00676F46 /* DateHelper.swift */,
+				AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */,
+				AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */,
+				AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -164,9 +198,8 @@
 		AC72A0EA28598A38007FC767 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AC21CEA8285B567C00157B4D /* BucketPage */,
 				AC72A0FE285A2F45007FC767 /* ExplorePage */,
-				AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */,
-				AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -347,6 +380,8 @@
 				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
 				ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */,
+				AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */,
+				AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */,
 				AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
@@ -357,9 +392,10 @@
 				AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */,
 				AC72A0F52859AF8B007FC767 /* UIColorExtension.swift in Sources */,
 				AC72A0FB285A1057007FC767 /* AddToBucketViewController.swift in Sources */,
+				AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */,
 				AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */,
-				AC72A0E5285989EE007FC767 /* ExploreDataModal.swift in Sources */,
-				AC72A102285AC2C0007FC767 /* FirebaseDataModal.swift in Sources */,
+				AC72A0E5285989EE007FC767 /* ExploreMockData.swift in Sources */,
+				AC72A102285AC2C0007FC767 /* BucketDataModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,10 +26,9 @@ class AddToBucketCollectionViewCell: UICollectionViewCell {
     
     func configureUI() {
         addSubview(categoryLabel)
-        categoryLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        categoryLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
-//        categoryLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 20, paddingLeft: 20)
+        categoryLabel.centerX(inView: self)
+        categoryLabel.centerY(inView: self)
     }
     
     func configureCell(index: Int) {

@@ -8,15 +8,20 @@
 import UIKit
 import SwiftUI
 
+protocol ExploreDetailTableViewCellDelegate: AnyObject {
+    func didTappedCollect()
+}
+
 class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
-        
+    
+    weak var delegate: ExploreDetailTableViewCellDelegate?
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
-        scrollView.backgroundColor = .white
         return scrollView
     }()
     
@@ -50,52 +55,57 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.semiBold(size: 18)
+        label.tintColor = UIColor.textGray
         return label
     }()
     
     var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Arial", size: 14)
-        label.backgroundColor = .clear
+        label.font = UIFont.regular(size: 14)
+        label.tintColor = UIColor.textGray
         label.numberOfLines = 0
         return label
     }()
     
-    var webButton: UIButton = {
+    lazy var webButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .lightGray
+        button.backgroundColor = UIColor.bgGray
+        button.setTitleColor(UIColor.textGray, for: .normal)
         button.addTarget(self, action: #selector(tappedWebBtn), for: .touchUpInside)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
+    lazy var collectButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor.bgGray
+        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.addTarget(self, action: #selector(tappedCollectBtn), for: .touchUpInside)
         button.setTitle("Collect", for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         return button
     }()
     
-    var ratingView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .lightGray
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 10
-        return view
+    var actionStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 8
+        return stackView
     }()
     
-    var ratingLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Rating 4.7"
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    var ratingImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "Icon_Star")
-        return imageView
-    }()
+//    var ratingImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.image = UIImage(named: "Icon_Star")
+//        return imageView
+//    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -110,6 +120,10 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     
     @objc func tappedWebBtn() {
         
+    }
+    
+    @objc func tappedCollectBtn() {
+        delegate?.didTappedCollect()
     }
     
     func configureImageCell(content: ExploreBucket) {
@@ -140,25 +154,17 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     }
     
     func configureRatingCell(content: ExploreBucket) {
-        addSubview(webButton)
-        addSubview(ratingView)
-        ratingView.addSubview(ratingLabel)
-        ratingView.addSubview(ratingImageView)
+        addSubview(actionStackView)
+        actionStackView.addArrangedSubview(webButton)
+        actionStackView.addArrangedSubview(collectButton)
+
+        actionStackView.anchor(top: topAnchor, left: leftAnchor,
+                               bottom: bottomAnchor, right: rightAnchor,
+                               paddingTop: 10, paddingLeft: 10,
+                               paddingBottom: 10, paddingRight: 10)
+
+        webButton.setTitle(content.rating, for: .normal)
         
-        ratingView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor,
-                          right: webButton.leftAnchor, paddingTop: 10, paddingBottom: 10,
-                          paddingRight: 10)
-        
-        webButton.anchor(top: topAnchor, bottom: bottomAnchor, right: rightAnchor,
-                         paddingTop: 10, paddingBottom: 10,
-                         width: 80)
-        
-        ratingImageView.anchor(top: ratingView.topAnchor, left: ratingView.leftAnchor,
-                               paddingTop: 10, paddingLeft: 10, width: 50, height: 50)
-        
-        ratingLabel.anchor(top: ratingImageView.topAnchor, left: ratingImageView.rightAnchor,
-                           paddingTop: 15, paddingLeft: 10, width: 50)
-        ratingLabel.text = content.rating
     }
     
     func configureInfoCell(content: ExploreBucket) {

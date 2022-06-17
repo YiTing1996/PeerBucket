@@ -14,8 +14,7 @@ class ChallengeHeaderView: UICollectionReusableView {
    var headerLabel: UILabel = {
        let label = UILabel()
         label.textColor = .darkGray
-        label.backgroundColor = .clear
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+       label.font = UIFont.semiBold(size: 20)
         label.text = "Recommed Bucket List"
         return label
     }()
@@ -24,7 +23,7 @@ class ChallengeHeaderView: UICollectionReusableView {
         super.init(frame: frame)
         addSubview(headerLabel)
         headerLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor,
-                           paddingTop: 6, paddingLeft: 6, paddingBottom: 6, width: 200)
+                           paddingTop: 6, paddingLeft: 6, paddingBottom: 6)
     }
     
     required init?(coder: NSCoder) {

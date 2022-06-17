@@ -41,8 +41,11 @@ class BucketDetailTableViewCell: UITableViewCell {
         addSubview(bucketLabel)
         addSubview(bucketImageView)
         
-        bucketImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 10, paddingLeft: 10, width: 100, height: 100)
-        bucketLabel.anchor(top: topAnchor, left: bucketImageView.rightAnchor, paddingTop: 10, paddingLeft: 10)
+        bucketImageView.anchor(top: topAnchor, left: leftAnchor,
+                               paddingTop: 10, paddingLeft: 10,
+                               width: 100, height: 100)
+        bucketLabel.anchor(top: topAnchor, left: bucketImageView.rightAnchor,
+                           paddingTop: 10, paddingLeft: 10)
 
     }
     

@@ -21,7 +21,7 @@ class ChallengeCollectionViewCell: UICollectionViewCell {
     
     var mainTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.font = UIFont.semiBold(size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         return label
@@ -29,7 +29,6 @@ class ChallengeCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .lightGray
         configureUI()
         configureCell()
     }

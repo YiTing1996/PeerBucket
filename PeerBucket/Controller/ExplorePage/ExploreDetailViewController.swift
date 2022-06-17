@@ -11,31 +11,21 @@ import UIKit
 class ExploreDetailViewController: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
-
-    @IBOutlet weak var actionButton: UIButton!
-
-    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     
-    @IBAction func didTappedActiobButton() {
-        
-//        let atBucketVC = storyboard?.instantiateViewController(withIdentifier: "AddToBucketViewController")
-//        guard let atBucketVC = atBucketVC as? AddToBucketViewController else { return }
-//        self.present(atBucketVC, animated: true)
-//        navigationController?.pushViewController(atBucketVC, animated: true)
-//        menuBottomConstraint.constant = 0
-        
-    }
+    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var blackView: UIView!
     
     var content: ExploreBucket?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        menuBottomConstraint.constant = -500
+        blackView.backgroundColor = .black
+        blackView.alpha = 0
+        menuBottomConstraint.constant = 500
         
         tableView.dataSource = self
         tableView.delegate = self
-        configureUI()
         
     }
     
@@ -51,12 +41,11 @@ class ExploreDetailViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     
-    func configureUI() {
-        actionButton.backgroundColor = .lightGray
-        actionButton.layer.cornerRadius = 10
-        actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        actionButton.setTitle("Check Detail Now", for: .normal)
-        actionButton.tintColor = .white
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? AddToBucketViewController {
+            destination.delegate = self
+            destination.selectedBucketTitle = content?.title
+        }
     }
     
 }
@@ -74,6 +63,8 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let exploreDetailCell = cell as? ExploreDetailTableViewCell,
               let content = content else { return cell }
         
+        exploreDetailCell.delegate = self
+        
         switch indexPath.row {
         case 0:
             exploreDetailCell.configureImageCell(content: content)
@@ -84,9 +75,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         default:
             exploreDetailCell.configureInfoCell(content: content)
         }
-        
-        exploreDetailCell.contentView.backgroundColor = UIColor.clear
-        
+                
         return exploreDetailCell
     }
     
@@ -100,6 +89,28 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             return UITableView.automaticDimension
         }
         //        return UITableView.automaticDimension
+    }
+    
+}
+
+extension ExploreDetailViewController: ExploreDetailTableViewCellDelegate {
+    
+    func didTappedCollect() {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
+            self.menuBottomConstraint.constant = 0
+            self.blackView.alpha = 0.5
+        }
+    }
+    
+}
+
+extension ExploreDetailViewController: AddToBucketViewControllerDelegate {
+    
+    func didTappedClose() {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
+            self.menuBottomConstraint.constant = 500
+            self.blackView.alpha = 0
+        }
     }
     
 }

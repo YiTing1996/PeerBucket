@@ -24,7 +24,6 @@ class ExploreHeaderView: UICollectionReusableView {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 2
-//        stackView.backgroundColor = .green
         return stackView
     }()
     
@@ -34,7 +33,7 @@ class ExploreHeaderView: UICollectionReusableView {
     var indicatorView: UIView = {
         let indicatorView = UIView()
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        indicatorView.backgroundColor = .darkGray
+        indicatorView.backgroundColor = UIColor.hightlightColor
         return indicatorView
     }()
     
@@ -59,14 +58,15 @@ class ExploreHeaderView: UICollectionReusableView {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.tintColor = .darkGray
             button.setTitle(buttonTitle[index], for: .normal)
-            button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+            button.setTitleColor(UIColor.textGray, for: .normal)
+            button.titleLabel?.font = UIFont.semiBold(size: 20)
             button.addTarget(self, action: #selector(didTappedButton), for: .touchUpInside)
             headerStack.addArrangedSubview(button)
             headerButton.append(button)
         }
         
         headerStack.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
-                           paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5, height: 50)
+                           paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 5)
         indicatorView.anchor(top: headerStack.bottomAnchor, paddingTop: 5, width: 100, height: 2)
         centerXConstraint = indicatorView.centerXAnchor.constraint(equalTo: headerButton[0].centerXAnchor)
         centerXConstraint.isActive = true

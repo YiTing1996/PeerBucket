@@ -139,7 +139,7 @@ extension ExploreViewController: UICollectionViewDataSource {
             }
             
             exploreCell.configureCell(content: exploreList[currentTab][indexPath.row])
-            exploreCell.backgroundColor = UIColor.lightGray
+            exploreCell.backgroundColor = UIColor.bgGray
             exploreCell.clipsToBounds = true
             exploreCell.layer.cornerRadius = exploreCell.frame.height/15
             
@@ -151,7 +151,7 @@ extension ExploreViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            recommendCell.backgroundColor = UIColor.lightGray
+            recommendCell.backgroundColor = UIColor.bgGray
             recommendCell.clipsToBounds = true
             recommendCell.layer.cornerRadius = recommendCell.frame.height/10
             

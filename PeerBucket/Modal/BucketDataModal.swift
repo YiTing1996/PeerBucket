@@ -11,26 +11,28 @@ struct BucketCategory: Codable {
 
     var senderId: String
     var category: String
-    // to-do 要改成array
-    var content: [BucketList?]
+//    var content: [BucketList?]
+//    var content: [String: Any]?
     var id: String
+    var image: String
     
     enum CodingKeys: String, CodingKey {
         case senderId
         case category
-        case content
+//        case content
         case id
+        case image
     }
     
     var toDict: [String: Any] {
         return [
             "senderId": senderId as Any,
             "category": category as Any,
-            "content": content as Any,
-            "id": id as Any
+//            "content": content as Any,
+            "id": id as Any,
+            "image": image as Any
         ]
     }
-
 }
 
 struct BucketList: Codable {
@@ -40,6 +42,8 @@ struct BucketList: Codable {
 //    var image: String?
     var status: Bool = false
     var list: String
+    var categoryId: String
+    var listId: String
     
     enum CodingKeys: String, CodingKey {
         case senderId
@@ -47,6 +51,8 @@ struct BucketList: Codable {
 //        case image
         case status
         case list
+        case categoryId
+        case listId
     }
     
     var toDict: [String: Any] {
@@ -56,6 +62,8 @@ struct BucketList: Codable {
 //            "image": image as Any,
             "status": status as Any,
             "list": list as Any,
+            "categoryId": categoryId as Any,
+            "listId": listId as Any
         ]
     }
 }

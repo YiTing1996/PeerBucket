@@ -84,4 +84,31 @@ extension UIView {
         anchor(top: view.topAnchor, left: view.leftAnchor,
                bottom: view.bottomAnchor, right: view.rightAnchor)
     }
+    
+    func setShadow(color: UIColor, offset: CGSize, opacity: Float, radius: CGFloat) {
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = radius
+    }
+    
+    func float(duration: Double) {
+        
+        UIView.animate(
+            withDuration: duration,
+            delay: 0,
+            options: [.autoreverse, .repeat],
+            animations: {
+                self.frame = CGRect(
+                    x: self.frame.origin.x,
+                    y: self.frame.origin.y - 10,
+                    width: self.frame.size.width,
+                    height: self.frame.size.height)
+            },
+            completion: nil
+        )
+    }
+    
 }

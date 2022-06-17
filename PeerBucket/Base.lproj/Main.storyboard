@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nzg-TI-mU7">
-                                <rect key="frame" x="8" y="52" width="398" height="738"/>
+                                <rect key="frame" x="8" y="52" width="398" height="810"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ExploreDetailTableViewCell" id="4f1-ia-EpF" customClass="ExploreDetailTableViewCell" customModule="PeerBucket" customModuleProvider="target">
@@ -31,45 +31,45 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u36-mS-3jN">
-                                <rect key="frame" x="327" y="782" width="67" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hhw-6o-ptJ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0l-w9-Hhw">
+                                <rect key="frame" x="0.0" y="522" width="414" height="374"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="6lx-Cn-EMZ"/>
+                                    <constraint firstAttribute="width" constant="414" id="GUg-xy-03O"/>
+                                    <constraint firstAttribute="height" constant="374" id="egs-lX-Lsi"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
-                                    <action selector="didTappedActiobButton" destination="2Bk-B2-63m" eventType="touchUpInside" id="aXE-g2-D7G"/>
-                                </connections>
-                            </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" id="9DR-3K-QvC">
-                                <rect key="frame" x="8" y="413" width="398" height="369"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="uJ8-wb-3Az" kind="embed" id="QmP-QQ-how"/>
+                                    <segue destination="VZ6-Ee-Nk6" kind="embed" id="kuZ-xt-Dvu"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Eju-Bs-sdF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="trailing" secondItem="Hhw-6o-ptJ" secondAttribute="trailing" id="5Xc-bH-Nqc"/>
                             <constraint firstItem="nzg-TI-mU7" firstAttribute="top" secondItem="Eju-Bs-sdF" secondAttribute="top" constant="8" id="DDD-9b-iMd"/>
                             <constraint firstItem="Eju-Bs-sdF" firstAttribute="trailing" secondItem="nzg-TI-mU7" secondAttribute="trailing" constant="8" id="DHG-20-k4S"/>
-                            <constraint firstItem="u36-mS-3jN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Eju-Bs-sdF" secondAttribute="leading" symbolic="YES" id="PC6-JP-nht"/>
+                            <constraint firstItem="P0l-w9-Hhw" firstAttribute="leading" secondItem="nzg-TI-mU7" secondAttribute="leading" constant="-8" id="Isx-Zb-eQZ"/>
                             <constraint firstItem="nzg-TI-mU7" firstAttribute="leading" secondItem="Eju-Bs-sdF" secondAttribute="leading" constant="8" id="X71-Ql-BXU"/>
-                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="bottom" secondItem="nzg-TI-mU7" secondAttribute="bottom" constant="72" id="iUz-cl-NEs"/>
-                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="trailing" secondItem="u36-mS-3jN" secondAttribute="trailing" constant="20" id="oTT-Dj-w7e"/>
-                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="bottom" secondItem="u36-mS-3jN" secondAttribute="bottom" constant="20" id="s26-ZM-PLr"/>
+                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="top" secondItem="Eju-Bs-sdF" secondAttribute="top" id="eLz-st-y0r"/>
+                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="bottom" secondItem="nzg-TI-mU7" secondAttribute="bottom" id="iUz-cl-NEs"/>
+                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="leading" secondItem="Eju-Bs-sdF" secondAttribute="leading" id="sgm-zx-rUR"/>
+                            <constraint firstItem="P0l-w9-Hhw" firstAttribute="bottom" secondItem="Eju-Bs-sdF" secondAttribute="bottom" constant="34" id="v7m-p9-U7A"/>
+                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="bottom" secondItem="Eju-Bs-sdF" secondAttribute="bottom" constant="34" id="wpB-87-CMF"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="actionButton" destination="u36-mS-3jN" id="WWc-uk-ldV"/>
+                        <outlet property="blackView" destination="Hhw-6o-ptJ" id="tYB-hP-4gK"/>
+                        <outlet property="menuBottomConstraint" destination="v7m-p9-U7A" id="oLE-fK-Kng"/>
                         <outlet property="tableView" destination="nzg-TI-mU7" id="5xP-Lp-tmG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rmt-mN-a8q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="535" y="1075"/>
+            <point key="canvasLocation" x="534.78260869565224" y="1074.1071428571429"/>
         </scene>
         <!--Explore View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -172,9 +172,9 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" restorationIdentifier="AddNewBucketViewController" translatesAutoresizingMaskIntoConstraints="NO" id="nlS-mn-XMF">
-                                <rect key="frame" x="8" y="414" width="398" height="470"/>
+                                <rect key="frame" x="8" y="429" width="398" height="455"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="470" id="Kvi-tT-dIY"/>
+                                    <constraint firstAttribute="height" constant="455" id="Kvi-tT-dIY"/>
                                     <constraint firstAttribute="width" constant="398" id="vkX-q8-Na6"/>
                                 </constraints>
                                 <connections>
@@ -282,73 +282,6 @@
             </objects>
             <point key="canvasLocation" x="2019" y="-1034"/>
         </scene>
-        <!--Add To Bucket View Controller-->
-        <scene sceneID="ZE8-dW-taY">
-            <objects>
-                <viewController storyboardIdentifier="AddToBucketViewController" id="uJ8-wb-3Az" customClass="AddToBucketViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Yox-gS-IDY">
-                        <rect key="frame" x="0.0" y="0.0" width="398" height="369"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q99-Gd-L6I">
-                                <rect key="frame" x="8" y="106" width="382" height="255"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2mm-oT-LsN">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddToBucketCollectionViewCell" id="UvN-Py-lIT" customClass="AddToBucketCollectionViewCell" customModule="PeerBucket" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Qub-YA-eML">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vu-Xq-jqT">
-                                <rect key="frame" x="20" y="44" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LK-es-T76">
-                                <rect key="frame" x="322" y="41" width="47" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="xmark.octagon" catalog="system"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRA-64-NVM">
-                                <rect key="frame" x="269" y="41" width="45" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system"/>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="iis-96-vOX"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="q99-Gd-L6I" firstAttribute="top" secondItem="Yox-gS-IDY" secondAttribute="top" constant="106" id="B9V-L8-vNA"/>
-                            <constraint firstItem="q99-Gd-L6I" firstAttribute="leading" secondItem="Yox-gS-IDY" secondAttribute="leading" constant="8" id="dgW-YR-Aoa"/>
-                            <constraint firstAttribute="bottom" secondItem="q99-Gd-L6I" secondAttribute="bottom" constant="8" id="lSX-Dq-nql"/>
-                            <constraint firstAttribute="trailing" secondItem="q99-Gd-L6I" secondAttribute="trailing" constant="8" id="ugw-yc-LM5"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="collectionView" destination="q99-Gd-L6I" id="mzB-uS-gin"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sC9-w1-640" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="526" y="1616"/>
-        </scene>
         <!--Home-->
         <scene sceneID="tWv-bF-XKL">
             <objects>
@@ -430,7 +363,7 @@
             <objects>
                 <viewController storyboardIdentifier="AddNewBucketViewController" id="eEY-jj-jos" customClass="AddNewBucketViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kvw-7O-I5R">
-                        <rect key="frame" x="0.0" y="0.0" width="398" height="470"/>
+                        <rect key="frame" x="0.0" y="0.0" width="398" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="36a-dY-hV1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -440,10 +373,54 @@
             </objects>
             <point key="canvasLocation" x="2886" y="952"/>
         </scene>
+        <!--Add To Bucket View Controller-->
+        <scene sceneID="7C1-hP-jYM">
+            <objects>
+                <viewController storyboardIdentifier="AddToBucketViewController" id="VZ6-Ee-Nk6" customClass="AddToBucketViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eue-cx-mMd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="374"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FbZ-NU-UYP">
+                                <rect key="frame" x="8" y="96" width="398" height="270"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZOu-gc-eLa">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddToBucketCollectionViewCell" id="K47-xf-bXe" customClass="AddToBucketCollectionViewCell" customModule="PeerBucket" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="A2X-hR-viF">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DQw-ov-NMc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FbZ-NU-UYP" firstAttribute="top" secondItem="eue-cx-mMd" secondAttribute="top" constant="96" id="PUY-I0-YHq"/>
+                            <constraint firstItem="FbZ-NU-UYP" firstAttribute="leading" secondItem="eue-cx-mMd" secondAttribute="leading" constant="8" id="gPh-xz-nf5"/>
+                            <constraint firstAttribute="bottom" secondItem="FbZ-NU-UYP" secondAttribute="bottom" constant="8" id="vwJ-nK-7bG"/>
+                            <constraint firstAttribute="trailing" secondItem="FbZ-NU-UYP" secondAttribute="trailing" constant="8" id="wQm-KB-8TS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="FbZ-NU-UYP" id="FyS-vK-2AM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1BX-Yz-b32" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="534.78260869565224" y="1597.7678571428571"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
-        <image name="xmark.octagon" catalog="system" width="128" height="112"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
