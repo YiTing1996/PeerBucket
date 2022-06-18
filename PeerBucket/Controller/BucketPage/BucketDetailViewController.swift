@@ -35,7 +35,9 @@ class BucketDetailViewController: UIViewController {
     var selectedBucket: BucketCategory?
     var allBucketList: [BucketList] = [] {
         didSet {
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -101,9 +103,11 @@ class BucketDetailViewController: UIViewController {
         
         BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in
             switch result {
-            case .success(let string):
+            case .success:
                 self.presentSuccessAlert()
-                print(string)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
@@ -176,7 +180,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
                 BucketListManager.shared.deleteBucketList(id: deleteId) { result in
                     
                     switch result {
-                    case .success(_):
+                    case .success:
                         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
                     case .failure(let error):
                         self.presentErrorAlert(message: error.localizedDescription + " Please try again")

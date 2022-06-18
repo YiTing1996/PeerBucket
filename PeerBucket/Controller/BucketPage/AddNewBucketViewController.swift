@@ -112,7 +112,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         var bucketCategory: BucketCategory = BucketCategory(
             senderId: "Doreen",
             category: category,
-//            content: [nil],
             id: "",
             image: imageUrlString
         )
@@ -120,7 +119,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         BucketListManager.shared.addBucketCategory(bucketCategory: &bucketCategory) { result in
             
             switch result {
-            case .success(_):
+            case .success:
                 self.presentSuccessAlert()
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
@@ -144,15 +143,17 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
             return
         }
         
+        let imageName = NSUUID().uuidString
+        
         // create a reference to upload data
-        storage.child("images/file.png").putData(imageData, metadata: nil, completion: { _, error in
+        storage.child("categoryImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
             
             guard error == nil else {
                 print("Fail to upload image")
                 return
             }
             
-            self.storage.child("images/file.png").downloadURL(completion: { url, error in
+            self.storage.child("categoryImage/\(imageName).png").downloadURL(completion: { url, error in
                 
                 guard let url = url, error == nil else {
                     return
@@ -170,7 +171,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
                 
             })
             
-        })
+        }
         
     }
     

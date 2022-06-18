@@ -105,6 +105,8 @@ extension BucketListViewController: UICollectionViewDataSource {
             for: indexPath)
         guard let cell = cell as? BucketListCollectionViewCell else { return cell }
         
+        cell.categoryImageView.image = nil
+        
         cell.clipsToBounds = true
         cell.layer.cornerRadius = cell.frame.height/30
         cell.backgroundColor = UIColor.bgGray

@@ -192,16 +192,19 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let exploreDetailVC = storyboard?.instantiateViewController(withIdentifier: "exploreDetailVC")
-        guard let detailVC = exploreDetailVC as? ExploreDetailViewController else { return }
-        
         if indexPath.section == 0 {
+            let exploreDetailVC = storyboard?.instantiateViewController(withIdentifier: "exploreDetailVC")
+            guard let detailVC = exploreDetailVC as? ExploreDetailViewController else { return }
             detailVC.content = exploreList[currentTab][indexPath.row]
+            navigationController?.pushViewController(detailVC, animated: true)
+
         } else {
-            detailVC.content = exploreList[currentTab][indexPath.row]
+            let challengeVC = storyboard?.instantiateViewController(withIdentifier: "challengeVC")
+            guard let challengeVC = challengeVC as? ChallengeViewController else { return }
+            navigationController?.pushViewController(challengeVC, animated: true)
+
+//            challengelVC.content = exploreList[currentTab][indexPath.row]
         }
-        
-        navigationController?.pushViewController(detailVC, animated: true)
         
     }
     

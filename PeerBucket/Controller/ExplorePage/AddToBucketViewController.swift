@@ -136,7 +136,7 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
             BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in
                 
                 switch result {
-                case .success(_):
+                case .success:
                     self.presentSuccessAlert()
                 case .failure(let error):
                     self.presentErrorAlert(message: error.localizedDescription + " Please try again")

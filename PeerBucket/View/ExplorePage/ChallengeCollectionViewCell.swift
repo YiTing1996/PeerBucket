@@ -15,17 +15,17 @@ class ChallengeCollectionViewCell: UICollectionViewCell {
     var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
-    var mainTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.semiBold(size: 18)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
-        return label
-    }()
+//    var mainTitleLabel: UILabel = {
+//        let label = UILabel()
+//        label.font = UIFont.semiBold(size: 18)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.textColor = .white
+//        return label
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,16 +39,16 @@ class ChallengeCollectionViewCell: UICollectionViewCell {
     
     func configureUI() {
         addSubview(mainImageView)
-        addSubview(mainTitleLabel)
+//        addSubview(mainTitleLabel)
         
-        mainImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingBottom: 50)
-        mainTitleLabel.anchor(top: mainImageView.bottomAnchor, left: mainImageView.leftAnchor, paddingTop: 16, paddingLeft: 16)
+        mainImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+//        mainTitleLabel.anchor(top: mainImageView.bottomAnchor, left: mainImageView.leftAnchor, paddingTop: 16, paddingLeft: 16)
         
     }
     
     func configureCell() {
-        mainImageView.image = UIImage(named: "recommend")
-        mainTitleLabel.text = "Penghu, Taiwan"
+        mainImageView.image = UIImage(named: "challenge_hiking_1")
+//        mainTitleLabel.text = "Hiking Challenge"
     }
     
 }

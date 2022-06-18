@@ -15,15 +15,16 @@ class ExploreCollectionViewCell: UICollectionViewCell {
     var mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     var mainTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.regular(size: 18)
+        label.font = UIFont.semiBold(size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .white
+        label.textColor = .textGray
+        label.backgroundColor = .bgGray
         return label
     }()
     
@@ -40,8 +41,8 @@ class ExploreCollectionViewCell: UICollectionViewCell {
         addSubview(mainImageView)
         addSubview(mainTitleLabel)
         
-        mainImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingBottom: 50)
-        mainTitleLabel.anchor(top: mainImageView.bottomAnchor, left: mainImageView.leftAnchor, paddingTop: 16, paddingLeft: 16)
+        mainImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
+        mainTitleLabel.anchor(left: mainImageView.leftAnchor, bottom: bottomAnchor, paddingLeft: 16, paddingBottom: 16)
         
     }
     

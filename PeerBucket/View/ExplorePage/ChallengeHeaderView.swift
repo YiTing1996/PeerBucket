@@ -15,7 +15,7 @@ class ChallengeHeaderView: UICollectionReusableView {
        let label = UILabel()
         label.textColor = .darkGray
        label.font = UIFont.semiBold(size: 20)
-        label.text = "Recommed Bucket List"
+        label.text = "Chanllenge Bucket List"
         return label
     }()
     
