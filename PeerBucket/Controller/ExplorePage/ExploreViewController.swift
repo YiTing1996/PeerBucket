@@ -162,7 +162,6 @@ extension ExploreViewController: UICollectionViewDataSource {
     
 }
 
-// 新增header
 extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,

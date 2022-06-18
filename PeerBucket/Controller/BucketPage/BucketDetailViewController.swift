@@ -89,6 +89,7 @@ class BucketDetailViewController: UIViewController {
         
         guard let selectedBucket = selectedBucket,
               addListTextField.text != "" else {
+            presentErrorAlert(message: "Please fill all the field")
             return
         }
         

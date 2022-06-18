@@ -107,8 +107,12 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     @objc func tappedSubmitBtn() {
         delegate?.didTappedClose()
         
-        guard let category = categoryTextField.text else { return }
-        
+        guard let category = categoryTextField.text,
+              categoryTextField.text != "" else {
+            presentErrorAlert(message: "Please fill all the field")
+            return
+        }
+                
         var bucketCategory: BucketCategory = BucketCategory(
             senderId: "Doreen",
             category: category,

@@ -17,5 +17,6 @@ target 'PeerBucket' do
   pod 'Firebase/Analytics'
 
   pod 'SwiftLint'
+  pod 'FSCalendar'
 
 end

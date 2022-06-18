@@ -143,7 +143,6 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
         
         selectedBucket = bucketLists[indexPath.row]
         detailBucketVC.selectedBucket = selectedBucket
-//        self.present(detailBucketVC, animated: true)
         navigationController?.pushViewController(detailBucketVC, animated: true)
     
     }
