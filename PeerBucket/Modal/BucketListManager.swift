@@ -50,10 +50,10 @@ class BucketListManager {
         
         //        dataBase.order(by: "createdTime", descending: true).getDocuments() { (querySnapshot, error) in
         
-        dataBase.collection("bucketList").whereField("categoryId", isEqualTo: id).getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-                completion(.failure(err))
+        dataBase.collection("bucketList").whereField("categoryId", isEqualTo: id).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
             } else {
                 var bucketLists = [BucketList]()
                 
@@ -87,7 +87,7 @@ class BucketListManager {
             if let error = error {
                 print("Error updating document: \(error)")
             } else {
-                print("Document successfully updated")
+                print("Document successfully updated")                
             }
         }
     }
@@ -97,7 +97,7 @@ class BucketListManager {
         
         let document = dataBase.collection("bucketList").document()
         bucketList.listId = document.documentID
-        bucketList.createdTime = Date().millisecondsSince1970
+        bucketList.createdTime = Date()
         
         document.setData(bucketList.toDict) { error in
             
@@ -122,6 +122,16 @@ class BucketListManager {
     
     func deleteBucketList(id: String, completion: @escaping(Result<String, Error>) -> Void) {
         dataBase.collection("bucketList").document(id).delete { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success("deleted bucketList \(id)"))
+            }
+        }
+    }
+    
+    func deleteBucketCategory(id: String, completion: @escaping(Result<String, Error>) -> Void) {
+        dataBase.collection("bucketCategory").document(id).delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {

@@ -34,7 +34,8 @@ struct BucketCategory: Codable {
 struct BucketList: Codable {
     
     var senderId: String
-    var createdTime: Int64
+//    var createdTime: Int64
+    var createdTime: Date
     var status: Bool = false
     var list: String
     var categoryId: String

@@ -10,12 +10,14 @@ import UIKit
 
 protocol AddScheduleViewControllerDelegate: AnyObject {
     func didTappedClose()
-    func didChangeDate()
+//    func didChangeDate()
 }
 
 class AddScheduleViewController: UIViewController {
     
     weak var delegate: AddScheduleViewControllerDelegate?
+    
+    var selectedDate: Date?
     
     var eventTextField: UITextField = {
         let textField = UITextField()
@@ -29,7 +31,7 @@ class AddScheduleViewController: UIViewController {
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.frame = CGRect(x: 10, y: 50, width: 200, height: 50)
-        datePicker.timeZone = NSTimeZone.local
+        datePicker.timeZone = TimeZone.current
         datePicker.backgroundColor = UIColor.bgGray
         datePicker.addTarget(self, action: #selector(didChangedDate(_:)), for: .valueChanged)
         return datePicker
@@ -73,16 +75,7 @@ class AddScheduleViewController: UIViewController {
     }
     
     @objc func didChangedDate(_ sender: UIDatePicker) {
-        // Create date formatter
-        let dateFormatter: DateFormatter = DateFormatter()
-        
-        // Set date format
-        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
-        
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: sender.date)
-        
-        print("Selected value \(selectedDate)")
+        selectedDate = sender.date
     }
     
     @objc func tappedCloseBtn() {
@@ -90,9 +83,28 @@ class AddScheduleViewController: UIViewController {
     }
     
     @objc func tappedSubmitBtn() {
+        
         if eventTextField.text != "" {
-            // 傳資料到VC
+            
+            var schedule: Schedule = Schedule(
+                senderId: "Doreen",
+                event: eventTextField.text ?? "",
+                id: "",
+                eventDate: selectedDate ?? Date()
+                )
+            
+            ScheduleManager.shared.addSchedule(schedule: &schedule) { result in
+                switch result {
+                case .success:
+                    self.presentSuccessAlert()
+                case .failure(let error):
+                    self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                }
+            }
+            
+            eventTextField.text = ""
             delegate?.didTappedClose()
+            
         } else {
             presentErrorAlert(message: "Please fill all the field")
         }

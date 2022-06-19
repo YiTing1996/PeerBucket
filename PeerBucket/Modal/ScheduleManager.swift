@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseFirestoreSwift
+import SwiftUI
 
 class ScheduleManager {
     
@@ -17,34 +18,80 @@ class ScheduleManager {
     
     let dataBase = Firestore.firestore()
     
-    func fetchSchedule(completion: @escaping (Result<[Schedule], Error>) -> Void) {
-                
-        dataBase.collection("schedule").getDocuments { querySnapshot, error in
+    // fetch upcoming event
+    func fetchSchedule(sender: String, completion: @escaping (Result<UpcomingSchedule, Error>) -> Void) {
+        
+        dataBase.collection("schedule").whereField("senderId", isEqualTo: sender).getDocuments { querySnapshot, error in
             
             if let error = error {
-                completion(.failure(error))
-            } else {
-                var schedules = [Schedule]()
                 
-                for document in querySnapshot!.documents {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+                
+            } else if let querySnapshot = querySnapshot {
+                
+                let date = Date()
+                var eventDistance: Int = 0
+                var eventTitle: String = ""
+                
+                let allEvents = querySnapshot.documents.compactMap({ querySnapshot in
+                    try? querySnapshot.data(as: Schedule.self)
+                })
+                
+                _ = allEvents.compactMap { event -> Schedule? in
                     
-                    do {
-                        if let schedule = try document.data(as: Schedule?.self, decoder: Firestore.Decoder()) {
-                            schedules.append(schedule)
-                        }
-                    } catch {
-                        completion(.failure(error))
+                    let distance = event.eventDate.distance(from: date, only: .day)
+                    // exclude today's event
+                    if distance > 0 && distance < 30 {
+                        eventDistance = distance
+                        eventTitle = event.event
+                        return event
+                    } else {
+                        return nil
                     }
                 }
-                completion(.success(schedules))
+                
+                let eventsUpcoming: UpcomingSchedule = UpcomingSchedule(event: eventTitle, distance: eventDistance)
+                completion(.success(eventsUpcoming))
             }
         }
     }
     
+    // fetch specific date's event
+    func fetchSpecificSchedule(sender: String, date: Date, completion: @escaping (Result<[Schedule], Error>) -> Void) {
+        
+        dataBase.collection("schedule").whereField("senderId", isEqualTo: sender).getDocuments { querySnapshot, error in
+            
+            if let error = error {
+                
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+                
+            } else if let querySnapshot = querySnapshot {
+                
+                let events = querySnapshot.documents.compactMap({ querySnapshot in
+                    try? querySnapshot.data(as: Schedule.self)
+                })
+                
+                let eventsOnDate = events.compactMap { event -> Schedule? in
+                    if event.eventDate.hasSame(.day, as: date) {
+                        return event
+                    } else {
+                        return nil
+                    }
+                }
+                
+                let specificDateEvents = eventsOnDate.sorted { $0.eventDate < $1.eventDate }
+                
+                completion(.success(specificDateEvents))
+            }
+        }
+        
+    }
+    
     // MARK: - Add
     
-    func addSchedule(schedule: inout Schedule,
-                           completion: @escaping (Result<[Schedule], Error>) -> Void) {
+    func addSchedule(schedule: inout Schedule, completion: @escaping (Result<[Schedule], Error>) -> Void) {
         
         let document = dataBase.collection("schedule").document()
         schedule.id = document.documentID
@@ -70,7 +117,7 @@ class ScheduleManager {
         }
     }
     
-    func deleteBucketList(id: String, completion: @escaping(Result<String, Error>) -> Void) {
+    func deleteSchedule(id: String, completion: @escaping(Result<String, Error>) -> Void) {
         dataBase.collection("schedule").document(id).delete { error in
             if let error = error {
                 completion(.failure(error))
@@ -81,4 +128,3 @@ class ScheduleManager {
     }
     
 }
-

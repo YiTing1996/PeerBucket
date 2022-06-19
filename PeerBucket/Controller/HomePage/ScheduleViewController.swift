@@ -11,20 +11,13 @@ import FSCalendar
 import FirebaseFirestore
 import Firebase
 
-class ScheduleViewController: UIViewController {
+class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
     
     fileprivate weak var calendar: FSCalendar!
-    
-    // TBC
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-mm-dd"
-        return formatter
-    }()
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -40,8 +33,18 @@ class ScheduleViewController: UIViewController {
         return collectionView
     }()
     
+    lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer()
+        gesture.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
+        gesture.minimumPressDuration = 0.5
+        gesture.delaysTouchesBegan = true
+        gesture.delegate = self
+        return gesture
+    }()
+    
     var dateString = ""
-    var datesWithEvent = [String]()
+//    var datesWithEvent: [Schedule]?
+    var datesWithEvent = [Schedule]()
     var screenWidth = UIScreen.main.bounds.width
     
     override func viewDidLoad() {
@@ -59,7 +62,7 @@ class ScheduleViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadDateEvent()
+        loadDateEvent(date: Date())
         calendar.reloadData()
     }
     
@@ -86,7 +89,8 @@ class ScheduleViewController: UIViewController {
     
     func configureUI() {
         view.addSubview(collectionView)
-
+        collectionView.addGestureRecognizer(longPressGesture)
+        
         collectionView.anchor(top: calendar.bottomAnchor, left: view.leftAnchor,
                               bottom: view.bottomAnchor, right: view.rightAnchor,
                               paddingTop: 20, paddingLeft: 20, paddingBottom: 50, paddingRight: 20)
@@ -98,31 +102,64 @@ class ScheduleViewController: UIViewController {
         }
     }
     
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state != UIGestureRecognizer.State.ended {
+            return
+        }
+        
+        let location = gestureReconizer.location(in: self.collectionView)
+        let indexPath = self.collectionView.indexPathForItem(at: location)
+        
+        if let indexPath = indexPath {
+            // _ = self.collectionView.cellForItem(at: indexPath)
+            
+            self.presentDeleteAlert(title: "Delete Event", message: "Do you want to delete this event?") {
+                
+                let deleteId = self.datesWithEvent[indexPath.row].id
+                print(deleteId)
+                
+                ScheduleManager.shared.deleteSchedule(id: deleteId) { result in
+                    switch result {
+                    case .success:
+                        self.presentSuccessAlert()
+                        self.collectionView.reloadData()
+                    case .failure(let error):
+                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    }
+                }
+            }
+            
+        } else {
+            print("Could not find index path")
+        }
+    }
 }
 
 // MARK: - Calendar View
 
 extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
     
-    func loadDateEvent() {
-        
+    func loadDateEvent(date: Date) {
+        ScheduleManager.shared.fetchSpecificSchedule(sender: "Doreen", date: date) { [weak self] result in
+            switch result {
+            case .success(let events):
+                self?.datesWithEvent = []
+                self?.datesWithEvent = events
+                self?.collectionView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+        }
     }
     
-    // 點擊後的事件
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
-        dateString = self.dateFormatter.string(from: date)
-        print("Date: \(date)")
-        print("Formate date: \(dateString)")
-        // 點擊後跳出tableview cell
-        
+        loadDateEvent(date: date)
     }
     
     // 月曆下方事件圖片設定
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
-        
         // 設定參與者決定頭像
-        
         return nil
     }
 
@@ -132,7 +169,7 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
 extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return datesWithEvent.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -140,18 +177,18 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
             withReuseIdentifier: ScheduleCollectionViewCell.identifier, for: indexPath) as? ScheduleCollectionViewCell else {
             return UICollectionViewCell()
         }
-//        eventCell.configureCell(eventText: dateString)
+        
+        eventCell.configureCell(eventText: datesWithEvent[indexPath.row].event)
         eventCell.backgroundColor = .bgGray
         eventCell.layer.cornerRadius = 10
-        eventCell.eventLabel.text = "hahahha"
-        
+                
         return eventCell
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenWidth-40, height: 120)
+        return CGSize(width: screenWidth-40, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -176,6 +213,7 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
         
         guard let headerView = headerView as? ScheduleHeaderView else { return headerView }
         headerView.delegate = self
+        headerView.configureHeader(eventCount: datesWithEvent.count)
         
         return headerView
         
@@ -193,7 +231,6 @@ extension ScheduleViewController: ScheduleHeaderViewDelegate {
             self.blackView.alpha = 0.5
         }
     }
-    
 }
 
 extension ScheduleViewController: AddScheduleViewControllerDelegate {
@@ -203,9 +240,4 @@ extension ScheduleViewController: AddScheduleViewControllerDelegate {
             self.blackView.alpha = 0
         }
     }
-    
-    func didChangeDate() {
-        
-    }
-    
 }

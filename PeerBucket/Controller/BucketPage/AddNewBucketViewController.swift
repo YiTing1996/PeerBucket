@@ -13,7 +13,8 @@ protocol AddNewBucketDelegate: AnyObject {
     func didTappedClose()
 }
 
-class AddNewBucketViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddNewBucketViewController: UIViewController, UIImagePickerControllerDelegate,
+                                    UINavigationControllerDelegate {
     
     weak var delegate: AddNewBucketDelegate?
     
@@ -85,7 +86,8 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         
         addImageButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 10, paddingRight: 50)
         
-        imageView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 20, paddingLeft: 20, width: 50, height: 50)
+        imageView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 20,
+                         paddingLeft: 20, width: 50, height: 50)
         
     }
     
@@ -128,10 +130,16 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
-            
         }
         
+        // save image url to core data
+//        if bucketCategory.id != "" {
+//            StorageManager.shared.saveToCoreData(category: bucketCategory.category,
+//                                                 image: bucketCategory.image,
+//                                                 id: bucketCategory.id)
+        
         categoryTextField.text = ""
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController,

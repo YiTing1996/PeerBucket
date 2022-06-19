@@ -304,3 +304,6 @@ let exploreGift = [
                   """,
                   link: "https://www.pinkoi.com/product/pUStgfq8")
 ]
+
+let challengeList = ["challenge_hiking", "challenge_diving", "challenge_summer"]
+let challengeMainImage = ["challenge_hiking_1", "challenge_diving_1", "challenge_summer_1"]

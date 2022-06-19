@@ -21,7 +21,6 @@ class ScheduleHeaderView: UICollectionReusableView {
         let label = UILabel()
         label.textColor = .darkGray
         label.font = UIFont.semiBold(size: 20)
-        label.text = "There's no event today!"
         return label
     }()
     
@@ -45,6 +44,16 @@ class ScheduleHeaderView: UICollectionReusableView {
         addButton.anchor(top: topAnchor, right: rightAnchor, paddingTop: 6, paddingRight: 6,
                          width: 50, height: 50)
         
+    }
+    
+    func configureHeader(eventCount: Int) {
+        if eventCount == 0 {
+            headerLabel.text = "There's no event today"
+        } else if eventCount <= 3 {
+            headerLabel.text = "There's \(eventCount) events today"
+        } else if eventCount > 3 {
+            headerLabel.text = "Cheer up! Seems like a busy day"
+        }
     }
     
     required init?(coder: NSCoder) {
