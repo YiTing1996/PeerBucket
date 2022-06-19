@@ -14,7 +14,7 @@ class ExploreDetailViewController: UIViewController {
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
-    
+        
     var content: ExploreBucket?
     
     override func viewDidLoad() {
@@ -92,6 +92,13 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
 }
 
 extension ExploreDetailViewController: ExploreDetailTableViewCellDelegate {
+    
+    func didTappedWeb() {
+        let webVC = storyboard?.instantiateViewController(withIdentifier: "webVC")
+        guard let webVC = webVC as? WebViewController, let content = content else { return }
+        webVC.link = content.link
+        navigationController?.pushViewController(webVC, animated: true)
+    }
     
     func didTappedCollect() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {

@@ -89,12 +89,14 @@ class BucketDetailViewController: UIViewController {
         
         guard let selectedBucket = selectedBucket,
               addListTextField.text != "" else {
+            presentErrorAlert(message: "Please fill all the field")
             return
         }
         
         var bucketList: BucketList = BucketList(
             senderId: "Doreen",
-            createdTime: Date().millisecondsSince1970,
+//            createdTime: Date().millisecondsSince1970,
+            createdTime: Date(),
             status: false,
             list: addListTextField.text ?? "",
             categoryId: selectedBucket.id,
@@ -123,7 +125,6 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allBucketList.count
-        //        return selectedBucket?.content.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,7 +133,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
         
         guard let bucketDetailCell = cell as? BucketDetailTableViewCell else { return cell }
         
-        bucketDetailCell.configureCell(bucketText: allBucketList[indexPath.row].list)
+        bucketDetailCell.configureCell(bucketList: allBucketList[indexPath.row])
         bucketDetailCell.contentView.backgroundColor = UIColor.bgGray
         
         return bucketDetailCell
@@ -181,7 +182,8 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
                     
                     switch result {
                     case .success:
-                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
+//                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
+                        self.presentSuccessAlert()
                     case .failure(let error):
                         self.presentErrorAlert(message: error.localizedDescription + " Please try again")
                     }
@@ -198,6 +200,10 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
         let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
         swipeAction.performsFirstActionWithFullSwipe = false
         return swipeAction
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
     }
     
 }

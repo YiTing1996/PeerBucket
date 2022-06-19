@@ -19,18 +19,9 @@ class ChallengeCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-//    var mainTitleLabel: UILabel = {
-//        let label = UILabel()
-//        label.font = UIFont.semiBold(size: 18)
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textColor = .white
-//        return label
-//    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
-        configureCell()
     }
     
     required init?(coder: NSCoder) {
@@ -39,16 +30,13 @@ class ChallengeCollectionViewCell: UICollectionViewCell {
     
     func configureUI() {
         addSubview(mainImageView)
-//        addSubview(mainTitleLabel)
         
         mainImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
-//        mainTitleLabel.anchor(top: mainImageView.bottomAnchor, left: mainImageView.leftAnchor, paddingTop: 16, paddingLeft: 16)
         
     }
     
-    func configureCell() {
-        mainImageView.image = UIImage(named: "challenge_hiking_1")
-//        mainTitleLabel.text = "Hiking Challenge"
+    func configureCell(image: String) {
+        mainImageView.image = UIImage(named: image)
     }
     
 }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class BucketListViewController: UIViewController {
+class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
@@ -24,6 +24,15 @@ class BucketListViewController: UIViewController {
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         return button
+    }()
+    
+    lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer()
+        gesture.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
+        gesture.minimumPressDuration = 0.5
+        gesture.delaysTouchesBegan = true
+        gesture.delegate = self
+        return gesture
     }()
     
     var bucketLists: [BucketCategory] = [] {
@@ -48,6 +57,41 @@ class BucketListViewController: UIViewController {
         blackView.backgroundColor = .black
         blackView.alpha = 0
         
+        collectionView.addGestureRecognizer(longPressGesture)
+        
+        let categoryImages: [Category] = StorageManager.shared.fetchFromCoreData() ?? []
+        print(categoryImages)
+
+    }
+    
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state != UIGestureRecognizer.State.ended {
+            return
+        }
+        
+        let location = gestureReconizer.location(in: self.collectionView)
+        let indexPath = self.collectionView.indexPathForItem(at: location)
+        
+        if let indexPath = indexPath {
+            // _ = self.collectionView.cellForItem(at: indexPath)
+            self.presentDeleteAlert(title: "Delete Category", message: "Do you want to delete this category?") {
+                let deleteId = self.bucketLists[indexPath.row].id
+                print(deleteId)
+                
+                BucketListManager.shared.deleteBucketCategory(id: deleteId) { result in
+                    switch result {
+                    case .success:
+                        self.presentSuccessAlert()
+                        self.collectionView.reloadData()
+                    case .failure(let error):
+                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    }
+                }
+            }
+            
+        } else {
+            print("Could not find index path")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,14 +101,13 @@ class BucketListViewController: UIViewController {
     func configureUI() {
         view.addSubview(addCategoryButton)
         addCategoryButton.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
-                               paddingBottom: 20, paddingRight: 10, width: 120, height: 50)
+                                 paddingBottom: 20, paddingRight: 10, width: 120, height: 50)
     }
     
     @objc func tappedAddBtn() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = 0
             self.blackView.alpha = 0.5
-//            self.layoutIfNeeded()
         }
     }
     
@@ -76,7 +119,7 @@ class BucketListViewController: UIViewController {
             switch result {
             case .success(let bucketLists):
                 self.bucketLists = bucketLists
-                print(self.bucketLists)
+                //                print(self.bucketLists)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -143,9 +186,8 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
         
         selectedBucket = bucketLists[indexPath.row]
         detailBucketVC.selectedBucket = selectedBucket
-//        self.present(detailBucketVC, animated: true)
         navigationController?.pushViewController(detailBucketVC, animated: true)
-    
+        
     }
     
 }

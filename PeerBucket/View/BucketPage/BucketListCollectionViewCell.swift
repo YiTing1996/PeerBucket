@@ -43,21 +43,22 @@ class BucketListCollectionViewCell: UICollectionViewCell {
     func configureCell(category: BucketCategory) {
         categoryLabel.text = category.category
         
+        // To-Do 改用Core Data
         guard let urlString = category.image as? String,
               let url = URL(string: urlString) else {
             return
         }
-        
+
         let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
             guard let data = data, error == nil else {
                 return
             }
-            
+
             DispatchQueue.main.async {
                 let image = UIImage(data: data)
                 self.categoryImageView.image = image
             }
-            
+
         })
         task.resume()
         

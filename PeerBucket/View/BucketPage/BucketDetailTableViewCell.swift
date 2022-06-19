@@ -19,7 +19,6 @@ class BucketDetailTableViewCell: UITableViewCell {
     var bucketImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "Icon_Star")
         return imageView
     }()
     
@@ -43,14 +42,21 @@ class BucketDetailTableViewCell: UITableViewCell {
         
         bucketImageView.anchor(top: topAnchor, left: leftAnchor,
                                paddingTop: 10, paddingLeft: 10,
-                               width: 100, height: 100)
+                               width: 30, height: 30)
         bucketLabel.anchor(top: topAnchor, left: bucketImageView.rightAnchor,
                            paddingTop: 10, paddingLeft: 10)
 
     }
     
-    func configureCell(bucketText: String) {
-        bucketLabel.text = bucketText
+    func configureCell(bucketList: BucketList) {
+        bucketLabel.text = bucketList.list
+        
+        if bucketList.status == true {
+            bucketImageView.image = UIImage(named: "icon_checked")
+        } else {
+            bucketImageView.image = UIImage(named: "icon_check")
+        }
+        
     }
 
 }

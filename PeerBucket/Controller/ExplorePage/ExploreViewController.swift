@@ -154,6 +154,7 @@ extension ExploreViewController: UICollectionViewDataSource {
             recommendCell.backgroundColor = UIColor.bgGray
             recommendCell.clipsToBounds = true
             recommendCell.layer.cornerRadius = recommendCell.frame.height/10
+            recommendCell.configureCell(image: challengeMainImage[indexPath.row])
             
             return recommendCell
         }
@@ -162,7 +163,6 @@ extension ExploreViewController: UICollectionViewDataSource {
     
 }
 
-// 新增header
 extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,
@@ -202,8 +202,8 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
             let challengeVC = storyboard?.instantiateViewController(withIdentifier: "challengeVC")
             guard let challengeVC = challengeVC as? ChallengeViewController else { return }
             navigationController?.pushViewController(challengeVC, animated: true)
+            challengeVC.bgImage = challengeList[indexPath.row]
 
-//            challengelVC.content = exploreList[currentTab][indexPath.row]
         }
         
     }
@@ -214,4 +214,5 @@ extension ExploreViewController: ExploreHeaderViewDelegate {
     func didSelectedButton(at index: Int) {
         self.currentTab = index
     }
+    
 }

@@ -70,7 +70,7 @@ class AddToBucketViewController: UIViewController {
 extension AddToBucketViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bucketCategory.count + 1
+        return bucketCategory.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -84,12 +84,7 @@ extension AddToBucketViewController: UICollectionViewDataSource {
         cell.layer.cornerRadius = cell.frame.height/4
         cell.backgroundColor = UIColor.hightlightBg
         
-        switch indexPath.row {
-        case bucketCategory.count:
-            cell.categoryLabel.text = "Add"
-        default:
-            cell.categoryLabel.text = bucketCategory[indexPath.row].category
-        }
+        cell.categoryLabel.text = bucketCategory[indexPath.row].category
         
         return cell
         
@@ -116,38 +111,31 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        // TBC新增category？
-        switch indexPath.row {
-        case bucketCategory.count:
-            break
-        default:
-                        
-            guard let title = selectedBucketTitle else { return }
-                        
-            var bucketList: BucketList = BucketList(
-                senderId: "Doreen",
-                createdTime: Date().millisecondsSince1970,
-                status: false,
-                list: title,
-                categoryId: bucketCategory[indexPath.row].id,
-                listId: ""
-            )
+        guard let title = selectedBucketTitle else { return }
+                    
+        var bucketList: BucketList = BucketList(
+            senderId: "Doreen",
+            createdTime: Date(),
+            status: false,
+            list: title,
+            categoryId: bucketCategory[indexPath.row].id,
+            listId: ""
+        )
+        
+        BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in
             
-            BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in
-                
-                switch result {
-                case .success:
-                    self.presentSuccessAlert()
-                case .failure(let error):
-                    self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                }
-                
+            switch result {
+            case .success:
+                self.presentSuccessAlert()
+            case .failure(let error):
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
             
-            self.presentSuccessAlert()
-            self.delegate?.didTappedClose()
         }
         
+        self.presentSuccessAlert()
+        self.delegate?.didTappedClose()
+
     }
     
 }

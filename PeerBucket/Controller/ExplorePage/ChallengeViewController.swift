@@ -12,6 +12,7 @@ import SwiftUI
 class ChallengeViewController: UIViewController {
     
     var bgView = ChallengeUIView()
+    var bgImage: String = ""
     
     lazy var clearButton: UIButton = {
         let button = UIButton()
@@ -52,7 +53,7 @@ class ChallengeViewController: UIViewController {
         bgView.isMultipleTouchEnabled = false
         
         UIGraphicsBeginImageContext(self.view.frame.size)
-        UIImage(named: "challenge_hiking")?.draw(in: self.view.bounds)
+        UIImage(named: bgImage)?.draw(in: self.view.bounds)
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         bgView.backgroundColor = UIColor(patternImage: image)

@@ -10,6 +10,7 @@ import SwiftUI
 
 protocol ExploreDetailTableViewCellDelegate: AnyObject {
     func didTappedCollect()
+    func didTappedWeb()
 }
 
 class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
@@ -119,7 +120,7 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     }
     
     @objc func tappedWebBtn() {
-        
+        delegate?.didTappedWeb()
     }
     
     @objc func tappedCollectBtn() {

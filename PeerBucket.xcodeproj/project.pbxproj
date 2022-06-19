@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		74B4B91B40E80E30D31E4BD9 /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; };
 		AC001475285CDD690098FC4E /* ChallengeUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001474285CDD690098FC4E /* ChallengeUIView.swift */; };
+		AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001476285DABA40098FC4E /* HomeViewController.swift */; };
+		AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001479285DABC10098FC4E /* ScheduleViewController.swift */; };
+		AC00147C285DC31F0098FC4E /* ScheduleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00147B285DC31F0098FC4E /* ScheduleCollectionViewCell.swift */; };
+		AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC00147E285E07F70098FC4E /* ScheduleHeaderView.swift */; };
+		AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001480285E0E610098FC4E /* ScheduleDataModal.swift */; };
+		AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001482285E0E770098FC4E /* ScheduleManager.swift */; };
+		AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001484285E15910098FC4E /* AddScheduleViewController.swift */; };
+		AC001487285F33FC0098FC4E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001486285F33FC0098FC4E /* StorageManager.swift */; };
+		AC001489285F58360098FC4E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001488285F58360098FC4E /* WebViewController.swift */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
 		AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */; };
 		AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */; };
@@ -46,6 +55,15 @@
 		6870EF865073BC240D7C9165 /* Pods-PeerBucket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeerBucket.release.xcconfig"; path = "Target Support Files/Pods-PeerBucket/Pods-PeerBucket.release.xcconfig"; sourceTree = "<group>"; };
 		9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PeerBucket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC001474285CDD690098FC4E /* ChallengeUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUIView.swift; sourceTree = "<group>"; };
+		AC001476285DABA40098FC4E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		AC001479285DABC10098FC4E /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		AC00147B285DC31F0098FC4E /* ScheduleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC00147E285E07F70098FC4E /* ScheduleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHeaderView.swift; sourceTree = "<group>"; };
+		AC001480285E0E610098FC4E /* ScheduleDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataModal.swift; sourceTree = "<group>"; };
+		AC001482285E0E770098FC4E /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
+		AC001484285E15910098FC4E /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
+		AC001486285F33FC0098FC4E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		AC001488285F58360098FC4E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
 		AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -103,6 +121,25 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AC001478285DABAA0098FC4E /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				AC001476285DABA40098FC4E /* HomeViewController.swift */,
+				AC001479285DABC10098FC4E /* ScheduleViewController.swift */,
+				AC001484285E15910098FC4E /* AddScheduleViewController.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		AC00147D285E07AB0098FC4E /* SchedulePage */ = {
+			isa = PBXGroup;
+			children = (
+				AC00147B285DC31F0098FC4E /* ScheduleCollectionViewCell.swift */,
+				AC00147E285E07F70098FC4E /* ScheduleHeaderView.swift */,
+			);
+			path = SchedulePage;
+			sourceTree = "<group>";
+		};
 		AC21CEA8285B567C00157B4D /* BucketPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +156,7 @@
 				AC72A0F62859B54F007FC767 /* ExploreDetailViewController.swift */,
 				AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */,
 				AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */,
+				AC001488285F58360098FC4E /* WebViewController.swift */,
 			);
 			path = ExplorePage;
 			sourceTree = "<group>";
@@ -174,6 +212,9 @@
 				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
 				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
 				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
+				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
+				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
+				AC001486285F33FC0098FC4E /* StorageManager.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -181,6 +222,7 @@
 		AC72A0E828598A0E007FC767 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AC001478285DABAA0098FC4E /* HomePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
 			);
@@ -203,6 +245,7 @@
 		AC72A0EA28598A38007FC767 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AC00147D285E07AB0098FC4E /* SchedulePage */,
 				AC21CEA8285B567C00157B4D /* BucketPage */,
 				AC72A0FE285A2F45007FC767 /* ExplorePage */,
 			);
@@ -248,8 +291,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AC72A0DE285984CC007FC767 /* Build configuration list for PBXNativeTarget "PeerBucket" */;
 			buildPhases = (
-				AC72A0E1285987F9007FC767 /* Run SwiftLint */,
 				98AFE2F2D60F32B4A0A4BC90 /* [CP] Check Pods Manifest.lock */,
+				AC72A0E1285987F9007FC767 /* Run SwiftLint */,
 				AC72A0C3285984CB007FC767 /* Sources */,
 				AC72A0C4285984CB007FC767 /* Frameworks */,
 				AC72A0C5285984CB007FC767 /* Resources */,
@@ -376,10 +419,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC001489285F58360098FC4E /* WebViewController.swift in Sources */,
 				ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */,
 				AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */,
 				AC72A0F1285991D3007FC767 /* ExploreHeaderView.swift in Sources */,
+				AC001487285F33FC0098FC4E /* StorageManager.swift in Sources */,
+				AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */,
 				AC72A0ED28599135007FC767 /* ExploreCollectionViewCell.swift in Sources */,
+				AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */,
 				AC001475285CDD690098FC4E /* ChallengeUIView.swift in Sources */,
 				AC72A0F3285991FC007FC767 /* ChallengeHeaderView.swift in Sources */,
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
@@ -390,11 +437,16 @@
 				AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */,
 				AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */,
 				AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */,
+				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
+				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
+				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
 				ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */,
 				AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */,
+				AC00147C285DC31F0098FC4E /* ScheduleCollectionViewCell.swift in Sources */,
 				AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */,
+				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,
 				AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */,
