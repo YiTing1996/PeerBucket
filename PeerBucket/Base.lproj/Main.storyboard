@@ -181,10 +181,10 @@
             </objects>
             <point key="canvasLocation" x="1351" y="400"/>
         </scene>
-        <!--View Controller-->
+        <!--Chat View Controller-->
         <scene sceneID="XKp-aB-QwF">
             <objects>
-                <viewController id="8Hb-eG-KPx" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChatViewController" id="8Hb-eG-KPx" customClass="ChatViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iGm-he-Di3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

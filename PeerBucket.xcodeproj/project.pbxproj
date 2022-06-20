@@ -46,6 +46,9 @@
 		AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */; };
 		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; };
 		ACADB70E285F83CF00D7C18E /* Pods_PeerBucket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
+		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
+		ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71B28604C5700D7C18E /* UserDataModal.swift */; };
 		ACC3D26D285AD66900676F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */; };
 		ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */; };
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
@@ -109,6 +112,9 @@
 		AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListCollectionViewCell.swift; sourceTree = "<group>"; };
 		AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		ACADB709285F83B800D7C18E /* leveldb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = leveldb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
+		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
 		ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailViewController.swift; sourceTree = "<group>"; };
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
@@ -225,12 +231,11 @@
 		AC72A0E6285989F4007FC767 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
-				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
-				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
-				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
-				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
+				ACADB71E28605B5900D7C18E /* HomePage */,
+				ACADB71D28605B3300D7C18E /* BucketPage */,
 				AC001486285F33FC0098FC4E /* StorageManager.swift */,
+				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
+				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				AC001478285DABAA0098FC4E /* HomePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
+				ACADB70F28603B9000D7C18E /* ChatViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -290,6 +296,25 @@
 				AC001474285CDD690098FC4E /* ChallengeUIView.swift */,
 			);
 			path = ExplorePage;
+			sourceTree = "<group>";
+		};
+		ACADB71D28605B3300D7C18E /* BucketPage */ = {
+			isa = PBXGroup;
+			children = (
+				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
+				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
+				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
+			);
+			path = BucketPage;
+			sourceTree = "<group>";
+		};
+		ACADB71E28605B5900D7C18E /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
+				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
+			);
+			path = HomePage;
 			sourceTree = "<group>";
 		};
 		D13C32911BF3BB95CC277E6A /* Frameworks */ = {
@@ -449,6 +474,7 @@
 				AC72A0F3285991FC007FC767 /* ChallengeHeaderView.swift in Sources */,
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
 				AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */,
+				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
 				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
 				ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */,
@@ -467,8 +493,10 @@
 				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,
+				ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */,
 				AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */,
 				AC72A0F52859AF8B007FC767 /* UIColorExtension.swift in Sources */,
+				ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */,
 				AC72A0FB285A1057007FC767 /* AddToBucketViewController.swift in Sources */,
 				AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */,
 				AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */,
