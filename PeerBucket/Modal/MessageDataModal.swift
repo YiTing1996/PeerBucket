@@ -37,14 +37,14 @@ extension Message {
         
         self.init(id: id, content: content,
                   created: created, senderID: senderID,
-                  senderName:senderName)
+                  senderName: senderName)
     }
 }
 
 extension Message: MessageType {
     
     var sender: SenderType {
-        return User(senderId: senderID, displayName: senderName)
+        return ChatUser(senderId: senderID, displayName: senderName)
     }
     
     var messageId: String {

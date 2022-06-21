@@ -14,12 +14,34 @@ import FirebaseFirestore
 class ChatViewController: MessagesViewController,
                           InputBarAccessoryViewDelegate, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
     
-//    var currentUser: User = Auth.auth().currentUser!
-    var currentUser = "Doreen"
+    //    var currentUser: User = Auth.auth().currentUser!
     
-    var user2Name: String?
+    var currentUserName: String = "DoreenName"
+    var currentUserImgUrl: String?
+    var currentUserUID: String = "DoreenID"
+    
+    var user2Name: String = "HamburgerName"
     var user2ImgUrl: String?
-    var user2UID: String?
+    var user2UID: String = "HamburgerID"
+    
+    //    var currentUserName: String = "HamburgerName"
+    //    var currentUserImgUrl: String?
+    //    var currentUserUID: String = "HamburgerID"
+    //
+    //    var user2Name: String = "DoreenName"
+    //    var user2ImgUrl: String?
+    //    var user2UID: String = "DoreenID"
+    
+    lazy var backButton: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        button.addTarget(self, action: #selector(tappedBackBtn), for: .touchUpInside)
+        button.setTitle("Back", for: .normal)
+        button.setTitleColor(UIColor.textGray, for: .normal)
+        return button
+    }()
+    
+    lazy var menuBarItem = UIBarButtonItem(customView: self.backButton)
     
     private var docReference: DocumentReference?
     
@@ -28,35 +50,40 @@ class ChatViewController: MessagesViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = user2Name ?? "Chat"
-        
+        self.title = "Chat"
+        navigationItem.leftBarButtonItem = menuBarItem
         navigationItem.largeTitleDisplayMode = .never
+        
         maintainPositionOnKeyboardFrameChanged = true
         scrollsToLastItemOnKeyboardBeginsEditing = true
         
-        messageInputBar.inputTextView.tintColor = .systemBlue
         messageInputBar.sendButton.setTitleColor(.systemTeal, for: .normal)
-        
         messageInputBar.delegate = self
+        
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
         loadChat()
-        
     }
     
-    //     MARK: - Custom messages handlers
+    @objc func tappedBackBtn() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - Custom messages handlers
     
     func createNewChat() {
-//        let users = [self.currentUser.uid, self.user2UID]
-        let users = ["Doreen", "Hambuger"]
+        
+        //  let users = [self.currentUser.uid, self.user2UID]
+        let users = [currentUserUID, user2UID]
+        
         let data: [String: Any] = [
-            "users":users
+            "users": users
         ]
         
-        let db = Firestore.firestore().collection("Chats")
-        db.addDocument(data: data) { (error) in
+        let database = Firestore.firestore().collection("Chats")
+        database.addDocument(data: data) { (error) in
             if let error = error {
                 print("Unable to create chat! \(error)")
                 return
@@ -68,66 +95,64 @@ class ChatViewController: MessagesViewController,
     
     func loadChat() {
         
-        //Fetch all the chats which has current user in it
-        let db = Firestore.firestore().collection("Chats")
-            .whereField("users", arrayContains: Auth.auth().currentUser?.uid ?? "Not Found User 1")
+        // Fetch all the chats which has current user in it
+        let database = Firestore.firestore().collection("Chats")
         
+        //  .whereField("users", arrayContains: Auth.auth().currentUser?.uid ?? "Not Found User 1")
+        // for 測試用
+            .whereField("users", arrayContains: currentUserUID )
         
-        db.getDocuments { (chatQuerySnap, error) in
+        database.getDocuments { (chatQuerySnap, error) in
             
             if let error = error {
                 print("Error: \(error)")
                 return
             } else {
                 
-                //Count the no. of documents returned
                 guard let queryCount = chatQuerySnap?.documents.count else {
                     return
                 }
                 
                 if queryCount == 0 {
-                    //If documents count is zero that means there is no chat available and we need to create a new instance
+                    // create new chat room for user
                     self.createNewChat()
-                }
-                else if queryCount >= 1 {
-                    //Chat(s) found for currentUser
+                } else if queryCount >= 1 {
+                    
                     for doc in chatQuerySnap!.documents {
-                        
                         let chat = Chat(dictionary: doc.data())
-                        //Get the chat which has user2 id
-                        if (chat?.users.contains(self.user2UID!))! {
-                            
-                            self.docReference = doc.reference
-                            //fetch it's thread collection
-                            doc.reference.collection("thread")
-                                .order(by: "created", descending: false)
-                                .addSnapshotListener(includeMetadataChanges: true, listener: { (threadQuery, error) in
-                                    if let error = error {
-                                        print("Error: \(error)")
-                                        return
-                                    } else {
-                                        self.messages.removeAll()
-                                        for message in threadQuery!.documents {
-                                            
-                                            let msg = Message(dictionary: message.data())
-                                            self.messages.append(msg!)
-                                            print("Data: \(msg?.content ?? "No message found")")
-                                        }
-                                        self.messagesCollectionView.reloadData()
-                                        self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)
-                                    }
-                                })
+                        
+                        // Get the chat which has user2 id
+                        // for 測試用
+                        guard chat?.users.contains(self.user2UID) != nil else {
+                            print("Some errors happens in chatVC")
                             return
-                        } //end of if
-                    } //end of for
-                    self.createNewChat()
-                } else {
-                    print("Let's hope this error never prints!")
+                        }
+                        
+                        self.docReference = doc.reference
+                        doc.reference.collection("thread")
+                            .order(by: "created", descending: false)
+                            .addSnapshotListener(includeMetadataChanges: true, listener: { (threadQuery, error) in
+                                if let error = error {
+                                    print("Error: \(error)")
+                                    return
+                                } else {
+                                    self.messages.removeAll()
+                                    for message in threadQuery!.documents {
+                                        
+                                        let msg = Message(dictionary: message.data())
+                                        self.messages.append(msg!)
+                                        print("Data: \(msg?.content ?? "No message found")")
+                                    }
+                                    self.messagesCollectionView.reloadData()
+                                    self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)
+                                }
+                            })
+                    }
+                    
                 }
             }
         }
     }
-    
     
     private func insertNewMessage(_ message: Message) {
         
@@ -155,7 +180,6 @@ class ChatViewController: MessagesViewController,
                 print("Error Sending message: \(error)")
                 return
             }
-            
             self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)
             
         })
@@ -163,14 +187,15 @@ class ChatViewController: MessagesViewController,
     
     // MARK: - InputBarAccessoryViewDelegate
     
-    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+    func inputBar(_ inputBar: InputBarAccessoryView,
+                  didPressSendButtonWith text: String) {
         
-//        let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUser.uid, senderName: currentUser.displayName!)
+        // for 測試用
+        let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUserUID, senderName: currentUserName)
         
-        let message = Message(id: "Doreen", content: text, created: Timestamp(), senderID: "Hamburger", senderName: "Haha")
-        
-        //messages.append(message)
+        // Insert new message on collection view
         insertNewMessage(message)
+        // save message to firebase thread
         save(message)
         
         inputBar.inputTextView.text = ""
@@ -178,19 +203,20 @@ class ChatViewController: MessagesViewController,
         messagesCollectionView.scrollToLastItem(animated: true)
     }
     
-    
     // MARK: - MessagesDataSource
+    
     func currentSender() -> SenderType {
         
-        return Sender(id: Auth.auth().currentUser!.uid,
-                      displayName: Auth.auth().currentUser?.displayName ?? "Name not found")
+        //        return Sender(id: Auth.auth().currentUser!.uid,
+        //                      displayName: Auth.auth().currentUser?.displayName ?? "Name not found")
         
+        // for 測試用
+        return ChatUser(senderId: currentUserUID, displayName: currentUserName)
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         
         return messages[indexPath.section]
-        
     }
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -203,7 +229,6 @@ class ChatViewController: MessagesViewController,
         }
     }
     
-    
     // MARK: - MessagesLayoutDelegate
     
     func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
@@ -211,23 +236,20 @@ class ChatViewController: MessagesViewController,
     }
     
     // MARK: - MessagesDisplayDelegate
-    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .blue: .lightGray
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath,
+                         in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return isFromCurrentSender(message: message) ? .hightlightBg: .bgGray
     }
     
-    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,
+                             at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         
-//        if message.sender.senderId == currentUser.uid {
-//            SDWebImageManager.shared.loadImage(with: currentUser.photoURL,
-//                                               options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
-//                avatarView.image = image
-//            }
-//        } else {
-//            SDWebImageManager.shared.loadImage(with: URL(string: user2ImgUrl!),
-//                                               options: .highPriority, progress: nil) { (image, data, error, cacheType, isFinished, imageUrl) in
-//                avatarView.image = image
-//            }
-//        }
+        // for 測試用
+        if message.sender.senderId == currentUserUID {
+            avatarView.image = UIImage(named: "mock_avatar")
+        } else {
+            avatarView.image = UIImage(named: "mock_avatar1")
+        }
         
     }
     

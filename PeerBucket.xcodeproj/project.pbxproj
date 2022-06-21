@@ -44,11 +44,12 @@
 		AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A103285AC389007FC767 /* BucketListViewController.swift */; };
 		AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */; };
 		AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */; };
-		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; };
-		ACADB70E285F83CF00D7C18E /* Pods_PeerBucket.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
 		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
 		ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71B28604C5700D7C18E /* UserDataModal.swift */; };
+		ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB720286078B100D7C18E /* LoginViewController.swift */; };
+		ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB7222860A26D00D7C18E /* UserManager.swift */; };
 		ACC3D26D285AD66900676F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */; };
 		ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */; };
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
@@ -62,7 +63,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				ACADB70E285F83CF00D7C18E /* Pods_PeerBucket.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +115,8 @@
 		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
 		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
+		ACADB720286078B100D7C18E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		ACADB7222860A26D00D7C18E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailViewController.swift; sourceTree = "<group>"; };
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
 				ACADB70F28603B9000D7C18E /* ChatViewController.swift */,
+				ACADB720286078B100D7C18E /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			children = (
 				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
 				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
+				ACADB7222860A26D00D7C18E /* UserManager.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -464,6 +468,7 @@
 			files = (
 				AC001489285F58360098FC4E /* WebViewController.swift in Sources */,
 				ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */,
+				ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */,
 				AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */,
 				AC72A0F1285991D3007FC767 /* ExploreHeaderView.swift in Sources */,
 				AC001487285F33FC0098FC4E /* StorageManager.swift in Sources */,
@@ -484,6 +489,7 @@
 				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
+				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
 				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
 				ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */,

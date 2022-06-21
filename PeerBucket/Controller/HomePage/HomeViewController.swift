@@ -62,6 +62,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         return button
     }()
     
+    lazy var chatButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.bgGray
+        button.addTarget(self, action: #selector(tappedChatBtn), for: .touchUpInside)
+        button.setTitle("Chat", for: .normal)
+        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.layer.cornerRadius = 20
+//        button.alpha = 0.5
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -76,6 +87,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addSubview(eventLabel)
 //        view.bringSubviewToFront(eventLabel)
         view.addSubview(eventButton)
+        view.addSubview(chatButton)
         
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
@@ -89,6 +101,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                            paddingTop: 20, paddingRight: 20, width: 50, height: 50)
         eventLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor, right: eventView.rightAnchor,
                           paddingTop: 50, paddingLeft: 20, paddingRight: 20)
+        
+        chatButton.anchor(top: view.topAnchor, left: view.leftAnchor,
+                          paddingTop: 120, paddingLeft: 20, width: 50, height: 50)
                 
     }
     
@@ -126,6 +141,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         let scheduleVC = storyboard?.instantiateViewController(withIdentifier: "scheduleVC")
         guard let scheduleVC = scheduleVC as? ScheduleViewController else { return }
         navigationController?.pushViewController(scheduleVC, animated: true)
+    }
+    
+    @objc func tappedChatBtn() {
+        let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC")
+        guard let chatVC = chatVC as? ChatViewController else { return }
+        navigationController?.pushViewController(chatVC, animated: true)
     }
     
     // TO-DO 上傳到firebase
