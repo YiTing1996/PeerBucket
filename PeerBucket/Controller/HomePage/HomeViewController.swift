@@ -62,6 +62,25 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         return button
     }()
     
+    var chatView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .bgGray
+        view.layer.cornerRadius = 20
+        view.alpha = 0.6
+        return view
+    }()
+    
+    var chatLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+//        label.font = UIFont.semiBold(size: 30)
+        label.font = UIFont(name: "Academy Engraved LET", size: 28)
+        label.text = "Hamburger: Hello"
+        label.numberOfLines = 0
+        return label
+    }()
+    
     lazy var chatButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.bgGray
@@ -69,9 +88,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         button.setTitle("Chat", for: .normal)
         button.setTitleColor(UIColor.textGray, for: .normal)
         button.layer.cornerRadius = 20
-//        button.alpha = 0.5
         return button
     }()
+    
+//    lazy var inviteButton: UIButton = {
+//        let button = UIButton()
+//        button.backgroundColor = UIColor.bgGray
+//        button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
+//        button.setTitle("Invite", for: .normal)
+//        button.setTitleColor(UIColor.textGray, for: .normal)
+//        button.layer.cornerRadius = 20
+//        return button
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,9 +113,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addSubview(bgButton)
         view.addSubview(eventView)
         view.addSubview(eventLabel)
-//        view.bringSubviewToFront(eventLabel)
         view.addSubview(eventButton)
+        view.addSubview(chatView)
+        view.addSubview(chatLabel)
         view.addSubview(chatButton)
+//        view.addSubview(inviteButton)
         
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
@@ -102,8 +132,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         eventLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor, right: eventView.rightAnchor,
                           paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         
-        chatButton.anchor(top: view.topAnchor, left: view.leftAnchor,
-                          paddingTop: 120, paddingLeft: 20, width: 50, height: 50)
+        chatView.anchor(left: view.leftAnchor, bottom: eventView.topAnchor,
+                         right: view.rightAnchor, paddingLeft: 20,
+                         paddingBottom: 20, paddingRight: 20, height: 150)
+        chatButton.anchor(top: chatView.topAnchor, right: chatView.rightAnchor,
+                           paddingTop: 20, paddingRight: 20, width: 50, height: 50)
+        chatLabel.anchor(top: chatView.topAnchor, left: chatView.leftAnchor, right: chatView.rightAnchor,
+                          paddingTop: 50, paddingLeft: 20, paddingRight: 20)
+//        inviteButton.anchor(top: chatView.topAnchor, right: chatView.rightAnchor,
+//                           paddingTop: 20, paddingRight: 100, width: 50, height: 50)
                 
     }
     
@@ -148,6 +185,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         guard let chatVC = chatVC as? ChatViewController else { return }
         navigationController?.pushViewController(chatVC, animated: true)
     }
+    
+//    @objc func tappedInviteBtn() {
+//        let inviteVC = storyboard?.instantiateViewController(withIdentifier: "inviteVC")
+//        guard let inviteVC = inviteVC as? InviteViewController else { return }
+//        navigationController?.pushViewController(inviteVC, animated: true)
+//    }
     
     // TO-DO 上傳到firebase
     func imagePickerController(_ picker: UIImagePickerController,

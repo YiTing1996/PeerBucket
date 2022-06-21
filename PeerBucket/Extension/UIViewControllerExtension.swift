@@ -50,6 +50,20 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func presentInviteAlert(title: String, message: String? = "Do you want to invite the user?", completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Invite", style: .destructive) { _ in
+            guard let completion = completion else { return }
+            completion()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     func presentSuccessAlert(title: String = "Success",
                              message: String = "Congrats",
                              completion: (() -> Void)? = nil) {

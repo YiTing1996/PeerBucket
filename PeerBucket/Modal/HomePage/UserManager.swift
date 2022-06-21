@@ -16,17 +16,17 @@ class UserManager {
     
     let dataBase = Firestore.firestore()
 
-    func sinInUp(email: String, name: String, password: String){
+    func sinInUp(email: String, name: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             guard let user = result?.user,
                   error == nil else {
-                print("Error",error?.localizedDescription as Any)
+                print("Error", error?.localizedDescription as Any)
                 return
             }
             let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
             changeRequest?.displayName = name
             changeRequest?.commitChanges(completion: { error in
-                guard error == nil else{
+                guard error == nil else {
                     print(error?.localizedDescription as Any)
                     return
                 }

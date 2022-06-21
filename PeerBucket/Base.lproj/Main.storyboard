@@ -130,10 +130,24 @@
             </objects>
             <point key="canvasLocation" x="1371.0144927536232" y="1060.7142857142858"/>
         </scene>
+        <!--Invite View Controller-->
+        <scene sceneID="Yzn-Yr-ftF">
+            <objects>
+                <viewController storyboardIdentifier="inviteVC" id="Vn7-4l-Yp0" customClass="InviteViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tYw-fJ-NrE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Y7z-nP-z2j"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Twh-j0-7Ip" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3900" y="400"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="pkc-Ke-EMN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FbX-c3-Cm2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="4NI-nx-dkp" customClass="LoginViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MTU-LT-VqX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -142,6 +156,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FbX-c3-Cm2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-993" y="392"/>
         </scene>
@@ -315,7 +330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QCz-Ze-Sjo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3229" y="1090"/>
+            <point key="canvasLocation" x="2480" y="1469"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="S5J-43-aPs">
@@ -351,21 +366,50 @@
             </objects>
             <point key="canvasLocation" x="536" y="2109"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="YB4-zn-vDy">
             <objects>
-                <viewController id="NYv-q9-USu" sceneMemberID="viewController">
+                <viewController id="NYv-q9-USu" customClass="ProfileViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hWq-6T-xJA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTd-bF-HA2">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nm-UK-Psi">
+                                <rect key="frame" x="34" y="253" width="344" height="397"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="397" id="0Qn-nl-nSf"/>
+                                    <constraint firstAttribute="width" constant="344" id="bBK-BU-i12"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="nML-qW-QwV" kind="embed" id="Nej-1h-QCC"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="azz-bn-99B"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="cTd-bF-HA2" firstAttribute="centerY" secondItem="hWq-6T-xJA" secondAttribute="centerY" id="2nJ-9j-Vdw"/>
+                            <constraint firstItem="cTd-bF-HA2" firstAttribute="top" secondItem="hWq-6T-xJA" secondAttribute="top" id="S38-dr-Nc6"/>
+                            <constraint firstItem="azz-bn-99B" firstAttribute="trailing" secondItem="cTd-bF-HA2" secondAttribute="trailing" id="U3n-dz-rf0"/>
+                            <constraint firstItem="cTd-bF-HA2" firstAttribute="leading" secondItem="azz-bn-99B" secondAttribute="leading" id="Zjk-QO-0GM"/>
+                            <constraint firstItem="6nm-UK-Psi" firstAttribute="leading" secondItem="azz-bn-99B" secondAttribute="leading" constant="34" id="zJD-Iv-E5v"/>
+                            <constraint firstItem="azz-bn-99B" firstAttribute="bottom" secondItem="6nm-UK-Psi" secondAttribute="bottom" constant="163" id="zO7-if-Pw3"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PmY-vF-LMe"/>
+                    <connections>
+                        <outlet property="blackView" destination="cTd-bF-HA2" id="zCx-Ev-pan"/>
+                        <outlet property="containerView" destination="6nm-UK-Psi" id="SWy-KK-qAl"/>
+                        <outlet property="menuBottomConstraint" destination="zO7-if-Pw3" id="lzg-K8-yRf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mHQ-EC-KOn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3206" y="400"/>
+            <point key="canvasLocation" x="3205.7971014492755" y="399.77678571428572"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OWk-sb-34R">
@@ -520,6 +564,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TQN-Vb-Vya" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1372" y="1592"/>
+        </scene>
+        <!--Code View Controller-->
+        <scene sceneID="ixu-Rn-6sm">
+            <objects>
+                <viewController id="nML-qW-QwV" customClass="QRCodeViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cAJ-ea-FJi">
+                        <rect key="frame" x="0.0" y="0.0" width="344" height="397"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4xe-Jk-zA2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3207" y="902"/>
         </scene>
     </scenes>
     <resources>

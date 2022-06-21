@@ -21,6 +21,9 @@
 		AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */; };
 		AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */; };
 		AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */; };
+		AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741A286190AD005D1A2D /* InviteViewController.swift */; };
+		AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741C2861B297005D1A2D /* ProfileViewController.swift */; };
+		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
@@ -86,6 +89,9 @@
 		AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		AC2C741A286190AD005D1A2D /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
+		AC2C741C2861B297005D1A2D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC72A0CC285984CB007FC767 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +157,7 @@
 				AC001476285DABA40098FC4E /* HomeViewController.swift */,
 				AC001479285DABC10098FC4E /* ScheduleViewController.swift */,
 				AC001484285E15910098FC4E /* AddScheduleViewController.swift */,
+				ACADB70F28603B9000D7C18E /* ChatViewController.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -193,6 +200,17 @@
 				ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */,
 			);
 			path = BucketPage;
+			sourceTree = "<group>";
+		};
+		AC2C741E2861B71D005D1A2D /* ProfilePage */ = {
+			isa = PBXGroup;
+			children = (
+				AC2C741A286190AD005D1A2D /* InviteViewController.swift */,
+				AC2C741C2861B297005D1A2D /* ProfileViewController.swift */,
+				AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */,
+				ACADB720286078B100D7C18E /* LoginViewController.swift */,
+			);
+			path = ProfilePage;
 			sourceTree = "<group>";
 		};
 		AC72A0BE285984CB007FC767 = {
@@ -245,11 +263,10 @@
 		AC72A0E828598A0E007FC767 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AC2C741E2861B71D005D1A2D /* ProfilePage */,
 				AC001478285DABAA0098FC4E /* HomePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
-				ACADB70F28603B9000D7C18E /* ChatViewController.swift */,
-				ACADB720286078B100D7C18E /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -472,6 +489,7 @@
 				AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */,
 				AC72A0F1285991D3007FC767 /* ExploreHeaderView.swift in Sources */,
 				AC001487285F33FC0098FC4E /* StorageManager.swift in Sources */,
+				AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */,
 				AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */,
 				AC72A0ED28599135007FC767 /* ExploreCollectionViewCell.swift in Sources */,
 				AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */,
@@ -489,6 +507,8 @@
 				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
+				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
+				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
 				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
