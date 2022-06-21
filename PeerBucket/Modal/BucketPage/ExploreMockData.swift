@@ -122,7 +122,7 @@ let exploreMovie = [
                   卡蘿的丈夫（凱爾錢德勒飾）為了爭取監護權而雇用私家偵探，發現卡蘿與特芮絲以及她最好的朋友艾比（莎拉寶森飾）的親密關係，並以此作為證據質疑她為人母的資格。
                   好不容易擁有愛情和自由的卡蘿，因為女同性戀者的身分，在爭奪監護權的風暴中受到攻擊，而特芮絲也思考這段感情該何去何從……
                   """,
-                  link: "https://movies.yahoo.com.tw/movieinfo_main/%E5%9B%A0%E7%82%BA%E6%84%9B%E4%BD%A0-font-classhighlightcarolfont-6094”")
+                  link: "https://movies.yahoo.com.tw/movieinfo_main/%E5%9B%A0%E7%82%BA%E6%84%9B%E4%BD%A0-font-classhighlightcarolfont-6094")
 ]
 
 let exploreTravel = [

@@ -18,5 +18,6 @@ target 'PeerBucket' do
 
   pod 'SwiftLint'
   pod 'FSCalendar'
+  pod 'MessageKit'
 
 end

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		74B4B91B40E80E30D31E4BD9 /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; };
 		AC001475285CDD690098FC4E /* ChallengeUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001474285CDD690098FC4E /* ChallengeUIView.swift */; };
 		AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001476285DABA40098FC4E /* HomeViewController.swift */; };
 		AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001479285DABC10098FC4E /* ScheduleViewController.swift */; };
@@ -45,11 +44,30 @@
 		AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A103285AC389007FC767 /* BucketListViewController.swift */; };
 		AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */; };
 		AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */; };
+		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
+		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
+		ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71B28604C5700D7C18E /* UserDataModal.swift */; };
+		ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB720286078B100D7C18E /* LoginViewController.swift */; };
+		ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB7222860A26D00D7C18E /* UserManager.swift */; };
 		ACC3D26D285AD66900676F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */; };
 		ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */; };
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
 		ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateHelper.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ACADB70C285F83B800D7C18E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6870EF865073BC240D7C9165 /* Pods-PeerBucket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeerBucket.release.xcconfig"; path = "Target Support Files/Pods-PeerBucket/Pods-PeerBucket.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +111,12 @@
 		AC72A103285AC389007FC767 /* BucketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
 		AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListCollectionViewCell.swift; sourceTree = "<group>"; };
 		AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		ACADB709285F83B800D7C18E /* leveldb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = leveldb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
+		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
+		ACADB720286078B100D7C18E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		ACADB7222860A26D00D7C18E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailViewController.swift; sourceTree = "<group>"; };
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74B4B91B40E80E30D31E4BD9 /* Pods_PeerBucket.framework in Frameworks */,
+				ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,12 +233,11 @@
 		AC72A0E6285989F4007FC767 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
-				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
-				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
-				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
-				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
-				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
+				ACADB71E28605B5900D7C18E /* HomePage */,
+				ACADB71D28605B3300D7C18E /* BucketPage */,
 				AC001486285F33FC0098FC4E /* StorageManager.swift */,
+				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
+				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -225,6 +248,8 @@
 				AC001478285DABAA0098FC4E /* HomePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
+				ACADB70F28603B9000D7C18E /* ChatViewController.swift */,
+				ACADB720286078B100D7C18E /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -276,9 +301,30 @@
 			path = ExplorePage;
 			sourceTree = "<group>";
 		};
+		ACADB71D28605B3300D7C18E /* BucketPage */ = {
+			isa = PBXGroup;
+			children = (
+				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
+				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
+				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
+			);
+			path = BucketPage;
+			sourceTree = "<group>";
+		};
+		ACADB71E28605B5900D7C18E /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
+				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
+				ACADB7222860A26D00D7C18E /* UserManager.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
 		D13C32911BF3BB95CC277E6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ACADB709285F83B800D7C18E /* leveldb.framework */,
 				9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */,
 			);
 			name = Frameworks;
@@ -297,6 +343,7 @@
 				AC72A0C4285984CB007FC767 /* Frameworks */,
 				AC72A0C5285984CB007FC767 /* Resources */,
 				FEFC87F9F31419D0A173444F /* [CP] Embed Pods Frameworks */,
+				ACADB70C285F83B800D7C18E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -421,6 +468,7 @@
 			files = (
 				AC001489285F58360098FC4E /* WebViewController.swift in Sources */,
 				ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */,
+				ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */,
 				AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */,
 				AC72A0F1285991D3007FC767 /* ExploreHeaderView.swift in Sources */,
 				AC001487285F33FC0098FC4E /* StorageManager.swift in Sources */,
@@ -431,6 +479,7 @@
 				AC72A0F3285991FC007FC767 /* ChallengeHeaderView.swift in Sources */,
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
 				AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */,
+				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
 				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
 				ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */,
@@ -440,6 +489,7 @@
 				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
+				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
 				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
 				ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */,
@@ -449,8 +499,10 @@
 				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,
+				ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */,
 				AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */,
 				AC72A0F52859AF8B007FC767 /* UIColorExtension.swift in Sources */,
+				ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */,
 				AC72A0FB285A1057007FC767 /* AddToBucketViewController.swift in Sources */,
 				AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */,
 				AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */,
@@ -599,6 +651,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F1B5692D855830D747F29104 /* Pods-PeerBucket.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -606,6 +659,8 @@
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -615,7 +670,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -628,6 +683,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6870EF865073BC240D7C9165 /* Pods-PeerBucket.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -635,6 +691,8 @@
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -644,7 +702,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

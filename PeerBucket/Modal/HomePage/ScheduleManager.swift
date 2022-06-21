@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseFirestoreSwift
-import SwiftUI
 
 class ScheduleManager {
     

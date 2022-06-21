@@ -130,6 +130,36 @@
             </objects>
             <point key="canvasLocation" x="1371.0144927536232" y="1060.7142857142858"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="pkc-Ke-EMN">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FbX-c3-Cm2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="4NI-nx-dkp" customClass="LoginViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MTU-LT-VqX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="85E-mc-AEA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-993" y="392"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="M6A-xX-vpy">
+            <objects>
+                <viewController storyboardIdentifier="chatVC" id="pEq-1V-CFv" customClass="ChatViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jpd-g7-uXH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="zfr-JT-FOi"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G96-lG-X0Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-208" y="386"/>
+        </scene>
         <!--Explore View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -168,7 +198,7 @@
         <!--Home View Controller-->
         <scene sceneID="ON2-KR-8zS">
             <objects>
-                <viewController id="rDt-oQ-U5P" customClass="HomeViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeVC" id="rDt-oQ-U5P" customClass="HomeViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bxJ-26-oUA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,22 +210,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vD-Rh-M7f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1351" y="400"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="XKp-aB-QwF">
-            <objects>
-                <viewController id="8Hb-eG-KPx" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="iGm-he-Di3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="ogy-6A-fom"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Yd8-Xb-pgT"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EcL-fZ-fAd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2090" y="400"/>
         </scene>
         <!--Bucket List View Controller-->
         <scene sceneID="GFy-7E-QJL">
@@ -261,7 +275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DPd-gu-m9p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2885.507246376812" y="399.77678571428572"/>
+            <point key="canvasLocation" x="2454" y="400"/>
         </scene>
         <!--Bucket Detail View Controller-->
         <scene sceneID="Pdd-KB-XGt">
@@ -301,7 +315,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QCz-Ze-Sjo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3573.913043478261" y="1090.8482142857142"/>
+            <point key="canvasLocation" x="3229" y="1090"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="S5J-43-aPs">
@@ -351,7 +365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mHQ-EC-KOn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3662" y="400"/>
+            <point key="canvasLocation" x="3206" y="400"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OWk-sb-34R">
@@ -366,7 +380,6 @@
                     <connections>
                         <segue destination="hwz-0u-1U7" kind="relationship" relationship="viewControllers" id="wjp-i5-DxI"/>
                         <segue destination="AGJ-Wk-U1x" kind="relationship" relationship="viewControllers" id="K0B-ta-EFH"/>
-                        <segue destination="hED-FA-0OW" kind="relationship" relationship="viewControllers" id="YI3-U3-dNN"/>
                         <segue destination="oVv-yh-wWZ" kind="relationship" relationship="viewControllers" id="VcR-9r-OP0"/>
                         <segue destination="vmo-5f-aTH" kind="relationship" relationship="viewControllers" id="N2L-bP-sDi"/>
                     </connections>
@@ -394,25 +407,6 @@
             </objects>
             <point key="canvasLocation" x="1351" y="-275"/>
         </scene>
-        <!--Chat-->
-        <scene sceneID="yQu-aF-YQy">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hED-FA-0OW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Chat" id="nFS-gO-qAs"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mjy-3f-HXG">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="8Hb-eG-KPx" kind="relationship" relationship="rootViewController" id="5DV-V2-a2r"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UtO-ML-itc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2090" y="-291"/>
-        </scene>
         <!--Bucket-->
         <scene sceneID="KQe-K5-BTK">
             <objects>
@@ -430,7 +424,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="da0-dB-t4h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2858" y="-291"/>
+            <point key="canvasLocation" x="2455" y="-291"/>
         </scene>
         <!--Profile-->
         <scene sceneID="BS8-ao-gWN">
@@ -449,7 +443,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LO3-r9-RpY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3662" y="-291"/>
+            <point key="canvasLocation" x="3207" y="-291"/>
         </scene>
         <!--Add New Bucket View Controller-->
         <scene sceneID="9NA-Hl-wNh">
@@ -464,7 +458,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3zD-Oc-u3q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2886" y="952"/>
+            <point key="canvasLocation" x="2467" y="953"/>
         </scene>
         <!--Add To Bucket View Controller-->
         <scene sceneID="7C1-hP-jYM">
