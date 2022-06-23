@@ -10,10 +10,10 @@ import UIKit
 
 protocol AddScheduleViewControllerDelegate: AnyObject {
     func didTappedClose()
-//    func didChangeDate()
+    //    func didChangeDate()
 }
 
-class AddScheduleViewController: UIViewController {
+class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     weak var delegate: AddScheduleViewControllerDelegate?
     
@@ -25,15 +25,17 @@ class AddScheduleViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 10
         textField.setLeftPaddingPoints(amount: 10)
+        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
-        datePicker.frame = CGRect(x: 10, y: 50, width: 200, height: 50)
+        //        datePicker.frame = CGRect(x: 10, y: 50, width: 200, height: 50)
         datePicker.timeZone = TimeZone.current
         datePicker.backgroundColor = UIColor.bgGray
         datePicker.addTarget(self, action: #selector(didChangedDate(_:)), for: .valueChanged)
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
     }()
     
@@ -49,15 +51,20 @@ class AddScheduleViewController: UIViewController {
         button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
         button.setTitle("Submit", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        
+        eventTextField.delegate = self
+        
     }
     
     func configureUI() {
+        
         view.addSubview(eventTextField)
         view.addSubview(datePicker)
         view.addSubview(cancelButton)
@@ -71,7 +78,7 @@ class AddScheduleViewController: UIViewController {
                             paddingTop: 20, paddingRight: 20, width: 50, height: 50)
         submitButton.anchor(top: datePicker.bottomAnchor, paddingTop: 50, width: 150, height: 50)
         submitButton.centerX(inView: view)
-
+        
     }
     
     @objc func didChangedDate(_ sender: UIDatePicker) {
@@ -87,11 +94,11 @@ class AddScheduleViewController: UIViewController {
         if eventTextField.text != "" {
             
             var schedule: Schedule = Schedule(
-                senderId: "Doreen",
+                senderId: testUserID,
                 event: eventTextField.text ?? "",
                 id: "",
                 eventDate: selectedDate ?? Date()
-                )
+            )
             
             ScheduleManager.shared.addSchedule(schedule: &schedule) { result in
                 switch result {
@@ -109,5 +116,4 @@ class AddScheduleViewController: UIViewController {
             presentErrorAlert(message: "Please fill all the field")
         }
     }
-    
 }

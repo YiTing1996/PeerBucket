@@ -10,6 +10,10 @@ import UIKit
 
 class BucketDetailViewController: UIViewController {
     
+    // for test
+//    var testUserID = "AITNzRSyUdMCjV4WrQxT"
+//    var testUserID = "Iq0Ssbo86uG3JXx26w3h"
+    
     @IBOutlet weak var tableView: UITableView!
     
     lazy var addListButton: UIButton = {
@@ -69,7 +73,7 @@ class BucketDetailViewController: UIViewController {
     
     func fetchFromFirebase() {
         
-        BucketListManager.shared.fetchBucketList(id: selectedBucket?.id ?? "", completion: { [weak self] result in
+        BucketListManager.shared.fetchBucketList(categoryID: selectedBucket?.id ?? "", completion: { [weak self] result in
             
             guard let self = self else { return }
             
@@ -94,7 +98,7 @@ class BucketDetailViewController: UIViewController {
         }
         
         var bucketList: BucketList = BucketList(
-            senderId: "Doreen",
+            senderId: testUserID,
 //            createdTime: Date().millisecondsSince1970,
             createdTime: Date(),
             status: false,

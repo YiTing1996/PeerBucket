@@ -17,15 +17,14 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TO-DO: 如果網頁打不開跳錯誤訊息
-        if link != "" {
-            let url: URL = URL(string: link)!
-            let urlRequest: URLRequest = URLRequest(url: url)
-            webView.load(urlRequest)
-        } else {
+        guard let url = URL(string: link) else {
             self.presentErrorAlert(message: "Something went wrong, try again later")
             self.navigationController?.popViewController(animated: true)
+            return
         }
+        
+        let urlRequest: URLRequest = URLRequest(url: url)
+        webView.load(urlRequest)
 
     }
     

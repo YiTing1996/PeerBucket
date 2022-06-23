@@ -41,10 +41,6 @@ class QRCodeViewController: UIViewController {
         return button
     }()
     
-    // 待改
-    var currentUserUID = "A42CUUgXLvTpTueikrXE"
-//    var currentUserUID = "Iq0Ssbo86uG3JXx26w3h"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.clipsToBounds = true

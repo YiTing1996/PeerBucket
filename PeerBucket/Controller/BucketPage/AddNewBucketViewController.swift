@@ -116,7 +116,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         }
                 
         var bucketCategory: BucketCategory = BucketCategory(
-            senderId: "Doreen",
+            senderId: testUserID,
             category: category,
             id: "",
             image: imageUrlString
@@ -131,12 +131,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
         }
-        
-        // save image url to core data
-//        if bucketCategory.id != "" {
-//            StorageManager.shared.saveToCoreData(category: bucketCategory.category,
-//                                                 image: bucketCategory.image,
-//                                                 id: bucketCategory.id)
         
         categoryTextField.text = ""
         
@@ -190,26 +184,5 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    
-//    func downloadPhoto() {
-//        guard let urlString = UserDefaults.standard.value(forKey: "url") as? String,
-//              let url = URL(string: urlString) else {
-//            return
-//        }
-//
-//        
-//        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-//            guard let data = data, error == nil else {
-//                return
-//            }
-//            
-//            DispatchQueue.main.async {
-//                let image = UIImage(data: data)
-//                self.imageView.image = image
-//            }
-//            
-//        })
-//        task.resume()
-//    }
     
 }

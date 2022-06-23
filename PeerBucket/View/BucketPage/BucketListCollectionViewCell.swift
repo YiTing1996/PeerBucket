@@ -19,7 +19,7 @@ class BucketListCollectionViewCell: UICollectionViewCell {
     var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "mock_avatar")
+        imageView.backgroundColor = .bgGray
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -43,8 +43,7 @@ class BucketListCollectionViewCell: UICollectionViewCell {
     func configureCell(category: BucketCategory) {
         categoryLabel.text = category.category
         
-        // To-Do 改用Core Data
-        guard let urlString = category.image as? String,
+        guard let urlString = category.image as String?,
               let url = URL(string: urlString) else {
             return
         }
@@ -58,7 +57,6 @@ class BucketListCollectionViewCell: UICollectionViewCell {
                 let image = UIImage(data: data)
                 self.categoryImageView.image = image
             }
-
         })
         task.resume()
         

@@ -18,9 +18,9 @@ class ScheduleManager {
     let dataBase = Firestore.firestore()
     
     // fetch upcoming event
-    func fetchSchedule(sender: String, completion: @escaping (Result<UpcomingSchedule, Error>) -> Void) {
+    func fetchSchedule(userID: String, completion: @escaping (Result<UpcomingSchedule, Error>) -> Void) {
         
-        dataBase.collection("schedule").whereField("senderId", isEqualTo: sender).getDocuments { querySnapshot, error in
+        dataBase.collection("schedule").whereField("senderId", isEqualTo: userID).getDocuments { querySnapshot, error in
             
             if let error = error {
                 
@@ -57,9 +57,9 @@ class ScheduleManager {
     }
     
     // fetch specific date's event
-    func fetchSpecificSchedule(sender: String, date: Date, completion: @escaping (Result<[Schedule], Error>) -> Void) {
+    func fetchSpecificSchedule(userID: String, date: Date, completion: @escaping (Result<[Schedule], Error>) -> Void) {
         
-        dataBase.collection("schedule").whereField("senderId", isEqualTo: sender).getDocuments { querySnapshot, error in
+        dataBase.collection("schedule").whereField("senderId", isEqualTo: userID).getDocuments { (querySnapshot, error) in
             
             if let error = error {
                 

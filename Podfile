@@ -14,10 +14,10 @@ target 'PeerBucket' do
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Auth'
   pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
 
   pod 'SwiftLint'
   pod 'FSCalendar'
   pod 'MessageKit'
+  pod 'IQKeyboardManagerSwift'
 
 end
