@@ -16,6 +16,7 @@
 		AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001482285E0E770098FC4E /* ScheduleManager.swift */; };
 		AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001484285E15910098FC4E /* AddScheduleViewController.swift */; };
 		AC001489285F58360098FC4E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001488285F58360098FC4E /* WebViewController.swift */; };
+		AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC140421286436CF00DD2566 /* AvatarViewController.swift */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
 		AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */; };
 		AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */; };
@@ -84,6 +85,7 @@
 		AC001482285E0E770098FC4E /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		AC001484285E15910098FC4E /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
 		AC001488285F58360098FC4E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		AC140421286436CF00DD2566 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
 		AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				AC2C741C2861B297005D1A2D /* ProfileViewController.swift */,
 				AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */,
 				ACADB720286078B100D7C18E /* LoginViewController.swift */,
+				AC140421286436CF00DD2566 /* AvatarViewController.swift */,
 			);
 			path = ProfilePage;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
 				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
+				AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */,
 				ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */,
 				AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */,
 				AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */,

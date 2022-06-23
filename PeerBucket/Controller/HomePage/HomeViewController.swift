@@ -208,7 +208,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             return
         }
-        // TODO: 壓縮圖片
+        
         guard let imageData = image.pngData() else {
             return
         }

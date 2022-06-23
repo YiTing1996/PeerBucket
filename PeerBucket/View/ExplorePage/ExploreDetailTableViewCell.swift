@@ -101,13 +101,6 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         return stackView
     }()
     
-//    var ratingImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.image = UIImage(named: "Icon_Star")
-//        return imageView
-//    }()
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

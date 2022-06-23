@@ -35,12 +35,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         return gesture
     }()
     
-//    var bucketCategories: [BucketCategory] = [] {
-//        didSet {
-//            collectionView.reloadData()
-//        }
-//    }
-    
     var bucketCategories: [BucketCategory] = []
     
     var selectedBucket: BucketCategory?
@@ -48,6 +42,8 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getDataBySemphore(userID: currentUserUID)
         
         configureUI()
         
@@ -60,15 +56,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         blackView.alpha = 0
         
         collectionView.addGestureRecognizer(longPressGesture)
-
-        fetchUserData(userID: currentUserUID)
-        loadBucketCategory()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadBucketCategory()
-        collectionView.reloadData()
+        
     }
     
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
@@ -113,15 +101,40 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // fetch current user's paring user and append to userList
-    func fetchUserData(userID: String) {
+    func getDataBySemphore(userID: String) {
         
+//        let semaphore = DispatchSemaphore(value: 1)
+//        semaphore.wait()
+        
+        // fetch current user's paring user and append to userList
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.userIDList.append(user.paringUser[0])
                 print("Find paring user: \(String(describing: user.paringUser[0]))")
+                
+                self.bucketCategories = []
+                for userID in self.userIDList {
+                    BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
+                        
+                        guard let self = self else { return }
+                        
+                        switch result {
+                        case .success(let bucketLists):
+                            self.bucketCategories += bucketLists
+                            DispatchQueue.main.async {
+                                self.collectionView.reloadData()
+                            }
+                            print("fetch bucket categories: \(bucketLists)")
+                            print("category count: \(bucketLists.count)")
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                        print("userIDList: \(self.userIDList)")
+//                        semaphore.signal()
+                    }
+                }
                 
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
@@ -132,7 +145,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // fetch bucket list by self & paring user ID
     func loadBucketCategory() {
-        
         self.bucketCategories = []
         for userID in userIDList {
             BucketListManager.shared.fetchBucketCategory(userID: userID, completion: { [weak self] result in
@@ -176,7 +188,7 @@ extension BucketListViewController: UICollectionViewDataSource {
             withReuseIdentifier: "BucketListCollectionViewCell",
             for: indexPath)
         guard let cell = cell as? BucketListCollectionViewCell else { return cell }
-                
+        
         cell.clipsToBounds = true
         cell.layer.cornerRadius = cell.frame.height/30
         cell.backgroundColor = UIColor.bgGray
