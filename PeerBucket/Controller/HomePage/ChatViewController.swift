@@ -77,6 +77,36 @@ class ChatViewController: MessagesViewController,
         }
     }
     
+    func downloadPhoto(imageToChange: UIImageView, userID: String) {
+        
+        // fetch background photo from firebase
+        UserManager.shared.fetchUserData(userID: userID) { result in
+            switch result {
+            case .success(let user):
+                
+                guard let urlString = user.userAvatar as String?,
+                      let url = URL(string: urlString) else {
+                    return
+                }
+                
+                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
+                    guard let data = data, error == nil else {
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data)
+                        imageToChange.image = image
+                    }
+                })
+                task.resume()
+                
+            case .failure(let error):
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+            }
+        }
+    }
+    
     // MARK: - Custom messages handlers
     
     func createNewChat() {
@@ -247,13 +277,11 @@ class ChatViewController: MessagesViewController,
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,
                              at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         
-        // TODO: 要改成user真實的頭貼
         if message.sender.senderId == currentUserUID {
-            avatarView.image = UIImage(named: "mock_avatar")
+            downloadPhoto(imageToChange: avatarView, userID: currentUserUID)
         } else {
-            avatarView.image = UIImage(named: "mock_avatar1")
+            downloadPhoto(imageToChange: avatarView, userID: user2UID)
         }
-        
     }
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {

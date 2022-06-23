@@ -52,8 +52,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getDataBySemophore()
-//        getDataByGroup()
+        getData(userID: currentUserUID, date: Date())
         
         configueCalendarUI()
         configureUI()
@@ -66,8 +65,6 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         view.bringSubviewToFront(blackView)
         view.bringSubviewToFront(containerView)
         
-        //        fetchUserData(userID: currentUserUID)
-        //        loadDateEvent(date: Date())
     }
     
     func configueCalendarUI() {
@@ -137,59 +134,41 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // fetch current user's paring user and append to userList
-    func fetchUserData(userID: String) {
-        //        group.enter()
+    func getData(userID: String, date: Date) {
         
-        let semaphore = DispatchSemaphore(value: 1)
-        semaphore.wait()
-        
+//        print(Thread.current)
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.userIDList.append(user.paringUser[0])
                 print("Find paring user: \(String(describing: user.paringUser[0]))")
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                
+                self.datesWithEvent = []
+                for userID in self.userIDList {
+                    ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
+                        
+                        guard let self = self else { return }
+                        
+                        switch result {
+                        case .success(let events):
+                            self.datesWithEvent += events
+                            DispatchQueue.main.async {
+                                self.collectionView.reloadData()
+                            }
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
+                        print("userIDList: \(self.userIDList)")
+                    }
                 }
+
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
                 print("Can't find user in scheduleVC")
             }
-            //            self.group.leave()
-            semaphore.signal()
         }
     }
-    
-    func getDataByGroup() {
-        
-        let queue = DispatchQueue(label: "queue", attributes: .concurrent)
-        group.enter()
-        queue.async(group: group) {
-            self.fetchUserData(userID: currentUserUID)
-            //            self.group.leave()
-        }
-
-        group.enter()
-        queue.async(group: group) {
-            self.loadDateEvent(date: Date())
-            //            self.group.leave()
-        }
-        
-        group.notify(queue: .main) {
-            self.configueCalendarUI()
-            self.configureUI()
-        }
-    }
-    
-    func getDataBySemophore() {
-        fetchUserData(userID: currentUserUID)
-        loadDateEvent(date: Date())
-        //        configueCalendarUI()
-        //        configureUI()
-    }
-    
 }
 
 // MARK: - Calendar View
@@ -198,17 +177,12 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     // fetch schedule by self & paring user ID
     func loadDateEvent(date: Date) {
-        
-        let semaphore = DispatchSemaphore(value: 1)
-        semaphore.wait()
-        
-        //        group.enter()
         self.datesWithEvent = []
         for userID in userIDList {
             ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
-                
+
                 guard let self = self else { return }
-                
+
                 switch result {
                 case .success(let events):
                     self.datesWithEvent += events
@@ -218,9 +192,7 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                //                self.group.leave()
                 print("userIDList: \(self.userIDList)")
-                semaphore.signal()
             }
         }
     }
