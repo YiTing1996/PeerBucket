@@ -17,44 +17,38 @@ class BucketListManager {
     
     let dataBase = Firestore.firestore()
     
-    func fetchBucketCategory(completion: @escaping (Result<[BucketCategory], Error>) -> Void) {
+    // query bucket category by id of user
+    func fetchBucketCategory(userID: String, completion: @escaping (Result<[BucketCategory], Error>) -> Void) {
         
-        //        dataBase.order(by: "createdTime", descending: true).getDocuments() { (querySnapshot, error) in
-        
-        dataBase.collection("bucketCategory").getDocuments { querySnapshot, error in
+        dataBase.collection("bucketCategory").whereField("senderId", isEqualTo: userID).getDocuments { (querySnapshot, error) in
             
             if let error = error {
                 
                 completion(.failure(error))
-            } else {
+            } else if let querySnapshot = querySnapshot {
                 
-                var bucketCategories = [BucketCategory]()
+                let bucketLists = querySnapshot.documents.compactMap({ querySnapshot in
+                    try? querySnapshot.data(as: BucketCategory.self)
+                })
                 
-                for document in querySnapshot!.documents {
-                    
-                    do {
-                        if let bucketCategory = try document.data(as: BucketCategory?.self, decoder: Firestore.Decoder()) {
-                            bucketCategories.append(bucketCategory)
-                        }
-                        
-                    } catch {
-                        completion(.failure(error))
-                    }
-                }
-                completion(.success(bucketCategories))
+                completion(.success(bucketLists))
             }
         }
     }
     
-    func fetchBucketList(id: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
+    // query bucket list by id of bucket category
+    func fetchBucketList(categoryID: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
         
         //        dataBase.order(by: "createdTime", descending: true).getDocuments() { (querySnapshot, error) in
         
-        dataBase.collection("bucketList").whereField("categoryId", isEqualTo: id).getDocuments { (querySnapshot, error) in
+        dataBase.collection("bucketList").whereField("categoryId", isEqualTo: categoryID).getDocuments { (querySnapshot, error) in
+            
             if let error = error {
                 print("Error getting documents: \(error)")
                 completion(.failure(error))
+                
             } else {
+                
                 var bucketLists = [BucketList]()
                 
                 for document in querySnapshot!.documents {
@@ -111,10 +105,10 @@ class BucketListManager {
     
     // MARK: - Update
     
-    func updateBucketListStatus(bucketList: BucketList, completion: @escaping (Result<String, Error>) -> Void) {
+    func updateBucketListStatus(bucketList: BucketList, completion: @escaping(Result<String, Error>) -> Void) {
         do {
             try dataBase.collection("bucketList").document(bucketList.listId).setData(from: bucketList)
-            completion(.success("update bucket list: \(bucketList)"))
+            completion(.success(bucketList.listId))
         } catch {
             completion(.failure(error))
         }

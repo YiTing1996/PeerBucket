@@ -15,12 +15,14 @@
 		AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001480285E0E610098FC4E /* ScheduleDataModal.swift */; };
 		AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001482285E0E770098FC4E /* ScheduleManager.swift */; };
 		AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001484285E15910098FC4E /* AddScheduleViewController.swift */; };
-		AC001487285F33FC0098FC4E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001486285F33FC0098FC4E /* StorageManager.swift */; };
 		AC001489285F58360098FC4E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001488285F58360098FC4E /* WebViewController.swift */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
 		AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */; };
 		AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */; };
 		AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */; };
+		AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741A286190AD005D1A2D /* InviteViewController.swift */; };
+		AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741C2861B297005D1A2D /* ProfileViewController.swift */; };
+		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
@@ -54,6 +56,7 @@
 		ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */; };
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
 		ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateHelper.swift */; };
+		ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7D09928631E54006AC04A /* TabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -80,12 +83,14 @@
 		AC001480285E0E610098FC4E /* ScheduleDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataModal.swift; sourceTree = "<group>"; };
 		AC001482285E0E770098FC4E /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		AC001484285E15910098FC4E /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
-		AC001486285F33FC0098FC4E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		AC001488285F58360098FC4E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
 		AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		AC21CEAD285B58DB00157B4D /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		AC2C741A286190AD005D1A2D /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
+		AC2C741C2861B297005D1A2D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC72A0CC285984CB007FC767 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +126,7 @@
 		ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailViewController.swift; sourceTree = "<group>"; };
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
 		ACC3D272285B0EFA00676F46 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		ACC7D09928631E54006AC04A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		F1B5692D855830D747F29104 /* Pods-PeerBucket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeerBucket.debug.xcconfig"; path = "Target Support Files/Pods-PeerBucket/Pods-PeerBucket.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -151,6 +157,7 @@
 				AC001476285DABA40098FC4E /* HomeViewController.swift */,
 				AC001479285DABC10098FC4E /* ScheduleViewController.swift */,
 				AC001484285E15910098FC4E /* AddScheduleViewController.swift */,
+				ACADB70F28603B9000D7C18E /* ChatViewController.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -195,6 +202,17 @@
 			path = BucketPage;
 			sourceTree = "<group>";
 		};
+		AC2C741E2861B71D005D1A2D /* ProfilePage */ = {
+			isa = PBXGroup;
+			children = (
+				AC2C741A286190AD005D1A2D /* InviteViewController.swift */,
+				AC2C741C2861B297005D1A2D /* ProfileViewController.swift */,
+				AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */,
+				ACADB720286078B100D7C18E /* LoginViewController.swift */,
+			);
+			path = ProfilePage;
+			sourceTree = "<group>";
+		};
 		AC72A0BE285984CB007FC767 = {
 			isa = PBXGroup;
 			children = (
@@ -235,9 +253,6 @@
 			children = (
 				ACADB71E28605B5900D7C18E /* HomePage */,
 				ACADB71D28605B3300D7C18E /* BucketPage */,
-				AC001486285F33FC0098FC4E /* StorageManager.swift */,
-				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
-				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -245,11 +260,11 @@
 		AC72A0E828598A0E007FC767 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				AC2C741E2861B71D005D1A2D /* ProfilePage */,
 				AC001478285DABAA0098FC4E /* HomePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
-				ACADB70F28603B9000D7C18E /* ChatViewController.swift */,
-				ACADB720286078B100D7C18E /* LoginViewController.swift */,
+				ACC7D09928631E54006AC04A /* TabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -317,6 +332,8 @@
 				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
 				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
 				ACADB7222860A26D00D7C18E /* UserManager.swift */,
+				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
+				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -469,9 +486,10 @@
 				AC001489285F58360098FC4E /* WebViewController.swift in Sources */,
 				ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */,
 				ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */,
+				ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */,
 				AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */,
 				AC72A0F1285991D3007FC767 /* ExploreHeaderView.swift in Sources */,
-				AC001487285F33FC0098FC4E /* StorageManager.swift in Sources */,
+				AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */,
 				AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */,
 				AC72A0ED28599135007FC767 /* ExploreCollectionViewCell.swift in Sources */,
 				AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */,
@@ -489,6 +507,8 @@
 				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
+				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
+				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
 				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
@@ -583,7 +603,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -637,7 +657,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

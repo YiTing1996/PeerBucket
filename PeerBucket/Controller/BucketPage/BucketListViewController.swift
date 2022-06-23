@@ -35,19 +35,21 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         return gesture
     }()
     
-    var bucketLists: [BucketCategory] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+//    var bucketCategories: [BucketCategory] = [] {
+//        didSet {
+//            collectionView.reloadData()
+//        }
+//    }
+    
+    var bucketCategories: [BucketCategory] = []
     
     var selectedBucket: BucketCategory?
+    var userIDList: [String] = [currentUserUID]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
-        fetchFromFirebase()
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -58,10 +60,15 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         blackView.alpha = 0
         
         collectionView.addGestureRecognizer(longPressGesture)
-        
-        let categoryImages: [Category] = StorageManager.shared.fetchFromCoreData() ?? []
-        print(categoryImages)
 
+        fetchUserData(userID: currentUserUID)
+        loadBucketCategory()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadBucketCategory()
+        collectionView.reloadData()
     }
     
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
@@ -75,8 +82,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         if let indexPath = indexPath {
             // _ = self.collectionView.cellForItem(at: indexPath)
             self.presentDeleteAlert(title: "Delete Category", message: "Do you want to delete this category?") {
-                let deleteId = self.bucketLists[indexPath.row].id
-                print(deleteId)
+                let deleteId = self.bucketCategories[indexPath.row].id
                 
                 BucketListManager.shared.deleteBucketCategory(id: deleteId) { result in
                     switch result {
@@ -94,10 +100,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        fetchFromFirebase()
-    }
-    
     func configureUI() {
         view.addSubview(addCategoryButton)
         addCategoryButton.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
@@ -111,20 +113,47 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func fetchFromFirebase() {
-        BucketListManager.shared.fetchBucketCategory(completion: { [weak self] result in
-            
+    // fetch current user's paring user and append to userList
+    func fetchUserData(userID: String) {
+        
+        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
-            case .success(let bucketLists):
-                self.bucketLists = bucketLists
-                //                print(self.bucketLists)
+            case .success(let user):
+                self.userIDList.append(user.paringUser[0])
+                print("Find paring user: \(String(describing: user.paringUser[0]))")
+                
             case .failure(let error):
-                print(error.localizedDescription)
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                print("Can't find user in bucketListVC")
             }
-            
-        })
+        }
+    }
+    
+    // fetch bucket list by self & paring user ID
+    func loadBucketCategory() {
+        
+        self.bucketCategories = []
+        for userID in userIDList {
+            BucketListManager.shared.fetchBucketCategory(userID: userID, completion: { [weak self] result in
+                
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let bucketLists):
+                    self.bucketCategories += bucketLists
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                    print("fetch bucket categories: \(bucketLists)")
+                    print("category count: \(bucketLists.count)")
+                    
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            })
+        }
+        print("userIDList: \(userIDList)")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -138,7 +167,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
 extension BucketListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bucketLists.count
+        return bucketCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -147,14 +176,12 @@ extension BucketListViewController: UICollectionViewDataSource {
             withReuseIdentifier: "BucketListCollectionViewCell",
             for: indexPath)
         guard let cell = cell as? BucketListCollectionViewCell else { return cell }
-        
-        cell.categoryImageView.image = nil
-        
+                
         cell.clipsToBounds = true
         cell.layer.cornerRadius = cell.frame.height/30
         cell.backgroundColor = UIColor.bgGray
         
-        cell.configureCell(category: bucketLists[indexPath.row])
+        cell.configureCell(category: bucketCategories[indexPath.row])
         
         return cell
         
@@ -184,7 +211,7 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
         let detailBucketVC = storyboard?.instantiateViewController(withIdentifier: "BucketDetailViewController")
         guard let detailBucketVC = detailBucketVC as? BucketDetailViewController else { return }
         
-        selectedBucket = bucketLists[indexPath.row]
+        selectedBucket = bucketCategories[indexPath.row]
         detailBucketVC.selectedBucket = selectedBucket
         navigationController?.pushViewController(detailBucketVC, animated: true)
         
@@ -200,5 +227,4 @@ extension BucketListViewController: AddNewBucketDelegate {
             self.blackView.alpha = 0
         }
     }
-    
 }

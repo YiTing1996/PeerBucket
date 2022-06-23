@@ -45,8 +45,9 @@ class AddToBucketViewController: UIViewController {
         
     }
     
+    // TODO: 待改成query兩人的bucket category
     func fetchFromFirebase() {
-        BucketListManager.shared.fetchBucketCategory(completion: { [weak self] result in
+        BucketListManager.shared.fetchBucketCategory(userID: testUserID, completion: { [weak self] result in
             
             guard let self = self else { return }
             
@@ -114,7 +115,7 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
         guard let title = selectedBucketTitle else { return }
                     
         var bucketList: BucketList = BucketList(
-            senderId: "Doreen",
+            senderId: testUserID,
             createdTime: Date(),
             status: false,
             list: title,

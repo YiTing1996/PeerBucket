@@ -13,25 +13,10 @@ import FirebaseFirestore
 
 class ChatViewController: MessagesViewController,
                           InputBarAccessoryViewDelegate, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
-    
-    //    var currentUser: User = Auth.auth().currentUser!
-    
-    var currentUserName: String = "DoreenName"
-    var currentUserImgUrl: String?
-    var currentUserUID: String = "DoreenID"
-    
-    var user2Name: String = "HamburgerName"
-    var user2ImgUrl: String?
-    var user2UID: String = "HamburgerID"
-    
-    //    var currentUserName: String = "HamburgerName"
-    //    var currentUserImgUrl: String?
-    //    var currentUserUID: String = "HamburgerID"
-    //
-    //    var user2Name: String = "DoreenName"
-    //    var user2ImgUrl: String?
-    //    var user2UID: String = "DoreenID"
-    
+        
+    var user2UID: String = ""
+    var currentUserName: String = ""
+
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -65,10 +50,31 @@ class ChatViewController: MessagesViewController,
         messagesCollectionView.messagesDisplayDelegate = self
         
         loadChat()
+        
+        fetchUserData(userID: currentUserUID)
+
     }
     
     @objc func tappedBackBtn() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    // fetch current user's paring user and current user name
+    func fetchUserData(userID: String) {
+        
+        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let user):
+                self.user2UID = user.paringUser[0]
+                self.currentUserName = user.userName
+                print("Find paring user: \(String(describing: user.paringUser[0]))")
+                
+            case .failure(let error):
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                print("Can't find user in chatVC")
+            }
+        }
     }
     
     // MARK: - Custom messages handlers
@@ -122,7 +128,6 @@ class ChatViewController: MessagesViewController,
                         let chat = Chat(dictionary: doc.data())
                         
                         // Get the chat which has user2 id
-                        // for 測試用
                         guard chat?.users.contains(self.user2UID) != nil else {
                             print("Some errors happens in chatVC")
                             return
@@ -190,7 +195,6 @@ class ChatViewController: MessagesViewController,
     func inputBar(_ inputBar: InputBarAccessoryView,
                   didPressSendButtonWith text: String) {
         
-        // for 測試用
         let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUserUID, senderName: currentUserName)
         
         // Insert new message on collection view
@@ -210,7 +214,6 @@ class ChatViewController: MessagesViewController,
         //        return Sender(id: Auth.auth().currentUser!.uid,
         //                      displayName: Auth.auth().currentUser?.displayName ?? "Name not found")
         
-        // for 測試用
         return ChatUser(senderId: currentUserUID, displayName: currentUserName)
     }
     
@@ -244,7 +247,7 @@ class ChatViewController: MessagesViewController,
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,
                              at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         
-        // for 測試用
+        // TODO: 要改成user真實的頭貼
         if message.sender.senderId == currentUserUID {
             avatarView.image = UIImage(named: "mock_avatar")
         } else {
