@@ -105,7 +105,7 @@ class BucketListManager {
     
     // MARK: - Update
     
-    func updateBucketListStatus(bucketList: BucketList, completion: @escaping(Result<String, Error>) -> Void) {
+    func updateBucketList(bucketList: BucketList, completion: @escaping(Result<String, Error>) -> Void) {
         do {
             try dataBase.collection("bucketList").document(bucketList.listId).setData(from: bucketList)
             completion(.success(bucketList.listId))

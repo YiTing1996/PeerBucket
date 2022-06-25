@@ -138,7 +138,8 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
             status: false,
             list: title,
             categoryId: bucketCategories[indexPath.row].id,
-            listId: ""
+            listId: "",
+            images: []
         )
         
         BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in

@@ -24,6 +24,9 @@ class ExploreDetailViewController: UIViewController {
         blackView.alpha = 0
         menuBottomConstraint.constant = 500
         
+        tableView.backgroundColor = .lightGray
+        view.backgroundColor = .lightGray
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -80,7 +83,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 300
+            return 400
         case 1:
             return 80
         default:

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseStorage
-import SwiftUI
+// import SwiftUI
 
 protocol AddNewBucketDelegate: AnyObject {
     func didTappedClose()
@@ -243,54 +243,5 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
             
         }
     }
-    
-//    func imagePickerController(_ picker: UIImagePickerController,
-//                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//
-//        picker.dismiss(animated: true, completion: nil)
-//
-//        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
-//            return
-//        }
-//
-//        guard let imageData = image.pngData() else {
-//            return
-//        }
-//
-//        let imageName = NSUUID().uuidString
-//
-//        // create a reference to upload data
-//        storage.child("categoryImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
-//
-//            guard error == nil else {
-//                print("Fail to upload image")
-//                return
-//            }
-//
-//            self.storage.child("categoryImage/\(imageName).png").downloadURL(completion: { url, error in
-//
-//                guard let url = url, error == nil else {
-//                    return
-//                }
-//
-//                let urlString = url.absoluteString
-//                self.imageUrlString = urlString
-//
-////                DispatchQueue.main.async {
-////                    self.imageView.image = image
-////                }
-//
-//                print("Download url: \(urlString)")
-//                UserDefaults.standard.set(urlString, forKey: "url")
-//
-//            })
-//
-//        }
-//
-//    }
-    
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true, completion: nil)
-//    }
     
 }

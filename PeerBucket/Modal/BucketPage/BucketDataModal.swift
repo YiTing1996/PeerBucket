@@ -39,6 +39,7 @@ struct BucketList: Codable {
     var list: String
     var categoryId: String
     var listId: String
+    var images: [String]
     
     enum CodingKeys: String, CodingKey {
         case senderId
@@ -47,6 +48,7 @@ struct BucketList: Codable {
         case list
         case categoryId
         case listId
+        case images
     }
     
     var toDict: [String: Any] {
@@ -56,7 +58,8 @@ struct BucketList: Codable {
             "status": status as Any,
             "list": list as Any,
             "categoryId": categoryId as Any,
-            "listId": listId as Any
+            "listId": listId as Any,
+            "images": images as Any
         ]
     }
 }

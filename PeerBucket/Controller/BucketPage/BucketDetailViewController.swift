@@ -7,10 +7,19 @@
 
 import Foundation
 import UIKit
+import FirebaseStorage
+import PhotosUI
 
 class BucketDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    //    @IBOutlet weak var containerView: UIView!
+    //    @IBOutlet weak var blackView: UIView!
+    //    @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
+    
+    private let storage = Storage.storage().reference()
+    
+    var swippedRow: Int?
     
     lazy var longPressGesture: UILongPressGestureRecognizer = {
         let gesture = UILongPressGestureRecognizer()
@@ -67,6 +76,13 @@ class BucketDetailViewController: UIViewController {
         submitButton.isHidden = true
         
         tableView.addGestureRecognizer(longPressGesture)
+        
+        //        containerView.backgroundColor = .lightGray
+        //        containerView.isHidden = true
+        
+        //        menuBottomConstraint.constant = -500
+        //        blackView.backgroundColor = .black
+        //        blackView.alpha = 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,11 +96,11 @@ class BucketDetailViewController: UIViewController {
         view.addSubview(submitButton)
         
         addListButton.anchor(top: view.topAnchor, right: view.rightAnchor,
-                             paddingTop: 120, paddingRight: 20, width: 50, height: 50)
+                             paddingTop: 100, paddingRight: 20, width: 50, height: 50)
         submitButton.anchor(top: view.topAnchor, right: addListButton.leftAnchor,
-                            paddingTop: 120, paddingRight: 5, width: 50, height: 50)
+                            paddingTop: 100, paddingRight: 5, width: 50, height: 50)
         addListTextField.anchor(top: view.topAnchor, left: view.leftAnchor,
-                                paddingTop: 120, paddingLeft: 30, width: 250, height: 50)
+                                paddingTop: 100, paddingLeft: 30, width: 250, height: 50)
         
     }
     
@@ -136,7 +152,8 @@ class BucketDetailViewController: UIViewController {
             status: false,
             list: addListTextField.text ?? "",
             categoryId: selectedBucket.id,
-            listId: ""
+            listId: "",
+            images: []
         )
         
         BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in
@@ -211,36 +228,43 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
     
     // swipe left to add photo in album
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { [weak self] (_, _, completionHandler) in
+        
+        let addPhotoAction = UIContextualAction(style: .destructive, title: "Add Photo") { [weak self] (_, _, completionHandler) in
             guard let self = self else { return }
             
-            self.presentDeleteAlert(title: "Delete List", message: "Do you want to delete this list?") {
-                
-                let deleteId = self.allBucketList[indexPath.row].listId
-                
-                BucketListManager.shared.deleteBucketList(id: deleteId) { result in
-                    
-                    switch result {
-                    case .success:
-                        //                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
-                        self.presentSuccessAlert()
-                    case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                    }
-                }
-            }
+            // pop album
+            var configuration = PHPickerConfiguration()
+            configuration.filter = .images
+            configuration.selectionLimit = 5
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.present(picker, animated: true)
+            
+            //            let picker = UIImagePickerController()
+            //            picker.sourceType = .photoLibrary
+            //            picker.delegate = self
+            //            picker.allowsEditing = true
+            //            self.present(picker, animated: true)
+            
+            // save row
+            self.swippedRow = indexPath.row
+            
             completionHandler(true)
         }
         
-        deleteAction.backgroundColor = .lightGray
-        
-        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
+        addPhotoAction.backgroundColor = .darkGray
+        let swipeAction = UISwipeActionsConfiguration(actions: [addPhotoAction])
         swipeAction.performsFirstActionWithFullSwipe = false
         return swipeAction
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        
+        if allBucketList[indexPath.row].images != [] {
+            return 200
+        } else {
+            return 80
+        }
     }
     
 }
@@ -264,10 +288,11 @@ extension BucketDetailViewController: BucketDetailTableViewCellDelegate {
             status: status,
             list: allBucketList[indexPath.row].list,
             categoryId: allBucketList[indexPath.row].categoryId,
-            listId: allBucketList[indexPath.row].listId
+            listId: allBucketList[indexPath.row].listId,
+            images: []
         )
         
-        BucketListManager.shared.updateBucketListStatus(bucketList: bucketList) { result in
+        BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
             switch result {
             case .success:
                 self.presentSuccessAlert()
@@ -280,3 +305,154 @@ extension BucketDetailViewController: BucketDetailTableViewCellDelegate {
         }
     }
 }
+
+// MARK: - Photo processor
+
+extension BucketDetailViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        let itemProviders = results.map(\.itemProvider)
+//        for (index, itemProvider) in itemProviders.enumerated() where itemProvider.canLoadObject(ofClass: UIImage.self) {
+        
+        for result in results {
+
+            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+
+//            itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                
+                if let error = error {
+                    print("Error \(error.localizedDescription)")
+                } else {
+                    
+                    if let image = image as? UIImage {
+                        
+                        guard let imageData = image.jpegData(compressionQuality: 1.0), let self = self else {
+                            return
+                        }
+                        
+                        let imageName = NSUUID().uuidString
+                        
+                        self.storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+                            
+                            guard error == nil else {
+                                print("Fail to upload image")
+                                return
+                            }
+                            
+                            self.storage.child("listImage/\(imageName).png").downloadURL(completion: { url, error in
+                                
+                                guard let url = url, error == nil else {
+                                    return
+                                }
+                                
+                                let urlString = url.absoluteString
+                                UserDefaults.standard.set(urlString, forKey: "url")
+                                
+                                // save to firebase
+                                guard let swippedRow = self.swippedRow else { return }
+                                
+                                let bucketList: BucketList = BucketList(
+                                    senderId: self.allBucketList[swippedRow].senderId,
+                                    createdTime: self.allBucketList[swippedRow].createdTime,
+                                    status: self.allBucketList[swippedRow].status,
+                                    list: self.allBucketList[swippedRow].list,
+                                    categoryId: self.allBucketList[swippedRow].categoryId,
+                                    listId: self.allBucketList[swippedRow].listId,
+                                    images: [urlString]
+                                )
+                                
+                                BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
+                                    switch result {
+                                    case .success:
+                                        self.presentSuccessAlert()
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    case .failure(let error):
+                                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                                    }
+                                }
+                            })
+                        }
+                        print("Uploaded to firebase")
+                    } else {
+                        print("There was an error.")
+                    }
+                }
+            }
+        }
+        
+    }
+}
+
+//extension BucketDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//
+//    func imagePickerController(_ picker: UIImagePickerController,
+//                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+//
+//        picker.dismiss(animated: true, completion: nil)
+//
+//        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+//            return
+//        }
+//
+//        guard let imageData = image.pngData() else {
+//            return
+//        }
+//
+//        let imageName = NSUUID().uuidString
+//
+//        // create a reference to upload data
+//        storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+//
+//            guard error == nil else {
+//                print("Fail to upload image")
+//                return
+//            }
+//
+//            self.storage.child("listImage/\(imageName).png").downloadURL(completion: { url, error in
+//
+//                guard let url = url, error == nil else {
+//                    return
+//                }
+//
+//                let urlString = url.absoluteString
+//                UserDefaults.standard.set(urlString, forKey: "url")
+//
+//                // save to firebase
+//
+//                guard let swippedRow = self.swippedRow else { return }
+//
+//                let bucketList: BucketList = BucketList(
+//                    senderId: self.allBucketList[swippedRow].senderId,
+//                    createdTime: self.allBucketList[swippedRow].createdTime,
+//                    status: self.allBucketList[swippedRow].status,
+//                    list: self.allBucketList[swippedRow].list,
+//                    categoryId: self.allBucketList[swippedRow].categoryId,
+//                    listId: self.allBucketList[swippedRow].listId,
+//                    images: [urlString]
+//                )
+//
+//                BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
+//                    switch result {
+//                    case .success:
+//                        self.presentSuccessAlert()
+//                        DispatchQueue.main.async {
+//                            self.tableView.reloadData()
+//                        }
+//                    case .failure(let error):
+//                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+//                    }
+//                }
+//
+//            })
+//
+//        }
+//
+//    }
+//
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//}

@@ -14,17 +14,16 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
+//    @IBOutlet weak var  containerView: UIView!
     
-    @IBOutlet weak var  containerView: UIView!
-    
-    lazy var statusSwitch: UISwitch = {
-        let statusSwitch = UISwitch()
-        statusSwitch.tintColor = .darkGreen
-        statusSwitch.onTintColor = .darkGreen
-        statusSwitch.thumbTintColor = .white
-        statusSwitch.addTarget(self, action: #selector(tappedSwitch), for: .valueChanged)
-        return statusSwitch
-    }()
+//    lazy var statusSwitch: UISwitch = {
+//        let statusSwitch = UISwitch()
+//        statusSwitch.tintColor = .darkGreen
+//        statusSwitch.onTintColor = .darkGreen
+//        statusSwitch.thumbTintColor = .white
+//        statusSwitch.addTarget(self, action: #selector(tappedSwitch), for: .valueChanged)
+//        return statusSwitch
+//    }()
     
     lazy var addCategoryButton: UIButton = {
         let button = UIButton()
@@ -74,22 +73,22 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         
         collectionView.addGestureRecognizer(longPressGesture)
         
-        containerView.backgroundColor = .lightGray
-        containerView.isHidden = true
+//        containerView.backgroundColor = .lightGray
+//        containerView.isHidden = true
         
     }
     
-    @objc func tappedSwitch() {
-        if statusSwitch.isOn {
-            // 呈現相簿頁
-            containerView.isHidden = false
-            print("switch is on")
-        } else {
-            // 呈現bucket category頁
-            containerView.isHidden = true
-            print("switch is off")
-        }
-    }
+//    @objc func tappedSwitch() {
+//        if statusSwitch.isOn {
+//            // 呈現相簿頁
+//            containerView.isHidden = false
+//            print("switch is on")
+//        } else {
+//            // 呈現bucket category頁
+//            containerView.isHidden = true
+//            print("switch is off")
+//        }
+//    }
     
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state != UIGestureRecognizer.State.ended {
@@ -122,12 +121,12 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func configureUI() {
         view.addSubview(addCategoryButton)
-        view.addSubview(statusSwitch)
+//        view.addSubview(statusSwitch)
         
         addCategoryButton.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
                                  paddingBottom: 20, paddingRight: 10)
-        statusSwitch.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
-                            paddingBottom: 70, paddingRight: 10)
+//        statusSwitch.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
+//                            paddingBottom: 70, paddingRight: 10)
     }
     
     @objc func tappedAddBtn() {

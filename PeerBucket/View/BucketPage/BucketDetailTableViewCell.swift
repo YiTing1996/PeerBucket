@@ -24,12 +24,6 @@ class BucketDetailTableViewCell: UITableViewCell {
         return label
     }()
     
-    //    var bucketImageView: UIImageView = {
-    //        let imageView = UIImageView()
-    //        imageView.translatesAutoresizingMaskIntoConstraints = false
-    //        return imageView
-    //    }()
-    
     var borderView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
@@ -55,6 +49,22 @@ class BucketDetailTableViewCell: UITableViewCell {
         return button
     }()
     
+    var hStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 2
+        return stackView
+    }()
+    
+    var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isPagingEnabled = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -71,21 +81,25 @@ class BucketDetailTableViewCell: UITableViewCell {
     func configureUI() {
         
         addSubview(bucketLabel)
-        //        addSubview(bucketImageView)
-        contentView.addSubview(borderView)
+        addSubview(scrollView)
         addSubview(doneButton)
+        scrollView.addSubview(hStack)
+        contentView.addSubview(borderView)
         
-        //        bucketImageView.anchor(top: topAnchor, left: leftAnchor,
-        //                               paddingTop: 20, paddingLeft: 50,
-        //                               width: 30, height: 30)
         doneButton.anchor(top: topAnchor, left: leftAnchor,
-                               paddingTop: 20, paddingLeft: 50,
-                               width: 30, height: 30)
+                          paddingTop: 20, paddingLeft: 50,
+                          width: 30, height: 30)
         bucketLabel.anchor(top: topAnchor, left: doneButton.rightAnchor,
                            paddingTop: 20, paddingLeft: 30)
+ 
         borderView.anchor(top: contentView.topAnchor, left: contentView.leftAnchor,
                           bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
                           paddingTop: 8, paddingLeft: 24, paddingBottom: 8, paddingRight: 24)
+        
+        scrollView.anchor(top: bucketLabel.bottomAnchor, left: doneButton.rightAnchor,
+                          paddingTop: 10, paddingLeft: 30, width: 220, height: 120)
+        hStack.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor,
+                      bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
     }
     
     func configureCell(bucketList: BucketList) {
@@ -96,10 +110,37 @@ class BucketDetailTableViewCell: UITableViewCell {
         } else {
             doneButton.setImage(UIImage(named: "icon_check"), for: .normal)
         }
+        
+        guard bucketList.images != [] else { return }
+        for index in 0...bucketList.images.count-1 {
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.anchor(width: 220, height: 120)
+            
+            guard let urlString = bucketList.images[index] as String?,
+                  let url = URL(string: urlString) else {
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
+                guard let data = data, error == nil else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    imageView.image = UIImage(data: data)
+                }
+            })
+            task.resume()
+            
+            hStack.spacing = 10
+            hStack.addArrangedSubview(imageView)
+        }
+        
     }
     
     @objc func tappedDoneBtn() {
         delegate?.didTappedStatus(cell: self)
     }
-    
+
 }
