@@ -31,14 +31,14 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
 
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
     }()
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.setTitle("Submit", for: .normal)
@@ -48,7 +48,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     
     lazy var addImageButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.setTitle("+Image", for: .normal)

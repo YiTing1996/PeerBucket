@@ -47,6 +47,7 @@
 		AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A103285AC389007FC767 /* BucketListViewController.swift */; };
 		AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */; };
 		AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */; };
+		AC87DC5428659417008EE8B3 /* BucketAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC87DC5328659417008EE8B3 /* BucketAlbumViewController.swift */; };
 		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
 		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
@@ -118,6 +119,7 @@
 		AC72A103285AC389007FC767 /* BucketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
 		AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListCollectionViewCell.swift; sourceTree = "<group>"; };
 		AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		AC87DC5328659417008EE8B3 /* BucketAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketAlbumViewController.swift; sourceTree = "<group>"; };
 		ACADB709285F83B800D7C18E /* leveldb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = leveldb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				AC72A103285AC389007FC767 /* BucketListViewController.swift */,
 				ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */,
 				ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */,
+				AC87DC5328659417008EE8B3 /* BucketAlbumViewController.swift */,
 			);
 			path = BucketPage;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
 				AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */,
 				ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */,
+				AC87DC5428659417008EE8B3 /* BucketAlbumViewController.swift in Sources */,
 				AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */,
 				AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */,
 				AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */,
@@ -683,7 +687,7 @@
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow the access to use camera";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -694,7 +698,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -715,7 +719,7 @@
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow the access to use camera";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -726,7 +730,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

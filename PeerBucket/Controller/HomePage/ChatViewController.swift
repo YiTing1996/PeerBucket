@@ -22,7 +22,7 @@ class ChatViewController: MessagesViewController,
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         button.addTarget(self, action: #selector(tappedBackBtn), for: .touchUpInside)
         button.setTitle("Back", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         return button
     }()
     
@@ -271,7 +271,7 @@ class ChatViewController: MessagesViewController,
     // MARK: - MessagesDisplayDelegate
     func backgroundColor(for message: MessageType, at indexPath: IndexPath,
                          in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .hightlightBg: .bgGray
+        return isFromCurrentSender(message: message) ? .hightlightYellow: .lightGray
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,

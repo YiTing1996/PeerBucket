@@ -36,11 +36,17 @@ class ExploreViewController: UIViewController {
     var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Explore the World"
-        label.font = UIFont(name: "Academy Engraved LET", size: 25)
+        label.text = "Recommend Bucket To You"
+        label.textColor = .darkGreen
+        label.font = UIFont.bold(size: 30)
         label.numberOfLines = 0
-        label.tintColor = .darkGray
         return label
+    }()
+    
+    var decoView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     var currentTab: Int = 0 {
@@ -56,20 +62,22 @@ class ExploreViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         configureUI()
+        self.view.backgroundColor = .lightGray
+        collectionView.backgroundColor = .lightGray
     }
     
     func configureUI() {
-        view.addSubview(imageView)
+//        view.addSubview(imageView)
         view.addSubview(nameLabel)
         view.addSubview(collectionView)
         
-        imageView.anchor(top: view.topAnchor, left: view.leftAnchor,
-                         paddingTop: 100, paddingLeft: 20,
-                         width: 100, height: 100)
-        nameLabel.anchor(top: view.topAnchor, left: imageView.rightAnchor,
-                         paddingTop: 120, paddingLeft: 20,
-                         width: 150)
-        collectionView.anchor(top: imageView.bottomAnchor, left: view.leftAnchor,
+//        imageView.anchor(top: view.topAnchor, left: view.leftAnchor,
+//                         paddingTop: 100, paddingLeft: 20,
+//                         width: 100, height: 100)
+        nameLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
+                         paddingTop: 100, paddingLeft: 40,
+                         width: 250)
+        collectionView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
                               bottom: view.bottomAnchor, right: view.rightAnchor,
                               paddingTop: 20, paddingLeft: 10, paddingBottom: 10,
                               paddingRight: 10, height: view.frame.height/4*3)
@@ -139,7 +147,7 @@ extension ExploreViewController: UICollectionViewDataSource {
             }
             
             exploreCell.configureCell(content: exploreList[currentTab][indexPath.row])
-            exploreCell.backgroundColor = UIColor.bgGray
+            exploreCell.backgroundColor = UIColor.lightGray
             exploreCell.clipsToBounds = true
             exploreCell.layer.cornerRadius = exploreCell.frame.height/15
             
@@ -151,7 +159,7 @@ extension ExploreViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
-            recommendCell.backgroundColor = UIColor.bgGray
+            recommendCell.backgroundColor = UIColor.lightGray
             recommendCell.clipsToBounds = true
             recommendCell.layer.cornerRadius = recommendCell.frame.height/10
             recommendCell.configureCell(image: challengeMainImage[indexPath.row])

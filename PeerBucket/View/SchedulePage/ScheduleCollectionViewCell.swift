@@ -19,7 +19,7 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
     
     var eventLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .textGray
+        label.textColor = .darkGreen
         label.numberOfLines = 0
         return label
     }()
@@ -36,10 +36,10 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
     
     lazy var editButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.setImage(UIImage(named: "icon_delete"), for: .normal)
         button.addTarget(self, action: #selector(tappedEditBtn), for: .touchUpInside)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.cornerRadius = 20
         button.alpha = 0.5
         return button

@@ -10,12 +10,14 @@ import UIKit
 
 class ChallengeHeaderView: UICollectionReusableView {
     static let identifier = "ChallengeHeaderView"
-
-   var headerLabel: UILabel = {
-       let label = UILabel()
-        label.textColor = .darkGray
-       label.font = UIFont.semiBold(size: 20)
-        label.text = "Chanllenge Bucket List"
+    
+    var headerLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .hightlightYellow
+//        label.layer.cornerRadius = 20
+        label.textColor = .lightGray
+        label.font = UIFont.bold(size: 20)
+        label.text = "#CHALLENGE #BUCKET"
         return label
     }()
     
@@ -23,11 +25,11 @@ class ChallengeHeaderView: UICollectionReusableView {
         super.init(frame: frame)
         addSubview(headerLabel)
         headerLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor,
-                           paddingTop: 6, paddingLeft: 6, paddingBottom: 6)
+                           paddingTop: 6, paddingLeft: 6, paddingBottom: 10)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }

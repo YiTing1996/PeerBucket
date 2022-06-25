@@ -20,7 +20,7 @@ class QRCodeViewController: UIViewController {
     
     var titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .textGray
+        label.textColor = .darkGreen
         label.numberOfLines = 0
         label.text = "Here's your QRCode"
         return label
@@ -29,14 +29,14 @@ class QRCodeViewController: UIViewController {
     lazy var bgImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .hightlightBg
+        imageView.backgroundColor = .hightlightYellow
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
     }()

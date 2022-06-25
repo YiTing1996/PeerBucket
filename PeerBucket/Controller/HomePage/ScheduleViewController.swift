@@ -69,18 +69,22 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func configueCalendarUI() {
         
+        self.view.backgroundColor = .lightGray
+        collectionView.backgroundColor = .lightGray
+        
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
         calendar.dataSource = self
         calendar.delegate = self
         view.addSubview(calendar)
         self.calendar = calendar
         
-        calendar.appearance.headerTitleColor = .hightlightColor
-        calendar.appearance.selectionColor = .hightlightColor
-        calendar.appearance.weekdayTextColor = .textGray
-        calendar.appearance.todayColor = .orange
+        calendar.appearance.titleFont = UIFont.regular(size: 14)
+        calendar.appearance.headerTitleColor = .darkGray
+        calendar.appearance.selectionColor = .hightlightYellow
+        calendar.appearance.weekdayTextColor = .darkGray
+        calendar.appearance.todayColor = .hightlightYellow
         calendar.layer.cornerRadius = 10
-        calendar.backgroundColor = .bgGray
+        calendar.backgroundColor = .clear
         
         calendar.anchor(top: view.topAnchor, left: view.leftAnchor,
                         right: view.rightAnchor, paddingTop: 100,
@@ -159,7 +163,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-                        print("userIDList: \(self.userIDList)")
+//                        print("userIDList: \(self.userIDList)")
                     }
                 }
 
@@ -192,7 +196,7 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                print("userIDList: \(self.userIDList)")
+//                print("userIDList: \(self.userIDList)")
             }
         }
     }
@@ -223,7 +227,7 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
         }
         
         eventCell.configureCell(eventText: datesWithEvent[indexPath.row].event)
-        eventCell.backgroundColor = .bgGray
+        eventCell.backgroundColor = .lightGray
         eventCell.layer.cornerRadius = 10
         
         return eventCell

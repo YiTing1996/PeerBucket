@@ -17,10 +17,10 @@ class ChallengeViewController: UIViewController {
     lazy var clearButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedClearBtn), for: .touchUpInside)
         button.setTitle("Clear", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         return button
@@ -29,10 +29,10 @@ class ChallengeViewController: UIViewController {
     lazy var shareButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedShareBtn), for: .touchUpInside)
         button.setTitle("Share", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         return button

@@ -10,10 +10,6 @@ import UIKit
 
 class BucketDetailViewController: UIViewController {
     
-    // for test
-//    var testUserID = "AITNzRSyUdMCjV4WrQxT"
-//    var testUserID = "Iq0Ssbo86uG3JXx26w3h"
-    
     @IBOutlet weak var tableView: UITableView!
     
     lazy var addListButton: UIButton = {
@@ -22,8 +18,8 @@ class BucketDetailViewController: UIViewController {
         button.setTitle("Add", for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor.bgGray
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.backgroundColor = UIColor.lightGray
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         return button
     }()
     
@@ -50,6 +46,7 @@ class BucketDetailViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         
         configureUI()
         //        addListTextField.isHidden = true
@@ -138,7 +135,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
         guard let bucketDetailCell = cell as? BucketDetailTableViewCell else { return cell }
         
         bucketDetailCell.configureCell(bucketList: allBucketList[indexPath.row])
-        bucketDetailCell.contentView.backgroundColor = UIColor.bgGray
+        bucketDetailCell.contentView.backgroundColor = .clear
         
         return bucketDetailCell
     }
@@ -207,7 +204,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 100
     }
     
 }

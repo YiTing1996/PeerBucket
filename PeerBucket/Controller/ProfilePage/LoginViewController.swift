@@ -41,7 +41,7 @@ class LoginViewController: UIViewController {
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.tintColor = .white
         button.layer.cornerRadius = 10
         button.setTitle("Submit", for: .normal)

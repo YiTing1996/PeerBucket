@@ -22,7 +22,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     var outputTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .bgGray
+        textView.backgroundColor = .lightGray
         return textView
     }()
     

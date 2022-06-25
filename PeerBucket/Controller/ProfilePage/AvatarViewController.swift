@@ -20,7 +20,7 @@ class AvatarViewController: UIViewController {
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         button.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
         button.setTitle("Submit", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         return button
     }()
     
@@ -35,6 +35,9 @@ class AvatarViewController: UIViewController {
         bodyView.isHidden = true
         navigationItem.rightBarButtonItem = menuBarItem
         fetchUserData(userID: currentUserUID)
+        
+        self.view.backgroundColor = .lightGray
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

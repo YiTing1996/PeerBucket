@@ -26,10 +26,10 @@ class ScheduleHeaderView: UICollectionReusableView {
     
     lazy var addButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
         button.setTitle("+", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.cornerRadius = 20
         button.alpha = 0.5
         return button

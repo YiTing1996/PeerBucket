@@ -23,7 +23,7 @@ class AddToBucketViewController: UIViewController {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
     }()
@@ -69,7 +69,7 @@ class AddToBucketViewController: UIViewController {
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-                        print("userIDList: \(self.userIDList)")
+//                        print("userIDList: \(self.userIDList)")
                     }
                 }
                 
@@ -101,7 +101,7 @@ extension AddToBucketViewController: UICollectionViewDataSource {
         
         cell.clipsToBounds = true
         cell.layer.cornerRadius = cell.frame.height/4
-        cell.backgroundColor = UIColor.hightlightBg
+        cell.backgroundColor = UIColor.hightlightYellow
         
         cell.categoryLabel.text = bucketCategories[indexPath.row].category
         

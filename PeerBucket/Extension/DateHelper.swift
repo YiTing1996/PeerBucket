@@ -27,9 +27,9 @@ extension Date {
     }
 
     func distance(from date: Date,
-                  only component: Calendar.Component,
-                  calendar: Calendar = .current) -> Int {
+                  only component: Calendar.Component) -> Int {
 
+        let calendar: Calendar = .current
         let days1 = calendar.component(component, from: self)
         let days2 = calendar.component(component, from: date)
 

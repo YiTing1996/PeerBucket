@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .bgGray
+        imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 100
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -31,92 +31,94 @@ class ProfileViewController: UIViewController {
 //        button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
         button.setTitle("Change Avatar", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
 //        button.layer.borderWidth = 0.5
 //        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.regular(size: 12)
+        button.titleLabel?.font = UIFont.semiBold(size: 12)
         return button
     }()
     
     var inviteView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .bgGray
-        view.layer.cornerRadius = 5
+        view.backgroundColor = .lightGray
+        view.layer.borderWidth = 0.5
+        view.layer.cornerRadius = 10
         return view
     }()
     
     var inviteLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .darkGreen
         label.text = "Invite friends join PeerBucket"
-        label.font = UIFont(name: "Academy Engraved LET", size: 28)
+        label.font = UIFont.bold(size: 25)
         label.numberOfLines = 0
         return label
     }()
     
     lazy var inviteButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
         button.setTitle("Scan OQCode", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.regular(size: 12)
+        button.titleLabel?.font = UIFont.semiBold(size: 16)
         return button
     }()
     
     lazy var myQRButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
         button.setTitle("Show QRCode", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.regular(size: 12)
+        button.titleLabel?.font = UIFont.semiBold(size: 16)
         return button
     }()
     
     var accountView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .bgGray
-        view.layer.cornerRadius = 5
+        view.backgroundColor = .lightGray
+        view.layer.borderWidth = 0.5
+        view.layer.cornerRadius = 10
         return view
     }()
     
     var accountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .darkGreen
         label.text = "Manage your account"
-        label.font = UIFont(name: "Academy Engraved LET", size: 28)
+        label.font = UIFont.bold(size: 25)
         label.numberOfLines = 0
         return label
     }()
     
     lazy var logoutButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
-        button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
+        button.backgroundColor = UIColor.lightGray
+//        button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
         button.setTitle("Log Out", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.regular(size: 12)
+        button.titleLabel?.font = UIFont.semiBold(size: 16)
         return button
     }()
     
     lazy var deleteButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
-        button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
+        button.backgroundColor = UIColor.lightGray
+//        button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
         button.setTitle("Delete Account", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.regular(size: 12)
+        button.titleLabel?.font = UIFont.semiBold(size: 16)
         return button
     }()
     
@@ -132,6 +134,7 @@ class ProfileViewController: UIViewController {
         view.bringSubviewToFront(blackView)
         view.bringSubviewToFront(containerView)
         
+        self.view.backgroundColor = .lightGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,7 +162,7 @@ class ProfileViewController: UIViewController {
                             paddingBottom: -50, paddingRight: 20, width: 150, height: 50)
         
         inviteView.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor,
-                          right: view.rightAnchor, paddingTop: 150,
+                          right: view.rightAnchor, paddingTop: 100,
                           paddingLeft: 20, paddingRight: 20, height: 150)
         inviteLabel.anchor(top: inviteView.topAnchor, left: inviteView.leftAnchor,
                            paddingTop: 20, paddingLeft: 20, width: 150)

@@ -33,7 +33,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         let datePicker = UIDatePicker()
         //        datePicker.frame = CGRect(x: 10, y: 50, width: 200, height: 50)
         datePicker.timeZone = TimeZone.current
-        datePicker.backgroundColor = UIColor.bgGray
+        datePicker.backgroundColor = UIColor.lightGray
         datePicker.addTarget(self, action: #selector(didChangedDate(_:)), for: .valueChanged)
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         return datePicker
@@ -41,14 +41,14 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
     }()
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
         button.setTitle("Submit", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
