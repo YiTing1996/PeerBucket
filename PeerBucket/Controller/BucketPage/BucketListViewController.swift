@@ -29,12 +29,12 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var addCategoryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.lightGray
+//        button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
-        button.setTitle("Add", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 10
+        button.setImage(UIImage(named: "icon_func_add"), for: .normal)
+//        button.setTitleColor(UIColor.darkGreen, for: .normal)
+//        button.clipsToBounds = true
+//        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -66,7 +66,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .clear
+//        collectionView.backgroundColor = .clear
         
         menuBottomConstraint.constant = -500
         blackView.backgroundColor = .black
@@ -124,10 +124,10 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(addCategoryButton)
         view.addSubview(statusSwitch)
         
-        addCategoryButton.anchor(bottom: collectionView.bottomAnchor, right: view.rightAnchor,
-                                 paddingBottom: 20, paddingRight: 10, width: 120, height: 50)
+        addCategoryButton.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
+                                 paddingBottom: 20, paddingRight: 10)
         statusSwitch.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
-                            paddingBottom: 20, paddingRight: 10)
+                            paddingBottom: 70, paddingRight: 10)
     }
     
     @objc func tappedAddBtn() {
@@ -226,33 +226,34 @@ extension BucketListViewController: UICollectionViewDataSource {
         guard let cell = cell as? BucketListCollectionViewCell else { return cell }
         
         cell.clipsToBounds = true
+        cell.layer.borderWidth = 1
         cell.layer.cornerRadius = cell.frame.height/30
-        cell.backgroundColor = UIColor.mediumGray
+        cell.backgroundColor = UIColor.lightGray
         
         // fetch bucket list of certain category
         // fix bug
-        BucketListManager.shared.fetchBucketList(categoryID: bucketCategories[indexPath.row].id,
-                                                 completion: { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let bucketList):
-                
-                let finishedBucketList = bucketList.filter { $0.status == true }
-//                self.progress = Float(finishedBucketList.count/bucketList.count)
-                self.progress = Float(finishedBucketList.count) / Float(bucketList.count)
-                cell.progressView.progress = self.progress!
-                
-                print("bucketList: \(finishedBucketList)")
-                print("finishedBucketList count: \(finishedBucketList.count)")
-                print("bucket list count: \(bucketList.count)")
-                print("progress: \(String(describing: self.progress))")
-
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-        })
+//        BucketListManager.shared.fetchBucketList(categoryID: bucketCategories[indexPath.row].id,
+//                                                 completion: { [weak self] result in
+//            guard let self = self else { return }
+//
+//            switch result {
+//            case .success(let bucketList):
+//
+//                let finishedBucketList = bucketList.filter { $0.status == true }
+////                self.progress = Float(finishedBucketList.count/bucketList.count)
+//                self.progress = Float(finishedBucketList.count) / Float(bucketList.count)
+//                cell.progressView.progress = self.progress!
+//
+//                print("bucketList: \(finishedBucketList)")
+//                print("finishedBucketList count: \(finishedBucketList.count)")
+//                print("bucket list count: \(bucketList.count)")
+//                print("progress: \(String(describing: self.progress))")
+//
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//
+//        })
         
         cell.configureCell(category: bucketCategories[indexPath.row])
         
@@ -267,7 +268,7 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 190, height: 360)
+        return CGSize(width: 190, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
@@ -294,6 +295,10 @@ extension BucketListViewController: AddNewBucketDelegate {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = -500
             self.blackView.alpha = 0
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
     }
 }

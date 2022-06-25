@@ -9,18 +9,19 @@ import UIKit
 
 class BucketListCollectionViewCell: UICollectionViewCell {
     
-    var progressView: UIProgressView = {
-        let progress = UIProgressView()
-        progress.progressTintColor = UIColor.darkGreen
-        progress.trackTintColor = UIColor.hightlightYellow
-        progress.progress = 0.5
-        return progress
-    }()
+//    var progressView: UIProgressView = {
+//        let progress = UIProgressView()
+//        progress.progressTintColor = UIColor.darkGreen
+//        progress.trackTintColor = UIColor.hightlightYellow
+//        progress.progress = 0.5
+//        return progress
+//    }()
     
     var categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.tintColor = .blue
+        label.textColor = .darkGray
+        label.font = UIFont.semiBold(size: 20)
         label.numberOfLines = 0
         return label
     }()
@@ -28,9 +29,8 @@ class BucketListCollectionViewCell: UICollectionViewCell {
     var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .lightGray
+//        imageView.backgroundColor = .lightGray
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "icon_chat_dark")
         return imageView
     }()
         
@@ -43,13 +43,15 @@ class BucketListCollectionViewCell: UICollectionViewCell {
     func configureUI() {
         addSubview(categoryImageView)
         addSubview(categoryLabel)
-        addSubview(progressView)
+//        addSubview(progressView)
         
         categoryImageView.centerX(inView: self)
-        categoryImageView.anchor(top: topAnchor, paddingTop: 30, width: 50, height: 50)
-        categoryLabel.anchor(top: categoryImageView.bottomAnchor, left: leftAnchor, paddingTop: 10, paddingLeft: 20, width: 160)
-        progressView.anchor(top: categoryLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
-                            paddingTop: 10, paddingLeft: 20, paddingBottom: 20, paddingRight: 20)
+        categoryLabel.centerX(inView: self)
+
+        categoryImageView.anchor(top: topAnchor, paddingTop: 20, width: 50, height: 50)
+        categoryLabel.anchor(top: categoryImageView.bottomAnchor, paddingTop: 15)
+//        progressView.anchor(top: categoryLabel.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
+//                            paddingTop: 10, paddingLeft: 20, paddingBottom: 20, paddingRight: 20)
         
     }
     

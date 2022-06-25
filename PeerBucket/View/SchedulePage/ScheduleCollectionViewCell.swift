@@ -21,6 +21,7 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .darkGreen
         label.numberOfLines = 0
+        label.font = UIFont.regular(size: 18)
         return label
     }()
     

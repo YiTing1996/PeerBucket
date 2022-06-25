@@ -12,14 +12,25 @@ class BucketDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    lazy var longPressGesture: UILongPressGestureRecognizer = {
+        let gesture = UILongPressGestureRecognizer()
+        gesture.addTarget(self, action: #selector(longPressGestureRecognized(_:)))
+        gesture.minimumPressDuration = 0.5
+        gesture.delaysTouchesBegan = true
+        return gesture
+    }()
+    
     lazy var addListButton: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
-        button.setTitle("Add", for: .normal)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 10
-        button.backgroundColor = UIColor.lightGray
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
+        button.setImage(UIImage(named: "icon_func_add"), for: .normal)
+        return button
+    }()
+    
+    lazy var submitButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
+        button.setImage(UIImage(named: "icon_func_upload"), for: .normal)
         return button
     }()
     
@@ -29,6 +40,7 @@ class BucketDetailViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 10
         textField.setLeftPaddingPoints(amount: 10)
+        textField.backgroundColor = UIColor.lightGray
         return textField
     }()
     
@@ -47,9 +59,14 @@ class BucketDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        view.backgroundColor = .lightGray
+        tableView.backgroundColor = .lightGray
         
         configureUI()
-        //        addListTextField.isHidden = true
+        addListTextField.isHidden = true
+        submitButton.isHidden = true
+        
+        tableView.addGestureRecognizer(longPressGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,11 +77,14 @@ class BucketDetailViewController: UIViewController {
         
         view.addSubview(addListButton)
         view.addSubview(addListTextField)
+        view.addSubview(submitButton)
         
         addListButton.anchor(top: view.topAnchor, right: view.rightAnchor,
-                             paddingTop: 120, paddingRight: 50, width: 50, height: 50)
+                             paddingTop: 120, paddingRight: 20, width: 50, height: 50)
+        submitButton.anchor(top: view.topAnchor, right: addListButton.leftAnchor,
+                            paddingTop: 120, paddingRight: 5, width: 50, height: 50)
         addListTextField.anchor(top: view.topAnchor, left: view.leftAnchor,
-                                paddingTop: 120, paddingLeft: 50, width: 200, height: 50)
+                                paddingTop: 120, paddingLeft: 30, width: 250, height: 50)
         
     }
     
@@ -86,7 +106,22 @@ class BucketDetailViewController: UIViewController {
     }
     
     @objc func tappedAddBtn() {
-        //        addListTextField.isHidden = false
+        if addListTextField.isHidden == true {
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
+                self.addListTextField.isHidden = false
+                self.submitButton.isHidden = false
+                self.addListButton.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.addListTextField.isHidden = true
+                self.submitButton.isHidden = true
+                self.addListButton.setImage(UIImage(named: "icon_func_add"), for: .normal)
+            }
+        }
+    }
+    
+    @objc func tappedSubmitBtn() {
         
         guard let selectedBucket = selectedBucket,
               addListTextField.text != "" else {
@@ -96,7 +131,7 @@ class BucketDetailViewController: UIViewController {
         
         var bucketList: BucketList = BucketList(
             senderId: testUserID,
-//            createdTime: Date().millisecondsSince1970,
+            //            createdTime: Date().millisecondsSince1970,
             createdTime: Date(),
             status: false,
             list: addListTextField.text ?? "",
@@ -116,12 +151,44 @@ class BucketDetailViewController: UIViewController {
             }
         }
         
+        addListButton.setImage(UIImage(named: "icon_func_add"), for: .normal)
         addListTextField.text = ""
-        
+        addListTextField.isHidden = true
+        submitButton.isHidden = true
     }
     
+    @objc func longPressGestureRecognized(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            if let row = self.tableView.indexPathForRow(at: sender.location(in: self.tableView))?.row {
+                let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+                feedbackGenerator.prepare()
+                feedbackGenerator.impactOccurred()
+                
+                self.presentDeleteAlert(title: "Delete List", message: "Do you want to delete this list?") {
+                    
+                    let deleteId = self.allBucketList[row].listId
+                    
+                    BucketListManager.shared.deleteBucketList(id: deleteId) { result in
+                        
+                        switch result {
+                        case .success:
+                            // UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
+                            self.presentSuccessAlert()
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        case .failure(let error):
+                            self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
 }
 
+// MARK: - TableView
 extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -134,14 +201,55 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
         
         guard let bucketDetailCell = cell as? BucketDetailTableViewCell else { return cell }
         
+        bucketDetailCell.delegate = self
         bucketDetailCell.configureCell(bucketList: allBucketList[indexPath.row])
         bucketDetailCell.contentView.backgroundColor = .clear
+        bucketDetailCell.backgroundColor = .lightGray
         
         return bucketDetailCell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // swipe left to add photo in album
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { [weak self] (_, _, completionHandler) in
+            guard let self = self else { return }
+            
+            self.presentDeleteAlert(title: "Delete List", message: "Do you want to delete this list?") {
+                
+                let deleteId = self.allBucketList[indexPath.row].listId
+                
+                BucketListManager.shared.deleteBucketList(id: deleteId) { result in
+                    
+                    switch result {
+                    case .success:
+                        //                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
+                        self.presentSuccessAlert()
+                    case .failure(let error):
+                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    }
+                }
+            }
+            completionHandler(true)
+        }
         
+        deleteAction.backgroundColor = .lightGray
+        
+        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
+        swipeAction.performsFirstActionWithFullSwipe = false
+        return swipeAction
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
+}
+
+extension BucketDetailViewController: BucketDetailTableViewCellDelegate {
+    
+    func didTappedStatus(cell: UITableViewCell) {
+        
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
         var status: Bool = false
         
         if allBucketList[indexPath.row].status == true {
@@ -161,50 +269,14 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
         
         BucketListManager.shared.updateBucketListStatus(bucketList: bucketList) { result in
             switch result {
-            case .success(let string):
+            case .success:
                 self.presentSuccessAlert()
-                print(string)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
         }
-        
     }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "delete") { [weak self] (_, _, completionHandler) in
-            guard let self = self else { return }
-            
-            self.presentDeleteAlert(title: "Delete List", message: "Do you want to delete this list?") {
-                
-                let deleteId = self.allBucketList[indexPath.row].listId
-                
-                BucketListManager.shared.deleteBucketList(id: deleteId) { result in
-                    
-                    switch result {
-                    case .success:
-//                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
-                        self.presentSuccessAlert()
-                    case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                    }
-                    
-                }
-                
-            }
-            
-            completionHandler(true)
-        }
-        
-        deleteAction.backgroundColor = .white
-        
-        let swipeAction = UISwipeActionsConfiguration(actions: [deleteAction])
-        swipeAction.performsFirstActionWithFullSwipe = false
-        return swipeAction
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
 }
