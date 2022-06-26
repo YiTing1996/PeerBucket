@@ -11,12 +11,12 @@ import Firebase
 import MessageKit
 import FirebaseFirestore
 
-class ChatViewController: MessagesViewController,
-                          InputBarAccessoryViewDelegate, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
-        
+class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
+                            MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
+    
     var user2UID: String = ""
     var currentUserName: String = ""
-
+    
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -42,21 +42,45 @@ class ChatViewController: MessagesViewController,
         maintainPositionOnKeyboardFrameChanged = true
         scrollsToLastItemOnKeyboardBeginsEditing = true
         
-        messageInputBar.sendButton.setTitleColor(.systemTeal, for: .normal)
         messageInputBar.delegate = self
         
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
+        messagesCollectionView.contentInset = UIEdgeInsets(top: 45, left: 0, bottom: 0, right: 0)
+        messagesCollectionView.backgroundColor = .lightGray
+        messageInputBar.backgroundView.backgroundColor = .darkGreen
+        messageInputBar.tintColor = .white
+        
         loadChat()
         
         fetchUserData(userID: currentUserUID)
-
+        
     }
     
     @objc func tappedBackBtn() {
         self.navigationController?.popViewController(animated: true)
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+//    func didTapAvatar(in cell: MessageCollectionViewCell) {
+//        print("Avatar tapped")
+//    }
+    
+    func didTapMessage(in cell: MessageCollectionViewCell) {
+        // handle message here
+        print("Tapped message")
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
+            print("Can't find indexPath")
+            return }
+        self.presentSuccessAlert(title: "Pin Message", message: "Pin a message to your favorrite") {
+            print(self.messages[indexPath.item].content)
+        }
     }
     
     // fetch current user's paring user and current user name
@@ -271,7 +295,7 @@ class ChatViewController: MessagesViewController,
     // MARK: - MessagesDisplayDelegate
     func backgroundColor(for message: MessageType, at indexPath: IndexPath,
                          in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .hightlightYellow: .lightGray
+        return isFromCurrentSender(message: message) ? .hightlightYellow: .white
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,

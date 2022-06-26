@@ -17,20 +17,28 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: ScheduleCollectionViewCellDelegate?
     
+    var dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.numberOfLines = 0
+        label.font = UIFont.semiBold(size: 13)
+        return label
+    }()
+    
     var eventLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGreen
         label.numberOfLines = 0
-        label.font = UIFont.regular(size: 18)
+        label.font = UIFont.semiBold(size: 18)
         return label
     }()
     
-    var eventImageView: UIImageView = {
+    var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "mock_avatar")
+//        imageView.image = UIImage(named: "icon_avatar_none")
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 20
+        imageView.layer.cornerRadius = 30
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -57,22 +65,53 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
     
     func configureUI() {
         addSubview(eventLabel)
-        addSubview(eventImageView)
-//        addSubview(editButton)
+        addSubview(avatarImageView)
+        addSubview(dateLabel)
         
-        eventImageView.anchor(top: topAnchor, left: leftAnchor,
-                              paddingTop: 20, paddingLeft: 50,
-                              width: 50, height: 50)
-        eventLabel.anchor(top: topAnchor, left: eventImageView.rightAnchor,
-                          paddingTop: 20, paddingLeft: 50,
-                          width: 100, height: 20)
+        avatarImageView.centerY(inView: self)
+        avatarImageView.anchor(left: leftAnchor, paddingLeft: 20,
+                              width: 60, height: 60)
+        eventLabel.anchor(top: topAnchor, left: avatarImageView.rightAnchor,
+                          paddingTop: 20, paddingLeft: 20,
+                          width: 150, height: 20)
+        dateLabel.anchor(top: eventLabel.bottomAnchor, left: avatarImageView.rightAnchor,
+                          paddingTop: 5, paddingLeft: 20,
+                          width: 150, height: 20)
         
-//        editButton.anchor(top: topAnchor, right: rightAnchor,
-//                            paddingTop: 20, paddingRight: 30, width: 30, height: 30)
     }
     
-    func configureCell(eventText: String) {
-        eventLabel.text = eventText
+    func configureCell(event: Schedule) {
+        
+        eventLabel.text = event.event
+        dateLabel.text = Date.dateFormatter.string(from: event.eventDate)
+        
+        // fetch avatar by senderID
+        UserManager.shared.fetchUserData(userID: event.senderId) { result in
+            switch result {
+            case .success(let user):
+                
+                guard let urlString = user.userAvatar as String?,
+                      let url = URL(string: urlString) else {
+                    return
+                }
+                
+                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
+                    guard let data = data, error == nil else {
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        let image = UIImage(data: data)
+                        self.avatarImageView.image = image
+                    }
+                })
+                task.resume()
+                
+            case .failure:
+                print("Download avatar error in schedule VC")
+            }
+        }
+        
     }
     
     @objc func tappedEditBtn() {

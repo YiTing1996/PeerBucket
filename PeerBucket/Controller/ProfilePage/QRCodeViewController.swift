@@ -22,6 +22,7 @@ class QRCodeViewController: UIViewController {
         let label = UILabel()
         label.textColor = .darkGreen
         label.numberOfLines = 0
+        label.font = UIFont.semiBold(size: 20)
         label.text = "Here's your QRCode"
         return label
     }()
@@ -36,7 +37,7 @@ class QRCodeViewController: UIViewController {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
+        button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
     }()
@@ -45,6 +46,7 @@ class QRCodeViewController: UIViewController {
         super.viewDidLoad()
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
+//        view.backgroundColor = .lightGray
         
         createQRCode(currentUserUID)
         configureUI()
@@ -59,9 +61,9 @@ class QRCodeViewController: UIViewController {
         titleLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
                           paddingTop: 20, paddingLeft: 20, width: 150)
         bgImageView.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
-                           paddingTop: 20, paddingLeft: 20, paddingRight: 20, width: 300, height: 300)
+                           paddingTop: 10, paddingLeft: 20, paddingRight: 20, width: 300, height: 300)
         cancelButton.anchor(top: view.topAnchor, right: view.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 50, height: 50)
+                            paddingTop: 10, paddingRight: 10, width: 50, height: 50)
     }
     
     @objc func tappedCloseBtn() {

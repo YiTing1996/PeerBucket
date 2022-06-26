@@ -11,13 +11,13 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 
 // for test
-// var currentUserUID = "AITNzRSyUdMCjV4WrQxT"
- var currentUserUID = "Iq0Ssbo86uG3JXx26w3h"
+ var currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+// var currentUserUID = "Iq0Ssbo86uG3JXx26w3h"
 // var currentUserUID = "04LcJa0gc4vXnOE5eMEn"
 
 // for test
-// var testUserID = "AITNzRSyUdMCjV4WrQxT"
- var testUserID = "Iq0Ssbo86uG3JXx26w3h"
+ var testUserID = "AITNzRSyUdMCjV4WrQxT"
+// var testUserID = "Iq0Ssbo86uG3JXx26w3h"
 // var testUserID = "04LcJa0gc4vXnOE5eMEn"
 
 class UserManager {

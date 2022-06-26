@@ -15,6 +15,17 @@ class BucketDetailTableViewCell: UITableViewCell {
     
     weak var delegate: BucketDetailTableViewCellDelegate?
     
+    lazy var doneButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor.lightGray
+        button.setImage(UIImage(named: "icon_check"), for: .normal)
+        button.addTarget(self, action: #selector(tappedDoneBtn), for: .touchUpInside)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
+        button.layer.cornerRadius = 20
+        button.alpha = 0.5
+        return button
+    }()
+    
     var bucketLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -38,15 +49,13 @@ class BucketDetailTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var doneButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
-        button.setImage(UIImage(named: "icon_check"), for: .normal)
-        button.addTarget(self, action: #selector(tappedDoneBtn), for: .touchUpInside)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.cornerRadius = 20
-        button.alpha = 0.5
-        return button
+    var dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.font = UIFont.semiBold(size: 15)
+        label.textColor = .hightlightYellow
+        return label
     }()
     
     var hStack: UIStackView = {
@@ -75,7 +84,6 @@ class BucketDetailTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
         configureUI()
-        
     }
     
     func configureUI() {
@@ -83,6 +91,7 @@ class BucketDetailTableViewCell: UITableViewCell {
         addSubview(bucketLabel)
         addSubview(scrollView)
         addSubview(doneButton)
+        addSubview(dateLabel)
         scrollView.addSubview(hStack)
         contentView.addSubview(borderView)
         
@@ -92,23 +101,30 @@ class BucketDetailTableViewCell: UITableViewCell {
         bucketLabel.anchor(top: topAnchor, left: doneButton.rightAnchor,
                            paddingTop: 20, paddingLeft: 30)
  
+        dateLabel.anchor(top: bucketLabel.bottomAnchor, left: doneButton.rightAnchor,
+                         paddingTop: 5, paddingLeft: 30)
+        
+        scrollView.anchor(top: dateLabel.bottomAnchor, left: doneButton.rightAnchor,
+                          paddingTop: 10, paddingLeft: 30, width: 220, height: 120)
+        
+        hStack.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor,
+                      bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
+        
         borderView.anchor(top: contentView.topAnchor, left: contentView.leftAnchor,
                           bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
                           paddingTop: 8, paddingLeft: 24, paddingBottom: 8, paddingRight: 24)
-        
-        scrollView.anchor(top: bucketLabel.bottomAnchor, left: doneButton.rightAnchor,
-                          paddingTop: 10, paddingLeft: 30, width: 220, height: 120)
-        hStack.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor,
-                      bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
     }
     
     func configureCell(bucketList: BucketList) {
         bucketLabel.text = bucketList.list
-        
+                
         if bucketList.status == true {
             doneButton.setImage(UIImage(named: "icon_checked"), for: .normal)
+            dateLabel.text = Date.dateFormatter.string(from: bucketList.createdTime)
+            dateLabel.isHidden = false
         } else {
             doneButton.setImage(UIImage(named: "icon_check"), for: .normal)
+            dateLabel.isHidden = true
         }
         
         guard bucketList.images != [] else { return }

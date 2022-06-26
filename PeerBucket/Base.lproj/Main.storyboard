@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nzg-TI-mU7">
-                                <rect key="frame" x="8" y="52" width="398" height="810"/>
+                                <rect key="frame" x="8" y="52" width="398" height="844"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ExploreDetailTableViewCell" id="4f1-ia-EpF" customClass="ExploreDetailTableViewCell" customModule="PeerBucket" customModuleProvider="target">
@@ -52,10 +52,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P0l-w9-Hhw">
-                                <rect key="frame" x="0.0" y="522" width="414" height="374"/>
+                                <rect key="frame" x="0.0" y="424" width="414" height="472"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="414" id="GUg-xy-03O"/>
-                                    <constraint firstAttribute="height" constant="374" id="egs-lX-Lsi"/>
+                                    <constraint firstAttribute="width" constant="414" id="6mB-ag-YfU"/>
+                                    <constraint firstAttribute="height" constant="472" id="fTb-f2-tr1"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="VZ6-Ee-Nk6" kind="embed" id="kuZ-xt-Dvu"/>
@@ -65,21 +65,21 @@
                         <viewLayoutGuide key="safeArea" id="Eju-Bs-sdF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="trailing" secondItem="Hhw-6o-ptJ" secondAttribute="trailing" id="5Xc-bH-Nqc"/>
-                            <constraint firstItem="nzg-TI-mU7" firstAttribute="top" secondItem="Eju-Bs-sdF" secondAttribute="top" constant="8" id="DDD-9b-iMd"/>
-                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="trailing" secondItem="nzg-TI-mU7" secondAttribute="trailing" constant="8" id="DHG-20-k4S"/>
-                            <constraint firstItem="P0l-w9-Hhw" firstAttribute="leading" secondItem="nzg-TI-mU7" secondAttribute="leading" constant="-8" id="Isx-Zb-eQZ"/>
-                            <constraint firstItem="nzg-TI-mU7" firstAttribute="leading" secondItem="Eju-Bs-sdF" secondAttribute="leading" constant="8" id="X71-Ql-BXU"/>
-                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="top" secondItem="Eju-Bs-sdF" secondAttribute="top" id="eLz-st-y0r"/>
-                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="bottom" secondItem="nzg-TI-mU7" secondAttribute="bottom" id="iUz-cl-NEs"/>
-                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="leading" secondItem="Eju-Bs-sdF" secondAttribute="leading" id="sgm-zx-rUR"/>
-                            <constraint firstItem="P0l-w9-Hhw" firstAttribute="bottom" secondItem="Eju-Bs-sdF" secondAttribute="bottom" constant="34" id="v7m-p9-U7A"/>
-                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="bottom" secondItem="Eju-Bs-sdF" secondAttribute="bottom" constant="34" id="wpB-87-CMF"/>
+                            <constraint firstAttribute="bottom" secondItem="P0l-w9-Hhw" secondAttribute="bottom" id="6WP-2Y-3yy"/>
+                            <constraint firstAttribute="bottom" secondItem="nzg-TI-mU7" secondAttribute="bottom" id="8se-MO-SoD"/>
+                            <constraint firstItem="P0l-w9-Hhw" firstAttribute="trailing" secondItem="Eju-Bs-sdF" secondAttribute="trailing" id="9cU-3J-dHr"/>
+                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="top" secondItem="Eju-Bs-sdF" secondAttribute="top" id="IAE-sg-MNZ"/>
+                            <constraint firstItem="nzg-TI-mU7" firstAttribute="leading" secondItem="Eju-Bs-sdF" secondAttribute="leading" constant="8" id="al9-eJ-aso"/>
+                            <constraint firstItem="Eju-Bs-sdF" firstAttribute="trailing" secondItem="nzg-TI-mU7" secondAttribute="trailing" constant="8" id="c90-bz-H5h"/>
+                            <constraint firstItem="nzg-TI-mU7" firstAttribute="top" secondItem="Eju-Bs-sdF" secondAttribute="top" constant="8" id="e4C-v9-jha"/>
+                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="trailing" secondItem="Eju-Bs-sdF" secondAttribute="trailing" id="h1Y-Rk-2Qs"/>
+                            <constraint firstItem="Hhw-6o-ptJ" firstAttribute="leading" secondItem="Eju-Bs-sdF" secondAttribute="leading" id="iR4-wp-t67"/>
+                            <constraint firstAttribute="bottom" secondItem="Hhw-6o-ptJ" secondAttribute="bottom" id="wgu-lm-Qei"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="blackView" destination="Hhw-6o-ptJ" id="tYB-hP-4gK"/>
-                        <outlet property="menuBottomConstraint" destination="v7m-p9-U7A" id="oLE-fK-Kng"/>
+                        <outlet property="menuBottomConstraint" destination="6WP-2Y-3yy" id="rey-fF-X9e"/>
                         <outlet property="tableView" destination="nzg-TI-mU7" id="5xP-Lp-tmG"/>
                     </connections>
                 </viewController>
@@ -100,9 +100,9 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RaT-gI-Pn5">
-                                <rect key="frame" x="0.0" y="403" width="414" height="493"/>
+                                <rect key="frame" x="0.0" y="441" width="414" height="455"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="493" id="OoA-pu-IUY"/>
+                                    <constraint firstAttribute="height" constant="455" id="OoA-pu-IUY"/>
                                     <constraint firstAttribute="width" constant="414" id="uu0-T3-Tun"/>
                                 </constraints>
                                 <connections>
@@ -255,16 +255,15 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="08N-io-Mvv">
-                                <rect key="frame" x="8" y="88" width="398" height="796"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="08N-io-Mvv">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" restorationIdentifier="AddNewBucketViewController" translatesAutoresizingMaskIntoConstraints="NO" id="nlS-mn-XMF">
-                                <rect key="frame" x="8" y="365" width="398" height="519"/>
+                                <rect key="frame" x="0.0" y="365" width="414" height="531"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="519" id="Kvi-tT-dIY"/>
-                                    <constraint firstAttribute="width" constant="398" id="vkX-q8-Na6"/>
+                                    <constraint firstAttribute="height" constant="531" id="Kvi-tT-dIY"/>
+                                    <constraint firstAttribute="width" constant="414" id="vkX-q8-Na6"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="eEY-jj-jos" kind="embed" id="ahH-ga-EXg"/>
@@ -274,9 +273,13 @@
                         <viewLayoutGuide key="safeArea" id="lyY-AY-nay"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="08N-io-Mvv" firstAttribute="trailing" secondItem="lyY-AY-nay" secondAttribute="trailing" id="IYX-r3-uGm"/>
+                            <constraint firstItem="08N-io-Mvv" firstAttribute="leading" secondItem="lyY-AY-nay" secondAttribute="leading" id="LD2-a0-OWd"/>
                             <constraint firstItem="LDI-jR-9m0" firstAttribute="leading" secondItem="lyY-AY-nay" secondAttribute="leading" constant="8" id="TcD-IY-2BN"/>
-                            <constraint firstAttribute="bottom" secondItem="nlS-mn-XMF" secondAttribute="bottom" constant="12" id="dji-Q4-Kwd"/>
-                            <constraint firstItem="nlS-mn-XMF" firstAttribute="leading" secondItem="LDI-jR-9m0" secondAttribute="leading" id="o06-nq-lqG"/>
+                            <constraint firstItem="08N-io-Mvv" firstAttribute="top" secondItem="il2-Zt-v8J" secondAttribute="top" id="UhG-u3-7hR"/>
+                            <constraint firstAttribute="bottom" secondItem="08N-io-Mvv" secondAttribute="bottom" id="VPb-l5-Jfu"/>
+                            <constraint firstAttribute="bottom" secondItem="nlS-mn-XMF" secondAttribute="bottom" id="dji-Q4-Kwd"/>
+                            <constraint firstItem="nlS-mn-XMF" firstAttribute="leading" secondItem="LDI-jR-9m0" secondAttribute="leading" constant="-8" id="o06-nq-lqG"/>
                             <constraint firstItem="lyY-AY-nay" firstAttribute="trailing" secondItem="LDI-jR-9m0" secondAttribute="trailing" constant="8" id="p7g-Dj-M8l"/>
                             <constraint firstItem="LDI-jR-9m0" firstAttribute="top" secondItem="lyY-AY-nay" secondAttribute="top" constant="159" id="teZ-fS-wmE"/>
                             <constraint firstItem="lyY-AY-nay" firstAttribute="bottom" secondItem="LDI-jR-9m0" secondAttribute="bottom" id="wvq-7W-0IM"/>
@@ -286,6 +289,7 @@
                     <connections>
                         <outlet property="blackView" destination="08N-io-Mvv" id="3IY-X3-UVR"/>
                         <outlet property="collectionView" destination="LDI-jR-9m0" id="Hj0-XM-TbZ"/>
+                        <outlet property="containerView" destination="nlS-mn-XMF" id="fL8-2r-umz"/>
                         <outlet property="menuBottomConstraint" destination="dji-Q4-Kwd" id="oYF-Ic-mja"/>
                     </connections>
                 </viewController>
@@ -494,7 +498,7 @@
             <objects>
                 <viewController storyboardIdentifier="AddNewBucketViewController" id="eEY-jj-jos" customClass="AddNewBucketViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kvw-7O-I5R">
-                        <rect key="frame" x="0.0" y="0.0" width="398" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="531"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="36a-dY-hV1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -509,24 +513,24 @@
             <objects>
                 <viewController storyboardIdentifier="AddToBucketViewController" id="VZ6-Ee-Nk6" customClass="AddToBucketViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eue-cx-mMd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="374"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="472"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FbZ-NU-UYP">
-                                <rect key="frame" x="8" y="96" width="398" height="270"/>
+                                <rect key="frame" x="10" y="113" width="394" height="351"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZOu-gc-eLa">
-                                    <size key="itemSize" width="128" height="128"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="ZOu-gc-eLa">
+                                    <size key="itemSize" width="120" height="120"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddToBucketCollectionViewCell" id="K47-xf-bXe" customClass="AddToBucketCollectionViewCell" customModule="PeerBucket" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="A2X-hR-viF">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
@@ -536,10 +540,10 @@
                         <viewLayoutGuide key="safeArea" id="DQw-ov-NMc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="FbZ-NU-UYP" firstAttribute="top" secondItem="eue-cx-mMd" secondAttribute="top" constant="96" id="PUY-I0-YHq"/>
-                            <constraint firstItem="FbZ-NU-UYP" firstAttribute="leading" secondItem="eue-cx-mMd" secondAttribute="leading" constant="8" id="gPh-xz-nf5"/>
+                            <constraint firstItem="FbZ-NU-UYP" firstAttribute="top" secondItem="eue-cx-mMd" secondAttribute="top" constant="113" id="PUY-I0-YHq"/>
+                            <constraint firstItem="FbZ-NU-UYP" firstAttribute="leading" secondItem="eue-cx-mMd" secondAttribute="leading" constant="10" id="gPh-xz-nf5"/>
                             <constraint firstAttribute="bottom" secondItem="FbZ-NU-UYP" secondAttribute="bottom" constant="8" id="vwJ-nK-7bG"/>
-                            <constraint firstAttribute="trailing" secondItem="FbZ-NU-UYP" secondAttribute="trailing" constant="8" id="wQm-KB-8TS"/>
+                            <constraint firstAttribute="trailing" secondItem="FbZ-NU-UYP" secondAttribute="trailing" constant="10" id="wQm-KB-8TS"/>
                         </constraints>
                     </view>
                     <connections>
@@ -555,7 +559,7 @@
             <objects>
                 <viewController storyboardIdentifier="AddScheduleViewController" id="Vdx-b1-DG7" customClass="AddScheduleViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Ac-Vb-qVT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="493"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="6tq-gJ-Mv2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

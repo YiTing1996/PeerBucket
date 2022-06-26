@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import FirebaseStorage
-// import SwiftUI
 
 protocol AddNewBucketDelegate: AnyObject {
     func didTappedClose()
@@ -48,7 +47,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
 
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-//        button.backgroundColor = UIColor.mediumGray
         button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
@@ -65,22 +63,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
         return button
     }()
-    
-//    lazy var addImageButton: UIButton = {
-//        let button = UIButton()
-//        button.backgroundColor = UIColor.lightGray
-//        button.tintColor = .white
-//        button.layer.cornerRadius = 10
-//        button.setTitle("+Image", for: .normal)
-//        button.addTarget(self, action: #selector(tappedImageBtn), for: .touchUpInside)
-//        return button
-//    }()
-    
-//    var imageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFit
-//        return imageView
-//    }()
     
     var hStack: UIStackView = {
         let stackView = UIStackView()
@@ -121,8 +103,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         view.addSubview(categoryTextField)
         view.addSubview(cancelButton)
         view.addSubview(submitButton)
-//        view.addSubview(addImageButton)
-//        view.addSubview(imageView)
         view.addSubview(scrollView)
         scrollView.addSubview(hStack)
         
@@ -158,22 +138,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         submitButton.anchor(top: categoryTextField.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                             paddingTop: 20, paddingLeft: 20, paddingRight: 20, width: 300, height: 50)
         
-//        addImageButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 10, paddingRight: 50)
-//
-//        imageView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 20,
-//                         paddingLeft: 20, width: 50, height: 50)
-        
     }
-    
-//    @objc func tappedImageBtn() {
-//        let picker = UIImagePickerController()
-//        picker.sourceType = .photoLibrary
-//        picker.delegate = self
-//        picker.allowsEditing = true
-//        present(picker, animated: true)
-//
-////        delegate?.didTappedClose()
-//    }
     
     @objc func tappedIconBtn(_ sender: UIButton) {
         sender.layer.borderWidth = 3

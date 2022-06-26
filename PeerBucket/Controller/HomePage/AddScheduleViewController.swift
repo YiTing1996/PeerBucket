@@ -10,7 +10,6 @@ import UIKit
 
 protocol AddScheduleViewControllerDelegate: AnyObject {
     func didTappedClose()
-    //    func didChangeDate()
 }
 
 class AddScheduleViewController: UIViewController, UITextFieldDelegate {
@@ -19,39 +18,49 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     var selectedDate: Date?
     
+    var eventLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.font = UIFont.semiBold(size: 20)
+        label.text = "Add a new event below !"
+        return label
+    }()
+    
     var eventTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Type Event Name Here"
-        textField.layer.borderWidth = 1
+        textField.layer.borderWidth = 0.5
         textField.layer.cornerRadius = 10
         textField.setLeftPaddingPoints(amount: 10)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
     lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
-        //        datePicker.frame = CGRect(x: 10, y: 50, width: 200, height: 50)
         datePicker.timeZone = TimeZone.current
-        datePicker.backgroundColor = UIColor.lightGray
         datePicker.addTarget(self, action: #selector(didChangedDate(_:)), for: .valueChanged)
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.setValue(UIColor.darkGray, forKeyPath: "textColor")
+        datePicker.backgroundColor = .lightGray
+        datePicker.preferredDatePickerStyle = .wheels
         return datePicker
     }()
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
+        button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
     }()
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
+        button.backgroundColor = .mediumGray
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 10
+        button.setTitle("SUBMIT", for: .normal)
+        button.titleLabel?.font = UIFont.semiBold(size: 15)
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
-        button.setTitle("Submit", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -60,24 +69,31 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         configureUI()
         
         eventTextField.delegate = self
-        
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 30
+        view.clipsToBounds = true
+        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
     
     func configureUI() {
         
+        view.addSubview(eventLabel)
         view.addSubview(eventTextField)
         view.addSubview(datePicker)
         view.addSubview(cancelButton)
         view.addSubview(submitButton)
         
-        eventTextField.anchor(top: view.topAnchor, left: view.leftAnchor,
-                              paddingTop: 50, paddingLeft: 50, width: 250, height: 50)
-        datePicker.anchor(top: eventTextField.bottomAnchor, left: view.leftAnchor,
-                          paddingTop: 20, paddingLeft: 50)
         cancelButton.anchor(top: view.topAnchor, right: view.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 50, height: 50)
-        submitButton.anchor(top: datePicker.bottomAnchor, paddingTop: 50, width: 150, height: 50)
-        submitButton.centerX(inView: view)
+                            paddingTop: 10, paddingRight: 20, width: 50, height: 50)
+        eventLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
+                          paddingTop: 25, paddingLeft: 30, height: 50)
+        eventTextField.anchor(top: eventLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
+                              paddingTop: 10, paddingLeft: 30, paddingRight: 30, height: 50)
+        datePicker.anchor(top: eventTextField.bottomAnchor, left: view.leftAnchor,
+                          paddingTop: 20, paddingLeft: 30, height: 100)
+        
+        submitButton.anchor(top: datePicker.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
+                            paddingTop: 20, paddingLeft: 30, paddingRight: 30, height: 50)
         
     }
     

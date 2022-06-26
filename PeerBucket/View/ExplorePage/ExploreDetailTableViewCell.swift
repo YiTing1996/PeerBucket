@@ -64,7 +64,8 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.regular(size: 14)
+//        label.font = UIFont.regular(size: 20)
+//        label.addCharacterSpacing()
         label.textColor = .darkGray
         label.numberOfLines = 0
         return label
@@ -73,10 +74,10 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     lazy var webButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.backgroundColor = UIColor.lightGray
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.semiBold(size: 18)
         button.addTarget(self, action: #selector(tappedWebBtn), for: .touchUpInside)
+        button.backgroundColor = .darkGreen
         button.clipsToBounds = true
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 10
@@ -86,11 +87,11 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     lazy var collectButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.backgroundColor = UIColor.lightGray
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.semiBold(size: 18)
         button.addTarget(self, action: #selector(tappedCollectBtn), for: .touchUpInside)
         button.setTitle("Collect", for: .normal)
+        button.backgroundColor = .darkGreen
         button.clipsToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1

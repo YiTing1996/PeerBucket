@@ -145,9 +145,11 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                self.userIDList.append(user.paringUser[0])
-                print("Find paring user: \(String(describing: user.paringUser[0]))")
                 
+                if user.paringUser != [] {
+                    self.userIDList.append(user.paringUser[0])
+                }
+                                
                 self.datesWithEvent = []
                 for userID in self.userIDList {
                     ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
@@ -226,8 +228,14 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
             return UICollectionViewCell()
         }
         
-        eventCell.configureCell(eventText: datesWithEvent[indexPath.row].event)
+//        eventCell.avatarImageView.image = nil
+        eventCell.avatarImageView.image = UIImage(named: "icon_avatar_none")
+
+        eventCell.configureCell(event: datesWithEvent[indexPath.row])
+
         eventCell.backgroundColor = .lightGray
+        eventCell.layer.borderWidth = 1
+        eventCell.layer.borderColor = UIColor.darkGray.cgColor
         eventCell.layer.cornerRadius = 10
         
         return eventCell
@@ -236,7 +244,7 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenWidth-40, height: 100)
+        return CGSize(width: screenWidth-60, height: 90)
     }
     
     func collectionView(_ collectionView: UICollectionView,

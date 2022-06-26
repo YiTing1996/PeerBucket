@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseStorage
+import FirebaseFirestore
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                           UINavigationControllerDelegate {
@@ -145,6 +146,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                 if self.upcomingDate != 0 {
                     self.eventLabel.text =
                     "\(String(describing: self.upcomingEvent))\nCount down \(String(describing: self.upcomingDate)) Days"
+                } else if self.upcomingEvent == "" {
+                    self.eventLabel.text =
+                    "There's no upcoming event"
                 } else {
                     self.eventLabel.text =
                     "\(String(describing: self.upcomingEvent)) is Today!"
@@ -283,5 +287,26 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         }
         
     }
+    
+    //    lazy var statusSwitch: UISwitch = {
+    //        let statusSwitch = UISwitch()
+    //        statusSwitch.tintColor = .darkGreen
+    //        statusSwitch.onTintColor = .darkGreen
+    //        statusSwitch.thumbTintColor = .white
+    //        statusSwitch.addTarget(self, action: #selector(tappedSwitch), for: .valueChanged)
+    //        return statusSwitch
+    //    }()
+    
+    //    @objc func tappedSwitch() {
+    //        if statusSwitch.isOn {
+    //            // 呈現相簿頁
+    //            containerView.isHidden = false
+    //            print("switch is on")
+    //        } else {
+    //            // 呈現bucket category頁
+    //            containerView.isHidden = true
+    //            print("switch is off")
+    //        }
+    //    }
     
 }

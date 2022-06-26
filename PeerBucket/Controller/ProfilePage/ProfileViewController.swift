@@ -209,7 +209,7 @@ class ProfileViewController: UIViewController {
     
     func downloadPhoto() {
         
-        // fetch background photo from firebase
+        // fetch avatar photo from firebase
         UserManager.shared.fetchUserData(userID: currentUserUID) { result in
             switch result {
             case .success(let user):
