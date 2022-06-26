@@ -8,17 +8,21 @@
 import UIKit
 
 enum FontName: String {
+    
+    case regular = "GillSans-Regular"
 
-    case regular = "PingFangTC-Regular"
+    case medium = "GillSans-Medium"
 
-    case medium = "PingFangTC-Medium"
-
-    case semiBold = "PingFangTC-Semibold"
+    case semiBold = "GillSans-Semibold"
+    
+    case bold = "GillSans-Bold"
+    
+//    case bold = "MarkerFelt-Wide"
 
 }
 
 extension UIFont {
-
+    
     static func regular(size: CGFloat) -> UIFont? {
 
         return UIFont(name: FontName.regular.rawValue, size: size)
@@ -32,6 +36,11 @@ extension UIFont {
     static func semiBold(size: CGFloat) -> UIFont? {
 
         return UIFont(name: FontName.semiBold.rawValue, size: size)
+    }
+    
+    static func bold(size: CGFloat) -> UIFont? {
+
+        return UIFont(name: FontName.bold.rawValue, size: size)
     }
 
     private static func font(_ font: FontName, size: CGFloat) -> UIFont? {

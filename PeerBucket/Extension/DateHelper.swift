@@ -8,28 +8,20 @@
 import Foundation
 
 extension Date {
-    var millisecondsSince1970: Int64 {
-        return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
-    }
-    
-    init(milliseconds: Int64) {
-        self = Date(timeIntervalSince1970: TimeInterval(milliseconds / 1000))
-    }
     
     static var dateFormatter: DateFormatter {
         
         let formatter = DateFormatter()
-        
         formatter.dateFormat = "yyyy.MM.dd HH:mm"
-                
+        formatter.timeZone = TimeZone.current
+
         return formatter
-        
     }
 
     func distance(from date: Date,
-                  only component: Calendar.Component,
-                  calendar: Calendar = .current) -> Int {
+                  only component: Calendar.Component) -> Int {
 
+        let calendar: Calendar = .current
         let days1 = calendar.component(component, from: self)
         let days2 = calendar.component(component, from: date)
 

@@ -22,7 +22,10 @@ class ExploreDetailViewController: UIViewController {
         
         blackView.backgroundColor = .black
         blackView.alpha = 0
-        menuBottomConstraint.constant = 500
+        menuBottomConstraint.constant = -500
+        
+        tableView.backgroundColor = .lightGray
+        view.backgroundColor = .lightGray
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -80,7 +83,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 300
+            return 400
         case 1:
             return 80
         default:
@@ -113,7 +116,7 @@ extension ExploreDetailViewController: AddToBucketViewControllerDelegate {
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = 500
+            self.menuBottomConstraint.constant = -500
             self.blackView.alpha = 0
         }
     }

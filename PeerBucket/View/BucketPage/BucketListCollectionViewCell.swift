@@ -8,22 +8,23 @@
 import UIKit
 
 class BucketListCollectionViewCell: UICollectionViewCell {
-        
+    
     var categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.tintColor = .blue
+        label.textColor = .darkGray
+        label.font = UIFont.semiBold(size: 20)
+        label.numberOfLines = 0
         return label
     }()
     
     var categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .bgGray
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         // initialize what is needed
@@ -33,16 +34,19 @@ class BucketListCollectionViewCell: UICollectionViewCell {
     func configureUI() {
         addSubview(categoryImageView)
         addSubview(categoryLabel)
-        categoryLabel.centerX(inView: self)
-        categoryLabel.centerY(inView: self)
         
-        categoryImageView.anchor(top: topAnchor, left: leftAnchor, width: 120, height: 240)
+        categoryImageView.centerX(inView: self)
+        categoryLabel.centerX(inView: self)
+
+        categoryImageView.anchor(top: topAnchor, paddingTop: 20, width: 50, height: 50)
+        categoryLabel.anchor(top: categoryImageView.bottomAnchor, paddingTop: 15)
         
     }
     
     func configureCell(category: BucketCategory) {
         categoryLabel.text = category.category
         
+        // cell icon
         guard let urlString = category.image as String?,
               let url = URL(string: urlString) else {
             return

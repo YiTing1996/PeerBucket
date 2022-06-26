@@ -17,7 +17,7 @@ class ChallengeUIView: UIView {
     }
     */
     
-    var lineColor = UIColor.textGray
+    var lineColor = UIColor.darkGreen
     var lineWidth: CGFloat = 10
     var path: UIBezierPath!
     var touchPoint: CGPoint!

@@ -23,9 +23,17 @@ class AddToBucketViewController: UIViewController {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
+        button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
+    }()
+    
+    var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.font = UIFont.semiBold(size: 20)
+        label.text = "Select a bucket category you want to add !"
+        return label
     }()
     
     var selectedBucketTitle: String?
@@ -34,12 +42,24 @@ class AddToBucketViewController: UIViewController {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        view.addSubview(cancelButton)
-        cancelButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 10, paddingRight: 10)
+        collectionView.backgroundColor = .lightGray
+
+        configureUI()
         
         getData(userID: currentUserUID)
         
+    }
+    
+    func configureUI() {
+        view.layer.cornerRadius = 30
+        view.clipsToBounds = true
+        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        view.backgroundColor = .lightGray
+        
+        view.addSubview(titleLabel)
+        view.addSubview(cancelButton)
+        cancelButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 10, paddingRight: 10)
+        titleLabel.anchor(top: cancelButton.bottomAnchor, left: view.leftAnchor, paddingTop: 5, paddingLeft: 20, height: 50)
     }
     
     func getData(userID: String) {
@@ -49,8 +69,10 @@ class AddToBucketViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                self.userIDList.append(user.paringUser[0])
-                print("Find paring user: \(String(describing: user.paringUser[0]))")
+                
+                if user.paringUser != [] {
+                    self.userIDList.append(user.paringUser[0])
+                }
                 
                 self.bucketCategories = []
                 for userID in self.userIDList {
@@ -69,7 +91,7 @@ class AddToBucketViewController: UIViewController {
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-                        print("userIDList: \(self.userIDList)")
+//                        print("userIDList: \(self.userIDList)")
                     }
                 }
                 
@@ -99,11 +121,11 @@ extension AddToBucketViewController: UICollectionViewDataSource {
             for: indexPath)
         guard let cell = cell as? AddToBucketCollectionViewCell else { return cell }
         
-        cell.clipsToBounds = true
-        cell.layer.cornerRadius = cell.frame.height/4
-        cell.backgroundColor = UIColor.hightlightBg
+        cell.layer.cornerRadius = 20
+        cell.layer.borderColor = UIColor.darkGray.cgColor
+        cell.layer.borderWidth = 1
         
-        cell.categoryLabel.text = bucketCategories[indexPath.row].category
+        cell.configureCell(bucketCategories: bucketCategories[indexPath.row])
         
         return cell
         
@@ -116,16 +138,12 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: 120, height: 120)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        
-        let totalWidth = UIScreen.main.bounds.width
-        return (totalWidth-360)/10
-        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -138,7 +156,8 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
             status: false,
             list: title,
             categoryId: bucketCategories[indexPath.row].id,
-            listId: ""
+            listId: "",
+            images: []
         )
         
         BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in

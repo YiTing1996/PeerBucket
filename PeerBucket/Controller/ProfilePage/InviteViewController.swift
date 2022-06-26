@@ -22,7 +22,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     var outputTextView: UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .bgGray
+        textView.backgroundColor = .lightGray
         return textView
     }()
     
@@ -198,10 +198,10 @@ extension InviteViewController {
                 // query既有的user取得資料
                 fetchUserData(identityType: .paringUser, userID: metadataObj.stringValue ?? "")
                 // 如果已經有paring user 就不能再新增
-                guard paringUser?.paringUser != [] else {
-                    self.presentErrorAlert(message: "Oops!User \(String(describing: paringUser?.userName)) already have bucket peer")
-                    return
-                }
+//                guard paringUser?.paringUser != [] else {
+//                    self.presentErrorAlert(message: "Oops!User \(String(describing: paringUser?.userName)) already have bucket peer")
+//                    return
+//                }
 
                 self.presentInviteAlert(
                     title: "Invite your BucketPeer to chat and share bucket list!",

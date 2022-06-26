@@ -7,22 +7,28 @@
 
 import Foundation
 import UIKit
+import CoreMIDI
 
 class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
-    
+    @IBOutlet weak var containerView: UIView!
+
     lazy var addCategoryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
-        button.setTitle("Add", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 10
+        button.setImage(UIImage(named: "icon_func_add"), for: .normal)
+        return button
+    }()
+    
+    lazy var randomPickButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tappedPickBtn), for: .touchUpInside)
+        button.setImage(UIImage(named: "icon_func_random"), for: .normal)
         return button
     }()
     
@@ -35,25 +41,58 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         return gesture
     }()
     
+    var progressView: UIProgressView = {
+        let progress = UIProgressView()
+        progress.progressTintColor = UIColor.hightlightYellow
+        progress.trackTintColor = UIColor.darkGreen
+        progress.progress = 0.8
+        return progress
+    }()
+    
+    var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGreen
+        label.font = UIFont.bold(size: 28)
+        //        label.text = "Bucket Progress 60%"
+        return label
+    }()
+    
+    var progressLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .hightlightYellow
+        label.font = UIFont.semiBold(size: 20)
+        label.text = "60 of 100 accomplished"
+        return label
+    }()
+    
     var bucketCategories: [BucketCategory] = []
+    var bucketLists: [BucketList] = []
+    var shareBucketListCount: Int = 0
+    var shareFinishedListCount: Int = 0
     
     var selectedBucket: BucketCategory?
     var userIDList: [String] = [currentUserUID]
+    var progress: Float?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getDataBySemphore(userID: currentUserUID)
+        self.view.backgroundColor = .lightGray
+        collectionView.backgroundColor = .lightGray
+        
+        getData(userID: currentUserUID)
         
         configureUI()
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .clear
         
-        menuBottomConstraint.constant = -500
+        menuBottomConstraint.constant = -600
         blackView.backgroundColor = .black
         blackView.alpha = 0
+        
+        view.bringSubviewToFront(blackView)
+        view.bringSubviewToFront(containerView)
         
         collectionView.addGestureRecognizer(longPressGesture)
         
@@ -76,7 +115,9 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                     switch result {
                     case .success:
                         self.presentSuccessAlert()
-                        self.collectionView.reloadData()
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
                     case .failure(let error):
                         self.presentErrorAlert(message: error.localizedDescription + " Please try again")
                     }
@@ -90,8 +131,22 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func configureUI() {
         view.addSubview(addCategoryButton)
+        view.addSubview(progressView)
+        view.addSubview(progressLabel)
+        view.addSubview(titleLabel)
+        view.addSubview(randomPickButton)
+        
         addCategoryButton.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
-                                 paddingBottom: 20, paddingRight: 10, width: 120, height: 50)
+                                 paddingBottom: 20, paddingRight: 10)
+        randomPickButton.anchor(bottom: collectionView.topAnchor, right: addCategoryButton.leftAnchor,
+                                paddingBottom: 20, paddingRight: 10)
+        titleLabel.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 100,
+                          paddingLeft: 20, height: 40)
+        progressLabel.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor,
+                             paddingTop: 10, paddingLeft: 20, height: 30)
+        progressView.anchor(top: progressLabel.bottomAnchor, left: view.leftAnchor,
+                            paddingTop: 10, paddingLeft: 20, width: 200, height: 20)
+        
     }
     
     @objc func tappedAddBtn() {
@@ -101,20 +156,32 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    func getDataBySemphore(userID: String) {
+    @objc func tappedPickBtn() {
+        let unFinishedBucketList = bucketLists.filter { $0.status == false }
+        let randomNum = Int.random(in: 0..<unFinishedBucketList.count)
+        self.presentSuccessAlert(title: "Recommend To You", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
+    }
+    
+    func getData(userID: String) {
         
-//        let semaphore = DispatchSemaphore(value: 1)
-//        semaphore.wait()
+        //        let semaphore = DispatchSemaphore(value: 1)
+        //        semaphore.wait()
         
         // fetch current user's paring user and append to userList
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                self.userIDList.append(user.paringUser[0])
-                print("Find paring user: \(String(describing: user.paringUser[0]))")
+                
+                if user.paringUser != [] {
+                    self.userIDList.append(user.paringUser[0])
+                }
                 
                 self.bucketCategories = []
+                self.bucketLists = []
+                self.shareBucketListCount = 0
+                self.shareFinishedListCount = 0
+
                 for userID in self.userIDList {
                     BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
                         
@@ -131,8 +198,45 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-                        print("userIDList: \(self.userIDList)")
-//                        semaphore.signal()
+                        
+                        //                        semaphore.signal()
+                    }
+                    
+                    // fetch all bucket lists
+                    BucketListManager.shared.fetchBucketListBySender(senderId: userID) { [weak self] result in
+                        
+                        guard let self = self else { return }
+                        
+                        switch result {
+                        case .success(let bucketLists):
+                            self.bucketLists += bucketLists
+                            self.shareBucketListCount += bucketLists.count
+                            
+                            let finishedBucketList = bucketLists.filter { $0.status == true }
+                            self.shareFinishedListCount += finishedBucketList.count
+                            
+                            self.progress = Float(self.shareFinishedListCount) / Float(self.shareBucketListCount)
+                            self.progressView.progress = self.progress!
+                            
+                            if bucketLists.count == 0 {
+                                DispatchQueue.main.async {
+                                    self.titleLabel.text = "There's no bucket."
+                                    self.progressLabel.text = "Let's add new bucket list!"
+                                    self.randomPickButton.isEnabled = false
+                                    self.collectionView.reloadData()
+                                }
+                            } else {
+                                DispatchQueue.main.async {
+                                    self.titleLabel.text = "Bucket Progress \(Int(self.progress!*100))%"
+                                    self.progressLabel.text = "\(self.shareFinishedListCount) of \(self.shareBucketListCount) buckets accomplished"
+                                    self.randomPickButton.isEnabled = true
+                                    self.collectionView.reloadData()
+                                }
+                            }
+                            
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                        }
                     }
                 }
                 
@@ -143,7 +247,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // fetch bucket list by self & paring user ID
+    // fetch bucket category by self & paring user ID
     func loadBucketCategory() {
         self.bucketCategories = []
         for userID in userIDList {
@@ -165,7 +269,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                 }
             })
         }
-        print("userIDList: \(userIDList)")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -190,8 +293,9 @@ extension BucketListViewController: UICollectionViewDataSource {
         guard let cell = cell as? BucketListCollectionViewCell else { return cell }
         
         cell.clipsToBounds = true
+        cell.layer.borderWidth = 1
         cell.layer.cornerRadius = cell.frame.height/30
-        cell.backgroundColor = UIColor.bgGray
+        cell.backgroundColor = UIColor.lightGray
         
         cell.configureCell(category: bucketCategories[indexPath.row])
         
@@ -206,16 +310,12 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120, height: 240)
+        return CGSize(width: 190, height: 120)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        
-        let totalWidth = UIScreen.main.bounds.width
-        return (totalWidth-360)/6
-        
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -235,8 +335,12 @@ extension BucketListViewController: AddNewBucketDelegate {
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = -500
+            self.menuBottomConstraint.constant = -600
             self.blackView.alpha = 0
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
     }
 }

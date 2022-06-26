@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseStorage
+import FirebaseFirestore
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                           UINavigationControllerDelegate {
@@ -27,7 +28,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     var eventView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .bgGray
+        view.backgroundColor = .lightGray
         view.layer.cornerRadius = 20
         view.alpha = 0.6
         return view
@@ -35,37 +36,33 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var eventLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        //        label.font = UIFont.semiBold(size: 30)
-        label.font = UIFont(name: "Academy Engraved LET", size: 28)
+        label.textColor = .darkGray
+        label.font = UIFont.bold(size: 25)
         label.numberOfLines = 0
         return label
     }()
     
     lazy var bgButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedBgBtn), for: .touchUpInside)
-        button.setTitle("BG", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
-        button.layer.cornerRadius = 20
-        //        button.alpha = 0.5
+        button.setImage(UIImage(named: "icon_changeBg"), for: .normal)
+        button.setTitleColor(UIColor.darkGreen, for: .normal)
+        button.layer.cornerRadius = 10
         return button
     }()
     
     lazy var eventButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedEventBtn), for: .touchUpInside)
-        button.setTitle(">", for: .normal)
-        button.layer.cornerRadius = 20
+        button.setImage(UIImage(named: "icon_calendar_dark"), for: .normal)
+        button.layer.cornerRadius = 10
         return button
     }()
     
     var chatView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .bgGray
+        view.backgroundColor = .lightGray
         view.layer.cornerRadius = 20
         view.alpha = 0.6
         return view
@@ -73,8 +70,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var chatLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.font = UIFont(name: "Academy Engraved LET", size: 28)
+        label.textColor = .darkGray
+        label.font = UIFont.bold(size: 25)
         label.text = "Hamburger: Hello"
         label.numberOfLines = 0
         return label
@@ -82,11 +79,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     lazy var chatButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedChatBtn), for: .touchUpInside)
-        button.setTitle("Chat", for: .normal)
-        button.setTitleColor(UIColor.textGray, for: .normal)
-        button.layer.cornerRadius = 20
+        button.setImage(UIImage(named: "icon_chat_2"), for: .normal)
+        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -150,7 +145,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
 
                 if self.upcomingDate != 0 {
                     self.eventLabel.text =
-                    "\(String(describing: self.upcomingEvent))\nCount down \(String(describing: self.upcomingDate))days"
+                    "\(String(describing: self.upcomingEvent))\nCount down \(String(describing: self.upcomingDate)) Days"
+                } else if self.upcomingEvent == "" {
+                    self.eventLabel.text =
+                    "There's no upcoming event"
                 } else {
                     self.eventLabel.text =
                     "\(String(describing: self.upcomingEvent)) is Today!"
@@ -289,5 +287,26 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         }
         
     }
+    
+    //    lazy var statusSwitch: UISwitch = {
+    //        let statusSwitch = UISwitch()
+    //        statusSwitch.tintColor = .darkGreen
+    //        statusSwitch.onTintColor = .darkGreen
+    //        statusSwitch.thumbTintColor = .white
+    //        statusSwitch.addTarget(self, action: #selector(tappedSwitch), for: .valueChanged)
+    //        return statusSwitch
+    //    }()
+    
+    //    @objc func tappedSwitch() {
+    //        if statusSwitch.isOn {
+    //            // 呈現相簿頁
+    //            containerView.isHidden = false
+    //            print("switch is on")
+    //        } else {
+    //            // 呈現bucket category頁
+    //            containerView.isHidden = true
+    //            print("switch is off")
+    //        }
+    //    }
     
 }

@@ -64,6 +64,34 @@ class BucketListManager {
                 completion(.success(bucketLists))
             }
         }
+    }
+    
+    // query bucket list by id of bucket category
+    func fetchBucketListBySender(senderId: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
+        
+        dataBase.collection("bucketList").whereField("senderId", isEqualTo: senderId).getDocuments { (querySnapshot, error) in
+            
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+                
+            } else {
+                
+                var bucketLists = [BucketList]()
+                
+                for document in querySnapshot!.documents {
+                    
+                    do {
+                        if let bucketList = try document.data(as: BucketList?.self, decoder: Firestore.Decoder()) {
+                            bucketLists.append(bucketList)
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+                completion(.success(bucketLists))
+            }
+        }
         
     }
     
@@ -81,7 +109,7 @@ class BucketListManager {
             if let error = error {
                 print("Error updating document: \(error)")
             } else {
-                print("Document successfully updated")                
+                print("Document successfully updated")
             }
         }
     }
@@ -105,7 +133,7 @@ class BucketListManager {
     
     // MARK: - Update
     
-    func updateBucketListStatus(bucketList: BucketList, completion: @escaping(Result<String, Error>) -> Void) {
+    func updateBucketList(bucketList: BucketList, completion: @escaping(Result<String, Error>) -> Void) {
         do {
             try dataBase.collection("bucketList").document(bucketList.listId).setData(from: bucketList)
             completion(.success(bucketList.listId))
@@ -133,5 +161,4 @@ class BucketListManager {
             }
         }
     }
-    
 }

@@ -69,18 +69,22 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func configueCalendarUI() {
         
+        self.view.backgroundColor = .lightGray
+        collectionView.backgroundColor = .lightGray
+        
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
         calendar.dataSource = self
         calendar.delegate = self
         view.addSubview(calendar)
         self.calendar = calendar
         
-        calendar.appearance.headerTitleColor = .hightlightColor
-        calendar.appearance.selectionColor = .hightlightColor
-        calendar.appearance.weekdayTextColor = .textGray
-        calendar.appearance.todayColor = .orange
+        calendar.appearance.titleFont = UIFont.regular(size: 14)
+        calendar.appearance.headerTitleColor = .darkGray
+        calendar.appearance.selectionColor = .hightlightYellow
+        calendar.appearance.weekdayTextColor = .darkGray
+        calendar.appearance.todayColor = .hightlightYellow
         calendar.layer.cornerRadius = 10
-        calendar.backgroundColor = .bgGray
+        calendar.backgroundColor = .clear
         
         calendar.anchor(top: view.topAnchor, left: view.leftAnchor,
                         right: view.rightAnchor, paddingTop: 100,
@@ -141,9 +145,11 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                self.userIDList.append(user.paringUser[0])
-                print("Find paring user: \(String(describing: user.paringUser[0]))")
                 
+                if user.paringUser != [] {
+                    self.userIDList.append(user.paringUser[0])
+                }
+                                
                 self.datesWithEvent = []
                 for userID in self.userIDList {
                     ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
@@ -159,7 +165,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-                        print("userIDList: \(self.userIDList)")
+//                        print("userIDList: \(self.userIDList)")
                     }
                 }
 
@@ -192,7 +198,7 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-                print("userIDList: \(self.userIDList)")
+//                print("userIDList: \(self.userIDList)")
             }
         }
     }
@@ -222,8 +228,14 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
             return UICollectionViewCell()
         }
         
-        eventCell.configureCell(eventText: datesWithEvent[indexPath.row].event)
-        eventCell.backgroundColor = .bgGray
+//        eventCell.avatarImageView.image = nil
+        eventCell.avatarImageView.image = UIImage(named: "icon_avatar_none")
+
+        eventCell.configureCell(event: datesWithEvent[indexPath.row])
+
+        eventCell.backgroundColor = .lightGray
+        eventCell.layer.borderWidth = 1
+        eventCell.layer.borderColor = UIColor.darkGray.cgColor
         eventCell.layer.cornerRadius = 10
         
         return eventCell
@@ -232,7 +244,7 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenWidth-40, height: 100)
+        return CGSize(width: screenWidth-60, height: 90)
     }
     
     func collectionView(_ collectionView: UICollectionView,
