@@ -167,15 +167,17 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         
     }
     
+    // tableview automatic dimension
     func configureInfoCell(content: ExploreBucket) {
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(descriptionLabel)
         
-        titleLabel.anchor(top: topAnchor, left: leftAnchor, bottom: descriptionLabel.topAnchor,
-                          paddingTop: 10, paddingLeft: 10, paddingBottom: 10, height: 30)
+        titleLabel.anchor(top: contentView.topAnchor, left: contentView.leftAnchor,
+                          paddingTop: 10, paddingLeft: 10, height: 30)
         titleLabel.text = content.title
-        descriptionLabel.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
-                                   paddingLeft: 10, paddingBottom: 10, paddingRight: 10, height: 400)
+        descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: contentView.leftAnchor,
+                                bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
+                                paddingTop: 20, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
         descriptionLabel.text = content.description
     }
     
