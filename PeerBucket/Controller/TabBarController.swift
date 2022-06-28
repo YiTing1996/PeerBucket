@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
@@ -15,25 +16,28 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
     }
     
-//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController)->Bool {
+//    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
 //        if let navController = viewController as? UINavigationController,
-//           let _ = navController.viewControllers.first as? ChatViewController {
-//            if fetchToken() {
+//           let _ = navController.viewControllers.first as? ProfileViewController {
+//            if fetchUser() {
 //                return true
 //            } else {
-//                let logInViewController = LogInViewController()
-//                logInViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-//                self.present(logInViewController, animated: false)
-//                // 記得return false
+//                let homeVC = storyboard?.instantiateViewController(withIdentifier: "homeVC")
+//                guard let homeVC = homeVC as? HomeViewController else { return false }
+//                navigationController?.pushViewController(homeVC, animated: true)
 //                return false
 //            }
 //        } else {
 //            return true
 //        }
 //    }
-//
-//    func fetchToken() -> Bool {
-//        return (KeychainManager.shared.check(service: "accessToken", account: "PeerBucket"))
-//    }
+
+    func fetchUser() -> Bool {
+        if Auth.auth().currentUser != nil {
+            return true
+        } else {
+            return false
+        }
+    }
     
 }

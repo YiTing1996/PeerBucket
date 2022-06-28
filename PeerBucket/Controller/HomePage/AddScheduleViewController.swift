@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 protocol AddScheduleViewControllerDelegate: AnyObject {
     func didTappedClose()
@@ -17,6 +18,8 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     weak var delegate: AddScheduleViewControllerDelegate?
     
     var selectedDate: Date?
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
     
     var eventLabel: UILabel = {
         let label = UILabel()
@@ -66,13 +69,18 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+//        print(currentUserUID)
+        
         configureUI()
         
         eventTextField.delegate = self
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 30
-        view.clipsToBounds = true
-        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+
     }
     
     func configureUI() {
@@ -82,6 +90,11 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(datePicker)
         view.addSubview(cancelButton)
         view.addSubview(submitButton)
+        
+        view.backgroundColor = .lightGray
+        view.layer.cornerRadius = 30
+        view.clipsToBounds = true
+        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         cancelButton.anchor(top: view.topAnchor, right: view.rightAnchor,
                             paddingTop: 10, paddingRight: 20, width: 50, height: 50)
@@ -107,10 +120,12 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     @objc func tappedSubmitBtn() {
         
+        guard let currentUserUID = currentUserUID else { return }
+        
         if eventTextField.text != "" {
             
             var schedule: Schedule = Schedule(
-                senderId: testUserID,
+                senderId: currentUserUID,
                 event: eventTextField.text ?? "",
                 id: "",
                 eventDate: selectedDate ?? Date()

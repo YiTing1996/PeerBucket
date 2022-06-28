@@ -7,15 +7,14 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
-    
-    var currentUser: User?
-    
+        
     var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -28,12 +27,9 @@ class ProfileViewController: UIViewController {
     
     lazy var avatarButton: UIButton = {
         let button = UIButton()
-//        button.backgroundColor = UIColor.bgGray
         button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
         button.setTitle("Change Avatar", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
-//        button.layer.borderWidth = 0.5
-//        button.layer.cornerRadius = 5
         button.titleLabel?.font = UIFont.semiBold(size: 12)
         return button
     }()
@@ -101,7 +97,7 @@ class ProfileViewController: UIViewController {
     lazy var logoutButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.lightGray
-//        button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedSignoutBtn), for: .touchUpInside)
         button.setTitle("Log Out", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
@@ -113,7 +109,7 @@ class ProfileViewController: UIViewController {
     lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.lightGray
-//        button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tappedDeleteBtn), for: .touchUpInside)
         button.setTitle("Delete Account", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
@@ -122,24 +118,36 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+        
         configureUI()
         
-        menuBottomConstraint.constant = -500
-        blackView.backgroundColor = .black
-        blackView.alpha = 0
-        
-        view.bringSubviewToFront(blackView)
-        view.bringSubviewToFront(containerView)
-        
-        self.view.backgroundColor = .lightGray
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        downloadPhoto()
+        
+        guard let currentUserUID = currentUserUID else {
+            
+            let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginVC")
+            guard let loginVC = loginVC as? LoginViewController else { return }
+//            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: true)
+            
+            return
+        }
+        downloadPhoto(userID: currentUserUID)
+
     }
     
     func configureUI() {
@@ -154,6 +162,14 @@ class ProfileViewController: UIViewController {
         view.addSubview(accountLabel)
         view.addSubview(logoutButton)
         view.addSubview(deleteButton)
+        
+        menuBottomConstraint.constant = -500
+        blackView.backgroundColor = .black
+        blackView.alpha = 0
+        
+        view.bringSubviewToFront(blackView)
+        view.bringSubviewToFront(containerView)
+        self.view.backgroundColor = .lightGray
         
         avatarImageView.anchor(top: view.topAnchor, paddingTop: 100,
                                width: 200, height: 200)
@@ -201,16 +217,70 @@ class ProfileViewController: UIViewController {
         navigationController?.pushViewController(avatarVC, animated: true)
     }
     
+    @objc func tappedSignoutBtn() {
+        do {
+          try Auth.auth().signOut()
+
+            let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginVC")
+            guard let loginVC = loginVC as? LoginViewController else { return }
+            navigationController?.pushViewController(loginVC, animated: true)
+            self.presentSuccessAlert()
+            print("Successfully sign out")
+        } catch let signOutError as NSError {
+            print("Error signing out:", signOutError)
+            self.presentErrorAlert(message: signOutError.localizedDescription + " Please try again")
+        }
+    }
+    
+    // MARK: - Firebase data process
+
+    @objc func tappedDeleteBtn() {
+        
+        do {
+            
+            // TODO: 沒被刪掉？？
+            Auth.auth().currentUser?.delete()
+                        
+            guard let currentUserUID = currentUserUID else {
+                return
+            }
+            
+            UserManager.shared.deleteUserData(uid: currentUserUID, completion: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    
+                    // back to loginVC
+                    let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC")
+                    guard let loginVC = loginVC as? LoginViewController else { return }
+                    self.navigationController?.pushViewController(loginVC, animated: true)
+
+                    // present success
+                    self.presentSuccessAlert()
+                    print("Successfully delete account")
+                    
+                case .failure(let error):
+                    self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    print("Delete account error: \(error)")
+                }
+            })
+
+        } catch let deleteError as NSError {
+            print("Delete account error:", deleteError)
+            self.presentErrorAlert(message: deleteError.localizedDescription + " Please try again")
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? QRCodeViewController {
             destination.delegate = self
         }
     }
     
-    func downloadPhoto() {
+    func downloadPhoto(userID: String) {
         
         // fetch avatar photo from firebase
-        UserManager.shared.fetchUserData(userID: currentUserUID) { result in
+        UserManager.shared.fetchUserData(userID: userID) { result in
             switch result {
             case .success(let user):
                 
@@ -236,8 +306,9 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
 }
+
+// MARK: - Delegate
 
 extension ProfileViewController: QRCodeViewControllerDelegate {
     func didTappedClose() {

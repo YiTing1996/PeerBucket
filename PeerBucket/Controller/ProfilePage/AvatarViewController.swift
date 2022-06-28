@@ -8,12 +8,15 @@
 import Foundation
 import UIKit
 import FirebaseStorage
+import FirebaseAuth
 
 class AvatarViewController: UIViewController {
     
     private let storage = Storage.storage().reference()
 
     var currentUser: User?
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
@@ -21,6 +24,7 @@ class AvatarViewController: UIViewController {
         button.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
         button.setTitle("Submit", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
+        button.titleLabel?.font = UIFont.semiBold(size: 15)
         return button
     }()
     
@@ -29,12 +33,22 @@ class AvatarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+        
+        guard let currentUserUID = currentUserUID else {
+            return
+        }
+        fetchUserData(userID: currentUserUID)
+        
         hairView.isHidden = false
         faceView.isHidden = true
         glassesView.isHidden = true
         bodyView.isHidden = true
         navigationItem.rightBarButtonItem = menuBarItem
-        fetchUserData(userID: currentUserUID)
         
         self.view.backgroundColor = .lightGray
 
@@ -62,7 +76,6 @@ class AvatarViewController: UIViewController {
     @IBOutlet weak var bodyView: UIView!
     
     @objc func tappedSubmit() {
-        print("Tapped Submit")
         let renderer = UIGraphicsImageRenderer(size: backgroundView.bounds.size)
         let image = renderer.image(actions: { _ in
            backgroundView.drawHierarchy(in: backgroundView.bounds, afterScreenUpdates: true)
@@ -71,8 +84,10 @@ class AvatarViewController: UIViewController {
         presentSuccessAlert()
     }
     
-    // fetch current user's data
+    // MARK: - Firebase data process
+    
     func fetchUserData(userID: String) {
+        
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -81,12 +96,33 @@ class AvatarViewController: UIViewController {
                 print("current user is: \(String(describing: self.currentUser))")
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                print("Can't find user in homeVC")
+                print("Can't find user in avatarVC")
             }
         }
     }
     
-    // upload to firebase storage
+    func saveAvatar(urlString: String) {
+        
+        guard let currentUser = self.currentUser else {
+            return
+        }
+
+        let user = User(userID: currentUser.userID,
+                        userAvatar: urlString,
+                        userHomeBG: currentUser.userHomeBG,
+                        userName: currentUser.userName,
+                        paringUser: currentUser.paringUser)
+        
+        UserManager.shared.updateUserData(user: user) { result in
+            switch result {
+            case .success:
+                print("Successfully update avatar to firebase")
+            case .failure(let error):
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+            }
+        }
+    }
+    
     func avatarProcess(image: UIImage) {
         guard let imageData = image.pngData() else {
             return
@@ -107,30 +143,13 @@ class AvatarViewController: UIViewController {
                 let urlString = url.absoluteString
                 UserDefaults.standard.set(urlString, forKey: "url")
                 
-                // save to firebase
-                print("currentUser: \(String(describing: self.currentUser))")
-                guard let currentUser = self.currentUser else {
-                    return
-                }
-
-                let user = User(userEmail: currentUser.userEmail,
-                                userID: currentUserUID,
-                                userAvatar: urlString,
-                                userHomeBG: currentUser.userHomeBG,
-                                userName: currentUser.userName,
-                                paringUser: currentUser.paringUser)
+                self.saveAvatar(urlString: urlString)
                 
-                UserManager.shared.updateUserData(user: user) { result in
-                    switch result {
-                    case .success:
-                        print("Successfully update avatar to firebase")
-                    case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                    }
-                }
             })
         }
     }
+    
+    // MARK: - Button actions
     
     @IBAction func changeHair(_ sender: UIButton) {
         let image = sender.currentBackgroundImage

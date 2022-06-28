@@ -149,17 +149,73 @@
         <!--Login View Controller-->
         <scene sceneID="pkc-Ke-EMN">
             <objects>
-                <viewController id="4NI-nx-dkp" customClass="LoginViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="4NI-nx-dkp" customClass="LoginViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MTU-LT-VqX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8G6-UM-j60">
+                                <rect key="frame" x="0.0" y="206" width="414" height="690"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BUCKET" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRF-Gs-DQ9">
+                                        <rect key="frame" x="47" y="-1" width="251" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="55"/>
+                                        <color key="textColor" red="0.19215686269999999" green="0.30588235289999999" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="one_leg_up-2" translatesAutoresizingMaskIntoConstraints="NO" id="lco-dc-PMr">
+                                        <rect key="frame" x="-77" y="236" width="251" height="376"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bangs 2" translatesAutoresizingMaskIntoConstraints="NO" id="uEL-Jy-kKz">
+                                        <rect key="frame" x="-125" y="139" width="292" height="153"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Concerned" translatesAutoresizingMaskIntoConstraints="NO" id="egP-X8-xJH">
+                                        <rect key="frame" x="-42" y="193" width="151" height="79"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Sunglasses 2" translatesAutoresizingMaskIntoConstraints="NO" id="vKa-xy-7Ke">
+                                        <rect key="frame" x="-28" y="200" width="97" height="52"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sign in to enjoy personalized experience!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNF-dI-QgQ">
+                                        <rect key="frame" x="144" y="181" width="224" height="79"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="18"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_avatar_logo 2" translatesAutoresizingMaskIntoConstraints="NO" id="kir-mB-x4k">
+                                        <rect key="frame" x="-112" y="325" width="942" height="413"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PEER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Njf-wv-cpq">
+                                <rect key="frame" x="46" y="152" width="151" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="55"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="85E-mc-AEA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="YNF-dI-QgQ" id="GP1-Di-Oyp"/>
+                        <outlet property="grayView" destination="8G6-UM-j60" id="HLb-e3-aWn"/>
+                        <outlet property="titleLabelGray" destination="Njf-wv-cpq" id="HyY-Dl-tQ0"/>
+                        <outlet property="titleLabelGreen" destination="gRF-Gs-DQ9" id="VQ4-oV-biI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FbX-c3-Cm2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-993" y="392"/>
+            <point key="canvasLocation" x="-1431.8840579710145" y="385.71428571428572"/>
         </scene>
         <!--Chat View Controller-->
         <scene sceneID="M6A-xX-vpy">
@@ -414,7 +470,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="OWk-sb-34R">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="BYG-qK-hli" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="BYG-qK-hli" customClass="TabBarController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xdj-KS-JkN">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -1103,15 +1159,18 @@
         <image name="Smile LOL" width="289" height="293"/>
         <image name="Sporty Tee" width="818" height="733"/>
         <image name="Striped Tee" width="818" height="733"/>
+        <image name="Sunglasses 2" width="392" height="138"/>
         <image name="Sweater" width="818" height="733"/>
         <image name="Tee 1" width="818" height="733"/>
         <image name="Tee Arms Crossed" width="818" height="733"/>
         <image name="Twists" width="473" height="567"/>
         <image name="hat-beanie" width="473" height="567"/>
+        <image name="icon_avatar_logo 2" width="739" height="980"/>
         <image name="icon_tab_bucket_n" width="30" height="30"/>
         <image name="icon_tab_home_n" width="28" height="30"/>
         <image name="icon_tab_new_n" width="30" height="30"/>
         <image name="icon_tab_profile_n" width="30" height="30"/>
+        <image name="one_leg_up-2" width="1534" height="1856"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

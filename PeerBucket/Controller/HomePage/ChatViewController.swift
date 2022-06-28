@@ -17,6 +17,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     var user2UID: String = ""
     var currentUserName: String = ""
     
+    var currentUID = "AITNzRSyUdMCjV4WrQxT"
+    
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -55,7 +57,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         
         loadChat()
         
-        fetchUserData(userID: currentUserUID)
+        fetchUserData(userID: currentUID)
         
     }
     
@@ -136,7 +138,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     func createNewChat() {
         
         //  let users = [self.currentUser.uid, self.user2UID]
-        let users = [currentUserUID, user2UID]
+        let users = [currentUID, user2UID]
         
         let data: [String: Any] = [
             "users": users
@@ -160,7 +162,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         
         //  .whereField("users", arrayContains: Auth.auth().currentUser?.uid ?? "Not Found User 1")
         // for 測試用
-            .whereField("users", arrayContains: currentUserUID )
+            .whereField("users", arrayContains: currentUID )
         
         database.getDocuments { (chatQuerySnap, error) in
             
@@ -249,7 +251,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     func inputBar(_ inputBar: InputBarAccessoryView,
                   didPressSendButtonWith text: String) {
         
-        let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUserUID, senderName: currentUserName)
+        let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUID, senderName: currentUserName)
         
         // Insert new message on collection view
         insertNewMessage(message)
@@ -268,7 +270,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         //        return Sender(id: Auth.auth().currentUser!.uid,
         //                      displayName: Auth.auth().currentUser?.displayName ?? "Name not found")
         
-        return ChatUser(senderId: currentUserUID, displayName: currentUserName)
+        return ChatUser(senderId: currentUID, displayName: currentUserName)
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -301,8 +303,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,
                              at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         
-        if message.sender.senderId == currentUserUID {
-            downloadPhoto(imageToChange: avatarView, userID: currentUserUID)
+        if message.sender.senderId == currentUID {
+            downloadPhoto(imageToChange: avatarView, userID: currentUID)
         } else {
             downloadPhoto(imageToChange: avatarView, userID: user2UID)
         }

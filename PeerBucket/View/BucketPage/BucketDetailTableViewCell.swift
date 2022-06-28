@@ -158,5 +158,4 @@ class BucketDetailTableViewCell: UITableViewCell {
     @objc func tappedDoneBtn() {
         delegate?.didTappedStatus(cell: self)
     }
-
 }

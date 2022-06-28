@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 import AVFoundation
-import SwiftUI
+//import SwiftUI
+import FirebaseAuth
 
 enum IdentityType: String, CaseIterable {
     case currentUser
@@ -36,10 +37,24 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         callingScanner()
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+        
+        guard let currentUserUID = currentUserUID else {
+            return
+        }
+        
         fetchUserData(identityType: .currentUser, userID: currentUserUID)
     }
     
@@ -73,12 +88,11 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         
         // 填入自己的資料
-        let user = User(userEmail: currentUser.userEmail,
-                        userID: currentUserUID,
+        let user = User(userID: currentUser.userID,
                         userAvatar: currentUser.userAvatar,
                         userHomeBG: currentUser.userHomeBG,
                         userName: currentUser.userName,
-                        paringUser: [paringUserID] )
+                        paringUser: [paringUserID])
         
         UserManager.shared.updateUserData(user: user) { result in
             switch result {
@@ -97,8 +111,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         
         // 填入他人的資料
-        let user = User(userEmail: paringUser.userEmail,
-                        userID: paringUser.userID,
+        let user = User(userID: paringUser.userID,
                         userAvatar: paringUser.userAvatar,
                         userHomeBG: paringUser.userHomeBG,
                         userName: paringUser.userName,
@@ -197,18 +210,21 @@ extension InviteViewController {
             if metadataObj.stringValue != "" {
                 // query既有的user取得資料
                 fetchUserData(identityType: .paringUser, userID: metadataObj.stringValue ?? "")
+                
                 // 如果已經有paring user 就不能再新增
 //                guard paringUser?.paringUser != [] else {
 //                    self.presentErrorAlert(message: "Oops!User \(String(describing: paringUser?.userName)) already have bucket peer")
 //                    return
 //                }
 
+                guard let paringUserName = paringUser?.userName as? String else { return }
+                
                 self.presentInviteAlert(
                     title: "Invite your BucketPeer to chat and share bucket list!",
-                    message: "Do you want to invite user \(String(describing: paringUser?.userName))?") {
+                    message: "Do you want to invite user \(paringUserName)?") {
                     // 確認Invite -> 寫入自己＆partner的firebase
                     self.addSelfParing(paringUserID: metadataObj.stringValue ?? "")
-                    self.addOthersParing(paringUserID: currentUserUID)
+                        self.addOthersParing(paringUserID: self.currentUserUID!)
                 }
             }
             

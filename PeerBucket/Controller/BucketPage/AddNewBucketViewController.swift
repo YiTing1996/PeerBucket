@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseStorage
+import FirebaseAuth
 
 protocol AddNewBucketDelegate: AnyObject {
     func didTappedClose()
@@ -19,6 +20,8 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     weak var delegate: AddNewBucketDelegate?
     
     private let storage = Storage.storage().reference()
+    
+    var currentUserUID = Auth.auth().currentUser?.uid
     
     var iconLabel: UILabel = {
         let label = UILabel()
@@ -160,6 +163,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     @objc func tappedSubmitBtn() {
         
         guard let category = categoryTextField.text,
+              let currentUserUID = currentUserUID,
               categoryTextField.text != "",
               selectedIconIndex != nil,
               iconUrlString != ""
@@ -170,7 +174,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         
         print("iconUrlString: \(iconUrlString)")
         var bucketCategory: BucketCategory = BucketCategory(
-            senderId: testUserID,
+            senderId: currentUserUID,
             category: category,
             id: "",
             image: iconUrlString

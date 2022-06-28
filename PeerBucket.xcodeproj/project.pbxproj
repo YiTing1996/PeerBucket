@@ -24,6 +24,7 @@
 		AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741A286190AD005D1A2D /* InviteViewController.swift */; };
 		AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741C2861B297005D1A2D /* ProfileViewController.swift */; };
 		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
+		AC6F0FF42869B4B500FD0F0E /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6F0FF32869B4B500FD0F0E /* AppleSignInManager.swift */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
@@ -54,12 +55,12 @@
 		ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71B28604C5700D7C18E /* UserDataModal.swift */; };
 		ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB720286078B100D7C18E /* LoginViewController.swift */; };
 		ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB7222860A26D00D7C18E /* UserManager.swift */; };
-		ACC3D26D285AD66900676F46 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */; };
 		ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */; };
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
 		ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateHelper.swift */; };
 		ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7D09928631E54006AC04A /* TabBarController.swift */; };
 		ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8D0F286864960055D143 /* UILabelExtension.swift */; };
+		ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACFC8D11286971780055D143 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -95,6 +96,8 @@
 		AC2C741A286190AD005D1A2D /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
 		AC2C741C2861B297005D1A2D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
+		AC6F0FF32869B4B500FD0F0E /* AppleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInManager.swift; sourceTree = "<group>"; };
+		AC6F0FF52869DA6200FD0F0E /* PeerBucket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeerBucket.entitlements; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC72A0CC285984CB007FC767 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,12 +129,12 @@
 		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
 		ACADB720286078B100D7C18E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ACADB7222860A26D00D7C18E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
-		ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailViewController.swift; sourceTree = "<group>"; };
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
 		ACC3D272285B0EFA00676F46 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		ACC7D09928631E54006AC04A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		ACFC8D0F286864960055D143 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		ACFC8D11286971780055D143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1B5692D855830D747F29104 /* Pods-PeerBucket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeerBucket.debug.xcconfig"; path = "Target Support Files/Pods-PeerBucket/Pods-PeerBucket.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,7 +216,6 @@
 				AC2C741A286190AD005D1A2D /* InviteViewController.swift */,
 				AC2C741C2861B297005D1A2D /* ProfileViewController.swift */,
 				AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */,
-				ACADB720286078B100D7C18E /* LoginViewController.swift */,
 				AC140421286436CF00DD2566 /* AvatarViewController.swift */,
 			);
 			path = ProfilePage;
@@ -240,7 +242,11 @@
 		AC72A0C9285984CB007FC767 /* PeerBucket */ = {
 			isa = PBXGroup;
 			children = (
+				AC6F0FF52869DA6200FD0F0E /* PeerBucket.entitlements */,
 				AC72A0E6285989F4007FC767 /* Modal */,
+				ACADB7222860A26D00D7C18E /* UserManager.swift */,
+				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
+				AC6F0FF32869B4B500FD0F0E /* AppleSignInManager.swift */,
 				AC72A0EA28598A38007FC767 /* View */,
 				AC72A0E828598A0E007FC767 /* Controller */,
 				AC72A0E928598A23007FC767 /* Extension */,
@@ -271,6 +277,7 @@
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
 				ACC7D09928631E54006AC04A /* TabBarController.swift */,
+				ACADB720286078B100D7C18E /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -305,7 +312,7 @@
 			children = (
 				AC72A0CA285984CB007FC767 /* AppDelegate.swift */,
 				AC72A0CC285984CB007FC767 /* SceneDelegate.swift */,
-				ACC3D26C285AD66900676F46 /* GoogleService-Info.plist */,
+				ACFC8D11286971780055D143 /* GoogleService-Info.plist */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -339,9 +346,7 @@
 			children = (
 				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
 				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
-				ACADB7222860A26D00D7C18E /* UserManager.swift */,
 				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
-				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -417,7 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC72A0DA285984CC007FC767 /* LaunchScreen.storyboard in Resources */,
-				ACC3D26D285AD66900676F46 /* GoogleService-Info.plist in Resources */,
+				ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */,
 				AC72A0D7285984CC007FC767 /* Assets.xcassets in Resources */,
 				AC72A0D2285984CB007FC767 /* Main.storyboard in Resources */,
 			);
@@ -518,6 +523,7 @@
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
 				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
 				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
+				AC6F0FF42869B4B500FD0F0E /* AppleSignInManager.swift in Sources */,
 				ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */,
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
 				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
@@ -684,6 +690,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
@@ -716,6 +723,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92P2C9TPVD;

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 protocol AddToBucketViewControllerDelegate: AnyObject {
     func didTappedClose()
@@ -19,7 +20,11 @@ class AddToBucketViewController: UIViewController {
     weak var delegate: AddToBucketViewControllerDelegate?
     
     var bucketCategories: [BucketCategory] = []
-    var userIDList: [String] = [currentUserUID]
+    
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
+    var userIDList: [String] = []
+    
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()
@@ -40,17 +45,33 @@ class AddToBucketViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+//        print(currentUserUID)
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .lightGray
-
+        
         configureUI()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let currentUserUID = currentUserUID else { return }
+        userIDList.append(currentUserUID)
         getData(userID: currentUserUID)
         
     }
     
     func configureUI() {
+        
         view.layer.cornerRadius = 30
         view.clipsToBounds = true
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -62,9 +83,14 @@ class AddToBucketViewController: UIViewController {
         titleLabel.anchor(top: cancelButton.bottomAnchor, left: view.leftAnchor, paddingTop: 5, paddingLeft: 20, height: 50)
     }
     
+    @objc func tappedCloseBtn() {
+        delegate?.didTappedClose()
+    }
+    
+    // MARK: - Firebase data process
+    
     func getData(userID: String) {
         
-        // fetch current user's paring user and append to userList
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -86,12 +112,9 @@ class AddToBucketViewController: UIViewController {
                             DispatchQueue.main.async {
                                 self.collectionView.reloadData()
                             }
-                            print("fetch bucket categories: \(bucketLists)")
-                            print("category count: \(bucketLists.count)")
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-//                        print("userIDList: \(self.userIDList)")
                     }
                 }
                 
@@ -101,12 +124,9 @@ class AddToBucketViewController: UIViewController {
             }
         }
     }
-    
-    @objc func tappedCloseBtn() {
-        delegate?.didTappedClose()
-    }
-    
 }
+
+// MARK: - Collection View
 
 extension AddToBucketViewController: UICollectionViewDataSource {
     
@@ -149,9 +169,11 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let title = selectedBucketTitle else { return }
-                    
+        
+        guard let currentUserUID = currentUserUID else { return }
+
         var bucketList: BucketList = BucketList(
-            senderId: testUserID,
+            senderId: currentUserUID,
             createdTime: Date(),
             status: false,
             list: title,
@@ -168,12 +190,11 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
-            
         }
         
         self.presentSuccessAlert()
         self.delegate?.didTappedClose()
-
+        
     }
     
 }
