@@ -49,6 +49,7 @@ class BucketDetailViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.setLeftPaddingPoints(amount: 10)
         textField.backgroundColor = UIColor.lightGray
+        textField.textColor = .darkGray
         return textField
     }()
     
@@ -63,7 +64,7 @@ class BucketDetailViewController: UIViewController {
     
     var currentUserUID: String?
     //    var currentUserUID = Auth.auth().currentUser?.uid
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,6 +88,7 @@ class BucketDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         fetchFromFirebase()
     }
     

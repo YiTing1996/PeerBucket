@@ -34,6 +34,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         textField.placeholder = "Type Event Name Here"
         textField.layer.borderWidth = 0.5
         textField.layer.cornerRadius = 10
+        textField.textColor = .darkGray
         textField.setLeftPaddingPoints(amount: 10)
         return textField
     }()

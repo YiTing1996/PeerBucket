@@ -68,7 +68,12 @@ extension UIViewController {
                              message: String = "Congrats",
                              completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//        alert.setValue(UIColor.darkGreen, forKey: "titleTextColor")
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            guard let completion = completion else { return }
+            completion()
+        }
         
         alert.addAction(okAction)
         

@@ -38,9 +38,7 @@ class BucketListManager {
     
     // query bucket list by id of bucket category
     func fetchBucketList(categoryID: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
-        
-        //        dataBase.order(by: "createdTime", descending: true).getDocuments() { (querySnapshot, error) in
-        
+                
         dataBase.collection("bucketList").whereField("categoryId", isEqualTo: categoryID).getDocuments { (querySnapshot, error) in
             
             if let error = error {
@@ -78,9 +76,7 @@ class BucketListManager {
             } else {
                 
                 var bucketLists = [BucketList]()
-                
                 for document in querySnapshot!.documents {
-                    
                     do {
                         if let bucketList = try document.data(as: BucketList?.self, decoder: Firestore.Decoder()) {
                             bucketLists.append(bucketList)
@@ -147,6 +143,24 @@ class BucketListManager {
             if let error = error {
                 completion(.failure(error))
             } else {
+                completion(.success("deleted bucketList \(id)"))
+            }
+        }
+    }
+    
+    func deleteBucketListByCategory(id: String, completion: @escaping(Result<String, Error>) -> Void) {
+
+        dataBase.collection("bucketList").whereField("categoryId", isEqualTo: id).getDocuments { (querySnapshot, error) in
+            
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+                
+            } else {
+                                
+                for document in querySnapshot!.documents {
+                    document.reference.delete()
+                }
                 completion(.success("deleted bucketList \(id)"))
             }
         }

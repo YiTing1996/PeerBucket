@@ -21,7 +21,9 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     
     private let storage = Storage.storage().reference()
     
-    var currentUserUID = Auth.auth().currentUser?.uid
+//    var currentUserUID = Auth.auth().currentUser?.uid
+    
+    var currentUserUID: String?
     
     var iconLabel: UILabel = {
         let label = UILabel()
@@ -44,6 +46,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         textField.placeholder = "Type Category Here"
         textField.layer.cornerRadius = 10
         textField.layer.borderWidth = 0.5
+        textField.textColor = .darkGray
         textField.setLeftPaddingPoints(amount: 10)
         return textField
     }()
@@ -100,6 +103,17 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         view.layer.cornerRadius = 30
         view.clipsToBounds = true
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+        
     }
     
     func configureUI() {

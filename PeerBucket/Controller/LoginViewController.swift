@@ -21,11 +21,20 @@ class LoginViewController: UIViewController {
 
     lazy var appleButton: ASAuthorizationAppleIDButton = {
         let button = ASAuthorizationAppleIDButton(type: .default, style: .black)
-        button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         button.addTarget(self, action: #selector(tappedAppleBtn), for: .touchUpInside)
         return button
     }()
     
+    lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        button.addTarget(self, action: #selector(tappedDismiss), for: .touchUpInside)
+        button.setTitle("Cancel", for: .normal)
+        button.setTitleColor(UIColor.lightGray, for: .normal)
+        button.titleLabel?.font = UIFont.semiBold(size: 15)
+        return button
+    }()
+        
     private var currentNonce: String?
     
     override func viewDidLoad() {
@@ -52,20 +61,32 @@ class LoginViewController: UIViewController {
         controller.performRequests()
         
     }
+    
+    @objc func tappedDismiss() {
+
+        let tabBarVC = storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
+        guard let tabBarVC = tabBarVC as? TabBarController else { return }
+
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        sceneDelegate?.changeRootViewController(tabBarVC)
+
+    }
+    
 }
 
 // MARK: - Handle apple signinup
+
 extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
     private func loginHandler(_ result: Result<(User, Bool), Error>) {
         switch result {
-        case .success((let user, let isExist)):
+        case .success((let user, _)):
             
-            if isExist {
-                UserManager.shared.current = user
-            } else {
-                UserManager.shared.current = user
-            }
+            let tabBarVC = storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
+            guard let tabBarVC = tabBarVC as? TabBarController else { return }
+
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+            sceneDelegate?.changeRootViewController(tabBarVC)
             
             print("current user in loginVC: \(user)")
             
@@ -193,6 +214,7 @@ extension LoginViewController {
     func configureUI() {
 
         view.addSubview(appleButton)
+        view.addSubview(dismissButton)
         
         grayView.layer.cornerRadius = 40
         grayView.backgroundColor = .lightGray
@@ -201,6 +223,8 @@ extension LoginViewController {
         descriptionLabel.textColor = .darkGray
         appleButton.anchor(top: descriptionLabel.bottomAnchor, left: view.leftAnchor,
                            paddingTop: 20, paddingLeft: 150, width: 200, height: 50)
+        dismissButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 50,
+                             paddingRight: 20, width: 50, height: 50)
         
     }
     

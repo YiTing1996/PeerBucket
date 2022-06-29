@@ -11,14 +11,11 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 
 // for testing different user
-var isBeta: Bool = false
+var isBeta: Bool = true
 
 class UserManager {
     
     static let shared = UserManager()
-    
-    // TBC
-    var current: User? // set value at login page
     
     let dataBase = Firestore.firestore().collection("user")
     
@@ -95,40 +92,6 @@ class UserManager {
         } catch {
             print("update user data error: \(error)")
             completion(.failure(error))
-        }
-    }
-    
-    func addUserListener(completion: @escaping (Result<User, Error>) -> Void) {
-        guard let user = current else { return }
-        dataBase.whereField("id", isEqualTo: user.userID).addSnapshotListener { [weak self] querySnapshot, error in
-            guard let self = self else { return }
-            
-            if let querySnapshot = querySnapshot {
-                
-                let users = querySnapshot.documents.compactMap({ querySnapshot in
-                    try? querySnapshot.data(as: User.self)
-                })
-                
-                guard let currentUser = users.first else { return }
-                self.current = currentUser
-                
-                querySnapshot.documentChanges.forEach { diff in
-                    switch diff.type {
-                    case .added:
-                        print("add")
-                        completion(.success(currentUser))
-                    case .modified:
-                        print("modifi")
-                        completion(.success(currentUser))
-                    case .removed:
-                        print("remove")
-                        completion(.success(currentUser))
-                    }
-                }
-                
-            } else if let error = error {
-                completion(Result.failure(error))
-            }
         }
     }
     

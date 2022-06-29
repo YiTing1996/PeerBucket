@@ -22,9 +22,7 @@ class AddToBucketViewController: UIViewController {
     var bucketCategories: [BucketCategory] = []
     
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
     var userIDList: [String] = []
-    
     
     lazy var cancelButton: UIButton = {
         let button = UIButton()

@@ -21,10 +21,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var currentUser: User?
     
-    // TODO: 上架前要改這邊！！
     var currentUserUID: String?
-//    var currentUserUID = Auth.auth().currentUser?.uid
-        
+    
+    var profileVC: ProfileViewController?
+    
     var bgImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -102,16 +102,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         if isBeta {
             self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
         } else {
             self.currentUserUID = Auth.auth().currentUser?.uid
         }
-//        print(currentUserUID)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         guard let currentUserUID = currentUserUID else {
             // If user not login then hidden schedule & chat view
@@ -123,6 +123,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         loadSchedule()
         downloadPhoto()
         fetchUserData(userID: currentUserUID)
+        
     }
     
     func configureUI() {
@@ -176,9 +177,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @objc func tappedChatBtn() {
-        let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC")
-        guard let chatVC = chatVC as? ChatViewController else { return }
-        navigationController?.pushViewController(chatVC, animated: true)
+        
+        if currentUser?.paringUser == [] {
+            self.presentErrorAlert(title: "Please Invite Friend First",
+                                   message: "To use chatroom please invite friends in profile page.")
+        } else {
+            let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC")
+            guard let chatVC = chatVC as? ChatViewController else { return }
+            navigationController?.pushViewController(chatVC, animated: true)
+        }
     }
     
     // MARK: - Firebase data process
@@ -225,7 +232,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
             switch result {
             case .success(let user):
                 self.currentUser = user
-                print("current user is: \(String(describing: self.currentUser))")
+//                print("current user is: \(String(describing: self.currentUser))")
+                
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
                 print("Can't find user in homeVC")
@@ -312,22 +320,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
             switch result {
             case .success(let user):
                 
-                guard let urlString = user.userHomeBG as String?,
-                      let url = URL(string: urlString) else {
-                    return
-                }
-                
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-                    guard let data = data, error == nil else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: data)
-                        self.bgImageView.image = image
-                    }
-                })
-                task.resume()
+                let url = URL(string: user.userHomeBG)
+                self.bgImageView.kf.setImage(with: url)
                 
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")

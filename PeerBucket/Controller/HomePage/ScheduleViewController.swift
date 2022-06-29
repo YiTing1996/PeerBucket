@@ -59,7 +59,6 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
         }
-//        print(currentUserUID)
         
         configueCalendarUI()
         configureUI()
@@ -167,10 +166,11 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
             switch result {
             case .success(let user):
                 
+                self.userIDList = [userID]
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }
-                                
+                            
                 self.datesWithEvent = []
                 for userID in self.userIDList {
                     ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in

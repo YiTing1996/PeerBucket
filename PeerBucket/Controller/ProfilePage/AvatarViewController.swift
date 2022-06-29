@@ -10,13 +10,18 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 
+protocol AvatarViewControllerDelegate: AnyObject {
+    func didTappedSubmit()
+}
+
 class AvatarViewController: UIViewController {
     
     private let storage = Storage.storage().reference()
 
+    weak var delegate: AvatarViewControllerDelegate?
+    
     var currentUser: User?
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
@@ -48,8 +53,8 @@ class AvatarViewController: UIViewController {
         faceView.isHidden = true
         glassesView.isHidden = true
         bodyView.isHidden = true
-        navigationItem.rightBarButtonItem = menuBarItem
         
+        navigationItem.rightBarButtonItem = menuBarItem
         self.view.backgroundColor = .lightGray
 
     }
@@ -81,7 +86,9 @@ class AvatarViewController: UIViewController {
            backgroundView.drawHierarchy(in: backgroundView.bounds, afterScreenUpdates: true)
         })
         avatarProcess(image: image)
-        presentSuccessAlert()
+        self.presentSuccessAlert(title: "Congrats", message: "Avatar successfully update", completion: {
+            self.navigationController?.popViewController(animated: true)
+        })
     }
     
     // MARK: - Firebase data process
@@ -93,7 +100,7 @@ class AvatarViewController: UIViewController {
             switch result {
             case .success(let user):
                 self.currentUser = user
-                print("current user is: \(String(describing: self.currentUser))")
+//                print("current user is: \(String(describing: self.currentUser))")
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
                 print("Can't find user in avatarVC")
@@ -117,6 +124,7 @@ class AvatarViewController: UIViewController {
             switch result {
             case .success:
                 print("Successfully update avatar to firebase")
+                self.delegate?.didTappedSubmit()
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
