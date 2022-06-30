@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import CoreMIDI
+import FirebaseAuth
 
 class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
@@ -15,7 +15,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
-
+    
     lazy var addCategoryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         let label = UILabel()
         label.textColor = .darkGreen
         label.font = UIFont.bold(size: 28)
-        //        label.text = "Bucket Progress 60%"
         return label
     }()
     
@@ -61,7 +60,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         let label = UILabel()
         label.textColor = .hightlightYellow
         label.font = UIFont.semiBold(size: 20)
-        label.text = "60 of 100 accomplished"
         return label
     }()
     
@@ -71,21 +69,54 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     var shareFinishedListCount: Int = 0
     
     var selectedBucket: BucketCategory?
-    var userIDList: [String] = [currentUserUID]
     var progress: Float?
     
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
+    var userIDList: [String] = []
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .lightGray
-        collectionView.backgroundColor = .lightGray
-        
-        getData(userID: currentUserUID)
         
         configureUI()
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.addGestureRecognizer(longPressGesture)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+        
+        guard let currentUserUID = currentUserUID else {
+            let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginVC")
+            guard let loginVC = loginVC as? LoginViewController else { return }
+            loginVC.modalPresentationStyle = .fullScreen
+            self.present(loginVC, animated: true)
+            return
+        }
+        
+//        userIDList.append(currentUserUID)
+        getData(userID: currentUserUID)
+
+    }
+    
+    func configureUI() {
+        self.view.backgroundColor = .lightGray
+        collectionView.backgroundColor = .lightGray
+        
+        view.addSubview(addCategoryButton)
+        view.addSubview(progressView)
+        view.addSubview(progressLabel)
+        view.addSubview(titleLabel)
+        view.addSubview(randomPickButton)
         
         menuBottomConstraint.constant = -600
         blackView.backgroundColor = .black
@@ -93,48 +124,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         
         view.bringSubviewToFront(blackView)
         view.bringSubviewToFront(containerView)
-        
-        collectionView.addGestureRecognizer(longPressGesture)
-        
-    }
-    
-    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
-        if gestureReconizer.state != UIGestureRecognizer.State.ended {
-            return
-        }
-        
-        let location = gestureReconizer.location(in: self.collectionView)
-        let indexPath = self.collectionView.indexPathForItem(at: location)
-        
-        if let indexPath = indexPath {
-            // _ = self.collectionView.cellForItem(at: indexPath)
-            self.presentDeleteAlert(title: "Delete Category", message: "Do you want to delete this category?") {
-                let deleteId = self.bucketCategories[indexPath.row].id
-                
-                BucketListManager.shared.deleteBucketCategory(id: deleteId) { result in
-                    switch result {
-                    case .success:
-                        self.presentSuccessAlert()
-                        DispatchQueue.main.async {
-                            self.collectionView.reloadData()
-                        }
-                    case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                    }
-                }
-            }
-            
-        } else {
-            print("Could not find index path")
-        }
-    }
-    
-    func configureUI() {
-        view.addSubview(addCategoryButton)
-        view.addSubview(progressView)
-        view.addSubview(progressLabel)
-        view.addSubview(titleLabel)
-        view.addSubview(randomPickButton)
         
         addCategoryButton.anchor(bottom: collectionView.topAnchor, right: view.rightAnchor,
                                  paddingBottom: 20, paddingRight: 10)
@@ -147,6 +136,12 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         progressView.anchor(top: progressLabel.bottomAnchor, left: view.leftAnchor,
                             paddingTop: 10, paddingLeft: 20, width: 200, height: 20)
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? AddNewBucketViewController {
+            destination.delegate = self
+        }
     }
     
     @objc func tappedAddBtn() {
@@ -162,26 +157,22 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         self.presentSuccessAlert(title: "Recommend To You", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
     }
     
+    // MARK: - Firebase data process
+    
     func getData(userID: String) {
         
-        //        let semaphore = DispatchSemaphore(value: 1)
-        //        semaphore.wait()
-        
-        // fetch current user's paring user and append to userList
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 
+                self.bucketCategories = []
+                self.userIDList = [userID]
+                
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }
                 
-                self.bucketCategories = []
-                self.bucketLists = []
-                self.shareBucketListCount = 0
-                self.shareFinishedListCount = 0
-
                 for userID in self.userIDList {
                     BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
                         
@@ -190,55 +181,12 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                         switch result {
                         case .success(let bucketLists):
                             self.bucketCategories += bucketLists
-                            DispatchQueue.main.async {
-                                self.collectionView.reloadData()
-                            }
-                            print("fetch bucket categories: \(bucketLists)")
-                            print("category count: \(bucketLists.count)")
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                        }
-                        
-                        //                        semaphore.signal()
-                    }
-                    
-                    // fetch all bucket lists
-                    BucketListManager.shared.fetchBucketListBySender(senderId: userID) { [weak self] result in
-                        
-                        guard let self = self else { return }
-                        
-                        switch result {
-                        case .success(let bucketLists):
-                            self.bucketLists += bucketLists
-                            self.shareBucketListCount += bucketLists.count
-                            
-                            let finishedBucketList = bucketLists.filter { $0.status == true }
-                            self.shareFinishedListCount += finishedBucketList.count
-                            
-                            self.progress = Float(self.shareFinishedListCount) / Float(self.shareBucketListCount)
-                            self.progressView.progress = self.progress!
-                            
-                            if bucketLists.count == 0 {
-                                DispatchQueue.main.async {
-                                    self.titleLabel.text = "There's no bucket."
-                                    self.progressLabel.text = "Let's add new bucket list!"
-                                    self.randomPickButton.isEnabled = false
-                                    self.collectionView.reloadData()
-                                }
-                            } else {
-                                DispatchQueue.main.async {
-                                    self.titleLabel.text = "Bucket Progress \(Int(self.progress!*100))%"
-                                    self.progressLabel.text = "\(self.shareFinishedListCount) of \(self.shareBucketListCount) buckets accomplished"
-                                    self.randomPickButton.isEnabled = true
-                                    self.collectionView.reloadData()
-                                }
-                            }
-                            
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
                     }
                 }
+                self.fetchAllBucketList()
                 
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
@@ -247,36 +195,97 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // fetch bucket category by self & paring user ID
-    func loadBucketCategory() {
-        self.bucketCategories = []
+    func fetchAllBucketList() {
+        
+        self.bucketLists = []
+        self.shareBucketListCount = 0
+        self.shareFinishedListCount = 0
+        
         for userID in userIDList {
-            BucketListManager.shared.fetchBucketCategory(userID: userID, completion: { [weak self] result in
+            BucketListManager.shared.fetchBucketListBySender(senderId: userID) { [weak self] result in
                 
                 guard let self = self else { return }
                 
                 switch result {
                 case .success(let bucketLists):
-                    self.bucketCategories += bucketLists
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                    print("fetch bucket categories: \(bucketLists)")
-                    print("category count: \(bucketLists.count)")
+                    self.bucketLists += bucketLists
+                    self.shareBucketListCount += bucketLists.count
+
+                    let finishedBucketList = bucketLists.filter { $0.status == true }
+                    self.shareFinishedListCount += finishedBucketList.count
+                    
+                    self.progress = Float(self.shareFinishedListCount) / Float(self.shareBucketListCount)
+                    self.progressView.progress = self.progress!
+                    self.updateProgressUI(bucketListCount: bucketLists.count)
                     
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-            })
+            }
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? AddNewBucketViewController {
-            destination.delegate = self
+    func updateProgressUI(bucketListCount: Int) {
+        
+        if bucketLists.count == 0 {
+            DispatchQueue.main.async {
+                self.titleLabel.text = "There's no bucket."
+                self.progressLabel.text = "Let's add new bucket list!"
+                self.randomPickButton.isEnabled = false
+                self.collectionView.reloadData()
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.titleLabel.text = "Bucket Progress \(Int(self.progress!*100))%"
+                self.progressLabel.text = "\(self.shareFinishedListCount) of \(self.shareBucketListCount) buckets accomplished"
+                self.randomPickButton.isEnabled = true
+                self.collectionView.reloadData()
+            }
         }
+        
     }
     
+    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        if gestureReconizer.state != UIGestureRecognizer.State.ended {
+            return
+        }
+        
+        let location = gestureReconizer.location(in: self.collectionView)
+        let indexPath = self.collectionView.indexPathForItem(at: location)
+        
+        if let indexPath = indexPath {
+            self.presentDeleteAlert(title: "Delete Category", message: "Do you want to delete this category?") {
+                let deleteId = self.bucketCategories[indexPath.row].id
+                
+                BucketListManager.shared.deleteBucketCategory(id: deleteId) { result in
+                    switch result {
+                    case .success:
+                        self.bucketCategories.remove(at: indexPath.row)
+                        self.presentSuccessAlert()
+                    case .failure(let error):
+                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    }
+                }
+                
+                // delete bucket list by category id
+                BucketListManager.shared.deleteBucketListByCategory(id: deleteId) { result in
+                    switch result {
+                    case .success:
+                        self.fetchAllBucketList()
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                        self.presentSuccessAlert()
+                    case .failure(let error):
+                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    }
+                }
+            }
+            
+        } else {
+            print("Could not find index path")
+        }
+    }
 }
 
 extension BucketListViewController: UICollectionViewDataSource {
@@ -339,6 +348,8 @@ extension BucketListViewController: AddNewBucketDelegate {
             self.blackView.alpha = 0
         }
         
+        guard let currentUserUID = currentUserUID else { return }
+        getData(userID: currentUserUID)
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }

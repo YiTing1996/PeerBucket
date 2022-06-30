@@ -7,8 +7,9 @@
 
 import Foundation
 import UIKit
-import FirebaseStorage
 import PhotosUI
+import FirebaseStorage
+import FirebaseAuth
 
 class BucketDetailViewController: UIViewController {
     
@@ -48,6 +49,7 @@ class BucketDetailViewController: UIViewController {
         textField.layer.cornerRadius = 10
         textField.setLeftPaddingPoints(amount: 10)
         textField.backgroundColor = UIColor.lightGray
+        textField.textColor = .darkGray
         return textField
     }()
     
@@ -60,24 +62,33 @@ class BucketDetailViewController: UIViewController {
         }
     }
     
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         view.backgroundColor = .lightGray
         tableView.backgroundColor = .lightGray
+        tableView.addGestureRecognizer(longPressGesture)
         
         configureUI()
         addListTextField.isHidden = true
         submitButton.isHidden = true
         
-        tableView.addGestureRecognizer(longPressGesture)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         fetchFromFirebase()
     }
     
@@ -96,6 +107,24 @@ class BucketDetailViewController: UIViewController {
         
     }
     
+    @objc func tappedAddBtn() {
+        if addListTextField.isHidden == true {
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
+                self.addListTextField.isHidden = false
+                self.submitButton.isHidden = false
+                self.addListButton.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
+            }
+        } else {
+            UIView.animate(withDuration: 0.5) {
+                self.addListTextField.isHidden = true
+                self.submitButton.isHidden = true
+                self.addListButton.setImage(UIImage(named: "icon_func_add"), for: .normal)
+            }
+        }
+    }
+    
+    // MARK: - Firebase data process
+    
     func fetchFromFirebase() {
         
         BucketListManager.shared.fetchBucketList(categoryID: selectedBucket?.id ?? "", completion: { [weak self] result in
@@ -113,32 +142,17 @@ class BucketDetailViewController: UIViewController {
         })
     }
     
-    @objc func tappedAddBtn() {
-        if addListTextField.isHidden == true {
-            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-                self.addListTextField.isHidden = false
-                self.submitButton.isHidden = false
-                self.addListButton.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
-            }
-        } else {
-            UIView.animate(withDuration: 0.5) {
-                self.addListTextField.isHidden = true
-                self.submitButton.isHidden = true
-                self.addListButton.setImage(UIImage(named: "icon_func_add"), for: .normal)
-            }
-        }
-    }
-    
     @objc func tappedSubmitBtn() {
         
         guard let selectedBucket = selectedBucket,
+              let currentUserUID = currentUserUID,
               addListTextField.text != "" else {
             presentErrorAlert(message: "Please fill all the field")
             return
         }
         
         var bucketList: BucketList = BucketList(
-            senderId: testUserID,
+            senderId: currentUserUID,
             createdTime: Date(),
             status: false,
             list: addListTextField.text ?? "",
@@ -151,12 +165,14 @@ class BucketDetailViewController: UIViewController {
             switch result {
             case .success:
                 self.presentSuccessAlert()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
+        }
+        
+        fetchFromFirebase()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
         
         addListButton.setImage(UIImage(named: "icon_func_add"), for: .normal)
@@ -175,22 +191,52 @@ class BucketDetailViewController: UIViewController {
                 self.presentDeleteAlert(title: "Delete List", message: "Do you want to delete this list?") {
                     
                     let deleteId = self.allBucketList[row].listId
+                    self.deleteBucketList(deleteId: deleteId, row: row)
                     
-                    BucketListManager.shared.deleteBucketList(id: deleteId) { result in
-                        
-                        switch result {
-                        case .success:
-                            // UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
-                            self.presentSuccessAlert()
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
-                        case .failure(let error):
-                            self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                        }
-                    }
                 }
-                
+            }
+        }
+    }
+    
+    func deleteBucketList(deleteId: String, row: Int) {
+        
+        BucketListManager.shared.deleteBucketList(id: deleteId) { result in
+            
+            switch result {
+            case .success:
+                self.presentSuccessAlert()
+                self.allBucketList.remove(at: row)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+            }
+        }
+    }
+    
+    func updateListStatus(status: Bool, row: Int, date: Date) {
+        
+        let bucketList: BucketList = BucketList(
+            senderId: allBucketList[row].senderId,
+            createdTime: date,
+            status: status,
+            list: allBucketList[row].list,
+            categoryId: allBucketList[row].categoryId,
+            listId: allBucketList[row].listId,
+            images: allBucketList[row].images
+        )
+        
+        BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
+            switch result {
+            case .success:
+                self.presentSuccessAlert()
+                self.fetchFromFirebase()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -254,6 +300,89 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
     
 }
 
+// MARK: - Photo processor
+
+extension BucketDetailViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        for result in results {
+            
+            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                
+                guard error == nil else {
+                    print("Error \(error!.localizedDescription)")
+                    return
+                }
+                
+                if let image = image as? UIImage {
+                    guard let imageData = image.jpegData(compressionQuality: 0.5),
+                          let self = self else { return }
+                    
+                    let imageName = NSUUID().uuidString
+                    
+                    self.storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+                        
+                        guard error == nil else {
+                            print("Fail to upload image")
+                            return
+                        }
+                        self.downloadImageURL(imageName: imageName)
+                    }
+                    print("Uploaded to firebase")
+                } else {
+                    print("There was an error.")
+                }
+            }
+            
+        }
+    }
+    
+    func downloadImageURL(imageName: String) {
+        
+        self.storage.child("listImage/\(imageName).png").downloadURL(completion: { url, error in
+            
+            guard let url = url, error == nil else {
+                return
+            }
+            
+            let urlString = url.absoluteString
+            self.imageUrlString.append(urlString)
+            UserDefaults.standard.set(urlString, forKey: "url")
+            
+            guard let swippedRow = self.swippedRow, self.imageUrlString != [] else { return }
+            
+            let bucketList: BucketList = BucketList(
+                senderId: self.allBucketList[swippedRow].senderId,
+                createdTime: self.allBucketList[swippedRow].createdTime,
+                status: self.allBucketList[swippedRow].status,
+                list: self.allBucketList[swippedRow].list,
+                categoryId: self.allBucketList[swippedRow].categoryId,
+                listId: self.allBucketList[swippedRow].listId,
+                images: self.imageUrlString
+            )
+            
+            BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
+                switch result {
+                case .success:
+                    self.presentSuccessAlert()
+                    DispatchQueue.main.async {
+                        self.fetchFromFirebase()
+                        self.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                }
+            }
+            
+        })
+        
+    }
+    
+}
+
+// MARK: - Delegate
+
 extension BucketDetailViewController: BucketDetailTableViewCellDelegate {
     
     func didTappedStatus(cell: UITableViewCell) {
@@ -271,103 +400,7 @@ extension BucketDetailViewController: BucketDetailTableViewCellDelegate {
             status = true
         }
         
-        let bucketList: BucketList = BucketList(
-            senderId: allBucketList[indexPath.row].senderId,
-            createdTime: date,
-            status: status,
-            list: allBucketList[indexPath.row].list,
-            categoryId: allBucketList[indexPath.row].categoryId,
-            listId: allBucketList[indexPath.row].listId,
-            images: allBucketList[indexPath.row].images
-        )
-        
-        BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
-            switch result {
-            case .success:
-                self.presentSuccessAlert()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
-}
-
-// MARK: - Photo processor
-
-extension BucketDetailViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-                
-        for result in results {
-
-            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-                
-                if let error = error {
-                    print("Error \(error.localizedDescription)")
-                } else {
-                    
-                    if let image = image as? UIImage {
-                        
-                        guard let imageData = image.jpegData(compressionQuality: 1.0), let self = self else {
-                            return
-                        }
-                        
-                        let imageName = NSUUID().uuidString
-                        
-                        self.storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
-                            
-                            guard error == nil else {
-                                print("Fail to upload image")
-                                return
-                            }
-                            
-                            self.storage.child("listImage/\(imageName).png").downloadURL(completion: { url, error in
-                                
-                                guard let url = url, error == nil else {
-                                    return
-                                }
-                                
-                                let urlString = url.absoluteString
-                                self.imageUrlString.append(urlString)
-                                UserDefaults.standard.set(urlString, forKey: "url")
-                                
-                                guard let swippedRow = self.swippedRow, self.imageUrlString != [] else { return }
-                                
-                                let bucketList: BucketList = BucketList(
-                                    senderId: self.allBucketList[swippedRow].senderId,
-                                    createdTime: self.allBucketList[swippedRow].createdTime,
-                                    status: self.allBucketList[swippedRow].status,
-                                    list: self.allBucketList[swippedRow].list,
-                                    categoryId: self.allBucketList[swippedRow].categoryId,
-                                    listId: self.allBucketList[swippedRow].listId,
-                                    images: self.imageUrlString
-                                )
-                                
-                                BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
-                                    switch result {
-                                    case .success:
-                                        self.presentSuccessAlert()
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    case .failure(let error):
-                                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                                    }
-                                }
-                                
-                            })
-                        }
-                        print("Uploaded to firebase")
-                    } else {
-                        print("There was an error.")
-                    }
-                }
-                
-            }
-        }
+        updateListStatus(status: status, row: indexPath.row, date: date)
         
     }
 }

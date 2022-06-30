@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 protocol QRCodeViewControllerDelegate: AnyObject {
     func didTappedClose()
@@ -42,21 +43,35 @@ class QRCodeViewController: UIViewController {
         return button
     }()
     
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 20
-//        view.backgroundColor = .lightGray
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
+        
+        guard let currentUserUID = currentUserUID else {
+            return
+        }
         
         createQRCode(currentUserUID)
         configureUI()
-        
+
     }
     
     func configureUI() {
+        
         view.addSubview(titleLabel)
         view.addSubview(bgImageView)
         view.addSubview(cancelButton)
+        
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 20
         
         titleLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
                           paddingTop: 20, paddingLeft: 20, width: 150)

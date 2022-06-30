@@ -796,6 +796,7 @@ PODS:
     - InputBarAccessoryView/Core (= 5.5.0)
   - InputBarAccessoryView/Core (5.5.0)
   - IQKeyboardManagerSwift (6.5.9)
+  - Kingfisher (7.2.1)
   - leveldb-library (1.22.1)
   - Libuv-gRPC (0.0.10):
     - Libuv-gRPC/Implementation (= 0.0.10)
@@ -823,6 +824,7 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - FSCalendar
   - IQKeyboardManagerSwift
+  - Kingfisher (~> 7.0)
   - MessageKit
   - SwiftLint
 
@@ -854,6 +856,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - InputBarAccessoryView
     - IQKeyboardManagerSwift
+    - Kingfisher
     - leveldb-library
     - Libuv-gRPC
     - MessageKit
@@ -888,6 +891,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   InputBarAccessoryView: 1d7b0a672b36e370f01f264b3907ef39d03328e3
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   MessageKit: a1ba0c69ebead94029867853eb44dd05b9b3f453
@@ -895,6 +899,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
 
-PODFILE CHECKSUM: a17fd889e6d108b0c54bd33fa711c5982a71848a
+PODFILE CHECKSUM: 0887be1d8e3e2726b8ea0ac5118e0ba533502d65
 
 COCOAPODS: 1.11.3

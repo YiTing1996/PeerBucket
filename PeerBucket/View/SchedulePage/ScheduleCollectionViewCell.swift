@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol ScheduleCollectionViewCellDelegate: AnyObject {
     func didTappedEdit(cell: UICollectionViewCell)
@@ -90,22 +91,8 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
             switch result {
             case .success(let user):
                 
-                guard let urlString = user.userAvatar as String?,
-                      let url = URL(string: urlString) else {
-                    return
-                }
-                
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-                    guard let data = data, error == nil else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: data)
-                        self.avatarImageView.image = image
-                    }
-                })
-                task.resume()
+                let url = URL(string: user.userAvatar)
+                self.avatarImageView.kf.setImage(with: url)
                 
             case .failure:
                 print("Download avatar error in schedule VC")

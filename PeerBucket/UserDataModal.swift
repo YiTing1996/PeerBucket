@@ -10,7 +10,7 @@ import MessageKit
 
 struct User: Codable {
     
-    var userEmail: String
+//    var userEmail: String
     var userID: String
     var userAvatar: String
     var userHomeBG: String
@@ -18,7 +18,7 @@ struct User: Codable {
     var paringUser: [String]
     
     enum CodingKeys: String, CodingKey {
-        case userEmail
+//        case userEmail
         case userID
         case userAvatar
         case userHomeBG
@@ -28,7 +28,7 @@ struct User: Codable {
     
     var toDict: [String: Any] {
         return [
-            "userEmail": userEmail as Any,
+//            "userEmail": userEmail as Any,
             "userID": userID as Any,
             "userAvatar": userAvatar as Any,
             "userHomeBG": userHomeBG as Any,

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseAuth
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                           UINavigationControllerDelegate {
@@ -17,12 +18,25 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var upcomingEvent: String = ""
     var upcomingDate: Int = 0
+    
     var currentUser: User?
+    
+    var currentUserUID: String?
+    
+    var profileVC: ProfileViewController?
     
     var bgImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Signin to enjoy more feature"
+        label.font = UIFont.bold(size: 26)
+        label.textColor = .lightGray
+        return label
     }()
     
     var eventView: UIView = {
@@ -87,14 +101,29 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
-        loadSchedule()
-        fetchUserData(userID: currentUserUID)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid
+        }
+        
+        guard let currentUserUID = currentUserUID else {
+            // If user not login then hidden schedule & chat view
+            configureGuestUI()
+            return
+        }
+        
+        configureUI()
+        loadSchedule()
         downloadPhoto()
+        fetchUserData(userID: currentUserUID)
+        
     }
     
     func configureUI() {
@@ -118,21 +147,58 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                          paddingBottom: 120, paddingRight: 20, height: 150)
         eventButton.anchor(top: eventView.topAnchor, right: eventView.rightAnchor,
                            paddingTop: 20, paddingRight: 20, width: 50, height: 50)
-        eventLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor, right: eventView.rightAnchor,
-                          paddingTop: 50, paddingLeft: 20, paddingRight: 20)
+        eventLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor,
+                          right: eventView.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         
         chatView.anchor(left: view.leftAnchor, bottom: eventView.topAnchor,
                         right: view.rightAnchor, paddingLeft: 20,
                         paddingBottom: 20, paddingRight: 20, height: 150)
         chatButton.anchor(top: chatView.topAnchor, right: chatView.rightAnchor,
                           paddingTop: 20, paddingRight: 20, width: 50, height: 50)
-        chatLabel.anchor(top: chatView.topAnchor, left: chatView.leftAnchor, right: chatView.rightAnchor,
-                         paddingTop: 50, paddingLeft: 20, paddingRight: 20)
+        chatLabel.anchor(top: chatView.topAnchor, left: chatView.leftAnchor,
+                         right: chatView.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         
     }
     
+    func configureGuestUI() {
+        view.addSubview(bgImageView)
+        view.addSubview(titleLabel)
+        bgImageView.backgroundColor = .darkGreen
+        bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
+                           bottom: view.bottomAnchor, right: view.rightAnchor)
+        titleLabel.centerY(inView: view)
+        titleLabel.centerX(inView: view)
+    }
+    
+    @objc func tappedEventBtn() {
+        let scheduleVC = storyboard?.instantiateViewController(withIdentifier: "scheduleVC")
+        guard let scheduleVC = scheduleVC as? ScheduleViewController else { return }
+        navigationController?.pushViewController(scheduleVC, animated: true)
+    }
+    
+    @objc func tappedChatBtn() {
+        
+        if currentUser?.paringUser == [] {
+            self.presentErrorAlert(title: "Please Invite Friend First",
+                                   message: "To use chatroom please invite friends in profile page.")
+        } else {
+            let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC")
+            guard let chatVC = chatVC as? ChatViewController else { return }
+            navigationController?.pushViewController(chatVC, animated: true)
+        }
+    }
+    
+    // MARK: - Firebase data process
+    
+    // fetch upcoming event
     func loadSchedule() {
-        ScheduleManager.shared.fetchSchedule(userID: testUserID) { [weak self] result in
+        
+        guard let currentUserUID = currentUserUID else {
+            print("can't find current user in homeVC")
+            return
+        }
+        
+        ScheduleManager.shared.fetchSchedule(userID: currentUserUID) { [weak self] result in
             
             guard self != nil else { return }
             
@@ -141,7 +207,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                 guard let self = self else { return }
                 self.upcomingEvent = result.event
                 self.upcomingDate = result.distance
-//                print("Sucess fetch upcoming evnets: \(result)")
 
                 if self.upcomingDate != 0 {
                     self.eventLabel.text =
@@ -167,7 +232,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
             switch result {
             case .success(let user):
                 self.currentUser = user
-                print("current user is: \(String(describing: self.currentUser))")
+//                print("current user is: \(String(describing: self.currentUser))")
+                
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
                 print("Can't find user in homeVC")
@@ -175,28 +241,37 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         }
     }
     
+    func updateBGImage(urlString: String) {
+        guard let currentUser = self.currentUser else {
+            return
+        }
+        
+        let user = User(userID: currentUser.userID,
+                        userAvatar: currentUser.userAvatar,
+                        userHomeBG: urlString,
+                        userName: currentUser.userName,
+                        paringUser: currentUser.paringUser)
+        
+        UserManager.shared.updateUserData(user: user) { result in
+            switch result {
+            case .success:
+                print("Successfully update home bg to firebase")
+                self.downloadPhoto()
+            case .failure(let error):
+                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+            }
+        }
+    }
+
+    // MARK: - Image picker controller delegate
+    
     @objc func tappedBgBtn() {
-        print("Did tapped button")
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
         picker.allowsEditing = true
         present(picker, animated: true)
     }
-    
-    @objc func tappedEventBtn() {
-        let scheduleVC = storyboard?.instantiateViewController(withIdentifier: "scheduleVC")
-        guard let scheduleVC = scheduleVC as? ScheduleViewController else { return }
-        navigationController?.pushViewController(scheduleVC, animated: true)
-    }
-    
-    @objc func tappedChatBtn() {
-        let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC")
-        guard let chatVC = chatVC as? ChatViewController else { return }
-        navigationController?.pushViewController(chatVC, animated: true)
-    }
-    
-    // MARK: - Image picker controller delegate
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
@@ -228,27 +303,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                 UserDefaults.standard.set(urlString, forKey: "url")
                 
                 // save to firebase
-                print("currentUser: \(String(describing: self.currentUser))")
-                guard let currentUser = self.currentUser else {
-                    return
-                }
+                self.updateBGImage(urlString: urlString)
 
-                let user = User(userEmail: currentUser.userEmail,
-                                userID: currentUserUID,
-                                userAvatar: currentUser.userAvatar,
-                                userHomeBG: urlString,
-                                userName: currentUser.userName,
-                                paringUser: currentUser.paringUser)
-                
-                UserManager.shared.updateUserData(user: user) { result in
-                    switch result {
-                    case .success:
-                        print("Successfully update home bg to firebase")
-                        self.downloadPhoto()
-                    case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
-                    }
-                }
             })
         }
     }
@@ -257,56 +313,19 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         picker.dismiss(animated: true, completion: nil)
     }
     
+    // fetch background image from firebase
     func downloadPhoto() {
-        
-        // fetch background photo from firebase
-        UserManager.shared.fetchUserData(userID: currentUserUID) { result in
+                
+        UserManager.shared.fetchUserData(userID: currentUserUID!) { result in
             switch result {
             case .success(let user):
                 
-                guard let urlString = user.userHomeBG as String?,
-                      let url = URL(string: urlString) else {
-                    return
-                }
-                
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-                    guard let data = data, error == nil else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: data)
-                        self.bgImageView.image = image
-                    }
-                })
-                task.resume()
+                let url = URL(string: user.userHomeBG)
+                self.bgImageView.kf.setImage(with: url)
                 
             case .failure(let error):
                 self.presentErrorAlert(message: error.localizedDescription + " Please try again")
             }
         }
-        
     }
-    
-    //    lazy var statusSwitch: UISwitch = {
-    //        let statusSwitch = UISwitch()
-    //        statusSwitch.tintColor = .darkGreen
-    //        statusSwitch.onTintColor = .darkGreen
-    //        statusSwitch.thumbTintColor = .white
-    //        statusSwitch.addTarget(self, action: #selector(tappedSwitch), for: .valueChanged)
-    //        return statusSwitch
-    //    }()
-    
-    //    @objc func tappedSwitch() {
-    //        if statusSwitch.isOn {
-    //            // 呈現相簿頁
-    //            containerView.isHidden = false
-    //            print("switch is on")
-    //        } else {
-    //            // 呈現bucket category頁
-    //            containerView.isHidden = true
-    //            print("switch is off")
-    //        }
-    //    }
-    
 }

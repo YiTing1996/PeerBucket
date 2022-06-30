@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 class ExploreDetailViewController: UIViewController {
         
@@ -16,7 +17,8 @@ class ExploreDetailViewController: UIViewController {
     @IBOutlet weak var blackView: UIView!
         
     var content: ExploreBucket?
-    
+    var currentUserUID = Auth.auth().currentUser?.uid
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,8 +73,13 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             exploreDetailCell.configureImageCell(content: content)
             exploreDetailCell.clipsToBounds = true
             exploreDetailCell.layer.cornerRadius = exploreDetailCell.frame.height/10
+            
         case 1:
             exploreDetailCell.configureRatingCell(content: content)
+            if currentUserUID == nil {
+                exploreDetailCell.collectButton.isEnabled = false
+            }
+            
         default:
             exploreDetailCell.configureInfoCell(content: content)
         }
@@ -83,15 +90,13 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 400
+            return 450
         case 1:
             return 80
         default:
             return UITableView.automaticDimension
         }
-        //        return UITableView.automaticDimension
     }
-    
 }
 
 extension ExploreDetailViewController: ExploreDetailTableViewCellDelegate {
@@ -109,7 +114,6 @@ extension ExploreDetailViewController: ExploreDetailTableViewCellDelegate {
             self.blackView.alpha = 0.5
         }
     }
-    
 }
 
 extension ExploreDetailViewController: AddToBucketViewControllerDelegate {
