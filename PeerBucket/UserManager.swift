@@ -27,7 +27,7 @@ class UserManager {
                         userAvatar: "",
                         userHomeBG: "",
                         userName: name ?? "",
-                        paringUser: [] )
+                        paringUser: [])
         
         // check if user exist
         checkUserExists(uid: uid) { isExist in

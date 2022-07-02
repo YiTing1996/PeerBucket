@@ -26,16 +26,16 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         return scrollView
     }()
     
-    var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.isUserInteractionEnabled = false
-        pageControl.numberOfPages = 4
-        pageControl.currentPage = 0
-        pageControl.currentPageIndicatorTintColor = .gray
-        pageControl.pageIndicatorTintColor = .darkGray
-        return pageControl
-    }()
+//    var pageControl: UIPageControl = {
+//        let pageControl = UIPageControl()
+//        pageControl.translatesAutoresizingMaskIntoConstraints = false
+//        pageControl.isUserInteractionEnabled = false
+//        pageControl.numberOfPages = 4
+//        pageControl.currentPage = 0
+//        pageControl.currentPageIndicatorTintColor = .gray
+//        pageControl.pageIndicatorTintColor = .darkGray
+//        return pageControl
+//    }()
     
     var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -47,11 +47,11 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         return stackView
     }()
         
-    var detailImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+//    var detailImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        return imageView
+//    }()
     
     var titleLabel: UILabel = {
         let label = UILabel()
@@ -64,8 +64,6 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont.regular(size: 20)
-//        label.addCharacterSpacing()
         label.textColor = .darkGray
         label.numberOfLines = 0
         return label
@@ -129,7 +127,7 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     func configureImageCell(content: ExploreBucket) {
         addSubview(scrollView)
         scrollView.addSubview(stackView)
-        addSubview(pageControl)
+//        addSubview(pageControl)
 
         scrollView.anchor(top: topAnchor, left: leftAnchor,
                           bottom: bottomAnchor, right: rightAnchor)
@@ -137,7 +135,7 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         scrollView.contentSize.height = stackView.frame.height
         stackView.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor, right: scrollView.rightAnchor)
         
-        pageControl.anchor(left: leftAnchor, bottom: bottomAnchor, paddingBottom: -50)
+//        pageControl.anchor(left: leftAnchor, bottom: bottomAnchor, paddingBottom: -50)
         
         for index in 0...content.images.count-1 {
             let imageView = UIImageView()

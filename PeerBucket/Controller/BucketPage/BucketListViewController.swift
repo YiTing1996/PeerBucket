@@ -74,7 +74,9 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     var currentUserUID: String?
     //    var currentUserUID = Auth.auth().currentUser?.uid
     var userIDList: [String] = []
-        
+    
+    var screenWidth = UIScreen.main.bounds.width
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,7 +107,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         
 //        userIDList.append(currentUserUID)
         getData(userID: currentUserUID)
-
+        
     }
     
     func configureUI() {
@@ -154,7 +156,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func tappedPickBtn() {
         let unFinishedBucketList = bucketLists.filter { $0.status == false }
         let randomNum = Int.random(in: 0..<unFinishedBucketList.count)
-        self.presentSuccessAlert(title: "Recommend To You", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
+        self.presentAlert(title: "Recommend To You", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
     }
     
     // MARK: - Firebase data process
@@ -189,7 +191,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.fetchAllBucketList()
                 
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in bucketListVC")
             }
         }
@@ -254,16 +256,16 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         let indexPath = self.collectionView.indexPathForItem(at: location)
         
         if let indexPath = indexPath {
-            self.presentDeleteAlert(title: "Delete Category", message: "Do you want to delete this category?") {
+            self.presentActionAlert(action: "Delete", title: "Delete Category", message: "Do you want to delete this category?") {
                 let deleteId = self.bucketCategories[indexPath.row].id
                 
                 BucketListManager.shared.deleteBucketCategory(id: deleteId) { result in
                     switch result {
                     case .success:
                         self.bucketCategories.remove(at: indexPath.row)
-                        self.presentSuccessAlert()
+                        self.presentAlert()
                     case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                        self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                     }
                 }
                 
@@ -275,9 +277,9 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
-                        self.presentSuccessAlert()
+                        self.presentAlert()
                     case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                        self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                     }
                 }
             }
@@ -319,7 +321,7 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 190, height: 120)
+        return CGSize(width: (screenWidth-30)/2, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,

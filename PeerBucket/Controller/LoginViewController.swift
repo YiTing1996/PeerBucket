@@ -92,7 +92,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
             
         case .failure(let error):
             print("loginHandler", error)
-            presentErrorAlert(message: error.localizedDescription + " Please try again")
+            self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
         }
     }
     

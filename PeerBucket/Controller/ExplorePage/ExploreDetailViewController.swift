@@ -17,11 +17,11 @@ class ExploreDetailViewController: UIViewController {
     @IBOutlet weak var blackView: UIView!
         
     var content: ExploreBucket?
-    var currentUserUID = Auth.auth().currentUser?.uid
+    var currentUserUID: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         blackView.backgroundColor = .black
         blackView.alpha = 0
         menuBottomConstraint.constant = -500
@@ -31,6 +31,12 @@ class ExploreDetailViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
         
     }
     

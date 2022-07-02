@@ -41,13 +41,12 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         gesture.delegate = self
         return gesture
     }()
-    
+        
     var currentUserUID: String?
     //    var currentUserUID = Auth.auth().currentUser?.uid
     
     var userIDList: [String] = []
-
-    var dateString = ""
+    
     var datesWithEvent: [Schedule] = []
     var screenWidth = UIScreen.main.bounds.width
         
@@ -71,7 +70,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         guard let currentUserUID = currentUserUID else { return }
         userIDList.append(currentUserUID)
         getData(userID: currentUserUID, date: Date())
-
+        
     }
     
     func configueCalendarUI() {
@@ -135,7 +134,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if let indexPath = indexPath {
             
-            self.presentDeleteAlert(title: "Delete Event", message: "Do you want to delete this event?") {
+            self.presentActionAlert(action: "Delete", title: "Delete Event", message: "Do you want to delete this event?") {
                 
                 let deleteId = self.datesWithEvent[indexPath.row].id
                 print(deleteId)
@@ -143,13 +142,13 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 ScheduleManager.shared.deleteSchedule(id: deleteId) { result in
                     switch result {
                     case .success:
-                        self.presentSuccessAlert()
+                        self.presentAlert()
                         self.datesWithEvent.remove(at: indexPath.row)
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
                     case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                        self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                     }
                 }
             }
@@ -158,7 +157,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
             print("Could not find index path")
         }
     }
-        
+    
     func getData(userID: String, date: Date) {
         
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
@@ -170,7 +169,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }
-                            
+                
                 self.datesWithEvent = []
                 for userID in self.userIDList {
                     ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
@@ -180,6 +179,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                         switch result {
                         case .success(let events):
                             self.datesWithEvent += events
+                            
                             DispatchQueue.main.async {
                                 self.collectionView.reloadData()
                             }
@@ -188,9 +188,9 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                         }
                     }
                 }
-
+                
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in scheduleVC")
             }
         }
@@ -210,6 +210,7 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
                 switch result {
                 case .success(let events):
                     self.datesWithEvent += events
+                    
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
@@ -222,12 +223,6 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         loadDateEvent(date: date)
-    }
-    
-    // 月曆下方事件圖片設定
-    func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
-        // 設定參與者決定頭像
-        return nil
     }
     
 }
@@ -247,9 +242,9 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
         }
         
         eventCell.avatarImageView.image = UIImage(named: "icon_avatar_none")
-
+        
         eventCell.configureCell(event: datesWithEvent[indexPath.row])
-
+        
         eventCell.backgroundColor = .lightGray
         eventCell.layer.borderWidth = 1
         eventCell.layer.borderColor = UIColor.darkGray.cgColor

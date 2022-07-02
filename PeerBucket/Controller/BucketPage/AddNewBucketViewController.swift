@@ -182,7 +182,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
               selectedIconIndex != nil,
               iconUrlString != ""
         else {
-            presentErrorAlert(message: "Please fill all the field")
+            presentAlert(title: "Error", message: "Please fill all the field")
             return
         }
         
@@ -198,9 +198,9 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
             
             switch result {
             case .success:
-                self.presentSuccessAlert()
+                self.presentAlert()
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
         

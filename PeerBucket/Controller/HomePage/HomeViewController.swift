@@ -16,6 +16,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     private let storage = Storage.storage().reference()
     
+    var pinMessage: String = ""
     var upcomingEvent: String = ""
     var upcomingDate: Int = 0
     
@@ -82,14 +83,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         return view
     }()
     
-    var chatLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGray
-        label.font = UIFont.bold(size: 25)
-        label.text = "Hamburger: Hello"
-        label.numberOfLines = 0
-        return label
-    }()
+//    var chatLabel: UILabel = {
+//        let label = UILabel()
+//        label.textColor = .darkGray
+//        label.font = UIFont.bold(size: 25)
+//        label.text = "There's no pin message"
+//        label.numberOfLines = 0
+//        return label
+//    }()
     
     lazy var chatButton: UIButton = {
         let button = UIButton()
@@ -134,7 +135,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addSubview(eventLabel)
         view.addSubview(eventButton)
         view.addSubview(chatView)
-        view.addSubview(chatLabel)
+//        view.addSubview(chatLabel)
         view.addSubview(chatButton)
         
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
@@ -155,8 +156,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                         paddingBottom: 20, paddingRight: 20, height: 150)
         chatButton.anchor(top: chatView.topAnchor, right: chatView.rightAnchor,
                           paddingTop: 20, paddingRight: 20, width: 50, height: 50)
-        chatLabel.anchor(top: chatView.topAnchor, left: chatView.leftAnchor,
-                         right: chatView.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
+//        chatLabel.anchor(top: chatView.topAnchor, left: chatView.leftAnchor,
+//                         right: chatView.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         
     }
     
@@ -179,8 +180,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     @objc func tappedChatBtn() {
         
         if currentUser?.paringUser == [] {
-            self.presentErrorAlert(title: "Please Invite Friend First",
-                                   message: "To use chatroom please invite friends in profile page.")
+            self.presentAlert(title: "Please Invite Friend First",
+                              message: "To use chatroom please invite friends in profile page.")
         } else {
             let chatVC = storyboard?.instantiateViewController(withIdentifier: "chatVC")
             guard let chatVC = chatVC as? ChatViewController else { return }
@@ -232,10 +233,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
             switch result {
             case .success(let user):
                 self.currentUser = user
-//                print("current user is: \(String(describing: self.currentUser))")
+                if self.currentUser?.paringUser != [] {
+                    MessageManager.shared.fetchMessage(userID: self.currentUser!.userID,
+                                                       user2UID: self.currentUser!.paringUser[0])
+                }
                 
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in homeVC")
             }
         }
@@ -258,7 +262,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                 print("Successfully update home bg to firebase")
                 self.downloadPhoto()
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -324,7 +328,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                 self.bgImageView.kf.setImage(with: url)
                 
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }

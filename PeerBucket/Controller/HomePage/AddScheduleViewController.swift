@@ -135,9 +135,9 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
             ScheduleManager.shared.addSchedule(schedule: &schedule) { result in
                 switch result {
                 case .success:
-                    self.presentSuccessAlert()
+                    self.presentAlert()
                 case .failure(let error):
-                    self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 }
             }
             
@@ -145,7 +145,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
             delegate?.didTappedClose()
             
         } else {
-            presentErrorAlert(message: "Please fill all the field")
+            presentAlert(title: "Error", message: "Please fill all the field")
         }
     }
 }

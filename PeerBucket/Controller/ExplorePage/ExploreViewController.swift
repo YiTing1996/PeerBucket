@@ -125,7 +125,6 @@ class ExploreViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension ExploreViewController: UICollectionViewDataSource {

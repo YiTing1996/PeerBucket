@@ -35,7 +35,10 @@ class AddToBucketCollectionViewCell: UICollectionViewCell {
         addSubview(categoryImageView)
 
         categoryImageView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20,
-                                 paddingLeft: 5, paddingRight: 5, width: 50, height: 50)
+                                 paddingLeft: 5, paddingRight: -5)
+        
+//        categoryImageView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20,
+//                                 paddingLeft: 5, paddingRight: 5, width: 50, height: 50)
         
         categoryLabel.centerX(inView: self)
         categoryLabel.anchor(top: categoryImageView.bottomAnchor, paddingTop: 10)

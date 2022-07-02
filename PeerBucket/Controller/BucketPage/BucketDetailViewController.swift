@@ -19,6 +19,7 @@ class BucketDetailViewController: UIViewController {
     
     var swippedRow: Int?
     var imageUrlString: [String] = []
+    var allListImages: [String] = []
     
     lazy var longPressGesture: UILongPressGestureRecognizer = {
         let gesture = UILongPressGestureRecognizer()
@@ -41,6 +42,15 @@ class BucketDetailViewController: UIViewController {
         button.setImage(UIImage(named: "icon_func_upload"), for: .normal)
         return button
     }()
+    
+    lazy var memoryButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(tappedMemoryBtn), for: .touchUpInside)
+        button.setImage(UIImage(named: "icon_album"), for: .normal)
+        return button
+    }()
+
+    lazy var menuBarItem = UIBarButtonItem(customView: self.memoryButton)
     
     var addListTextField: UITextField = {
         let textField = UITextField()
@@ -85,6 +95,27 @@ class BucketDetailViewController: UIViewController {
         addListTextField.isHidden = true
         submitButton.isHidden = true
         
+        navigationItem.title = selectedBucket?.category
+        
+        navigationItem.rightBarButtonItem = menuBarItem
+    }
+    
+    @objc func tappedMemoryBtn() {
+        
+        for list in allBucketList where list.images != [] {
+            allListImages += list.images
+        }
+        
+        guard allListImages != [] else {
+            self.presentAlert(title: "Error", message: "To use album feature, please add photo to list first")
+            return
+        }
+        
+        let imageVC = storyboard?.instantiateViewController(withIdentifier: "imageVC")
+        guard let imageVC = imageVC as? ImageDetailViewController else { return }
+
+        imageVC.selectedLists = allBucketList
+        navigationController?.pushViewController(imageVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,12 +129,12 @@ class BucketDetailViewController: UIViewController {
         view.addSubview(addListTextField)
         view.addSubview(submitButton)
         
-        addListButton.anchor(top: view.topAnchor, right: view.rightAnchor,
-                             paddingTop: 100, paddingRight: 20, width: 50, height: 50)
-        submitButton.anchor(top: view.topAnchor, right: addListButton.leftAnchor,
-                            paddingTop: 100, paddingRight: 5, width: 50, height: 50)
-        addListTextField.anchor(top: view.topAnchor, left: view.leftAnchor,
-                                paddingTop: 100, paddingLeft: 30, width: 250, height: 50)
+        addListButton.anchor(bottom: view.bottomAnchor, right: view.rightAnchor,
+                             paddingBottom: 110, paddingRight: 10, width: 50, height: 50)
+        submitButton.anchor(bottom: view.bottomAnchor, right: addListButton.leftAnchor,
+                            paddingBottom: 110, paddingRight: 2, width: 50, height: 50)
+        addListTextField.anchor(bottom: view.bottomAnchor, right: submitButton.leftAnchor,
+                                paddingBottom: 110, paddingRight: 2, width: 250, height: 50)
         
     }
     
@@ -134,7 +165,7 @@ class BucketDetailViewController: UIViewController {
             switch result {
             case .success(let bucketList):
                 self.allBucketList = bucketList
-                print(self.allBucketList)
+//                print(self.allBucketList)
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -147,7 +178,7 @@ class BucketDetailViewController: UIViewController {
         guard let selectedBucket = selectedBucket,
               let currentUserUID = currentUserUID,
               addListTextField.text != "" else {
-            presentErrorAlert(message: "Please fill all the field")
+            presentAlert(title: "Error", message: "Please fill all the field")
             return
         }
         
@@ -164,9 +195,9 @@ class BucketDetailViewController: UIViewController {
         BucketListManager.shared.addBucketList(bucketList: &bucketList) { result in
             switch result {
             case .success:
-                self.presentSuccessAlert()
+                self.presentAlert()
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
         
@@ -188,7 +219,7 @@ class BucketDetailViewController: UIViewController {
                 feedbackGenerator.prepare()
                 feedbackGenerator.impactOccurred()
                 
-                self.presentDeleteAlert(title: "Delete List", message: "Do you want to delete this list?") {
+                self.presentActionAlert(action: "Delete", title: "Delete List", message: "Do you want to delete this list?") {
                     
                     let deleteId = self.allBucketList[row].listId
                     self.deleteBucketList(deleteId: deleteId, row: row)
@@ -204,13 +235,13 @@ class BucketDetailViewController: UIViewController {
             
             switch result {
             case .success:
-                self.presentSuccessAlert()
+                self.presentAlert()
                 self.allBucketList.remove(at: row)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -230,13 +261,13 @@ class BucketDetailViewController: UIViewController {
         BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
             switch result {
             case .success:
-                self.presentSuccessAlert()
+                self.presentAlert()
                 self.fetchFromFirebase()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -292,7 +323,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if allBucketList[indexPath.row].images != [] {
-            return 220
+            return 250
         } else {
             return 80
         }
@@ -365,13 +396,13 @@ extension BucketDetailViewController: PHPickerViewControllerDelegate {
             BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
                 switch result {
                 case .success:
-                    self.presentSuccessAlert()
+                    self.presentAlert()
                     DispatchQueue.main.async {
                         self.fetchFromFirebase()
                         self.tableView.reloadData()
                     }
                 case .failure(let error):
-                    self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 }
             }
             

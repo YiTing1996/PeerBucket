@@ -117,7 +117,7 @@ class AddToBucketViewController: UIViewController {
                 }
                 
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in bucketListVC")
             }
         }
@@ -184,13 +184,13 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
             
             switch result {
             case .success:
-                self.presentSuccessAlert()
+                self.presentAlert()
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
         
-        self.presentSuccessAlert()
+        self.presentAlert()
         self.delegate?.didTappedClose()
         
     }
