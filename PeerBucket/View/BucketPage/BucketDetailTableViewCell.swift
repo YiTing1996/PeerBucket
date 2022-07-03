@@ -105,7 +105,7 @@ class BucketDetailTableViewCell: UITableViewCell {
                          paddingTop: 5, paddingLeft: 30)
         
         scrollView.anchor(top: dateLabel.bottomAnchor, left: doneButton.rightAnchor,
-                          paddingTop: 10, paddingLeft: 30, width: 220, height: 120)
+                          paddingTop: 10, paddingLeft: 30, width: 220, height: 150)
         
         hStack.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor,
                       bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
@@ -131,18 +131,18 @@ class BucketDetailTableViewCell: UITableViewCell {
         for index in 0...bucketList.images.count-1 {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
-            imageView.anchor(width: 220, height: 120)
+            imageView.anchor(width: 220, height: 150)
             
             guard let urlString = bucketList.images[index] as String?,
                   let url = URL(string: urlString) else {
                 return
             }
-            
+
             let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
                 guard let data = data, error == nil else {
                     return
                 }
-                
+
                 DispatchQueue.main.async {
                     imageView.image = UIImage(data: data)
                 }
@@ -158,5 +158,4 @@ class BucketDetailTableViewCell: UITableViewCell {
     @objc func tappedDoneBtn() {
         delegate?.didTappedStatus(cell: self)
     }
-
 }

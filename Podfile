@@ -19,5 +19,7 @@ target 'PeerBucket' do
   pod 'FSCalendar'
   pod 'MessageKit'
   pod 'IQKeyboardManagerSwift'
+  pod 'Kingfisher', '~> 7.0'
+  pod 'lottie-ios'
 
 end

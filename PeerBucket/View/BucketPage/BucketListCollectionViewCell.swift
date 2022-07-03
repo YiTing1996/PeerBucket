@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BucketListCollectionViewCell: UICollectionViewCell {
     
@@ -43,26 +44,13 @@ class BucketListCollectionViewCell: UICollectionViewCell {
         
     }
     
+    var image: UIImage?
+    
     func configureCell(category: BucketCategory) {
+
         categoryLabel.text = category.category
-        
-        // cell icon
-        guard let urlString = category.image as String?,
-              let url = URL(string: urlString) else {
-            return
-        }
-
-        let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self.categoryImageView.image = image
-            }
-        })
-        task.resume()
+        let url = URL(string: category.image)
+        categoryImageView.kf.setImage(with: url)
         
     }
     

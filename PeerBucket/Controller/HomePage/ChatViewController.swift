@@ -6,23 +6,23 @@
 //
 
 import UIKit
-import InputBarAccessoryView
 import Firebase
-import MessageKit
 import FirebaseFirestore
+import MessageKit
+import InputBarAccessoryView
+import Kingfisher
+import IQKeyboardManagerSwift
 
 class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
-                            MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
-    
-    var user2UID: String = ""
-    var currentUserName: String = ""
-    
+                          MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
+        
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         button.addTarget(self, action: #selector(tappedBackBtn), for: .touchUpInside)
         button.setTitle("Back", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
+        button.titleLabel?.font = UIFont.semiBold(size: 15)
         return button
     }()
     
@@ -30,6 +30,9 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
     private var docReference: DocumentReference?
     
+    var user2UID: String = ""
+    var currentUser: User?
+    var currentUserUID: String?
     var messages: [Message] = []
     
     override func viewDidLoad() {
@@ -47,41 +50,55 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+//        messagesCollectionView.messageCellDelegate = self
         
-        messagesCollectionView.contentInset = UIEdgeInsets(top: 45, left: 0, bottom: 0, right: 0)
+        messagesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         messagesCollectionView.backgroundColor = .lightGray
         messageInputBar.backgroundView.backgroundColor = .darkGreen
-        messageInputBar.tintColor = .white
+        messageInputBar.inputTextView.textColor = .white
         
-        loadChat()
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
         
+        guard let currentUserUID = currentUserUID else { return }
         fetchUserData(userID: currentUserUID)
-        
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // disable iq keyboard
+        IQKeyboardManager.shared.enable = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // enable iq keyboard
+        IQKeyboardManager.shared.enable = true
     }
     
     @objc func tappedBackBtn() {
         self.navigationController?.popViewController(animated: true)
     }
-
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-//    func didTapAvatar(in cell: MessageCollectionViewCell) {
-//        print("Avatar tapped")
+//    func didTapMessage(in cell: MessageCollectionViewCell) {
+//        // handle message here
+//        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
+//            print("Can't find indexPath")
+//            return
+//        }
+//        self.presentActionAlert(action: "Pin", title: "Pin Message", message: "Pin a message to your favorrite") {
+//            // 存？
+//        }
 //    }
-    
-    func didTapMessage(in cell: MessageCollectionViewCell) {
-        // handle message here
-        print("Tapped message")
-        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
-            print("Can't find indexPath")
-            return }
-        self.presentSuccessAlert(title: "Pin Message", message: "Pin a message to your favorrite") {
-            print(self.messages[indexPath.item].content)
-        }
-    }
     
     // fetch current user's paring user and current user name
     func fetchUserData(userID: String) {
@@ -90,12 +107,20 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
             guard let self = self else { return }
             switch result {
             case .success(let user):
+                guard user.paringUser != [] else {
+                    print("Cant find paring user")
+                    self.presentAlert(title: "Error", message: "Something went wrong. Please try again later.")
+                    return
+                }
+                
                 self.user2UID = user.paringUser[0]
-                self.currentUserName = user.userName
+                self.currentUser = user
                 print("Find paring user: \(String(describing: user.paringUser[0]))")
                 
+                self.loadChat(userID: userID)
+                
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(message: error.localizedDescription + " Please try again")
                 print("Can't find user in chatVC")
             }
         }
@@ -108,25 +133,11 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
             switch result {
             case .success(let user):
                 
-                guard let urlString = user.userAvatar as String?,
-                      let url = URL(string: urlString) else {
-                    return
-                }
-                
-                let task = URLSession.shared.dataTask(with: url, completionHandler: { data, _, error in
-                    guard let data = data, error == nil else {
-                        return
-                    }
-                    
-                    DispatchQueue.main.async {
-                        let image = UIImage(data: data)
-                        imageToChange.image = image
-                    }
-                })
-                task.resume()
-                
+                let url = URL(string: user.userAvatar)
+                imageToChange.kf.setImage(with: url)
+
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -135,7 +146,10 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
     func createNewChat() {
         
-        //  let users = [self.currentUser.uid, self.user2UID]
+        guard let currentUserUID = currentUserUID else {
+            return
+        }
+        
         let users = [currentUserUID, user2UID]
         
         let data: [String: Any] = [
@@ -148,19 +162,17 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                 print("Unable to create chat! \(error)")
                 return
             } else {
-                self.loadChat()
+                self.loadChat(userID: currentUserUID)
             }
         }
     }
     
-    func loadChat() {
+    func loadChat(userID: String) {
         
         // Fetch all the chats which has current user in it
         let database = Firestore.firestore().collection("Chats")
         
-        //  .whereField("users", arrayContains: Auth.auth().currentUser?.uid ?? "Not Found User 1")
-        // for 測試用
-            .whereField("users", arrayContains: currentUserUID )
+            .whereField("users", arrayContains: userID)
         
         database.getDocuments { (chatQuerySnap, error) in
             
@@ -200,7 +212,6 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                                         
                                         let msg = Message(dictionary: message.data())
                                         self.messages.append(msg!)
-                                        print("Data: \(msg?.content ?? "No message found")")
                                     }
                                     self.messagesCollectionView.reloadData()
                                     self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)
@@ -249,7 +260,15 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     func inputBar(_ inputBar: InputBarAccessoryView,
                   didPressSendButtonWith text: String) {
         
-        let message = Message(id: UUID().uuidString, content: text, created: Timestamp(), senderID: currentUserUID, senderName: currentUserName)
+        guard let currentUser = currentUser else {
+            return
+        }
+        
+        let message = Message(id: UUID().uuidString,
+                              content: text,
+                              created: Timestamp(),
+                              senderID: currentUser.userID,
+                              senderName: currentUser.userName)
         
         // Insert new message on collection view
         insertNewMessage(message)
@@ -265,10 +284,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
     func currentSender() -> SenderType {
         
-        //        return Sender(id: Auth.auth().currentUser!.uid,
-        //                      displayName: Auth.auth().currentUser?.displayName ?? "Name not found")
-        
-        return ChatUser(senderId: currentUserUID, displayName: currentUserName)
+        return ChatUser(senderId: currentUser!.userID, displayName: currentUser!.userName)
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -295,11 +311,19 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     // MARK: - MessagesDisplayDelegate
     func backgroundColor(for message: MessageType, at indexPath: IndexPath,
                          in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .hightlightYellow: .white
+        return isFromCurrentSender(message: message) ? .hightlightYellow: .lightYellow
+    }
+    
+    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return isFromCurrentSender(message: message) ? .white: .darkGray
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,
                              at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        
+        guard let currentUserUID = currentUserUID else {
+            return
+        }
         
         if message.sender.senderId == currentUserUID {
             downloadPhoto(imageToChange: avatarView, userID: currentUserUID)

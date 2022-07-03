@@ -41,29 +41,35 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         gesture.delegate = self
         return gesture
     }()
+        
+    var currentUserUID: String?
+    //    var currentUserUID = Auth.auth().currentUser?.uid
     
-    var dateString = ""
+    var userIDList: [String] = []
+    
     var datesWithEvent: [Schedule] = []
-    var userIDList: [String] = [currentUserUID]
     var screenWidth = UIScreen.main.bounds.width
-    
-    let group: DispatchGroup = DispatchGroup()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getData(userID: currentUserUID, date: Date())
+        if isBeta {
+            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
+        } else {
+            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
+        }
         
         configueCalendarUI()
         configureUI()
         
-        blackView.backgroundColor = .black
-        blackView.alpha = 0
-        menuBottomConstraint.constant = -500
-        containerView.layer.cornerRadius = 10
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        view.bringSubviewToFront(blackView)
-        view.bringSubviewToFront(containerView)
+        guard let currentUserUID = currentUserUID else { return }
+        userIDList.append(currentUserUID)
+        getData(userID: currentUserUID, date: Date())
         
     }
     
@@ -93,7 +99,16 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func configureUI() {
+        
+        blackView.backgroundColor = .black
+        blackView.alpha = 0
+        menuBottomConstraint.constant = -500
+        containerView.layer.cornerRadius = 10
+        
         view.addSubview(collectionView)
+        view.bringSubviewToFront(blackView)
+        view.bringSubviewToFront(containerView)
+        
         collectionView.addGestureRecognizer(longPressGesture)
         
         collectionView.anchor(top: calendar.bottomAnchor, left: view.leftAnchor,
@@ -107,6 +122,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    // MARK: - Firebase data process
+    
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state != UIGestureRecognizer.State.ended {
             return
@@ -117,7 +134,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         
         if let indexPath = indexPath {
             
-            self.presentDeleteAlert(title: "Delete Event", message: "Do you want to delete this event?") {
+            self.presentActionAlert(action: "Delete", title: "Delete Event", message: "Do you want to delete this event?") {
                 
                 let deleteId = self.datesWithEvent[indexPath.row].id
                 print(deleteId)
@@ -125,10 +142,13 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 ScheduleManager.shared.deleteSchedule(id: deleteId) { result in
                     switch result {
                     case .success:
-                        self.presentSuccessAlert()
-                        self.collectionView.reloadData()
+                        self.presentAlert()
+                        self.datesWithEvent.remove(at: indexPath.row)
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
                     case .failure(let error):
-                        self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                        self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                     }
                 }
             }
@@ -140,16 +160,16 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func getData(userID: String, date: Date) {
         
-//        print(Thread.current)
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 
+                self.userIDList = [userID]
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }
-                                
+                
                 self.datesWithEvent = []
                 for userID in self.userIDList {
                     ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
@@ -159,18 +179,18 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                         switch result {
                         case .success(let events):
                             self.datesWithEvent += events
+                            
                             DispatchQueue.main.async {
                                 self.collectionView.reloadData()
                             }
                         case .failure(let error):
                             print(error.localizedDescription)
                         }
-//                        print("userIDList: \(self.userIDList)")
                     }
                 }
-
+                
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in scheduleVC")
             }
         }
@@ -186,19 +206,17 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
         self.datesWithEvent = []
         for userID in userIDList {
             ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
-
                 guard let self = self else { return }
-
                 switch result {
                 case .success(let events):
                     self.datesWithEvent += events
+                    
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
-//                print("userIDList: \(self.userIDList)")
             }
         }
     }
@@ -207,15 +225,10 @@ extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
         loadDateEvent(date: date)
     }
     
-    // 月曆下方事件圖片設定
-    func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
-        // 設定參與者決定頭像
-        return nil
-    }
-    
 }
 
 // MARK: - Collection View
+
 extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -228,11 +241,10 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
             return UICollectionViewCell()
         }
         
-//        eventCell.avatarImageView.image = nil
         eventCell.avatarImageView.image = UIImage(named: "icon_avatar_none")
-
+        
         eventCell.configureCell(event: datesWithEvent[indexPath.row])
-
+        
         eventCell.backgroundColor = .lightGray
         eventCell.layer.borderWidth = 1
         eventCell.layer.borderColor = UIColor.darkGray.cgColor
@@ -277,7 +289,7 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
     
 }
 
-// MARK: - Extension
+// MARK: - Delegate
 
 extension ScheduleViewController: ScheduleHeaderViewDelegate {
     
@@ -295,5 +307,13 @@ extension ScheduleViewController: AddScheduleViewControllerDelegate {
             self.menuBottomConstraint.constant = -500
             self.blackView.alpha = 0
         }
+        
+        // refetch & reload data
+        guard let currentUserUID = currentUserUID else { return }
+        getData(userID: currentUserUID, date: Date())
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        
     }
 }
