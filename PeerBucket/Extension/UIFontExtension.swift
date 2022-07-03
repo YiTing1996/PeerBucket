@@ -17,6 +17,8 @@ enum FontName: String {
     
     case bold = "GillSans-Bold"
     
+    case italic = "GillSans-Italic"
+    
 //    case bold = "MarkerFelt-Wide"
 
 }
@@ -42,7 +44,12 @@ extension UIFont {
 
         return UIFont(name: FontName.bold.rawValue, size: size)
     }
+    
+    static func italic(size: CGFloat) -> UIFont? {
 
+        return UIFont(name: FontName.italic.rawValue, size: size)
+    }
+    
     private static func font(_ font: FontName, size: CGFloat) -> UIFont? {
 
         return UIFont(name: font.rawValue, size: size)

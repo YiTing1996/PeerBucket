@@ -10,6 +10,7 @@ import UIKit
 import PhotosUI
 import FirebaseStorage
 import FirebaseAuth
+import Lottie
 
 class BucketDetailViewController: UIViewController {
     
@@ -51,6 +52,8 @@ class BucketDetailViewController: UIViewController {
     }()
 
     lazy var menuBarItem = UIBarButtonItem(customView: self.memoryButton)
+    
+//    lazy var loadingAnimation = LottieAnimation.shared.createLoopAnimation(lottieName: "lottieLoading")
     
     var addListTextField: UITextField = {
         let textField = UITextField()
@@ -98,9 +101,11 @@ class BucketDetailViewController: UIViewController {
         navigationItem.title = selectedBucket?.category
         
         navigationItem.rightBarButtonItem = menuBarItem
+        
     }
     
     @objc func tappedMemoryBtn() {
+        configureAnimation()
         
         for list in allBucketList where list.images != [] {
             allListImages += list.images
@@ -116,6 +121,7 @@ class BucketDetailViewController: UIViewController {
 
         imageVC.selectedLists = allBucketList
         navigationController?.pushViewController(imageVC, animated: true)
+//        LottieAnimation.shared.stopAnimation(lottieAnimation: loadingAnimation)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -135,6 +141,20 @@ class BucketDetailViewController: UIViewController {
                             paddingBottom: 110, paddingRight: 2, width: 50, height: 50)
         addListTextField.anchor(bottom: view.bottomAnchor, right: submitButton.leftAnchor,
                                 paddingBottom: 110, paddingRight: 2, width: 250, height: 50)
+        
+    }
+    
+    func configureAnimation() {
+//        view.addSubview(loadingAnimation)
+//
+//        let width = self.view.frame.width
+//        loadingAnimation.frame = CGRect(x: 0, y: 0, width: width, height: 200)
+//        loadingAnimation.center = self.view.center
+        
+        let animationView = loadAnimation(name: "lottieLoading", loopMode: .loop)
+        animationView.play()
+        
+//        loadAnimation(name: "lottieLoading", loopMode: .loop).play()
         
     }
     

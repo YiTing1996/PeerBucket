@@ -31,6 +31,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // show notification at foreground
         UNUserNotificationCenter.current().delegate = self
         
+        let barApprance = UINavigationBarAppearance()
+        barApprance.configureWithTransparentBackground()
+        UINavigationBar.appearance().standardAppearance = barApprance
+        UINavigationBar.appearance().scrollEdgeAppearance = barApprance
+        
+        let tabApprance = UITabBarAppearance()
+        tabApprance.configureWithTransparentBackground()
+        UITabBar.appearance().standardAppearance = tabApprance
+        UITabBar.appearance().scrollEdgeAppearance = tabApprance
+        
         return true
     }
     

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import simd
+import Lottie
 
 extension UIViewController {
     
@@ -79,17 +79,29 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func loadAnimation(name: String, loopMode: LottieLoopMode) -> AnimationView {
+        let animationView = AnimationView(name: name)
+        let width = self.view.frame.width
+        animationView.frame = CGRect(x: 0, y: 0, width: width, height: 200)
+        animationView.center = self.view.center
+        animationView.contentMode = .scaleAspectFit
+        view.addSubview(animationView)
+        animationView.loopMode = loopMode
+        
+        return animationView
+    }
+    
 }
 
 extension UIAlertController {
-
+    
     // Set background color of UIAlertController
     func setBackgroundColor(color: UIColor) {
         if let bgView = self.view.subviews.first, let groupView = bgView.subviews.first, let contentView = groupView.subviews.first {
             contentView.backgroundColor = color
         }
     }
-
+    
     // Set title font and title color
     func setTitlet(font: UIFont?, color: UIColor?) {
         guard let title = self.title else { return }
@@ -98,14 +110,14 @@ extension UIAlertController {
             attributeString.addAttributes([NSAttributedString.Key.font: titleFont], // 2
                                           range: NSRange(location: 0, length: title.utf8.count))
         }
-
+        
         if let titleColor = color {
             attributeString.addAttributes([NSAttributedString.Key.foregroundColor: titleColor], // 3
                                           range: NSRange(location: 0, length: title.utf8.count))
         }
         self.setValue(attributeString, forKey: "attributedTitle") // 4
     }
-
+    
     // Set message font and message color
     func setMessage(font: UIFont?, color: UIColor?) {
         guard let message = self.message else { return }
@@ -114,14 +126,14 @@ extension UIAlertController {
             attributeString.addAttributes([NSAttributedString.Key.font: messageFont],
                                           range: NSRange(location: 0, length: message.utf8.count))
         }
-
+        
         if let messageColorColor = color {
             attributeString.addAttributes([NSAttributedString.Key.foregroundColor: messageColorColor],
                                           range: NSRange(location: 0, length: message.utf8.count))
         }
         self.setValue(attributeString, forKey: "attributedMessage")
     }
-
+    
     // Set tint color of UIAlertController
     func setTint(color: UIColor) {
         self.view.tintColor = color

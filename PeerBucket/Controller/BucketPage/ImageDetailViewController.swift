@@ -17,6 +17,10 @@ struct MemoryData {
 
 class ImageDetailViewController: UIViewController {
     
+    @IBOutlet weak var foreImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+
     var selectedLists: [BucketList] = []
     
     var images: [UIImage] = []
@@ -34,40 +38,10 @@ class ImageDetailViewController: UIViewController {
         return button
     }()
     
-    var backImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "background")
-        return imageView
-    }()
-    
-    var foreImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 20
-        return imageView
-    }()
-    
-    var titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.semiBold(size: 20)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    var dateLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.semiBold(size: 20)
-        label.numberOfLines = 0
-        return label
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .darkGreen
         
         for selectedList in selectedLists {
             for selectedImage in selectedList.images {
@@ -88,24 +62,15 @@ class ImageDetailViewController: UIViewController {
     }
     
     func configureUI() {
-        view.addSubview(backImageView)
-        view.addSubview(foreImageView)
         view.addSubview(nextButton)
-        view.addSubview(titleLabel)
-        view.addSubview(dateLabel)
+        nextButton.anchor(top: foreImageView.bottomAnchor, right: view.rightAnchor,
+                          paddingTop: 50, paddingRight: 25)
         
-        backImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
-                             bottom: view.bottomAnchor, right: view.rightAnchor)
-        foreImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
-                             bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 130,
-                             paddingLeft: 50, paddingBottom: 300, paddingRight: 50)
-        nextButton.anchor(top: foreImageView.bottomAnchor, paddingTop: 100)
-        nextButton.centerX(inView: view)
-        titleLabel.anchor(left: view.leftAnchor, bottom: nextButton.topAnchor,
-                          paddingLeft: 50, paddingBottom: 50, width: 200, height: 50)
-        dateLabel.anchor(left: view.leftAnchor, bottom: nextButton.topAnchor,
-                         paddingLeft: 50, paddingBottom: 20, width: 200, height: 50)
-        
+        titleLabel.font = UIFont.bold(size: 25)
+        dateLabel.font = UIFont.semiBold(size: 20)
+        titleLabel.textColor = .darkGray
+        dateLabel.textColor = .darkGray
+
     }
     
     @objc func tappedNextBtn() {

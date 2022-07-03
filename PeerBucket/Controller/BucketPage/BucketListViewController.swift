@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import FirebaseAuth
+import Lottie
 
 class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
@@ -256,7 +257,8 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         let indexPath = self.collectionView.indexPathForItem(at: location)
         
         if let indexPath = indexPath {
-            self.presentActionAlert(action: "Delete", title: "Delete Category", message: "Do you want to delete this category?") {
+            self.presentActionAlert(action: "Delete", title: "Delete Category",
+                                    message: "Do you want to delete this category?") {
                 let deleteId = self.bucketCategories[indexPath.row].id
                 
                 BucketListManager.shared.deleteBucketCategory(id: deleteId) { result in
@@ -265,7 +267,8 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                         self.bucketCategories.remove(at: indexPath.row)
                         self.presentAlert()
                     case .failure(let error):
-                        self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+                        self.presentAlert(title: "Error",
+                                          message: error.localizedDescription + " Please try again")
                     }
                 }
                 
@@ -279,7 +282,8 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                         }
                         self.presentAlert()
                     case .failure(let error):
-                        self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+                        self.presentAlert(title: "Error",
+                                          message: error.localizedDescription + " Please try again")
                     }
                 }
             }
@@ -331,6 +335,8 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        loadAnimation(name: "lottieLoading", loopMode: .loop).play()
+
         let detailBucketVC = storyboard?.instantiateViewController(withIdentifier: "BucketDetailViewController")
         guard let detailBucketVC = detailBucketVC as? BucketDetailViewController else { return }
         

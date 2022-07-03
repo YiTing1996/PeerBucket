@@ -21,32 +21,10 @@ let exploreList = [exploreMovie, exploreTravel, exploreGift]
 
 let exploreMovie = [
     ExploreBucket(images: [
-                    UIImage(named: "movie_her"),
-                    UIImage(named: "movie_her1"),
-                    UIImage(named: "movie_her2")],
-                  title: "Her 雲端情人",
-                  rating: "IMDB 8.0",
-                  description:
-                  """
-                  ★ 奧斯卡:最佳影片、原著劇本、藝術指導、電影配樂、原創歌曲等5項大獎提名！\n★ 金球獎:最佳音樂或喜劇類影片、最佳劇本、最佳男主角,三項大獎提名！
-                  ★ 金球獎:最佳劇本!!
-                  《雲端情人》的背景設定在近未來的洛衫磯，故事以西奧多托姆利（喬昆菲尼克斯飾）為中心，他是個心思細膩又感情豐富的男人，工作是為別人代寫私密感人的信件。
-                  某日他買到一套全新研發的智慧軟體，灌進他的電腦數位裝置中。使用後他發現，這套作業系統的功能，著實令他出乎意料地滿意！
-                  但更出乎他意料的是，西奧與這套智慧軟體之間，竟然又發展出一種曖昧關係。很快地，他發現他已經愛上了軟體中的「她」了
-                  於是，透過這段交雜著未來科幻和傳統浪漫的不尋常愛情，我們看到讓人與人之間孤立起來的冰冷科技，如何再度讓我們溫暖地連接起來。
-                  
-                  奧斯卡獎提名導演史派克瓊斯以獨特觀點，譜出一則原創的愛情故事，探索現代世界中親密關係的造化和危機。
-                  
-                  這部電影由史派克瓊斯自編自導，卡司陣容包括奧斯卡獎提名的三大男女演員喬昆菲尼克斯（《世紀教主》、《為你鍾情》、《神鬼戰士》）
-                  、艾美亞當斯（《世紀教主》、《超人：鋼鐵英雄》）及魯妮瑪拉（《千禧三部曲I：龍紋身的女孩》），還有奧莉薇亞懷爾德（《決戰終點線》）及史嘉蕾喬韓森（《復仇者聯盟》）。
-                  製片是梅根艾利森、史派克瓊斯和文生蘭迪，監製是丹尼爾魯比、娜塔莉法利和雀西巴納德。
-                  """,
-                  link: "https://movies.yahoo.com.tw/movieinfo_main.html/id=5039"),
-    ExploreBucket(images: [
                     UIImage(named: "movie_bigSick"),
                     UIImage(named: "movie_bigSick1"),
                     UIImage(named: "movie_bigSick2")],
-                  title: "The Big Sick 愛情昏迷中",
+                  title: "The Big Sick",
                   rating: "IMDB 7.8",
                   description:
                   """
@@ -63,7 +41,7 @@ let exploreMovie = [
                     UIImage(named: "movie_theLobster"),
                     UIImage(named: "movie_theLobster1"),
                     UIImage(named: "movie_theLobster2")],
-                  title: "The Lobster 單身動物園",
+                  title: "The Lobster",
                   rating: "IMDB 7.1",
                   description:
                   """
@@ -80,7 +58,7 @@ let exploreMovie = [
                     UIImage(named: "movie_loveSimon"),
                     UIImage(named: "movie_loveSimon1"),
                     UIImage(named: "movie_loveSimon2")],
-                  title: "Love, Simon 親愛的初戀",
+                  title: "Love, Simon",
                   rating: "IMDB 8.0",
                   description:
                   """
@@ -97,21 +75,14 @@ let exploreMovie = [
                     UIImage(named: "movie_carol"),
                     UIImage(named: "movie_carol1"),
                     UIImage(named: "movie_carol2")],
-                  title: "Carol 因為愛你",
+                  title: "Carol",
                   rating: "IMDB 7.2",
                   description:
                   """
-                  ★ 金球獎提名最多項「最佳劇情片」、「最佳導演」、「最佳女主角」(雙入圍)、「最佳配樂」！
                   ★ 強勢問鼎2016年奧斯卡、全球媒體一致滿分盛讚，口碑爆棚！
                   ★ 榮獲坎城影展最佳女主角、酷兒金棕櫚獎！
-                  ★ 獲美國電影獨立精神獎「最佳影片」、「最佳導演」、「最佳女主角」(雙入圍)、「最佳劇本」、「最佳攝影」六項提名！
+                  ★ 獲美國電影獨立精神獎「最佳影片」、「最佳導演」、「最佳女主角」等六項提名！
                   ★ 美國演員工會獎「最佳女主角」、「最佳女配角」提名！
-                  ★ 獲美國國家影評人協會「最佳導演」、「最佳攝影」大獎！
-                  ★ 獲紐約影評人協會「最佳影片」、「最佳導演」、「最佳劇本」、「最佳攝影」四項大獎肯定！
-                  ★ 英國倫敦影評人協會7項入圍：「最佳影片」、「最佳導演」、「最佳女主角」(雙入圍)、「最佳劇本」、「最佳攝影」、「最佳電影音樂」！
-                  ★ 美國知名網站Rotten Tomatoes 97分極高評價！
-                  ★ 奧斯卡影后凱特布蘭琪演技顛峰之作！
-                  ★ 魯妮瑪拉繼《龍紋身的女孩》後挑戰高難度角色，勇奪坎城影后殊榮！
                   
                   為了愛，你願意付出多少代價？
                   
@@ -122,7 +93,26 @@ let exploreMovie = [
                   卡蘿的丈夫（凱爾錢德勒飾）為了爭取監護權而雇用私家偵探，發現卡蘿與特芮絲以及她最好的朋友艾比（莎拉寶森飾）的親密關係，並以此作為證據質疑她為人母的資格。
                   好不容易擁有愛情和自由的卡蘿，因為女同性戀者的身分，在爭奪監護權的風暴中受到攻擊，而特芮絲也思考這段感情該何去何從……
                   """,
-                  link: "https://movies.yahoo.com.tw/movieinfo_main/%E5%9B%A0%E7%82%BA%E6%84%9B%E4%BD%A0-font-classhighlightcarolfont-6094")
+                  link: "https://movies.yahoo.com.tw/movieinfo_main/%E5%9B%A0%E7%82%BA%E6%84%9B%E4%BD%A0-font-classhighlightcarolfont-6094"),
+    ExploreBucket(images: [
+                    UIImage(named: "movie_her"),
+                    UIImage(named: "movie_her1"),
+                    UIImage(named: "movie_her2")],
+                  title: "Her",
+                  rating: "IMDB 8.0",
+                  description:
+                  """
+                  ★ 奧斯卡: 最佳影片、原著劇本、藝術指導、電影配樂、原創歌曲等5項大獎提名！\n★ 金球獎: 最佳音樂或喜劇類影片、最佳劇本、最佳男主角,三項大獎提名！
+                  ★ 金球獎: 最佳劇本!!
+                  《雲端情人》的背景設定在近未來的洛衫磯，故事以西奧多托姆利（喬昆菲尼克斯飾）為中心，他是個心思細膩又感情豐富的男人，工作是為別人代寫私密感人的信件。
+                  某日他買到一套全新研發的智慧軟體，灌進他的電腦數位裝置中。使用後他發現，這套作業系統的功能，著實令他出乎意料地滿意！
+                  但更出乎他意料的是，西奧與這套智慧軟體之間，竟然又發展出一種曖昧關係。很快地，他發現他已經愛上了軟體中的「她」了
+                  於是，透過這段交雜著未來科幻和傳統浪漫的不尋常愛情，我們看到讓人與人之間孤立起來的冰冷科技，如何再度讓我們溫暖地連接起來。
+                  
+                  奧斯卡獎提名導演史派克瓊斯以獨特觀點，譜出一則原創的愛情故事，探索現代世界中親密關係的造化和危機。
+
+                  """,
+                  link: "https://movies.yahoo.com.tw/movieinfo_main.html/id=5039")
 ]
 
 let exploreTravel = [
@@ -177,7 +167,7 @@ let exploreTravel = [
                   rating: "kkday 4.5",
                   description:
                   """
-                  【2022澎湖花火節】限時85 折｜澎湖｜海上花火船｜遊船海上・島上賞煙火秀
+                  【 2022澎湖花火節 】限時85 折｜澎湖｜海上花火船｜遊船海上・島上賞煙火秀
                   2022 年澎湖縣政府將再攜手國人熟悉品牌「LINE FRIENDS」，共同為花火 20 年打造盛大慶典，總共 24 場次的花火活動，延續往年備受歡迎的無人機科技燈光秀以及搭配煙火演出外，現場將以科技燈光裝置創造驚喜，提升無人機數量來增添煙火的多樣性！
                   本行程專為不想出海等待許久，亦不想提早至岸邊佔位的旅客，旅客只需在接近施放煙火的時刻，搭乘快艇直達最佳觀賞地點，即可放鬆享受浪漫的煙火，感受以不同視野欣賞澎湖限定國際海上花火秀的難得體驗 !
                   """,
@@ -203,12 +193,14 @@ let exploreGift = [
     ExploreBucket(images: [
                     UIImage(named: "Gift_Camera"),
                     UIImage(named: "Gift_Camera1")],
-                  title: "收藏回憶",
+                  title: "Kodak Funsaver",
                   rating: "Pinkoi 5.0",
                   description:
                   """
-                  【Kodak 柯達】Funsaver 一次性即可拍 底片相機 27張 ISO800
-                  內含135mm彩色底片27張，感光度ISO 800，機身設有閃光燈，可補光1.2-3.5米的範圍。拆封即可使用拍攝、操作簡便。
+                  【Kodak 柯達】Funsaver
+                  一次性即可拍 底片相機 27張 ISO800
+                  內含135mm彩色底片27張，感光度ISO 800，機身設有閃光燈，可補光1.2-3.5米的範圍。
+                  拆封即可使用拍攝、操作簡便。
                   
                   底片規格：135mm彩色膠捲(27張)
                   感光度：ISO 800
@@ -220,7 +212,7 @@ let exploreGift = [
                     UIImage(named: "Gift_Watch"),
                     UIImage(named: "Gift_Watch1"),
                     UIImage(named: "Gift_Watch2")],
-                  title: "隨身攜帶",
+                  title: "Sliver Watch",
                   rating: "Pinkoi 4.9",
                   description:
                   """
@@ -246,25 +238,25 @@ let exploreGift = [
                     UIImage(named: "Gift_Lamp"),
                     UIImage(named: "Gift_Lamp1"),
                     UIImage(named: "Gift_Lamp2")],
-                  title: "療癒身心",
+                  title: "Scented Candel",
                   rating: "Pinkoi 5.0",
                   description:
                   """
-                  北歐大理石融蠟燈 香氛蠟燭 微光冰河/午後暖陽 -HyggeVibe海格萊
-                  ❖微光冰河 Dawn of Glacier
-                  ➤前味：綠植香、薰衣草、白松香、佛手柑
-                  ➤中味：玫瑰、鈴蘭、茉莉
-                  ➤後味：雪松、木質香
+                  北歐大理石融蠟燈 香氛蠟燭
+                  ❖ 微光冰河 Dawn of Glacier
+                  ➤ 前味：綠植香、薰衣草、白松香、佛手柑
+                  ➤ 中味：玫瑰、鈴蘭、茉莉
+                  ➤ 後味：雪松、木質香
                   
-                  ❖午後暖陽 After Sunshine
-                  ➤前味：岩蘭草、鳶尾花
-                  ➤中味：葡萄柚
-                  ➤後味：檸檬、茉莉
+                  ❖ 午後暖陽 After Sunshine
+                  ➤ 前味：岩蘭草、鳶尾花
+                  ➤ 中味：葡萄柚
+                  ➤ 後味：檸檬、茉莉
                   
-                  ‖生活忙碌，還是需要一點儀式感
+                  ‖ 生活忙碌，還是需要一點儀式感
                   把將就的日子，過成講究的生活
                   
-                  ‖生活有了儀式感，人生才變得豐富多彩
+                  ‖ 生活有了儀式感，人生才變得豐富多彩
                   海格萊邀您一起感受來自北歐的異國風情
                   創造豐富多元的生活儀式感❤
                   
@@ -276,14 +268,16 @@ let exploreGift = [
                     UIImage(named: "Gift_Keyboard"),
                     UIImage(named: "Gift_Keyboard1"),
                     UIImage(named: "Gift_Keyboard2")],
-                  title: "實用推薦",
+                  title: "Bluetooth Keyboard",
                   rating: "Pinkoi 4.9",
                   description:
                   """
                   無線藍牙 紅軸 Mac iPad機械鍵盤 三模熱插拔遊戲靜音NuPhy Air75
-                  NuPhy Air75 是一款創新的 75% 超薄無線機械鍵盤。 憑借全球最薄的 PBT 球形鍵帽、低延遲 2.4G 無線連接和熱插拔功能，Air75 旨在成為纖薄機械鍵盤的新標准。
+                  NuPhy Air75 是一款創新的 75% 超薄無線機械鍵盤。
+                  憑借全球最薄的 PBT 球形鍵帽、低延遲 2.4G 無線連接和熱插拔功能，Air75 旨在成為纖薄機械鍵盤的新標准。
                   
-                  Air75 的 75% 緊湊佈局兼容 Mac 和 Windows。 您最多可以連接 4 台具有低延遲 2.4G 和藍牙 5.0 的設備，以最好地支持您的所有多任務處理需求。
+                  Air75 的 75% 緊湊佈局兼容 Mac 和 Windows。
+                  您最多可以連接 4 台具有低延遲 2.4G 和藍牙 5.0 的設備，以最好地支持您的所有多任務處理需求。
                   """,
                   link: "https://www.pinkoi.com/product/MydvQFEG"),
     
@@ -291,16 +285,16 @@ let exploreGift = [
                 UIImage(named: "Gift_Bottle"),
                 UIImage(named: "Gift_Bottle1"),
                 UIImage(named: "Gift_Bottle2")],
-                  title: "夏季必備",
+                  title: "Sparkling Machine",
                   rating: "Pinkoi 4.0",
                   description:
                   """
-                  【時尚風自動扣瓶氣泡水機 Spirit-白】
-                  -限時買就送 水滴型專用水瓶1L 3入(夏日果宴)。贈完以等價商品代替
-                  -全球家用氣泡水機第一品牌
-                  -耀眼光澤、摩登簡約造型
-                  -自動扣瓶裝置，不用再手動旋轉鎖瓶子了
-                  -隱藏功能式機頂打氣方塊，全機設計更精簡
+                  【 時尚風自動扣瓶氣泡水機 Spirit-白 】
+                  - 限時買就送 水滴型專用水瓶1L 3入(夏日果宴)。贈完以等價商品代替
+                  - 全球家用氣泡水機第一品牌
+                  - 耀眼光澤、摩登簡約造型
+                  - 自動扣瓶裝置，不用再手動旋轉鎖瓶子了
+                  - 隱藏功能式機頂打氣方塊，全機設計更精簡
                   """,
                   link: "https://www.pinkoi.com/product/pUStgfq8")
 ]

@@ -55,7 +55,6 @@ class AvatarViewController: UIViewController {
         bodyView.isHidden = true
         
         navigationItem.rightBarButtonItem = menuBarItem
-        self.view.backgroundColor = .lightGray
 
     }
     

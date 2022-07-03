@@ -36,6 +36,7 @@ class AddToBucketViewController: UIViewController {
         label.textColor = .darkGray
         label.font = UIFont.semiBold(size: 20)
         label.text = "Select a bucket category you want to add !"
+        label.numberOfLines = 0
         return label
     }()
     
@@ -77,8 +78,9 @@ class AddToBucketViewController: UIViewController {
         
         view.addSubview(titleLabel)
         view.addSubview(cancelButton)
-        cancelButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 10, paddingRight: 10)
-        titleLabel.anchor(top: cancelButton.bottomAnchor, left: view.leftAnchor, paddingTop: 5, paddingLeft: 20, height: 50)
+        cancelButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 10, paddingRight: 30)
+        titleLabel.anchor(top: cancelButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
+                          paddingTop: 5, paddingLeft: 20, paddingRight: 20, height: 50)
     }
     
     @objc func tappedCloseBtn() {
