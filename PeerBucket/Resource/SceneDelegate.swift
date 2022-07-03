@@ -50,11 +50,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
-    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+    func changeRootViewController(_ rootVC: UIViewController, animated: Bool = true) {
         guard let window = window else {
             return
         }
-        window.rootViewController = vc
+        window.rootViewController = rootVC
     }
 
 }

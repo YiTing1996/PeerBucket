@@ -18,7 +18,7 @@ class WebViewController: UIViewController {
         super.viewDidLoad()
         
         guard let url = URL(string: link) else {
-            self.presentErrorAlert(message: "Something went wrong, try again later")
+            self.presentAlert(title: "Error", message: "Something went wrong, try again later")
             self.navigationController?.popViewController(animated: true)
             return
         }

@@ -20,11 +20,11 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var currentUser: User?
     var paringUser: User?
     
-//    var outputTextView: UITextView = {
-//        let textView = UITextView()
-//        textView.backgroundColor = .lightGray
-//        return textView
-//    }()
+    var outputTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = .lightGray
+        return textView
+    }()
     
     var qrCodeFrameView: UIView = {
         let view = UIView()
@@ -41,7 +41,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        configureUI()
+        configureUI()
         callingScanner()
         
         if isBeta {
@@ -73,12 +73,12 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         self.tabBarController?.tabBar.isHidden = false
     }
     
-//    func configureUI() {
-//        view.addSubview(outputTextView)
-//        outputTextView.anchor(bottom: view.bottomAnchor, paddingBottom: 20,
-//                              width: view.frame.width, height: 50)
-//
-//    }
+    func configureUI() {
+        view.addSubview(outputTextView)
+        outputTextView.anchor(bottom: view.bottomAnchor, paddingBottom: 20,
+                              width: view.frame.width, height: 50)
+
+    }
     
     func addSelfParing(paringUserID: String) {
         
@@ -96,9 +96,9 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         UserManager.shared.updateUserData(user: user) { result in
             switch result {
             case .success:
-                self.presentSuccessAlert()
+                self.presentAlert()
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -119,9 +119,9 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         UserManager.shared.updateUserData(user: user) { result in
             switch result {
             case .success:
-                self.presentSuccessAlert()
+                self.presentAlert()
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -140,7 +140,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     self.paringUser = user
                 }
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("can't find user in inviteVC")
             }
         }
@@ -186,7 +186,7 @@ extension InviteViewController {
         
         view.addSubview(qrCodeFrameView)
         view.bringSubviewToFront(qrCodeFrameView)
-//        view.bringSubviewToFront(outputTextView)
+        view.bringSubviewToFront(outputTextView)
         
     }
     
@@ -194,7 +194,7 @@ extension InviteViewController {
         // 檢查metadataObjects 陣列為非空值，它至少需包含一個物件
         if metadataObjects.count == 0 {
             qrCodeFrameView.frame = CGRect.zero
-//            outputTextView.text = "No QR code is detected"
+            outputTextView.text = "No QR code is detected"
             return
         }
         
@@ -210,23 +210,24 @@ extension InviteViewController {
                 // query既有的user取得資料
                 fetchUserData(identityType: .paringUser, userID: metadataObj.stringValue ?? "")
                 
-                // 如果已經有paring user 就不能再新增
-                guard currentUser?.paringUser != [] else {
-                    self.presentErrorAlert(message: "Oops!User \(String(describing: paringUser?.userName)) already have bucket peer")
-                    
-                    // 跳回首頁
-                    let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
-                    guard let tabBarVC = tabBarVC as? TabBarController else { return }
-                    
-                    let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                    sceneDelegate?.changeRootViewController(tabBarVC)
-                    
-                    return
-                }
+                // 如果已經有paring user 就不能再新增(TBC)
+//                guard currentUser?.paringUser != nil else {
+//                    self.presentAlert(title: "Error", message: "Oops!User \(String(describing: paringUser?.userName)) already have bucket peer")
+//
+//                    // 跳回首頁
+//                    let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
+//                    guard let tabBarVC = tabBarVC as? TabBarController else { return }
+//
+//                    let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+//                    sceneDelegate?.changeRootViewController(tabBarVC)
+//
+//                    return
+//                }
                 
                 guard let paringUserName = paringUser?.userName as? String else { return }
                 
-                self.presentInviteAlert(
+                self.presentActionAlert(
+                    action: "Invite",
                     title: "Invite your BucketPeer to chat and share bucket list!",
                     message: "Do you want to invite user \(paringUserName)?") {
                         

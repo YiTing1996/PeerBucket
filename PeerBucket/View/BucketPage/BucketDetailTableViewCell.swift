@@ -105,7 +105,7 @@ class BucketDetailTableViewCell: UITableViewCell {
                          paddingTop: 5, paddingLeft: 30)
         
         scrollView.anchor(top: dateLabel.bottomAnchor, left: doneButton.rightAnchor,
-                          paddingTop: 10, paddingLeft: 30, width: 220, height: 120)
+                          paddingTop: 10, paddingLeft: 30, width: 220, height: 150)
         
         hStack.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor,
                       bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)

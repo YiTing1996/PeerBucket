@@ -6,16 +6,16 @@
 //
 
 import UIKit
-import MessageKit
-import InputBarAccessoryView
 import Firebase
 import FirebaseFirestore
+import MessageKit
+import InputBarAccessoryView
 import Kingfisher
 import IQKeyboardManagerSwift
 
 class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                           MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
-    
+        
     lazy var backButton: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -50,6 +50,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+//        messagesCollectionView.messageCellDelegate = self
         
         messagesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         messagesCollectionView.backgroundColor = .lightGray
@@ -62,14 +63,9 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
             self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
         }
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         guard let currentUserUID = currentUserUID else { return }
         fetchUserData(userID: currentUserUID)
-                
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,17 +89,16 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         return true
     }
     
-    func didTapMessage(in cell: MessageCollectionViewCell) {
-        // handle message here
-        print("Tapped message")
-        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
-            print("Can't find indexPath")
-            return
-        }
-        self.presentSuccessAlert(title: "Pin Message", message: "Pin a message to your favorrite") {
-//            print(self.messages[indexPath.item].content)
-        }
-    }
+//    func didTapMessage(in cell: MessageCollectionViewCell) {
+//        // handle message here
+//        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
+//            print("Can't find indexPath")
+//            return
+//        }
+//        self.presentActionAlert(action: "Pin", title: "Pin Message", message: "Pin a message to your favorrite") {
+//            // 存？
+//        }
+//    }
     
     // fetch current user's paring user and current user name
     func fetchUserData(userID: String) {
@@ -114,7 +109,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
             case .success(let user):
                 guard user.paringUser != [] else {
                     print("Cant find paring user")
-                    self.presentErrorAlert(message: "Something went wrong. Please try again")
+                    self.presentAlert(title: "Error", message: "Something went wrong. Please try again later.")
                     return
                 }
                 
@@ -125,7 +120,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                 self.loadChat(userID: userID)
                 
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(message: error.localizedDescription + " Please try again")
                 print("Can't find user in chatVC")
             }
         }
@@ -142,7 +137,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                 imageToChange.kf.setImage(with: url)
 
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -217,7 +212,6 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                                         
                                         let msg = Message(dictionary: message.data())
                                         self.messages.append(msg!)
-//                                        print("Data: \(msg?.content ?? "No message found")")
                                     }
                                     self.messagesCollectionView.reloadData()
                                     self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)

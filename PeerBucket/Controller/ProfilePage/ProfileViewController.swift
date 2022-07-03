@@ -28,28 +28,9 @@ class ProfileViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-//        imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 100
         imageView.contentMode = .scaleAspectFill
         return imageView
-    }()
-    
-    lazy var avatarButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
-        button.setTitle("Change Avatar", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.titleLabel?.font = UIFont.semiBold(size: 15)
-        return button
-    }()
-    
-    var nameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGreen
-        label.text = "Hi Doreen ! "
-        label.font = UIFont.bold(size: 35)
-        label.numberOfLines = 0
-        return label
     }()
     
     var inviteView: UIView = {
@@ -64,7 +45,7 @@ class ProfileViewController: UIViewController {
     var inviteLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGreen
-        label.text = "Invite friends join PeerBucket"
+        label.text = "Invite Friends Joining"
         label.font = UIFont.bold(size: 25)
         label.numberOfLines = 0
         return label
@@ -74,7 +55,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.backgroundColor = UIColor.lightGray
         button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
-        button.setTitle("Scan OQCode", for: .normal)
+        button.setTitle("Scan QRCode", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 5
@@ -94,7 +75,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    var accountView: UIView = {
+    var profileView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
@@ -103,20 +84,20 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
-    var accountLabel: UILabel = {
+    var profileLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGreen
-        label.text = "Manage your account"
+        label.text = "Edit\nProfile"
         label.font = UIFont.bold(size: 25)
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var logoutButton: UIButton = {
+    lazy var nameButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedSignoutBtn), for: .touchUpInside)
-        button.setTitle("Log Out", for: .normal)
+        button.addTarget(self, action: #selector(tappedNameBtn), for: .touchUpInside)
+        button.setTitle("Edit Name", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 5
@@ -124,11 +105,11 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var deleteButton: UIButton = {
+    lazy var avatarButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedDeleteBtn), for: .touchUpInside)
-        button.setTitle("Delete Account", for: .normal)
+        button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
+        button.setTitle("Edit Avatar", for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
         button.layer.borderWidth = 0.5
         button.layer.cornerRadius = 5
@@ -136,26 +117,47 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    lazy var blockButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedBlockBtn), for: .touchUpInside)
-        button.setTitle("Block User", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.semiBold(size: 16)
-        return button
+    var nameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGreen
+        label.text = "Welcome!"
+        label.font = UIFont.bold(size: 30)
+        label.numberOfLines = 0
+        return label
     }()
     
+    lazy var settingButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 100, y: 100, width: 20, height: 20)
+        button.setImage(UIImage(named: "icon_func_setting"), for: .normal)
+        button.showsMenuAsPrimaryAction = true
+        button.menu = UIMenu(children: [
+            UIAction(title: "Sign Out", handler: { _ in
+                self.tappedSignoutBtn()
+            }),
+            UIAction(title: "Block User", handler: { _ in
+                self.tappedBlockBtn()
+            }),
+            UIAction(title: "Delete Account", handler: { _ in
+                self.tappedDeleteBtn()
+            })
+        ])
+        return button
+    }()
+        
     var currentUser: User?
     var currentUserUID: String?
+    
+    lazy var menuBarItem = UIBarButtonItem(customView: self.settingButton)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configureAnchor()
+        
+        navigationItem.rightBarButtonItem = menuBarItem
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,27 +182,24 @@ class ProfileViewController: UIViewController {
     }
     
     func configureUI() {
-        
-//        view.addSubview(backgroundView)
+
         view.addSubview(nameLabel)
+        view.addSubview(nameButton)
         view.addSubview(avatarImageView)
-        view.addSubview(avatarButton)
         view.addSubview(inviteView)
         view.addSubview(inviteLabel)
         view.addSubview(inviteButton)
         view.addSubview(myQRButton)
         
-        view.addSubview(accountView)
-        view.addSubview(accountLabel)
-        view.addSubview(logoutButton)
-        view.addSubview(deleteButton)
-        view.addSubview(blockButton)
+        view.addSubview(profileView)
+        view.addSubview(profileLabel)
+        view.addSubview(avatarButton)
+        view.addSubview(nameButton)
         
         menuBottomConstraint.constant = -500
         blackView.backgroundColor = .black
         blackView.alpha = 0
         
-        view.bringSubviewToFront(avatarButton)
         view.bringSubviewToFront(blackView)
         view.bringSubviewToFront(containerView)
         self.view.backgroundColor = .lightGray
@@ -208,20 +207,16 @@ class ProfileViewController: UIViewController {
     }
     
     func configureAnchor() {
-        
-//        backgroundView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: inviteView.topAnchor,
-//                              right: view.rightAnchor, paddingTop: 80, paddingLeft: 20, paddingBottom: 20, paddingRight: 20)
-        
+                
         avatarImageView.anchor(top: view.topAnchor, paddingTop: 100,
                                width: 250, height: 250)
         avatarImageView.centerX(inView: view)
-        nameLabel.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor, paddingLeft: 20, width: 300, height: 50)
         
-        avatarButton.anchor(bottom: avatarImageView.bottomAnchor, width: 150, height: 50)
-        avatarButton.centerX(inView: view)
+        nameLabel.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor,
+                         paddingTop: 20, paddingLeft: 20, width: 300, height: 50)
         
-        inviteView.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor,
-                          right: view.rightAnchor, paddingTop: 60,
+        inviteView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
+                          right: view.rightAnchor, paddingTop: 20,
                           paddingLeft: 20, paddingRight: 20, height: 150)
         inviteLabel.anchor(top: inviteView.topAnchor, left: inviteView.leftAnchor,
                            paddingTop: 20, paddingLeft: 20, width: 150)
@@ -230,23 +225,21 @@ class ProfileViewController: UIViewController {
         myQRButton.anchor(top: inviteButton.bottomAnchor, right: inviteView.rightAnchor,
                           paddingTop: 10, paddingRight: 20, width: 150, height: 50)
         
-        accountView.anchor(top: inviteView.bottomAnchor, left: view.leftAnchor,
-                           right: view.rightAnchor, paddingTop: 20,
-                           paddingLeft: 20, paddingRight: 20, height: 200)
-        accountLabel.anchor(top: accountView.topAnchor, left: accountView.leftAnchor,
-                            paddingTop: 20, paddingLeft: 20, width: 150)
-        logoutButton.anchor(top: accountView.topAnchor, right: accountView.rightAnchor,
-                            paddingTop: 13, paddingRight: 20, width: 150, height: 50)
-        deleteButton.anchor(top: logoutButton.bottomAnchor, right: accountView.rightAnchor,
-                            paddingTop: 10, paddingRight: 20, width: 150, height: 50)
-        blockButton.anchor(top: deleteButton.bottomAnchor, right: accountView.rightAnchor,
-                           paddingTop: 10, paddingRight: 20, width: 150, height: 50)
+        profileView.anchor(top: inviteView.bottomAnchor, left: view.leftAnchor,
+                          right: view.rightAnchor, paddingTop: 10,
+                          paddingLeft: 20, paddingRight: 20, height: 150)
+        profileLabel.anchor(top: profileView.topAnchor, left: profileView.leftAnchor,
+                           paddingTop: 20, paddingLeft: 20, width: 150)
+        avatarButton.anchor(top: profileView.topAnchor, right: profileView.rightAnchor,
+                            paddingTop: 20, paddingRight: 20, width: 150, height: 50)
+        nameButton.anchor(top: avatarButton.bottomAnchor, right: profileView.rightAnchor,
+                          paddingTop: 10, paddingRight: 20, width: 150, height: 50)
         
     }
     
     @objc func tappedInviteBtn() {
-        guard currentUser?.paringUser[0] == nil else {
-            self.presentErrorAlert(message: "Oops Already have a bucket peer")
+        guard currentUser?.paringUser != nil else {
+            self.presentAlert(title: "Error", message: "Oops Already have a bucket peer")
             return
         }
         let inviteVC = storyboard?.instantiateViewController(withIdentifier: "inviteVC")
@@ -272,24 +265,54 @@ class ProfileViewController: UIViewController {
     @objc func tappedSignoutBtn() {
         do {
             try Auth.auth().signOut()
-            
+
             let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginVC")
             guard let loginVC = loginVC as? LoginViewController else { return }
             loginVC.modalPresentationStyle = .fullScreen
             self.present(loginVC, animated: true)
-            self.presentSuccessAlert()
+            self.presentAlert()
             print("Successfully sign out")
-            
+
         } catch let signOutError as NSError {
             print("Error signing out:", signOutError)
-            self.presentErrorAlert(message: signOutError.localizedDescription + " Please try again")
+            self.presentAlert(title: "Error", message: "Something went wrong. Please try again later.")
+        }
+    }
+
+    @objc func tappedNameBtn() {
+        
+        self.presentInputAlert { name in
+            
+            guard let currentUser = self.currentUser else {
+                return
+            }
+            
+            let user = User(userID: currentUser.userID,
+                            userAvatar: currentUser.userAvatar,
+                            userHomeBG: currentUser.userHomeBG,
+                            userName: name,
+                            paringUser: currentUser.paringUser)
+            
+            UserManager.shared.updateUserData(user: user) { result in
+                switch result {
+                case .success:
+                    self.fetchUserData(userID: currentUser.userID)
+                    DispatchQueue.main.async {
+                        self.nameLabel.text = "Hi \(name)!"
+                    }
+                    self.presentAlert()
+                case .failure(let error):
+                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+                }
+            }
         }
     }
     
     // Clear paring user
     @objc func tappedBlockBtn() {
         
-        self.presentErrorAlert(title: "Block User", message: "Do you want to block your paring user?") {
+        self.presentActionAlert(action: "Block", title: "Block User",
+                                message: "Do you want to block your paring user?") {
             
             guard let currentUser = self.currentUser else {
                 return
@@ -304,9 +327,10 @@ class ProfileViewController: UIViewController {
             UserManager.shared.updateUserData(user: user) { result in
                 switch result {
                 case .success:
-                    self.presentSuccessAlert()
+                    self.presentAlert()
+                    
                 case .failure(let error):
-                    self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 }
             }
         }
@@ -316,7 +340,8 @@ class ProfileViewController: UIViewController {
     
     @objc func tappedDeleteBtn() {
         
-        self.presentErrorAlert(title: "Delete Account", message: "Do you want to delete your acccount?") {
+        self.presentActionAlert(action: "Delete", title: "Delete Account",
+                                message: "Do you want to delete your acccount?") {
             
             Auth.auth().currentUser?.delete { error in
                 if let error = error {
@@ -338,11 +363,11 @@ class ProfileViewController: UIViewController {
                             self.navigationController?.pushViewController(loginVC, animated: true)
                             
                             // present success
-                            self.presentSuccessAlert()
+                            self.presentAlert()
                             print("Successfully delete account")
                             
                         case .failure(let error):
-                            self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                            self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                             print("Delete account error: \(error)")
                         }
                     })
@@ -369,9 +394,12 @@ class ProfileViewController: UIViewController {
                 
                 let url = URL(string: user.userAvatar)
                 self.avatarImageView.kf.setImage(with: url)
+                if user.userName != "" {
+                    self.nameLabel.text = "Hi, \(user.userName)"
+                }
                 
             case .failure(let error):
-                self.presentErrorAlert(message: error.localizedDescription + " Please try again")
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }

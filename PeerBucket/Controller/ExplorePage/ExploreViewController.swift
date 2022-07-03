@@ -45,7 +45,7 @@ class ExploreViewController: UIViewController {
     
     var decoView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .darkGreen
         return view
     }()
     
@@ -67,16 +67,13 @@ class ExploreViewController: UIViewController {
     }
     
     func configureUI() {
-//        view.addSubview(imageView)
         view.addSubview(nameLabel)
+        view.addSubview(decoView)
         view.addSubview(collectionView)
-        
-//        imageView.anchor(top: view.topAnchor, left: view.leftAnchor,
-//                         paddingTop: 100, paddingLeft: 20,
-//                         width: 100, height: 100)
+
         nameLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
-                         paddingTop: 100, paddingLeft: 40,
-                         width: 250)
+                         paddingTop: 80, paddingLeft: 40, width: 250, height: 100)
+        decoView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, paddingLeft: 40, width: 120, height: 2)
         collectionView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
                               bottom: view.bottomAnchor, right: view.rightAnchor,
                               paddingTop: 20, paddingLeft: 10, paddingBottom: 10,
@@ -96,7 +93,7 @@ class ExploreViewController: UIViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .continuous
                 section.contentInsets.leading = 16
-                section.contentInsets.top = 40
+                section.contentInsets.top = 16
                 
                 section.boundarySupplementaryItems = [
                     .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)),
@@ -125,7 +122,6 @@ class ExploreViewController: UIViewController {
             }
         }
     }
-    
 }
 
 extension ExploreViewController: UICollectionViewDataSource {

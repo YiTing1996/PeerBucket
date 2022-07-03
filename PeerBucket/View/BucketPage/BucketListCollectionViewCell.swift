@@ -47,34 +47,11 @@ class BucketListCollectionViewCell: UICollectionViewCell {
     var image: UIImage?
     
     func configureCell(category: BucketCategory) {
-        
-//        let group = DispatchGroup()
-//        downloadImage(urlString: category.image, group: group)
-        
+
         categoryLabel.text = category.category
         let url = URL(string: category.image)
         categoryImageView.kf.setImage(with: url)
         
-//        group.notify(queue: .main) {
-//            self.categoryLabel.text = category.category
-////            self.categoryImageView.image = self.image
-//        }
-        
     }
-    
-//    func downloadImage(urlString: String, group: DispatchGroup) {
-//        group.enter()
-//        guard let urlString = urlString as String?,
-//              let url = URL(string: urlString) else { return }
-//        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-//            guard let data = data, error == nil else {
-//                return
-//            }
-//            let image = UIImage(data: data)
-//            self.image = image
-//            group.leave()
-//        }
-//        task.resume()
-//    }
     
 }

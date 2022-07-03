@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 
 // for testing different user
-var isBeta: Bool = true
+var isBeta: Bool = false
 
 class UserManager {
     
@@ -27,7 +27,7 @@ class UserManager {
                         userAvatar: "",
                         userHomeBG: "",
                         userName: name ?? "",
-                        paringUser: [] )
+                        paringUser: [])
         
         // check if user exist
         checkUserExists(uid: uid) { isExist in

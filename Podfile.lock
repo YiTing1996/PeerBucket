@@ -804,6 +804,7 @@ PODS:
   - Libuv-gRPC/Implementation (0.0.10):
     - Libuv-gRPC/Interface (= 0.0.10)
   - Libuv-gRPC/Interface (0.0.10)
+  - lottie-ios (3.3.0)
   - MessageKit (3.8.0):
     - InputBarAccessoryView (~> 5.5.0)
   - nanopb (2.30908.0):
@@ -825,6 +826,7 @@ DEPENDENCIES:
   - FSCalendar
   - IQKeyboardManagerSwift
   - Kingfisher (~> 7.0)
+  - lottie-ios
   - MessageKit
   - SwiftLint
 
@@ -859,6 +861,7 @@ SPEC REPOS:
     - Kingfisher
     - leveldb-library
     - Libuv-gRPC
+    - lottie-ios
     - MessageKit
     - nanopb
     - PromisesObjC
@@ -894,11 +897,12 @@ SPEC CHECKSUMS:
   Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
+  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   MessageKit: a1ba0c69ebead94029867853eb44dd05b9b3f453
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
 
-PODFILE CHECKSUM: 0887be1d8e3e2726b8ea0ac5118e0ba533502d65
+PODFILE CHECKSUM: 4683c5c55dead6aeb42c2b04799f990185186328
 
 COCOAPODS: 1.11.3
