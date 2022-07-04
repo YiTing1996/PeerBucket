@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 
 // for testing different user
-var isBeta: Bool = false
+var isBeta: Bool = true
 
 class UserManager {
     

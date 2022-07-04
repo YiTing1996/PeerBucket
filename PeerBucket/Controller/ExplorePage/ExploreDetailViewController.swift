@@ -167,6 +167,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             exploreDetailCell.configureImageCell(content: content)
         default:
             exploreDetailCell.configureInfoCell(content: content)
+            exploreDetailCell.selectionStyle = .none
         }
         
         return exploreDetailCell

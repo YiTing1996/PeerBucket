@@ -62,7 +62,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         button.addTarget(self, action: #selector(tappedMoreBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_drop"), for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.cornerRadius = 20
+//        button.layer.cornerRadius = 40
         return button
     }()
     
@@ -70,7 +70,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .darkGreen
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 25
         return view
     }()
     
@@ -155,7 +155,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
         eventView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor,
                          right: view.rightAnchor, paddingLeft: 20,
-                         paddingBottom: 120, paddingRight: 50, height: 150)
+                         paddingBottom: 120, paddingRight: 50, height: 140)
         eventLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor,
                           right: eventView.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
         
@@ -175,7 +175,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         
         UIView.animate(withDuration: 0.3, animations: {
             if self.moreView.alpha == 0 {
-                self.moreView.alpha = 0.5
+                self.moreView.alpha = 0.7
             } else {
                 self.moreView.alpha = 0
             }
