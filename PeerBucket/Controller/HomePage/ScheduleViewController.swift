@@ -43,7 +43,6 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     }()
         
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
     
     var userIDList: [String] = []
     

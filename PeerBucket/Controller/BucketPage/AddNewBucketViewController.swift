@@ -43,11 +43,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     
     var categoryTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Type Category Here"
-        textField.layer.cornerRadius = 10
-        textField.layer.borderWidth = 0.5
-        textField.textColor = .darkGray
-        textField.setLeftPaddingPoints(amount: 10)
+        textField.setTextField(placeholder: "Type Category Here")
         return textField
     }()
 

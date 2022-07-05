@@ -10,8 +10,9 @@ import UIKit
 import FirebaseStorage
 import FirebaseFirestore
 import FirebaseAuth
+import PhotosUI
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
+class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                           UINavigationControllerDelegate {
     
     private let storage = Storage.storage().reference()
@@ -28,7 +29,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var bgImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -42,10 +42,9 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var eventView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
         view.layer.cornerRadius = 20
-        view.alpha = 0.2
+        view.alpha = 0.5
         return view
     }()
     
@@ -62,7 +61,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         button.addTarget(self, action: #selector(tappedMoreBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_drop"), for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
-//        button.layer.cornerRadius = 40
         return button
     }()
     
@@ -79,7 +77,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         button.addTarget(self, action: #selector(tappedBgBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_bg"), for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -87,7 +84,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedEventBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_calendar"), for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -95,7 +91,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedChatBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_chat"), for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -114,7 +109,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         }
         
         guard let currentUserUID = currentUserUID else {
-            // If user not login then hidden schedule & chat view
             configureGuestUI()
             return
         }
@@ -180,7 +174,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                 self.moreView.alpha = 0
             }
         })
-                       
+        
     }
     
     @objc func tappedEventBtn() {
@@ -282,51 +276,59 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     // MARK: - Image picker controller delegate
     
     @objc func tappedBgBtn() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
-        picker.allowsEditing = true
-        present(picker, animated: true)
+        self.present(picker, animated: true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
         
-        picker.dismiss(animated: true, completion: nil)
-        
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
-            return
-        }
-        
-        guard let imageData = image.pngData() else {
-            return
-        }
-        
-        // upload to firebase storage
-        let imageName = NSUUID().uuidString
-        storage.child("homeImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+        for result in results {
             
-            guard error == nil else {
-                print("Fail to upload image")
-                return
-            }
-            
-            self.storage.child("homeImage/\(imageName).png").downloadURL(completion: { url, error in
-                guard let url = url, error == nil else {
+            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                
+                guard error == nil else {
+                    print("Error \(error!.localizedDescription)")
                     return
                 }
-                let urlString = url.absoluteString
-                UserDefaults.standard.set(urlString, forKey: "url")
                 
-                // save to firebase
-                self.updateBGImage(urlString: urlString)
-                
-            })
+                if let image = image as? UIImage {
+                    guard let imageData = image.jpegData(compressionQuality: 0.5),
+                          let self = self else { return }
+                    
+                    let imageName = NSUUID().uuidString
+                    
+                    self.storage.child("homeImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+                        
+                        guard error == nil else {
+                            print("Fail to upload image")
+                            return
+                        }
+                        
+                        self.storage.child("homeImage/\(imageName).png").downloadURL(completion: { url, error in
+                            guard let url = url, error == nil else {
+                                return
+                            }
+                            let urlString = url.absoluteString
+                            UserDefaults.standard.set(urlString, forKey: "url")
+                            
+                            // save to firebase
+                            self.updateBGImage(urlString: urlString)
+                            
+                        })
+                        
+                    }
+                    print("Uploaded to firebase")
+                } else {
+                    print("There was an error.")
+                }
+            }
+            
         }
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
     }
     
     // fetch background image from firebase

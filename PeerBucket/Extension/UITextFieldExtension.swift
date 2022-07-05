@@ -20,4 +20,14 @@ extension UITextField {
         self.rightView = paddingView
         self.rightViewMode = .always
     }
+    
+    func setTextField(placeholder: String) {
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 10
+        self.backgroundColor = UIColor.lightGray
+        self.setLeftPaddingPoints(amount: 10)
+        self.textColor = .darkGray
+        self.placeholder = placeholder
+    }
+    
 }

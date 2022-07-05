@@ -13,6 +13,11 @@ import FirebaseFirestoreSwift
 // for testing different user
 var isBeta: Bool = true
 
+enum IdentityType: String, CaseIterable {
+    case currentUser
+    case paringUser
+}
+
 class UserManager {
     
     static let shared = UserManager()

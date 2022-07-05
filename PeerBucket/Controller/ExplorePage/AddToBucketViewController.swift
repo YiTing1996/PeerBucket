@@ -64,7 +64,7 @@ class AddToBucketViewController: UIViewController {
         super.viewWillAppear(animated)
         
         guard let currentUserUID = currentUserUID else { return }
-        userIDList.append(currentUserUID)
+//        userIDList.append(currentUserUID)
         getData(userID: currentUserUID)
         
     }
@@ -96,6 +96,7 @@ class AddToBucketViewController: UIViewController {
             switch result {
             case .success(let user):
                 
+                self.userIDList = [userID]
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }

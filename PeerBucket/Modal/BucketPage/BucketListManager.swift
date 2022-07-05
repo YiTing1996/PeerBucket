@@ -39,7 +39,10 @@ class BucketListManager {
     // query bucket list by id of bucket category
     func fetchBucketList(categoryID: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
                 
-        dataBase.collection("bucketList").whereField("categoryId", isEqualTo: categoryID).getDocuments { (querySnapshot, error) in
+        dataBase.collection("bucketList")
+            .order(by: "createdTime", descending: true)
+            .whereField("categoryId", isEqualTo: categoryID)
+            .getDocuments { (querySnapshot, error) in
             
             if let error = error {
                 print("Error getting documents: \(error)")

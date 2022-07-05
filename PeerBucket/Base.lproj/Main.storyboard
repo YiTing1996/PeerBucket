@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYG-qK-hli">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -381,17 +380,40 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkj-Nz-FwG">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0V-Dl-9rX">
+                                <rect key="frame" x="0.0" y="441" width="414" height="455"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="455" id="gX4-Ot-rLQ"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="fWw-Yo-nrr" kind="embed" id="lXB-Lu-zEf"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RFK-uU-gu7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="gkj-Nz-FwG" firstAttribute="top" secondItem="ALt-de-xTx" secondAttribute="top" id="8ue-Te-V2T"/>
+                            <constraint firstItem="j0V-Dl-9rX" firstAttribute="leading" secondItem="RFK-uU-gu7" secondAttribute="leading" id="GKK-L7-cTE"/>
+                            <constraint firstItem="j0V-Dl-9rX" firstAttribute="trailing" secondItem="RFK-uU-gu7" secondAttribute="trailing" id="OrB-wJ-L6E"/>
                             <constraint firstItem="cxa-nk-skz" firstAttribute="leading" secondItem="RFK-uU-gu7" secondAttribute="leading" constant="8" id="S7u-DT-RKe"/>
+                            <constraint firstAttribute="bottom" secondItem="gkj-Nz-FwG" secondAttribute="bottom" id="WXY-aI-b2f"/>
                             <constraint firstItem="cxa-nk-skz" firstAttribute="top" secondItem="RFK-uU-gu7" secondAttribute="top" constant="23" id="fB5-7x-tvE"/>
                             <constraint firstItem="RFK-uU-gu7" firstAttribute="bottom" secondItem="cxa-nk-skz" secondAttribute="bottom" constant="68" id="h0p-MC-Gn1"/>
                             <constraint firstItem="RFK-uU-gu7" firstAttribute="trailing" secondItem="cxa-nk-skz" secondAttribute="trailing" constant="8" id="oMW-ho-cM6"/>
+                            <constraint firstItem="gkj-Nz-FwG" firstAttribute="trailing" secondItem="RFK-uU-gu7" secondAttribute="trailing" id="sqF-LG-rU9"/>
+                            <constraint firstItem="gkj-Nz-FwG" firstAttribute="leading" secondItem="RFK-uU-gu7" secondAttribute="leading" id="twE-ae-hgf"/>
+                            <constraint firstAttribute="bottom" secondItem="j0V-Dl-9rX" secondAttribute="bottom" id="tzx-yg-S3L"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blackView" destination="gkj-Nz-FwG" id="Pyq-UA-Ecw"/>
+                        <outlet property="containerView" destination="j0V-Dl-9rX" id="hX8-BY-gTi"/>
+                        <outlet property="menuBottomConstraint" destination="tzx-yg-S3L" id="i2h-dP-nDY"/>
                         <outlet property="tableView" destination="cxa-nk-skz" id="BqH-0V-0rB"/>
                     </connections>
                 </viewController>
@@ -459,7 +481,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WoB-Cb-PA7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2437.68115942029" y="2161.6071428571427"/>
+            <point key="canvasLocation" x="2455" y="2176"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="S5J-43-aPs">
@@ -1242,6 +1264,21 @@
             </objects>
             <point key="canvasLocation" x="3908.6956521739135" y="1048.6607142857142"/>
         </scene>
+        <!--Add Schedule View Controller-->
+        <scene sceneID="tXy-4E-IjD">
+            <objects>
+                <viewController storyboardIdentifier="addScheduleVC" id="fWw-Yo-nrr" customClass="AddScheduleViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8OK-ZT-2oO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fX7-Ii-zfc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4to-nb-bPE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3207" y="1624"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Afro" width="473" height="567"/>
@@ -1296,7 +1333,7 @@
         <image name="icon_tab_new_n" width="30" height="30"/>
         <image name="icon_tab_profile_n" width="30" height="30"/>
         <image name="one_leg_up-2" width="1534" height="1856"/>
-        <image name="xmark" catalog="system" width="32" height="32"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

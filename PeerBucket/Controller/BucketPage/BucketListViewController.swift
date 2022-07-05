@@ -155,6 +155,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func tappedPickBtn() {
+        guard bucketLists != [] else { return }
         let unFinishedBucketList = bucketLists.filter { $0.status == false }
         let randomNum = Int.random(in: 0..<unFinishedBucketList.count)
         self.presentAlert(title: "Recommend To You", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
@@ -335,8 +336,10 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        loadAnimation(name: "lottieLoading", loopMode: .loop).play()
-
+        // TBC
+//        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
+//        animationView.play()
+        
         let detailBucketVC = storyboard?.instantiateViewController(withIdentifier: "BucketDetailViewController")
         guard let detailBucketVC = detailBucketVC as? BucketDetailViewController else { return }
         

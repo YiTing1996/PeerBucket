@@ -19,7 +19,11 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     var selectedDate: Date?
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
+    var buckteListTitle: String? {
+        didSet {
+            eventTextField.text = buckteListTitle
+        }
+    }
     
     var eventLabel: UILabel = {
         let label = UILabel()
@@ -31,11 +35,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     var eventTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Type Event Name Here"
-        textField.layer.borderWidth = 0.5
-        textField.layer.cornerRadius = 10
-        textField.textColor = .darkGray
-        textField.setLeftPaddingPoints(amount: 10)
+        textField.setTextField(placeholder: "Type Event Name Here")
         return textField
     }()
     
@@ -58,13 +58,9 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .mediumGray
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 10
         button.setTitle("SUBMIT", for: .normal)
-        button.titleLabel?.font = UIFont.semiBold(size: 15)
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .mediumGray, titleColor: .white, radius: 10, font: 15)
         return button
     }()
     
@@ -81,7 +77,6 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         configureUI()
         
         eventTextField.delegate = self
-
     }
     
     func configureUI() {

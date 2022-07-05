@@ -15,7 +15,6 @@
 		AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001480285E0E610098FC4E /* ScheduleDataModal.swift */; };
 		AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001482285E0E770098FC4E /* ScheduleManager.swift */; };
 		AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001484285E15910098FC4E /* AddScheduleViewController.swift */; };
-		AC001489285F58360098FC4E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001488285F58360098FC4E /* WebViewController.swift */; };
 		AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC140421286436CF00DD2566 /* AvatarViewController.swift */; };
 		AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
@@ -25,7 +24,6 @@
 		AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741A286190AD005D1A2D /* InviteViewController.swift */; };
 		AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741C2861B297005D1A2D /* ProfileViewController.swift */; };
 		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
-		AC2CBBDC2870357F003EF0FA /* LottieWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2CBBDB2870357F003EF0FA /* LottieWrapper.swift */; };
 		AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */; };
 		AC2CBBE42871B16F003EF0FA /* lottieLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = AC2CBBE32871B16F003EF0FA /* lottieLoading.json */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
@@ -50,6 +48,8 @@
 		AC72A102285AC2C0007FC767 /* BucketDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A101285AC2C0007FC767 /* BucketDataModal.swift */; };
 		AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A103285AC389007FC767 /* BucketListViewController.swift */; };
 		AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */; };
+		AC752A8D287333DB006756ED /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC752A8C287333DB006756ED /* PrivacyViewController.swift */; };
+		AC752A8F287334B1006756ED /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC752A8E287334B1006756ED /* WebViewController.swift */; };
 		AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */; };
 		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
@@ -90,7 +90,6 @@
 		AC001480285E0E610098FC4E /* ScheduleDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataModal.swift; sourceTree = "<group>"; };
 		AC001482285E0E770098FC4E /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		AC001484285E15910098FC4E /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
-		AC001488285F58360098FC4E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AC140421286436CF00DD2566 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -100,7 +99,6 @@
 		AC2C741A286190AD005D1A2D /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
 		AC2C741C2861B297005D1A2D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
-		AC2CBBDB2870357F003EF0FA /* LottieWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieWrapper.swift; sourceTree = "<group>"; };
 		AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		AC2CBBE32871B16F003EF0FA /* lottieLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieLoading.json; sourceTree = "<group>"; };
 		AC6F0FF52869DA6200FD0F0E /* PeerBucket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeerBucket.entitlements; sourceTree = "<group>"; };
@@ -128,6 +126,8 @@
 		AC72A101285AC2C0007FC767 /* BucketDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDataModal.swift; sourceTree = "<group>"; };
 		AC72A103285AC389007FC767 /* BucketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
 		AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC752A8C287333DB006756ED /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		AC752A8E287334B1006756ED /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
@@ -197,11 +197,12 @@
 		AC21CEA9285B579500157B4D /* ExplorePage */ = {
 			isa = PBXGroup;
 			children = (
+				AC752A8C287333DB006756ED /* PrivacyViewController.swift */,
 				AC72A0CE285984CB007FC767 /* ExploreViewController.swift */,
 				AC72A0F62859B54F007FC767 /* ExploreDetailViewController.swift */,
 				AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */,
 				AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */,
-				AC001488285F58360098FC4E /* WebViewController.swift */,
+				AC752A8E287334B1006756ED /* WebViewController.swift */,
 			);
 			path = ExplorePage;
 			sourceTree = "<group>";
@@ -228,12 +229,12 @@
 			path = ProfilePage;
 			sourceTree = "<group>";
 		};
-		AC2CBBDA28703551003EF0FA /* Third Party Wrapper */ = {
+		AC2CBBE52872CA56003EF0FA /* ExplorePage */ = {
 			isa = PBXGroup;
 			children = (
-				AC2CBBDB2870357F003EF0FA /* LottieWrapper.swift */,
+				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
 			);
-			path = "Third Party Wrapper";
+			path = ExplorePage;
 			sourceTree = "<group>";
 		};
 		AC72A0BE285984CB007FC767 = {
@@ -262,7 +263,6 @@
 				AC72A0EA28598A38007FC767 /* View */,
 				AC72A0E828598A0E007FC767 /* Controller */,
 				AC72A0E928598A23007FC767 /* Extension */,
-				AC2CBBDA28703551003EF0FA /* Third Party Wrapper */,
 				AC72A0EB28598A4E007FC767 /* Resource */,
 				AC72A0D6285984CC007FC767 /* Assets.xcassets */,
 				AC72A0D0285984CB007FC767 /* Main.storyboard */,
@@ -276,9 +276,9 @@
 		AC72A0E6285989F4007FC767 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				AC2CBBE52872CA56003EF0FA /* ExplorePage */,
 				ACADB71E28605B5900D7C18E /* HomePage */,
 				ACADB71D28605B3300D7C18E /* BucketPage */,
-				ACFBCF6C286D83A00013B21B /* MessageManager.swift */,
 				ACADB7222860A26D00D7C18E /* UserManager.swift */,
 				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
 			);
@@ -353,7 +353,6 @@
 			children = (
 				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
 				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
-				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
 			);
 			path = BucketPage;
 			sourceTree = "<group>";
@@ -364,6 +363,7 @@
 				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
 				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
 				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
+				ACFBCF6C286D83A00013B21B /* MessageManager.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -513,7 +513,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC001489285F58360098FC4E /* WebViewController.swift in Sources */,
 				ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */,
 				ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */,
 				ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */,
@@ -525,9 +524,11 @@
 				AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */,
 				AC001475285CDD690098FC4E /* ChallengeUIView.swift in Sources */,
 				AC72A0F3285991FC007FC767 /* ChallengeHeaderView.swift in Sources */,
+				AC752A8F287334B1006756ED /* WebViewController.swift in Sources */,
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
 				AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */,
 				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
+				AC752A8D287333DB006756ED /* PrivacyViewController.swift in Sources */,
 				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
 				AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */,
@@ -538,7 +539,6 @@
 				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
-				AC2CBBDC2870357F003EF0FA /* LottieWrapper.swift in Sources */,
 				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
 				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
 				ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */,
@@ -721,8 +721,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -754,8 +756,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
