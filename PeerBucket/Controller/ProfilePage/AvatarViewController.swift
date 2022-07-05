@@ -124,8 +124,9 @@ class AvatarViewController: UIViewController {
             case .success:
                 print("Successfully update avatar to firebase")
                 self.delegate?.didTappedSubmit()
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: "Something went wrong. Please try again later.")
+            case .failure:
+                self.presentAlert(title: "Error",
+                                  message: "Something went wrong. Please try again later.")
             }
         }
     }

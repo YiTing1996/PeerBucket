@@ -31,7 +31,7 @@ struct BucketCategory: Codable {
     }
 }
 
-struct BucketList: Codable {
+struct BucketList: Codable, Equatable {
     
     var senderId: String
     var createdTime: Date

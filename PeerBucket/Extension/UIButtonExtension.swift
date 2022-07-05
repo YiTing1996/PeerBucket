@@ -22,7 +22,8 @@ extension UIButton {
         self.backgroundColor = bgColor
         self.clipsToBounds = true
         self.layer.cornerRadius = radius
-//        self.layer.borderWidth = 1
+        self.layer.borderWidth = 0.8
+        self.layer.borderColor = UIColor.darkGreen.cgColor
         
     }
     

@@ -25,6 +25,19 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    lazy var privacyButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Privacy policy", for: .normal)
+        button.addTarget(self, action: #selector(tappedPrivacyBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, radius: 0, font: 12)
+        return button
+    }()
+    
+    @objc func tappedPrivacyBtn() {
+        let privacyVC = PrivacyViewController(urlString: "https://www.privacypolicies.com/live/ee7f5a2b-33d3-4b00-bf9b-32d784f8cb81")
+        navigationController?.pushViewController(privacyVC, animated: true)
+    }
+    
     lazy var dismissButton: UIButton = {
         let button = UIButton()
         button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)

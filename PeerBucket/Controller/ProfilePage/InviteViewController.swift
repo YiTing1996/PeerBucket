@@ -10,10 +10,10 @@ import UIKit
 import AVFoundation
 import FirebaseAuth
 
-enum IdentityType: String, CaseIterable {
-    case currentUser
-    case paringUser
-}
+// enum IdentityType: String, CaseIterable {
+//    case currentUser
+//    case paringUser
+// }
 
 class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
@@ -132,7 +132,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                print("successfully find user in inviteVC")
+//                print("successfully find user in inviteVC")
                 switch identityType {
                 case .currentUser:
                     self.currentUser = user

@@ -73,7 +73,9 @@ class ScheduleManager {
                 })
                 
                 let eventsOnDate = events.compactMap { event -> Schedule? in
-                    if event.eventDate.hasSame(.day, as: date) {
+                    if event.eventDate.hasSame(.day, as: date) &&
+                        event.eventDate.hasSame(.month, as: date) &&
+                        event.eventDate.hasSame(.year, as: date) {
                         return event
                     } else {
                         return nil
