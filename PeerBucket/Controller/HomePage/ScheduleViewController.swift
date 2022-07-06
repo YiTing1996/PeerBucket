@@ -61,6 +61,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         configueCalendarUI()
         configureUI()
         
+        addToDoListenerNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -316,3 +317,98 @@ extension ScheduleViewController: AddScheduleViewControllerDelegate {
         
     }
 }
+
+// MARK: - Notification test
+
+extension ScheduleViewController {
+    
+    private func addToDoListenerNotification() {
+        ScheduleManager.shared.listenSchedule(userID: currentUserUID!) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(.added(data: let events)):
+                
+                var badgeStepper: Int = 0
+                
+                for event in events {
+                    if event.eventDate.hasSame(.day, as: Date()) {
+                        badgeStepper += 1
+                    }
+                    
+                    self.createNotification(event: event, badgeStepper: badgeStepper as NSNumber)
+                }
+                
+            case .success(.modified(data: let events)):
+                
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: events.compactMap{ $0.id })
+                
+                var badgeStepper: Int = 0
+                
+                for event in events {
+                    if event.eventDate.hasSame(.day, as: Date()) {
+                        badgeStepper += 1
+                    }
+                    
+                    self.createNotification(event: event, badgeStepper: badgeStepper as NSNumber)
+                }
+                
+            case .success(.removed(data: let events)):
+            
+                var badgeStepper: Int = 0
+                
+                for event in events {
+                    if event.eventDate.hasSame(.day, as: Date()) {
+                        badgeStepper += 1
+                    }
+                }
+                
+            case .failure(let error):
+                print("add todoListeners for notifications error", error)
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+            }
+
+        }
+    }
+    
+    private func createNotification(event: Schedule, badgeStepper: NSNumber?) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d HH:mm"
+        dateFormatter.timeZone = TimeZone.current
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Schedule Today"
+        content.subtitle = dateFormatter.string(from: event.eventDate)
+        content.body = event.event
+        content.badge = badgeStepper
+        content.sound = .default
+        
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: event.eventDate)
+        let month = calendar.component(.month, from: event.eventDate)
+        let day = calendar.component(.day, from: event.eventDate)
+        
+        var dateComponents = DateComponents()
+        dateComponents.timeZone = .current
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        dateComponents.hour = 7
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: event.id, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if error != nil {
+                print("add notification failed")
+                self.presentAlert(title: "Error", message: "Notification Error. Please try again later.")
+            }
+        }
+        
+    }
+    
+}
+

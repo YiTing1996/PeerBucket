@@ -11,6 +11,7 @@ import FirebaseStorage
 import FirebaseFirestore
 import FirebaseAuth
 import PhotosUI
+import WidgetKit
 
 class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                           UINavigationControllerDelegate {
@@ -217,7 +218,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                 
                 if self.upcomingDate != 0 {
                     self.eventLabel.text =
-                    "\(String(describing: self.upcomingEvent))\n\(String(describing: self.upcomingDate)) Days Left"
+                    "\(String(describing: self.upcomingEvent)) \(String(describing: self.upcomingDate)) Days Left"
                 } else if self.upcomingEvent == "" {
                     self.eventLabel.text =
                     "There's no upcoming event"
@@ -225,6 +226,11 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                     self.eventLabel.text =
                     "\(String(describing: self.upcomingEvent)) is Today!"
                 }
+                
+                // for widget
+                let userDefaults = UserDefaults(suiteName: "group.com.doreen.PeerBucket")
+                userDefaults?.setValue(self.eventLabel.text, forKey: "text")
+                WidgetCenter.shared.reloadAllTimelines()
                 
             case .failure(let error):
                 print("Fail to fetch upcoming events: \(error)")
@@ -243,6 +249,11 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                 //                    MessageManager.shared.fetchMessage(userID: self.currentUser!.userID,
                 //                                                       user2UID: self.currentUser!.paringUser[0])
                 //                }
+                
+                // for widget
+                let userDefaults = UserDefaults(suiteName: "group.com.doreen.PeerBucket")
+                userDefaults?.setValue(self.currentUser?.userAvatar, forKey: "image")
+                WidgetCenter.shared.reloadAllTimelines()
                 
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")

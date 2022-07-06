@@ -26,6 +26,11 @@
 		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
 		AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */; };
 		AC2CBBE42871B16F003EF0FA /* lottieLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = AC2CBBE32871B16F003EF0FA /* lottieLoading.json */; };
+		AC4EB7122874495C00163B40 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4EB7112874495C00163B40 /* WidgetKit.framework */; };
+		AC4EB7142874495C00163B40 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4EB7132874495C00163B40 /* SwiftUI.framework */; };
+		AC4EB7172874495C00163B40 /* PeerBucketWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4EB7162874495C00163B40 /* PeerBucketWidget.swift */; };
+		AC4EB7192874495E00163B40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC4EB7182874495E00163B40 /* Assets.xcassets */; };
+		AC4EB71D2874495E00163B40 /* PeerBucketWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AC4EB7102874495C00163B40 /* PeerBucketWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
@@ -66,7 +71,28 @@
 		ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACFC8D11286971780055D143 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AC4EB71B2874495E00163B40 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC72A0BF285984CB007FC767 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC4EB70F2874495C00163B40;
+			remoteInfo = PeerBucketWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		AC4EB71E2874495E00163B40 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AC4EB71D2874495E00163B40 /* PeerBucketWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ACADB70C285F83B800D7C18E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -101,6 +127,13 @@
 		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		AC2CBBE32871B16F003EF0FA /* lottieLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieLoading.json; sourceTree = "<group>"; };
+		AC4EB7102874495C00163B40 /* PeerBucketWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PeerBucketWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC4EB7112874495C00163B40 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		AC4EB7132874495C00163B40 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		AC4EB7162874495C00163B40 /* PeerBucketWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerBucketWidget.swift; sourceTree = "<group>"; };
+		AC4EB7182874495E00163B40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AC4EB71A2874495E00163B40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC4EB7222874496700163B40 /* PeerBucketWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeerBucketWidgetExtension.entitlements; sourceTree = "<group>"; };
 		AC6F0FF52869DA6200FD0F0E /* PeerBucket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeerBucket.entitlements; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +178,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AC4EB70D2874495C00163B40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC4EB7142874495C00163B40 /* SwiftUI.framework in Frameworks */,
+				AC4EB7122874495C00163B40 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AC72A0C4285984CB007FC767 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -237,10 +279,22 @@
 			path = ExplorePage;
 			sourceTree = "<group>";
 		};
+		AC4EB7152874495C00163B40 /* PeerBucketWidget */ = {
+			isa = PBXGroup;
+			children = (
+				AC4EB7162874495C00163B40 /* PeerBucketWidget.swift */,
+				AC4EB7182874495E00163B40 /* Assets.xcassets */,
+				AC4EB71A2874495E00163B40 /* Info.plist */,
+			);
+			path = PeerBucketWidget;
+			sourceTree = "<group>";
+		};
 		AC72A0BE285984CB007FC767 = {
 			isa = PBXGroup;
 			children = (
+				AC4EB7222874496700163B40 /* PeerBucketWidgetExtension.entitlements */,
 				AC72A0C9285984CB007FC767 /* PeerBucket */,
+				AC4EB7152874495C00163B40 /* PeerBucketWidget */,
 				AC72A0C8285984CB007FC767 /* Products */,
 				2F38F1B8333B2EF46986E455 /* Pods */,
 				D13C32911BF3BB95CC277E6A /* Frameworks */,
@@ -251,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				AC72A0C7285984CB007FC767 /* PeerBucket.app */,
+				AC4EB7102874495C00163B40 /* PeerBucketWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -372,6 +427,8 @@
 			isa = PBXGroup;
 			children = (
 				9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */,
+				AC4EB7112874495C00163B40 /* WidgetKit.framework */,
+				AC4EB7132874495C00163B40 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -379,6 +436,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AC4EB70F2874495C00163B40 /* PeerBucketWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC4EB7212874495E00163B40 /* Build configuration list for PBXNativeTarget "PeerBucketWidgetExtension" */;
+			buildPhases = (
+				AC4EB70C2874495C00163B40 /* Sources */,
+				AC4EB70D2874495C00163B40 /* Frameworks */,
+				AC4EB70E2874495C00163B40 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PeerBucketWidgetExtension;
+			productName = PeerBucketWidgetExtension;
+			productReference = AC4EB7102874495C00163B40 /* PeerBucketWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		AC72A0C6285984CB007FC767 /* PeerBucket */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AC72A0DE285984CC007FC767 /* Build configuration list for PBXNativeTarget "PeerBucket" */;
@@ -390,10 +464,12 @@
 				AC72A0C5285984CB007FC767 /* Resources */,
 				FEFC87F9F31419D0A173444F /* [CP] Embed Pods Frameworks */,
 				ACADB70C285F83B800D7C18E /* Embed Frameworks */,
+				AC4EB71E2874495E00163B40 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AC4EB71C2874495E00163B40 /* PBXTargetDependency */,
 			);
 			name = PeerBucket;
 			productName = PeerBucket;
@@ -410,6 +486,9 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
+					AC4EB70F2874495C00163B40 = {
+						CreatedOnToolsVersion = 13.3;
+					};
 					AC72A0C6285984CB007FC767 = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -429,11 +508,20 @@
 			projectRoot = "";
 			targets = (
 				AC72A0C6285984CB007FC767 /* PeerBucket */,
+				AC4EB70F2874495C00163B40 /* PeerBucketWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AC4EB70E2874495C00163B40 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC4EB7192874495E00163B40 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AC72A0C5285984CB007FC767 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -509,6 +597,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AC4EB70C2874495C00163B40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC4EB7172874495C00163B40 /* PeerBucketWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AC72A0C3285984CB007FC767 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -569,6 +665,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AC4EB71C2874495E00163B40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC4EB70F2874495C00163B40 /* PeerBucketWidgetExtension */;
+			targetProxy = AC4EB71B2874495E00163B40 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		AC72A0D0285984CB007FC767 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -589,6 +693,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AC4EB71F2874495E00163B40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PeerBucketWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92P2C9TPVD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PeerBucketWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PeerBucketWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket.PeerBucketWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC4EB7202874495E00163B40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PeerBucketWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92P2C9TPVD;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PeerBucketWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PeerBucketWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket.PeerBucketWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		AC72A0DC285984CC007FC767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -707,6 +869,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F1B5692D855830D747F29104 /* Pods-PeerBucket.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -742,6 +905,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6870EF865073BC240D7C9165 /* Pods-PeerBucket.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -776,6 +940,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AC4EB7212874495E00163B40 /* Build configuration list for PBXNativeTarget "PeerBucketWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC4EB71F2874495E00163B40 /* Debug */,
+				AC4EB7202874495E00163B40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AC72A0C2285984CB007FC767 /* Build configuration list for PBXProject "PeerBucket" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

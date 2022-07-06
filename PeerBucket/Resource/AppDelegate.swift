@@ -108,6 +108,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     // MARK: - Notification
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
@@ -116,15 +120,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.list, .banner])
     }
     
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-//        if isForceAllDerictions == true {
-//            return .all
-//        } else if isForceLandscape == true {
-//            return .landscape
-//        } else if isForcePortrait == true {
-//            return .portrait
-//        }
-        return .portrait
-    }
-    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter,
+//                                didReceive response: UNNotificationResponse,
+//                                withCompletionHandler completionHandler: @escaping () -> Void) {
+//
+//        let window = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window
+//        let scheduleViewController = ScheduleViewController()
+//        let tabBarController = window?.rootViewController as? TabBarController
+//
+//        tabBarController?.selectedIndex = 1
+//        let navigationController = tabBarController?.viewControllers?.first as? UINavigationController
+//        navigationController?.pushViewController(scheduleViewController, animated: true)
+//        UIApplication.shared.applicationIconBadgeNumber -= 1
+//
+//        completionHandler()
+//    }
+
 }
