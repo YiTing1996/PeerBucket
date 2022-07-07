@@ -48,9 +48,11 @@
 		AC72A102285AC2C0007FC767 /* BucketDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A101285AC2C0007FC767 /* BucketDataModal.swift */; };
 		AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A103285AC389007FC767 /* BucketListViewController.swift */; };
 		AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */; };
-		AC752A8D287333DB006756ED /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC752A8C287333DB006756ED /* PrivacyViewController.swift */; };
 		AC752A8F287334B1006756ED /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC752A8E287334B1006756ED /* WebViewController.swift */; };
 		AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */; };
+		AC8B43FD28755BB100A86A11 /* LiveTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B43FC28755BB100A86A11 /* LiveTextController.swift */; };
+		AC8B440128758AE900A86A11 /* LiveTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */; };
+		AC8B44052875B72C00A86A11 /* dreams.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC8B44042875B72C00A86A11 /* dreams.mp3 */; };
 		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
 		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
@@ -126,9 +128,11 @@
 		AC72A101285AC2C0007FC767 /* BucketDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDataModal.swift; sourceTree = "<group>"; };
 		AC72A103285AC389007FC767 /* BucketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
 		AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListCollectionViewCell.swift; sourceTree = "<group>"; };
-		AC752A8C287333DB006756ED /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		AC752A8E287334B1006756ED /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		AC8B43FC28755BB100A86A11 /* LiveTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextController.swift; sourceTree = "<group>"; };
+		AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextTableViewCell.swift; sourceTree = "<group>"; };
+		AC8B44042875B72C00A86A11 /* dreams.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dreams.mp3; sourceTree = "<group>"; };
 		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
 		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
@@ -197,12 +201,10 @@
 		AC21CEA9285B579500157B4D /* ExplorePage */ = {
 			isa = PBXGroup;
 			children = (
-				AC752A8C287333DB006756ED /* PrivacyViewController.swift */,
 				AC72A0CE285984CB007FC767 /* ExploreViewController.swift */,
 				AC72A0F62859B54F007FC767 /* ExploreDetailViewController.swift */,
 				AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */,
 				AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */,
-				AC752A8E287334B1006756ED /* WebViewController.swift */,
 			);
 			path = ExplorePage;
 			sourceTree = "<group>";
@@ -293,7 +295,9 @@
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
 				ACC7D09928631E54006AC04A /* TabBarController.swift */,
+				AC752A8E287334B1006756ED /* WebViewController.swift */,
 				ACADB720286078B100D7C18E /* LoginViewController.swift */,
+				AC8B43FC28755BB100A86A11 /* LiveTextController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -319,6 +323,7 @@
 				AC00147D285E07AB0098FC4E /* SchedulePage */,
 				AC21CEA8285B567C00157B4D /* BucketPage */,
 				AC72A0FE285A2F45007FC767 /* ExplorePage */,
+				AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -330,6 +335,7 @@
 				AC72A0CA285984CB007FC767 /* AppDelegate.swift */,
 				AC72A0CC285984CB007FC767 /* SceneDelegate.swift */,
 				ACFC8D11286971780055D143 /* GoogleService-Info.plist */,
+				AC8B44042875B72C00A86A11 /* dreams.mp3 */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -442,6 +448,7 @@
 				AC2CBBE42871B16F003EF0FA /* lottieLoading.json in Resources */,
 				ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */,
 				AC72A0D7285984CC007FC767 /* Assets.xcassets in Resources */,
+				AC8B44052875B72C00A86A11 /* dreams.mp3 in Resources */,
 				AC72A0D2285984CB007FC767 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,12 +530,12 @@
 				AC72A0ED28599135007FC767 /* ExploreCollectionViewCell.swift in Sources */,
 				AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */,
 				AC001475285CDD690098FC4E /* ChallengeUIView.swift in Sources */,
+				AC8B440128758AE900A86A11 /* LiveTextTableViewCell.swift in Sources */,
 				AC72A0F3285991FC007FC767 /* ChallengeHeaderView.swift in Sources */,
 				AC752A8F287334B1006756ED /* WebViewController.swift in Sources */,
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
 				AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */,
 				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
-				AC752A8D287333DB006756ED /* PrivacyViewController.swift in Sources */,
 				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
 				AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */,
@@ -552,6 +559,7 @@
 				AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */,
 				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
+				AC8B43FD28755BB100A86A11 /* LiveTextController.swift in Sources */,
 				AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */,
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,
 				AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */,

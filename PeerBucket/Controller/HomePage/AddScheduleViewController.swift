@@ -60,7 +60,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         let button = UIButton()
         button.setTitle("SUBMIT", for: .normal)
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .mediumGray, titleColor: .white, radius: 10, font: 15)
+        button.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
         return button
     }()
     

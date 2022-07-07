@@ -491,7 +491,6 @@ extension BucketDetailViewController: BucketDetailTableViewCellDelegate, AddSche
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.presentAlert()
             self.menuBottomConstraint.constant = -500
             self.blackView.alpha = 0
         }

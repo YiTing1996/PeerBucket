@@ -20,9 +20,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     weak var delegate: AddNewBucketDelegate?
     
     private let storage = Storage.storage().reference()
-    
-//    var currentUserUID = Auth.auth().currentUser?.uid
-    
+        
     var currentUserUID: String?
     
     var iconLabel: UILabel = {
@@ -56,13 +54,9 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .mediumGray
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 10
         button.setTitle("SUBMIT", for: .normal)
-        button.titleLabel?.font = UIFont.semiBold(size: 15)
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
         return button
     }()
     
@@ -79,7 +73,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        scrollView.showsHorizontalScrollIndicator = true
         return scrollView
     }()
     

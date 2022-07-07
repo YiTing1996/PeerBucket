@@ -27,24 +27,39 @@ class LoginViewController: UIViewController {
     
     lazy var privacyButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Privacy policy", for: .normal)
+        button.setTitle("PRIVACY", for: .normal)
         button.addTarget(self, action: #selector(tappedPrivacyBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, radius: 0, font: 12)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGray, border: 0, font: 12)
+        return button
+    }()
+    
+    lazy var eulaButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("EULA", for: .normal)
+        button.addTarget(self, action: #selector(tappedEULABtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGray, border: 0, font: 12)
         return button
     }()
     
     @objc func tappedPrivacyBtn() {
-        let privacyVC = PrivacyViewController(urlString: "https://www.privacypolicies.com/live/ee7f5a2b-33d3-4b00-bf9b-32d784f8cb81")
-        navigationController?.pushViewController(privacyVC, animated: true)
+        let webVC = storyboard?.instantiateViewController(withIdentifier: "webVC")
+        guard let webVC = webVC as? WebViewController else { return }
+        webVC.link = "https://www.privacypolicies.com/live/a978eac4-298f-4f57-9525-3b1bf9c8e989"
+        self.present(webVC, animated: true)
+    }
+    
+    @objc func tappedEULABtn() {
+        let webVC = storyboard?.instantiateViewController(withIdentifier: "webVC")
+        guard let webVC = webVC as? WebViewController else { return }
+        webVC.link = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+        self.present(webVC, animated: true)
     }
     
     lazy var dismissButton: UIButton = {
         let button = UIButton()
-        button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        button.addTarget(self, action: #selector(tappedDismiss), for: .touchUpInside)
         button.setTitle("Cancel", for: .normal)
-        button.setTitleColor(UIColor.lightGray, for: .normal)
-        button.titleLabel?.font = UIFont.semiBold(size: 15)
+        button.addTarget(self, action: #selector(tappedDismiss), for: .touchUpInside)
+        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, border: 0, font: 15)
         return button
     }()
         
@@ -227,6 +242,8 @@ extension LoginViewController {
     func configureUI() {
 
         view.addSubview(appleButton)
+        view.addSubview(privacyButton)
+        view.addSubview(eulaButton)
         view.addSubview(dismissButton)
         
         grayView.layer.cornerRadius = 40
@@ -234,8 +251,15 @@ extension LoginViewController {
         titleLabelGray.textColor = .lightGray
         titleLabelGreen.textColor = .darkGreen
         descriptionLabel.textColor = .darkGray
+        
         appleButton.anchor(top: descriptionLabel.bottomAnchor, left: view.leftAnchor,
-                           paddingTop: 20, paddingLeft: 150, width: 200, height: 50)
+                           paddingTop: 10, paddingLeft: 150, width: 200, height: 50)
+        
+        privacyButton.anchor(top: appleButton.bottomAnchor, left: view.leftAnchor,
+                             paddingTop: 5, paddingLeft: 150)
+        eulaButton.anchor(top: appleButton.bottomAnchor, left: privacyButton.rightAnchor,
+                          paddingTop: 5, paddingLeft: 10)
+
         dismissButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 50,
                              paddingRight: 20, width: 50, height: 50)
         

@@ -32,7 +32,7 @@ class ExploreDetailViewController: UIViewController {
     
     lazy var webButton: UIButton = {
         let button = UIButton()
-        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, radius: 0, font: 15)
+        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, font: 15)
         button.setTitle("More Detail > ", for: .normal)
         button.addTarget(self, action: #selector(tappedWebBtn), for: .touchUpInside)
         return button
@@ -142,7 +142,7 @@ class ExploreDetailViewController: UIViewController {
         let webVC = storyboard?.instantiateViewController(withIdentifier: "webVC")
         guard let webVC = webVC as? WebViewController, let content = content else { return }
         webVC.link = content.link
-        navigationController?.pushViewController(webVC, animated: true)
+        self.present(webVC, animated: true)
     }
     
 }

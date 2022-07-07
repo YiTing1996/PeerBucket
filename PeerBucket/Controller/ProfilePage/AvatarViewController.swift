@@ -25,11 +25,9 @@ class AvatarViewController: UIViewController {
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        button.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
         button.setTitle("Submit", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.titleLabel?.font = UIFont.semiBold(size: 15)
+        button.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
+        button.setTextButton(bgColor: .white, titleColor: .darkGreen, border: 0, font: 15)
         return button
     }()
     
