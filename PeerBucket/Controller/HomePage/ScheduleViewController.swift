@@ -94,7 +94,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         calendar.anchor(top: view.topAnchor, left: view.leftAnchor,
                         right: view.rightAnchor, paddingTop: 100,
                         paddingLeft: 20, paddingRight: 20,
-                        width: view.frame.width, height: view.frame.height*3/8)
+                        width: screenWidth, height: screenHeight * 3 / 8 )
     }
     
     func configureUI() {

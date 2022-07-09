@@ -45,7 +45,7 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     var descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
-        label.numberOfLines = 6
+        label.numberOfLines = 5
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
@@ -81,13 +81,13 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         }
         delegate?.didTappedMore()
     }
-    
-    func configureImageCell(content: ExploreBucket) {
-        addSubview(scrollView)
-        scrollView.addSubview(stackView)
         
-        scrollView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor,
-                          right: rightAnchor, paddingLeft: 10, paddingRight: 10)
+    func configureImageCell(content: ExploreBucket) {
+        contentView.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+
+        scrollView.anchor(top: contentView.topAnchor, left: contentView.leftAnchor,
+                          bottom: contentView.bottomAnchor, right: contentView.rightAnchor, paddingLeft: 10, paddingRight: 10)
         
         scrollView.contentSize.height = stackView.frame.height
         stackView.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor, right: scrollView.rightAnchor)
@@ -118,7 +118,7 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         titleLabel.text = content.title
         descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: contentView.leftAnchor,
                                 bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
-                                paddingTop: 15, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
+                                paddingTop: 15, paddingLeft: 10, paddingBottom: 10, paddingRight: 15)
         descriptionLabel.text = content.description
         descriptionLabel.characterSpacing = 2
         

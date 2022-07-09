@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import AVFoundation
 
 struct MemoryData {
     var image: UIImage
@@ -20,16 +21,20 @@ class ImageDetailViewController: UIViewController {
     @IBOutlet weak var foreImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-
+    
     var selectedLists: [BucketList] = []
     
     var images: [UIImage] = []
     var titles: [String] = []
     var dates: [String] = []
-
+    
     var memoryData: [MemoryData] = []
     
     var index: Int = 1
+    var timer = Timer()
+    var playSelect = true
+    
+    var player: AVAudioPlayer?
     
     lazy var nextButton: UIButton = {
         let button = UIButton()
@@ -56,9 +61,15 @@ class ImageDetailViewController: UIViewController {
                 dateLabel.text = memoryData[0].date
             }
         }
-
+        
         configureUI()
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer.invalidate()
+        player?.pause()
     }
     
     func configureUI() {
@@ -70,12 +81,32 @@ class ImageDetailViewController: UIViewController {
         dateLabel.font = UIFont.semiBold(size: 20)
         titleLabel.textColor = .darkGray
         dateLabel.textColor = .darkGray
-
+        
     }
     
     @objc func tappedNextBtn() {
+        if playSelect {
+            playSelect = false
+            self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self,
+                                              selector: #selector(self.playVideo),
+                                              userInfo: nil, repeats: true)
+            // Music
+            if let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") {
+                player = try? AVAudioPlayer(contentsOf: url)
+                player?.play()
+            }
+            
+        } else {
+            playSelect = true
+            timer.invalidate()
+            player?.pause()
+        }
         
-        let num = index
+    }
+    
+    @objc func playVideo() {
+        
+        // Image
         
         if index < memoryData.count-1 {
             index += 1
@@ -85,15 +116,15 @@ class ImageDetailViewController: UIViewController {
         
         let basicAnimation = CABasicAnimation(keyPath: "contents")
         basicAnimation.fromValue = foreImageView.image?.cgImage
-        basicAnimation.toValue = memoryData[num].image.cgImage
+        basicAnimation.toValue = memoryData[index].image.cgImage
         basicAnimation.duration = 1
         foreImageView.layer.contents = foreImageView.image?.cgImage
         foreImageView.layer.add(basicAnimation, forKey: nil)
         
-        foreImageView.image = memoryData[num].image
-        titleLabel.text = memoryData[num].title
-        dateLabel.text = memoryData[num].date
-
+        foreImageView.image = memoryData[index].image
+        titleLabel.text = memoryData[index].title
+        dateLabel.text = memoryData[index].date
+        
     }
-
+    
 }

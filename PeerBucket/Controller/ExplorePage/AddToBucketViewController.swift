@@ -197,5 +197,4 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
         self.delegate?.didTappedClose()
         
     }
-    
 }

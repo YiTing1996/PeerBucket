@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+var screenHeight = UIScreen.main.bounds.height
+var screenWidth = UIScreen.main.bounds.width
+
 extension UIView {
     
     func anchor(top: NSLayoutYAxisAnchor? = nil,
@@ -85,7 +88,7 @@ extension UIView {
                bottom: view.bottomAnchor, right: view.rightAnchor)
     }
     
-    func setShadow(color: UIColor, offset: CGSize, opacity: Float, radius: CGFloat) {
+    func setShadow(color: UIColor, opacity: Float, radius: CGFloat, offset: CGSize) {
         
         self.layer.masksToBounds = false
         self.layer.shadowColor = color.cgColor
@@ -94,21 +97,29 @@ extension UIView {
         self.layer.shadowRadius = radius
     }
     
-    func float(duration: Double) {
+    func setCornerRadius(borderColor: CGColor, width: CGFloat, radius: CGFloat) {
         
-        UIView.animate(
-            withDuration: duration,
-            delay: 0,
-            options: [.autoreverse, .repeat],
-            animations: {
-                self.frame = CGRect(
-                    x: self.frame.origin.x,
-                    y: self.frame.origin.y - 10,
-                    width: self.frame.size.width,
-                    height: self.frame.size.height)
-            },
-            completion: nil
-        )
+        self.layer.borderWidth = width
+        self.layer.cornerRadius = radius
+        self.layer.borderColor = borderColor
+        
     }
+    
+//    func float(duration: Double) {
+//        
+//        UIView.animate(
+//            withDuration: duration,
+//            delay: 0,
+//            options: [.autoreverse, .repeat],
+//            animations: {
+//                self.frame = CGRect(
+//                    x: self.frame.origin.x,
+//                    y: self.frame.origin.y - 10,
+//                    width: self.frame.size.width,
+//                    height: self.frame.size.height)
+//            },
+//            completion: nil
+//        )
+//    }
     
 }

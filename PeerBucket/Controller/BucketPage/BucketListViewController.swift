@@ -33,6 +33,20 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         return button
     }()
     
+    lazy var liveTextButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tappedLiveTextBtn), for: .touchUpInside)
+        button.setImage(UIImage(named: "icon_func_livetext"), for: .normal)
+        return button
+    }()
+    
+    @objc func tappedLiveTextBtn() {
+        let liveVC = storyboard?.instantiateViewController(withIdentifier: "liveVC")
+        guard let liveVC = liveVC as? LiveTextController else { return }
+        self.present(liveVC, animated: true)
+    }
+    
     lazy var longPressGesture: UILongPressGestureRecognizer = {
         let gesture = UILongPressGestureRecognizer()
         gesture.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
@@ -73,10 +87,9 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     var progress: Float?
     
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
     var userIDList: [String] = []
     
-    var screenWidth = UIScreen.main.bounds.width
+//    var screenWidth = UIScreen.main.bounds.width
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,9 +119,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
             return
         }
         
-//        userIDList.append(currentUserUID)
         getData(userID: currentUserUID)
-        
     }
     
     func configureUI() {
@@ -120,6 +131,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(progressLabel)
         view.addSubview(titleLabel)
         view.addSubview(randomPickButton)
+        view.addSubview(liveTextButton)
         
         menuBottomConstraint.constant = -600
         blackView.backgroundColor = .black
@@ -132,10 +144,13 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
                                  paddingBottom: 20, paddingRight: 10)
         randomPickButton.anchor(bottom: collectionView.topAnchor, right: addCategoryButton.leftAnchor,
                                 paddingBottom: 20, paddingRight: 10)
+        liveTextButton.anchor(bottom: collectionView.topAnchor, right: randomPickButton.leftAnchor,
+                              paddingBottom: 20, paddingRight: 10)
+        
         titleLabel.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 100,
                           paddingLeft: 20, height: 40)
         progressLabel.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor,
-                             paddingTop: 10, paddingLeft: 20, height: 30)
+                             paddingTop: 8, paddingLeft: 20, height: 30)
         progressView.anchor(top: progressLabel.bottomAnchor, left: view.leftAnchor,
                             paddingTop: 10, paddingLeft: 20, width: 200, height: 20)
         
@@ -311,6 +326,7 @@ extension BucketListViewController: UICollectionViewDataSource {
         cell.clipsToBounds = true
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = cell.frame.height/30
+        
         cell.backgroundColor = UIColor.lightGray
         
         cell.configureCell(category: bucketCategories[indexPath.row])
@@ -343,6 +359,7 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
         let detailBucketVC = storyboard?.instantiateViewController(withIdentifier: "BucketDetailViewController")
         guard let detailBucketVC = detailBucketVC as? BucketDetailViewController else { return }
         
+        // TODO: index out of range error
         selectedBucket = bucketCategories[indexPath.row]
         detailBucketVC.selectedBucket = selectedBucket
         navigationController?.pushViewController(detailBucketVC, animated: true)

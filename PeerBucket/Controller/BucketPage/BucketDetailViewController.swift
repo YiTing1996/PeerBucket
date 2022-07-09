@@ -100,17 +100,6 @@ class BucketDetailViewController: UIViewController {
         
     }
     
-//    func configureAnimation() {
-//        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .playOnce)
-//        animationView.play { _ in
-//            let imageVC = self.storyboard?.instantiateViewController(withIdentifier: "imageVC")
-//            guard let imageVC = imageVC as? ImageDetailViewController else { return }
-//
-//            imageVC.selectedLists = self.allBucketList
-//            self.navigationController?.pushViewController(imageVC, animated: true)
-//        }
-//    }
-    
     @objc func tappedMemoryBtn() {
         
         guard allListImages != [] else {
@@ -161,11 +150,11 @@ class BucketDetailViewController: UIViewController {
         view.bringSubviewToFront(containerView)
         
         addListButton.anchor(bottom: view.bottomAnchor, right: view.rightAnchor,
-                             paddingBottom: 110, paddingRight: 10, width: 50, height: 50)
+                             paddingBottom: 90, paddingRight: 10, width: 50, height: 50)
         submitButton.anchor(bottom: view.bottomAnchor, right: addListButton.leftAnchor,
-                            paddingBottom: 110, paddingRight: 2, width: 50, height: 50)
+                            paddingBottom: 90, paddingRight: 2, width: 50, height: 50)
         addListTextField.anchor(bottom: view.bottomAnchor, right: submitButton.leftAnchor,
-                                paddingBottom: 110, paddingRight: 2, width: 250, height: 50)
+                                paddingBottom: 90, paddingRight: 2, width: screenWidth * 0.6, height: 50)
         
     }
     
@@ -491,7 +480,6 @@ extension BucketDetailViewController: BucketDetailTableViewCellDelegate, AddSche
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.presentAlert()
             self.menuBottomConstraint.constant = -500
             self.blackView.alpha = 0
         }

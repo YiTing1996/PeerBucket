@@ -19,8 +19,6 @@ enum FontName: String {
     
     case italic = "GillSans-Italic"
     
-//    case bold = "MarkerFelt-Wide"
-
 }
 
 extension UIFont {
