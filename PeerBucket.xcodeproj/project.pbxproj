@@ -63,6 +63,8 @@
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
 		ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateHelper.swift */; };
 		ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7D09928631E54006AC04A /* TabBarController.swift */; };
+		ACFA53B828769C9D00E0887D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA53B728769C9D00E0887D /* LaunchViewController.swift */; };
+		ACFA53B92876AD6900E0887D /* launchScreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = ACFA53B228768E3800E0887D /* launchScreen.mp4 */; };
 		ACFBCF6D286D83A10013B21B /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFBCF6C286D83A00013B21B /* MessageManager.swift */; };
 		ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8D0F286864960055D143 /* UILabelExtension.swift */; };
 		ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACFC8D11286971780055D143 /* GoogleService-Info.plist */; };
@@ -142,6 +144,8 @@
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
 		ACC3D272285B0EFA00676F46 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		ACC7D09928631E54006AC04A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		ACFA53B228768E3800E0887D /* launchScreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = launchScreen.mp4; sourceTree = "<group>"; };
+		ACFA53B728769C9D00E0887D /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		ACFBCF6C286D83A00013B21B /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		ACFC8D0F286864960055D143 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		ACFC8D11286971780055D143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 		AC21CEAA285B57A700157B4D /* BucketPage */ = {
 			isa = PBXGroup;
 			children = (
+				AC8B43FC28755BB100A86A11 /* LiveTextController.swift */,
 				AC72A103285AC389007FC767 /* BucketListViewController.swift */,
 				ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */,
 				ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */,
@@ -297,7 +302,7 @@
 				ACC7D09928631E54006AC04A /* TabBarController.swift */,
 				AC752A8E287334B1006756ED /* WebViewController.swift */,
 				ACADB720286078B100D7C18E /* LoginViewController.swift */,
-				AC8B43FC28755BB100A86A11 /* LiveTextController.swift */,
+				ACFA53B728769C9D00E0887D /* LaunchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				AC72A0CA285984CB007FC767 /* AppDelegate.swift */,
 				AC72A0CC285984CB007FC767 /* SceneDelegate.swift */,
 				ACFC8D11286971780055D143 /* GoogleService-Info.plist */,
+				ACFA53B228768E3800E0887D /* launchScreen.mp4 */,
 				AC8B44042875B72C00A86A11 /* dreams.mp3 */,
 			);
 			path = Resource;
@@ -444,6 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACFA53B92876AD6900E0887D /* launchScreen.mp4 in Resources */,
 				AC72A0DA285984CC007FC767 /* LaunchScreen.storyboard in Resources */,
 				AC2CBBE42871B16F003EF0FA /* lottieLoading.json in Resources */,
 				ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */,
@@ -564,6 +571,7 @@
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,
 				AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */,
 				ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */,
+				ACFA53B828769C9D00E0887D /* LaunchViewController.swift in Sources */,
 				AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */,
 				AC72A0F52859AF8B007FC767 /* UIColorExtension.swift in Sources */,
 				ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */,

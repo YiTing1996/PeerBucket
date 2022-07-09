@@ -17,8 +17,17 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var grayView: UIView!
     @IBOutlet weak var titleLabelGreen: UILabel!
     @IBOutlet weak var titleLabelGray: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
 
+    var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = .darkGray
+        label.font = UIFont.semiBold(size: 15)
+        label.characterSpacing = 1.1
+        label.text = "Signin means you agree on\nour policy below."
+        return label
+    }()
+    
     lazy var appleButton: ASAuthorizationAppleIDButton = {
         let button = ASAuthorizationAppleIDButton(type: .default, style: .black)
         button.addTarget(self, action: #selector(tappedAppleBtn), for: .touchUpInside)
@@ -29,7 +38,7 @@ class LoginViewController: UIViewController {
         let button = UIButton()
         button.setTitle("PRIVACY", for: .normal)
         button.addTarget(self, action: #selector(tappedPrivacyBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGray, border: 0, font: 12)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGray, border: 0, font: 10)
         return button
     }()
     
@@ -37,7 +46,7 @@ class LoginViewController: UIViewController {
         let button = UIButton()
         button.setTitle("EULA", for: .normal)
         button.addTarget(self, action: #selector(tappedEULABtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGray, border: 0, font: 12)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGray, border: 0, font: 10)
         return button
     }()
     
@@ -245,19 +254,21 @@ extension LoginViewController {
         view.addSubview(privacyButton)
         view.addSubview(eulaButton)
         view.addSubview(dismissButton)
+        view.addSubview(descriptionLabel)
         
-        grayView.layer.cornerRadius = 40
+        grayView.layer.maskedCorners = [.layerMinXMinYCorner]
+        grayView.layer.cornerRadius = 60
         grayView.backgroundColor = .lightGray
         titleLabelGray.textColor = .lightGray
         titleLabelGreen.textColor = .darkGreen
-        descriptionLabel.textColor = .darkGray
         
-        appleButton.anchor(top: descriptionLabel.bottomAnchor, left: view.leftAnchor,
-                           paddingTop: 10, paddingLeft: 150, width: 200, height: 50)
-        
-        privacyButton.anchor(top: appleButton.bottomAnchor, left: view.leftAnchor,
+        appleButton.anchor(top: titleLabelGreen.bottomAnchor, left: view.leftAnchor,
+                           paddingTop: 80, paddingLeft: 150, width: 200, height: 50)
+        descriptionLabel.anchor(top: appleButton.bottomAnchor, left: view.leftAnchor,
+                                paddingTop: 10, paddingLeft: 150, width: 300, height: 40)
+        privacyButton.anchor(top: descriptionLabel.bottomAnchor, left: view.leftAnchor,
                              paddingTop: 5, paddingLeft: 150)
-        eulaButton.anchor(top: appleButton.bottomAnchor, left: privacyButton.rightAnchor,
+        eulaButton.anchor(top: descriptionLabel.bottomAnchor, left: privacyButton.rightAnchor,
                           paddingTop: 5, paddingLeft: 10)
 
         dismissButton.anchor(top: view.topAnchor, right: view.rightAnchor, paddingTop: 50,

@@ -33,15 +33,9 @@ class ProfileViewController: UIViewController {
     
     var inviteView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 0.5
-        view.layer.cornerRadius = 10
         view.backgroundColor = .lightGray
-        view.layer.borderColor = UIColor.darkGreen.cgColor
-        
-        view.layer.shadowColor = UIColor.darkGreen.cgColor
-        view.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        view.layer.shadowOpacity = 0.1
-//        view.layer.shadowRadius = 3
+        view.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
+        view.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
         return view
     }()
     
@@ -58,7 +52,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Scan QRCode", for: .normal)
         button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.5, font: 15)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
@@ -66,21 +60,15 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Show QRCode", for: .normal)
         button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.5, font: 15)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
     var profileView: UIView = {
         let view = UIView()
-        view.layer.borderWidth = 0.5
-        view.layer.cornerRadius = 10
         view.backgroundColor = .lightGray
-        view.layer.borderColor = UIColor.darkGreen.cgColor
-        
-        view.layer.shadowColor = UIColor.darkGreen.cgColor
-        view.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        view.layer.shadowOpacity = 0.1
-//        view.layer.shadowRadius = 6
+        view.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
+        view.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
         return view
     }()
     
@@ -97,7 +85,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Edit Name", for: .normal)
         button.addTarget(self, action: #selector(tappedNameBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.5, font: 15)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
@@ -105,7 +93,7 @@ class ProfileViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Edit Avatar", for: .normal)
         button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.5, font: 15)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
@@ -113,7 +101,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.textColor = .darkGreen
         label.text = "Welcome!"
-        label.font = UIFont.bold(size: 35)
+        label.font = UIFont.bold(size: 32)
         label.numberOfLines = 0
         return label
     }()
@@ -177,6 +165,12 @@ class ProfileViewController: UIViewController {
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        avatarImageView.clipsToBounds = true
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2.08
+    }
+    
     func configureUI() {
         
         view.addSubview(nameLabel)
@@ -185,13 +179,13 @@ class ProfileViewController: UIViewController {
         
         view.addSubview(inviteView)
         view.addSubview(inviteLabel)
-        view.addSubview(inviteButton)
-        view.addSubview(myQRButton)
+        inviteView.addSubview(inviteButton)
+        inviteView.addSubview(myQRButton)
         
         view.addSubview(profileView)
         view.addSubview(profileLabel)
-        view.addSubview(avatarButton)
-        view.addSubview(nameButton)
+        profileView.addSubview(avatarButton)
+        profileView.addSubview(nameButton)
         
         menuBottomConstraint.constant = -500
         blackView.backgroundColor = .black
@@ -204,19 +198,16 @@ class ProfileViewController: UIViewController {
     }
     
     func configureAnchor() {
-        
-        avatarImageView.anchor(top: view.topAnchor, paddingTop: 100,
-                               width: 280, height: 280)
+
+        avatarImageView.anchor(top: view.topAnchor, paddingTop: 90, width: screenHeight * 0.3, height: screenHeight * 0.3)
         avatarImageView.centerX(inView: view)
-        avatarImageView.clipsToBounds = true
-        avatarImageView.layer.cornerRadius = 120
-        
+
         nameLabel.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor,
-                         paddingTop: 5, paddingLeft: 20, width: 300, height: 50)
+                         paddingTop: 10, paddingLeft: 20, width: 300, height: 50)
         
         profileView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
-                           right: view.rightAnchor, paddingTop: 20,
-                           paddingLeft: 20, paddingRight: 20, height: 150)
+                           right: view.rightAnchor, paddingTop: 10,
+                           paddingLeft: 20, paddingRight: 20, height: screenHeight * 0.18)
         profileLabel.anchor(top: profileView.topAnchor, left: profileView.leftAnchor,
                             paddingTop: 20, paddingLeft: 20, width: 150)
         
@@ -224,20 +215,20 @@ class ProfileViewController: UIViewController {
         profileLabel.anchor(left: profileView.leftAnchor, paddingLeft: 20, width: 150)
         
         avatarButton.anchor(top: profileView.topAnchor, right: profileView.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 150, height: 50)
+                            paddingTop: 20, paddingRight: 20, width: 150, height: screenHeight * 0.06)
         nameButton.anchor(top: avatarButton.bottomAnchor, right: profileView.rightAnchor,
-                          paddingTop: 10, paddingRight: 20, width: 150, height: 50)
+                          paddingTop: 10, paddingRight: 20, width: 150, height: screenHeight * 0.06)
         
         inviteView.anchor(top: profileView.bottomAnchor, left: view.leftAnchor,
                           right: view.rightAnchor, paddingTop: 10,
-                          paddingLeft: 20, paddingRight: 20, height: 150)
+                          paddingLeft: 20, paddingRight: 20, height: screenHeight * 0.18)
         inviteLabel.centerY(inView: inviteView)
         inviteLabel.anchor(left: inviteView.leftAnchor, paddingLeft: 20, width: 150)
         
         inviteButton.anchor(top: inviteView.topAnchor, right: inviteView.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 150, height: 50)
+                            paddingTop: 20, paddingRight: 20, width: 150, height: screenHeight * 0.06)
         myQRButton.anchor(top: inviteButton.bottomAnchor, right: inviteView.rightAnchor,
-                          paddingTop: 10, paddingRight: 20, width: 150, height: 50)
+                          paddingTop: 10, paddingRight: 20, width: 150, height: screenHeight * 0.06)
         
     }
     
@@ -259,7 +250,7 @@ class ProfileViewController: UIViewController {
     
     @objc func tappedQRBtn() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = 200
+            self.menuBottomConstraint.constant = 140
             self.blackView.alpha = 0.5
         }
     }

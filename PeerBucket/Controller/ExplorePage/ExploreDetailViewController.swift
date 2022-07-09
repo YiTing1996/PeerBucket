@@ -23,7 +23,7 @@ class ExploreDetailViewController: UIViewController {
     var ratingView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
-        view.layer.cornerRadius = 25
+        view.layer.cornerRadius = 20
         view.backgroundColor = .darkGreen
         view.alpha = 0.95
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +118,7 @@ class ExploreDetailViewController: UIViewController {
         ratingView.addSubview(webButton)
 
         ratingView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor,
-                          paddingLeft: 20, paddingBottom: 50, paddingRight: 20, height: 70)
+                          paddingLeft: 20, paddingBottom: 30, paddingRight: 20, height: 60)
         
         ratingImageView.anchor(left: ratingView.leftAnchor, paddingLeft: 20)
         ratingLabel.anchor(left: ratingImageView.rightAnchor, paddingLeft: 15, width: 100)
@@ -165,6 +165,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         switch indexPath.row {
         case 0:
             exploreDetailCell.configureImageCell(content: content)
+            
         default:
             exploreDetailCell.configureInfoCell(content: content)
             exploreDetailCell.selectionStyle = .none
@@ -174,9 +175,11 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         switch indexPath.row {
         case 0:
-            return 450
+            let fullScreenHeight = UIScreen.main.bounds.height
+            return CGFloat(fullScreenHeight*2.8/5)
         default:
             return UITableView.automaticDimension
         }

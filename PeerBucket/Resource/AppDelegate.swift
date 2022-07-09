@@ -117,13 +117,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-//        if isForceAllDerictions == true {
-//            return .all
-//        } else if isForceLandscape == true {
-//            return .landscape
-//        } else if isForcePortrait == true {
-//            return .portrait
-//        }
         return .portrait
     }
     

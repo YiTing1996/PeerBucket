@@ -97,6 +97,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         moreView.alpha = 0
+        view.backgroundColor = .darkGreen
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -87,10 +87,9 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     var progress: Float?
     
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
     var userIDList: [String] = []
     
-    var screenWidth = UIScreen.main.bounds.width
+//    var screenWidth = UIScreen.main.bounds.width
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +119,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
             return
         }
         
-//        userIDList.append(currentUserUID)
         getData(userID: currentUserUID)
     }
     
@@ -152,7 +150,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         titleLabel.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 100,
                           paddingLeft: 20, height: 40)
         progressLabel.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor,
-                             paddingTop: 10, paddingLeft: 20, height: 30)
+                             paddingTop: 8, paddingLeft: 20, height: 30)
         progressView.anchor(top: progressLabel.bottomAnchor, left: view.leftAnchor,
                             paddingTop: 10, paddingLeft: 20, width: 200, height: 20)
         
@@ -328,6 +326,7 @@ extension BucketListViewController: UICollectionViewDataSource {
         cell.clipsToBounds = true
         cell.layer.borderWidth = 1
         cell.layer.cornerRadius = cell.frame.height/30
+        
         cell.backgroundColor = UIColor.lightGray
         
         cell.configureCell(category: bucketCategories[indexPath.row])
