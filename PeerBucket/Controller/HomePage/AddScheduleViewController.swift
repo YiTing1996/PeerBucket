@@ -72,7 +72,6 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         } else {
             self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
         }
-//        print(currentUserUID)
         
         configureUI()
         

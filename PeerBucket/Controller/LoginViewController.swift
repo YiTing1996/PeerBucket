@@ -119,12 +119,10 @@ extension LoginViewController: ASAuthorizationControllerDelegate, ASAuthorizatio
         switch result {
         case .success((let user, _)):
             
-            let tabBarVC = storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
-            guard let tabBarVC = tabBarVC as? TabBarController else { return }
-
+            let launchVC = LaunchViewController()
             let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            sceneDelegate?.changeRootViewController(tabBarVC)
-            
+            sceneDelegate?.changeRootViewController(launchVC)
+             
             print("current user in loginVC: \(user)")
             
         case .failure(let error):

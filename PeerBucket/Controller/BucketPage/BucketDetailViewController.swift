@@ -113,12 +113,12 @@ class BucketDetailViewController: UIViewController {
 
         imageVC.selectedLists = self.allBucketList
 
-        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .playOnce)
-//        self.navigationController?.pushViewController(imageVC, animated: true)
+//        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .playOnce)
+        self.navigationController?.pushViewController(imageVC, animated: true)
 
-        animationView.play { _ in
-            self.navigationController?.pushViewController(imageVC, animated: true)
-        }
+//        animationView.play { _ in
+//            self.navigationController?.pushViewController(imageVC, animated: true)
+//        }
         
     }
     
@@ -277,16 +277,18 @@ class BucketDetailViewController: UIViewController {
             }
         }
     }
-    
+        
     func updateBucketList(bucketList: BucketList) {
         BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
             switch result {
             case .success:
-                self.presentAlert()
                 self.fetchFromFirebase()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    let animationView = self.loadAnimation(name: "lottieCongrats", loopMode: .playOnce)
+                    animationView.play()
                 }
+
             case .failure(let error):
                 self.presentAlert(title: "Error",
                                   message: error.localizedDescription + " Please try again")

@@ -41,12 +41,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         return button
     }()
     
-    @objc func tappedLiveTextBtn() {
-        let liveVC = storyboard?.instantiateViewController(withIdentifier: "liveVC")
-        guard let liveVC = liveVC as? LiveTextController else { return }
-        self.present(liveVC, animated: true)
-    }
-    
     lazy var longPressGesture: UILongPressGestureRecognizer = {
         let gesture = UILongPressGestureRecognizer()
         gesture.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
@@ -88,9 +82,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var currentUserUID: String?
     var userIDList: [String] = []
-    
-//    var screenWidth = UIScreen.main.bounds.width
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -172,8 +164,15 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func tappedPickBtn() {
         guard bucketLists != [] else { return }
         let unFinishedBucketList = bucketLists.filter { $0.status == false }
+        guard unFinishedBucketList != [] else { return }
         let randomNum = Int.random(in: 0..<unFinishedBucketList.count)
         self.presentAlert(title: "Recommend To You", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
+    }
+    
+    @objc func tappedLiveTextBtn() {
+        let liveVC = storyboard?.instantiateViewController(withIdentifier: "liveVC")
+        guard let liveVC = liveVC as? LiveTextController else { return }
+        self.present(liveVC, animated: true)
     }
     
     // MARK: - Firebase data process

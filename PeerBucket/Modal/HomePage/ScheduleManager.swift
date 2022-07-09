@@ -11,6 +11,12 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestoreSwift
 
+enum ListenerType<T> {
+    case added(data: T)
+    case modified(data: T)
+    case removed(data: T)
+}
+
 class ScheduleManager {
     
     static let shared = ScheduleManager()
@@ -127,4 +133,36 @@ class ScheduleManager {
             }
         }
     }
+    
+    // MARK: - For Notification
+    
+    func listenSchedule(userID: String, completion: @escaping (Result<ListenerType<[Schedule]>, Error>) -> Void) {
+        
+        dataBase.collection("schedule").whereField("senderId", isEqualTo: userID).addSnapshotListener { (querySnapshot, error) in
+            
+            if let querySnapshot = querySnapshot {
+                
+                let events = querySnapshot.documents.compactMap({ querySnapshot in
+                    try? querySnapshot.data(as: Schedule.self)
+                })
+                
+                querySnapshot.documentChanges.forEach { diff in
+                    switch diff.type {
+                    case .added:
+                        completion(.success(.added(data: events)))
+                        
+                    case .modified:
+                        completion(.success(.modified(data: events)))
+                        
+                    case .removed:
+                        completion(.success(.removed(data: events)))
+                    }
+                }
+                
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }
+    }
 }
+

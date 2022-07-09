@@ -101,7 +101,6 @@ class BucketListManager {
         
         let document = dataBase.collection("bucketCategory").document()
         bucketCategory.id = document.documentID
-        //        bucketList.createdTime = Date().millisecondsSince1970
         
         document.setData(bucketCategory.toDict) { error in
             

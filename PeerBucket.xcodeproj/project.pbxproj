@@ -63,9 +63,10 @@
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
 		ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateHelper.swift */; };
 		ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7D09928631E54006AC04A /* TabBarController.swift */; };
+		ACCECFD2287950F9004AE116 /* lottieCongrats.json in Resources */ = {isa = PBXBuildFile; fileRef = ACCECFD1287950F9004AE116 /* lottieCongrats.json */; };
+		ACCECFDC28796C4E004AE116 /* CameraKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */; };
 		ACFA53B828769C9D00E0887D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA53B728769C9D00E0887D /* LaunchViewController.swift */; };
 		ACFA53B92876AD6900E0887D /* launchScreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = ACFA53B228768E3800E0887D /* launchScreen.mp4 */; };
-		ACFBCF6D286D83A10013B21B /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFBCF6C286D83A00013B21B /* MessageManager.swift */; };
 		ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8D0F286864960055D143 /* UILabelExtension.swift */; };
 		ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACFC8D11286971780055D143 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -144,9 +145,10 @@
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
 		ACC3D272285B0EFA00676F46 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		ACC7D09928631E54006AC04A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		ACCECFD1287950F9004AE116 /* lottieCongrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieCongrats.json; sourceTree = "<group>"; };
+		ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraKeyboard.swift; sourceTree = "<group>"; };
 		ACFA53B228768E3800E0887D /* launchScreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = launchScreen.mp4; sourceTree = "<group>"; };
 		ACFA53B728769C9D00E0887D /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		ACFBCF6C286D83A00013B21B /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		ACFC8D0F286864960055D143 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		ACFC8D11286971780055D143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1B5692D855830D747F29104 /* Pods-PeerBucket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeerBucket.debug.xcconfig"; path = "Target Support Files/Pods-PeerBucket/Pods-PeerBucket.debug.xcconfig"; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */,
 				ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */,
 				AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */,
+				ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */,
 			);
 			path = BucketPage;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				AC2CBBE32871B16F003EF0FA /* lottieLoading.json */,
+				ACCECFD1287950F9004AE116 /* lottieCongrats.json */,
 				AC72A0CA285984CB007FC767 /* AppDelegate.swift */,
 				AC72A0CC285984CB007FC767 /* SceneDelegate.swift */,
 				ACFC8D11286971780055D143 /* GoogleService-Info.plist */,
@@ -375,7 +379,6 @@
 				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
 				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
 				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
-				ACFBCF6C286D83A00013B21B /* MessageManager.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				AC2CBBE42871B16F003EF0FA /* lottieLoading.json in Resources */,
 				ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */,
 				AC72A0D7285984CC007FC767 /* Assets.xcassets in Resources */,
+				ACCECFD2287950F9004AE116 /* lottieCongrats.json in Resources */,
 				AC8B44052875B72C00A86A11 /* dreams.mp3 in Resources */,
 				AC72A0D2285984CB007FC767 /* Main.storyboard in Resources */,
 			);
@@ -559,13 +563,13 @@
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
 				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
-				ACFBCF6D286D83A10013B21B /* MessageManager.swift in Sources */,
 				ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */,
 				AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */,
 				AC00147C285DC31F0098FC4E /* ScheduleCollectionViewCell.swift in Sources */,
 				AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */,
 				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
+				ACCECFDC28796C4E004AE116 /* CameraKeyboard.swift in Sources */,
 				AC8B43FD28755BB100A86A11 /* LiveTextController.swift in Sources */,
 				AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */,
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,

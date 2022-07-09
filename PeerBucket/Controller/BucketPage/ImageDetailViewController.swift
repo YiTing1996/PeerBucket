@@ -45,7 +45,7 @@ class ImageDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = .darkGreen
         
         for selectedList in selectedLists {

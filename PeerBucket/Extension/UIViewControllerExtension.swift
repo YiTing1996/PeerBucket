@@ -32,7 +32,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func presentAlert(title: String = "Congrate",
+    func presentAlert(title: String = "Congrats",
                       message: String = "Success!",
                       completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -49,7 +49,7 @@ extension UIViewController {
         
         alert.addAction(okAction)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func presentInputAlert(title: String = "Setup Name",
@@ -82,13 +82,19 @@ extension UIViewController {
     func loadAnimation(name: String, loopMode: LottieLoopMode) -> AnimationView {
         let animationView = AnimationView(name: name)
         let width = self.view.frame.width
-        animationView.frame = CGRect(x: 0, y: 0, width: width, height: 200)
+        animationView.frame = CGRect(x: 0, y: 0, width: width, height: 300)
         animationView.center = self.view.center
         animationView.contentMode = .scaleAspectFit
         view.addSubview(animationView)
         animationView.loopMode = loopMode
         
         return animationView
+    }
+    
+    func stopAnimation(animationView: AnimationView) {
+        animationView.stop()
+        animationView.alpha = 0
+        animationView.isHidden = true
     }
     
 }

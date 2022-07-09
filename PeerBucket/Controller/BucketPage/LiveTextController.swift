@@ -9,14 +9,19 @@ import Foundation
 import Vision
 import UIKit
 import FirebaseAuth
+import AVFoundation
 
 class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var eventTextView: UITextView!
-    @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var liveTextLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
+
+    var eventTextField: UITextField = {
+        let textField = UITextField()
+        textField.setTextField(placeholder: "Scan text will show here.")
+        return textField
+    }()
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
@@ -49,6 +54,11 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         configureUI()
         view.backgroundColor = .lightGray
         imagePicker.delegate = self
+        
+        cameraInputView.textField = self.eventTextField
+        eventTextField.inputView = cameraInputView
+        cameraInputView.startCamera()
+        eventTextField.reloadInputViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,23 +67,34 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         getData(userID: currentUserUID)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        cameraInputView.stopCamera()
+    }
+    
+    private var cameraInputView: CameraKeyboard = {
+           let view = CameraKeyboard()
+           return view
+    }()
+    
     func configureUI() {
-        
-        eventImageView.layer.cornerRadius = 10
-//        eventImageView.backgroundColor = .white
+
         liveTextLabel.font = UIFont.bold(size: 20)
         liveTextLabel.textColor = .darkGray
         categoryLabel.textColor = .darkGray
         categoryLabel.font = UIFont.bold(size: 20)
-        eventTextView.font = UIFont.semiBold(size: 15)
-        eventTextView.layer.cornerRadius = 10
-        eventTextView.layer.borderWidth = 1
-        eventTextView.textColor = .darkGray
-        eventTextView.backgroundColor = .lightGray
         
+        view.addSubview(eventTextField)
+        view.addSubview(cameraInputView)
         view.addSubview(submitButton)
         submitButton.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor,
                             paddingLeft: 30, paddingBottom: 50, paddingRight: 30, height: 50)
+        eventTextField.anchor(left: view.leftAnchor, bottom: categoryLabel.topAnchor,
+                              right: view.rightAnchor, paddingLeft: 50, paddingBottom: 30,
+                              paddingRight: 50, height: 50)
+        cameraInputView.anchor(top: liveTextLabel.bottomAnchor, left: view.leftAnchor,
+                               bottom: eventTextField.topAnchor, right: view.rightAnchor,
+                               paddingTop: 10, paddingLeft: 10, paddingBottom: 10, paddingRight: 10)
         
     }
     
@@ -117,7 +138,7 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @objc func tappedSubmitBtn() {
-        guard let title = self.eventTextView.text,
+        guard let title = self.eventTextField.text,
               let currentUserUID = currentUserUID,
               let selectedRow = selectedRow
         else {
@@ -139,77 +160,21 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
             switch result {
             case .success:
                 self.presentAlert()
+//                self.presentAlert(title: "Congrats", message: "Successfully add list!", completion: {
+//                    self.view.window!.rootViewController?.dismiss(animated: true)
+//                })
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
         
-        self.presentAlert()
-        self.dismiss(animated: true)
+        self.presentAlert(title: "Congrats", message: "Successfully add list!", completion: {
+            self.view.window!.rootViewController?.dismiss(animated: true)
+        })
         
-    }
-    
-    // MARK: - Live text process
-    
-    private func recognizeText(image: UIImage?) {
-        guard let cgImage = image?.cgImage else {
-            fatalError("Could not get cgimage")
-        }
-        
-        // Handler
-        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
-        
-        // Request
-        let request = VNRecognizeTextRequest { [weak self] request, error in
-            guard let observation = request.results as? [VNRecognizedTextObservation],
-                  error == nil else {
-                return
-            }
-            
-            let text = observation.compactMap({
-                $0.topCandidates(1).first?.string
-            }).joined(separator: ", ")
-            
-            DispatchQueue.main.async {
-                self?.eventTextView.text = text
-            }
-        }
-        
-        request.recognitionLanguages = ["zh-Hant", "en-US"]
-        request.recognitionLevel = .accurate
-        request.usesLanguageCorrection = true
-        
-        // Process Request
-        do {
-            try handler.perform([request])
-        } catch {
-            print(error)
-        }
-    }
-    
-    // MARK: - Image process
-    
-    @IBAction func tappedCameraBtn(_ sender: UIButton) {
-        imagePicker.sourceType = .camera
-        self.present(imagePicker, animated: true)
-    }
-    
-    @IBAction func tappedAlbumBtn(_ sender: UIButton) {
-        imagePicker.sourceType = .photoLibrary
-        self.present(imagePicker, animated: true)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        let image = info[.originalImage] as? UIImage
-        recognizeText(image: image)
-        DispatchQueue.main.async {
-            self.eventImageView.image = image
-        }
-        imagePicker.dismiss(animated: true)
     }
 }
-
+ 
 // MARK: - TableView
 
 extension LiveTextController: UITableViewDelegate, UITableViewDataSource {

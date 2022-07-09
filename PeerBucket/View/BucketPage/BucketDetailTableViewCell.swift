@@ -94,23 +94,23 @@ class BucketDetailTableViewCell: UITableViewCell {
         contentView.addSubview(borderView)
         
         doneButton.anchor(top: topAnchor, left: leftAnchor,
-                          paddingTop: 20, paddingLeft: 50,
+                          paddingTop: 20, paddingLeft: 45,
                           width: 30, height: 30)
-        bucketLabel.anchor(top: topAnchor, left: doneButton.rightAnchor,
-                           paddingTop: 20, paddingLeft: 30)
+        bucketLabel.anchor(top: topAnchor, left: doneButton.rightAnchor, right: rightAnchor,
+                           paddingTop: 18, paddingLeft: 20, paddingRight: 30, width: 50)
         
         dateLabel.anchor(top: bucketLabel.bottomAnchor, left: doneButton.rightAnchor,
-                         paddingTop: 5, paddingLeft: 30)
+                         paddingTop: 5, paddingLeft: 20)
         
         scrollView.anchor(top: dateLabel.bottomAnchor, left: doneButton.rightAnchor,
-                          paddingTop: 10, paddingLeft: 30, width: 220, height: 150)
+                          paddingTop: 10, paddingLeft: 20, width: 230, height: 150)
         
         hStack.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor,
                       bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
         
         borderView.anchor(top: contentView.topAnchor, left: contentView.leftAnchor,
                           bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
-                          paddingTop: 8, paddingLeft: 24, paddingBottom: 8, paddingRight: 24)
+                          paddingTop: 6, paddingLeft: 24, paddingBottom: 6, paddingRight: 24)
     }
     
     func configureCell(bucketList: BucketList) {
@@ -138,7 +138,7 @@ class BucketDetailTableViewCell: UITableViewCell {
         for index in 0...bucketList.images.count-1 {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
-            imageView.anchor(width: 220, height: 150)
+            imageView.anchor(width: 230, height: 150)
             
             let url = URL(string: bucketList.images[index])
             imageView.kf.setImage(with: url)
