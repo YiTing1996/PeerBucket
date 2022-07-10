@@ -19,7 +19,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     lazy var addCategoryButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_add"), for: .normal)
         return button
@@ -27,7 +26,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     lazy var randomPickButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tappedPickBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_random"), for: .normal)
         return button
@@ -35,17 +33,10 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     lazy var liveTextButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(tappedLiveTextBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_livetext"), for: .normal)
         return button
     }()
-    
-    @objc func tappedLiveTextBtn() {
-        let liveVC = storyboard?.instantiateViewController(withIdentifier: "liveVC")
-        guard let liveVC = liveVC as? LiveTextController else { return }
-        self.present(liveVC, animated: true)
-    }
     
     lazy var longPressGesture: UILongPressGestureRecognizer = {
         let gesture = UILongPressGestureRecognizer()
@@ -88,9 +79,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var currentUserUID: String?
     var userIDList: [String] = []
-    
-//    var screenWidth = UIScreen.main.bounds.width
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -172,8 +161,15 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func tappedPickBtn() {
         guard bucketLists != [] else { return }
         let unFinishedBucketList = bucketLists.filter { $0.status == false }
+        guard unFinishedBucketList != [] else { return }
         let randomNum = Int.random(in: 0..<unFinishedBucketList.count)
-        self.presentAlert(title: "Recommend To You", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
+        self.presentAlert(title: "Today's Recommend", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
+    }
+    
+    @objc func tappedLiveTextBtn() {
+        let liveVC = storyboard?.instantiateViewController(withIdentifier: "liveVC")
+        guard let liveVC = liveVC as? LiveTextController else { return }
+        self.present(liveVC, animated: true)
     }
     
     // MARK: - Firebase data process
@@ -374,6 +370,10 @@ extension BucketListViewController: AddNewBucketDelegate {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = -600
             self.blackView.alpha = 0
+        }
+        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(1))
+        animationView.play {_ in
+            self.stopAnimation(animationView: animationView)
         }
         
         guard let currentUserUID = currentUserUID else { return }

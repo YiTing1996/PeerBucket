@@ -10,10 +10,6 @@ import UIKit
 
 extension UIButton {
     
-    func setImageButton() {
-        
-    }
-    
     func setTextButton(bgColor: UIColor, titleColor: UIColor, border: CGFloat = 1,
                        radius: CGFloat = 10, font: CGFloat) {
         

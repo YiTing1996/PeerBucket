@@ -27,7 +27,7 @@ class AvatarViewController: UIViewController {
         let button = UIButton()
         button.setTitle("Submit", for: .normal)
         button.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
-        button.setTextButton(bgColor: .white, titleColor: .darkGreen, border: 0, font: 15)
+        button.setTextButton(bgColor: .clear, titleColor: .darkGreen, border: 0, font: 15)
         return button
     }()
     
@@ -54,6 +54,31 @@ class AvatarViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = menuBarItem
 
+        configureUI()
+    }
+    
+    func configureUI() {
+        backgroundView.anchor(top: view.topAnchor, left: view.leftAnchor,
+                              bottom: selectionView.topAnchor, right: view.rightAnchor,
+                              height: screenHeight * 0.5)
+        backgroundSlider.anchor(left: view.leftAnchor, bottom: backgroundView.bottomAnchor,
+                                right: view.rightAnchor, paddingLeft: 10, paddingBottom: 10,
+                                paddingRight: 10, height: 50)
+        selectionView.anchor(left: view.leftAnchor, right: view.rightAnchor,
+                             height: screenHeight * 0.1)
+        hairView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
+                        bottom: view.bottomAnchor, right: view.rightAnchor,
+                        height: screenHeight * 0.4)
+        faceView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
+                        bottom: view.bottomAnchor, right: view.rightAnchor,
+                        height: screenHeight * 0.4)
+        glassesView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
+                           bottom: view.bottomAnchor, right: view.rightAnchor,
+                           height: screenHeight * 0.4)
+        bodyView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
+                        bottom: view.bottomAnchor, right: view.rightAnchor,
+                        height: screenHeight * 0.4)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +97,8 @@ class AvatarViewController: UIViewController {
     @IBOutlet weak var glasses: UIImageView!
     @IBOutlet weak var body: UIImageView!
     
+    @IBOutlet weak var backgroundSlider: UISlider!
+    @IBOutlet weak var selectionView: UIView!
     @IBOutlet weak var hairView: UIView!
     @IBOutlet weak var faceView: UIView!
     @IBOutlet weak var glassesView: UIView!

@@ -142,7 +142,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         categoryTextField.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                                  paddingTop: 5, paddingLeft: 20, paddingRight: 20, height: 50)
         submitButton.anchor(top: categoryTextField.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
-                            paddingTop: 20, paddingLeft: 20, paddingRight: 20, width: 300, height: 50)
+                            paddingTop: 20, paddingLeft: 20, paddingRight: 20, height: 50)
         
     }
     

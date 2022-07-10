@@ -14,9 +14,9 @@ extension UILabel {
     @IBInspectable var characterSpacing: CGFloat {
 
         get {
-            // swiftlint:disable force_cast
+            // swiftlint: disable force_cast
             return attributedText?.value(forKey: NSAttributedString.Key.kern.rawValue) as! CGFloat
-            // swiftlint:enable force_cast
+            // swiftlint: enable force_cast
         }
         
         set {
@@ -34,6 +34,31 @@ extension UILabel {
                 attributedText = attributedString
             }
         }
+    }
+    
+    // line spacing
+    func setLineSpacing(lineSpacing: CGFloat = 0.0, lineHeightMultiple: CGFloat = 0.0) {
+
+        guard let labelText = self.text else { return }
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = lineSpacing
+        paragraphStyle.lineHeightMultiple = lineHeightMultiple
+
+        let attributedString: NSMutableAttributedString
+        if let labelattributedText = self.attributedText {
+            attributedString = NSMutableAttributedString(attributedString: labelattributedText)
+        } else {
+            attributedString = NSMutableAttributedString(string: labelText)
+        }
+
+        // Line spacing attribute
+        attributedString.addAttribute(
+            NSAttributedString.Key.paragraphStyle,
+            value: paragraphStyle,
+            range: NSRange(location: 0, length: attributedString.length))
+
+        self.attributedText = attributedString
     }
     
     // read more

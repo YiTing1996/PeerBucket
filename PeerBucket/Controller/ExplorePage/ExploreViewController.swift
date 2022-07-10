@@ -73,10 +73,11 @@ class ExploreViewController: UIViewController {
 
         nameLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
                          paddingTop: 80, paddingLeft: 40, width: 250, height: 100)
-        decoView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, paddingLeft: 40, width: 120, height: 2)
+        decoView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
+                        paddingLeft: 40, width: 120, height: 2)
         collectionView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
                               bottom: view.bottomAnchor, right: view.rightAnchor,
-                              paddingTop: 20, paddingLeft: 10, paddingBottom: 50,
+                              paddingTop: 20, paddingLeft: 10, paddingBottom: 80,
                               paddingRight: 10)
     }
     

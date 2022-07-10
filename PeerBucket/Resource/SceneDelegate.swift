@@ -20,17 +20,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-//        // Create a new window property
-//        self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-//
-//        // Set windowScene for window
-//        self.window?.windowScene = windowScene
-//
-//        // Set custom LoginViewController as root
-//        window?.rootViewController = LaunchViewController()
-//
-//        // Present the window
-//        window?.makeKeyAndVisible()
+        // Create a new window property
+        self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+
+        // Set windowScene for window
+        self.window?.windowScene = windowScene
+
+        // Set custom LoginViewController as root
+        window?.rootViewController = LaunchViewController()
+
+        // Present the window
+        window?.makeKeyAndVisible()
         
     }
     

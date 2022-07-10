@@ -11,6 +11,7 @@ import FirebaseStorage
 import FirebaseFirestore
 import FirebaseAuth
 import PhotosUI
+import Lottie
 
 class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                           UINavigationControllerDelegate {
@@ -32,26 +33,42 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         return imageView
     }()
     
-    var titleLabel: UILabel = {
+//    var titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Signin to enjoy more feature"
+//        label.font = UIFont.bold(size: 26)
+//        label.textColor = .lightGray
+//        return label
+//    }()
+    
+    let blurEffect = UIBlurEffect(style: .light)
+
+    lazy var eventView: UIVisualEffectView = {
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        effectView.clipsToBounds = true
+        effectView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        effectView.layer.cornerRadius = 50
+        return effectView
+    }()
+    
+    var decoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Signin to enjoy more feature"
-        label.font = UIFont.bold(size: 26)
         label.textColor = .lightGray
+        label.font = UIFont.semiBold(size: 20)
+        label.text = "Upcoming Events"
         return label
     }()
     
-    var eventView: UIView = {
+    var decoView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 20
-        view.alpha = 0.5
+        view.backgroundColor = .white
         return view
     }()
     
     var eventLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
-        label.font = UIFont.bold(size: 30)
+        label.textColor = .lightGray
+        label.font = UIFont.bold(size: 24)
         label.numberOfLines = 0
         return label
     }()
@@ -67,7 +84,6 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     var moreView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .darkGreen
         view.layer.cornerRadius = 25
         return view
     }()
@@ -98,6 +114,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         super.viewDidLoad()
         moreView.alpha = 0
         view.backgroundColor = .darkGreen
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,6 +142,8 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         
         view.addSubview(bgImageView)
         view.addSubview(eventView)
+        view.addSubview(decoLabel)
+        view.addSubview(decoView)
         view.addSubview(eventLabel)
         
         view.addSubview(moreView)
@@ -134,40 +153,40 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         moreView.addSubview(eventButton)
         moreView.addSubview(chatButton)
         
-        moreView.anchor(top: view.topAnchor, right: view.rightAnchor,
-                        paddingTop: 100, paddingRight: 20,
-                        width: 50, height: 250)
+        moreView.anchor(top: eventView.topAnchor, right: view.rightAnchor,
+                        paddingTop: 10, paddingRight: 20,
+                        width: 50, height: 220)
         moreButton.anchor(top: moreView.topAnchor, right: moreView.rightAnchor,
-                          width: 50, height: 50)
+                          width: 45, height: 45)
         bgButton.anchor(top: moreButton.bottomAnchor, right: moreView.rightAnchor,
-                        paddingTop: 10, paddingRight: 0, width: 50, height: 50)
+                        paddingRight: 0, width: 45, height: 45)
         eventButton.anchor(top: bgButton.bottomAnchor, right: moreView.rightAnchor,
-                           paddingTop: 5, paddingRight: 0, width: 50, height: 50)
+                           paddingRight: 0, width: 45, height: 45)
         chatButton.anchor(top: eventButton.bottomAnchor, right: moreView.rightAnchor,
-                          paddingTop: 5, paddingRight: 0, width: 50, height: 50)
+                          paddingRight: 0, width: 45, height: 45)
         
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
-        eventView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor,
-                         right: view.rightAnchor, paddingLeft: 20,
-                         paddingBottom: 120, paddingRight: 50, height: 140)
-        eventLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor,
-                          right: eventView.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
+        
+        eventView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor,
+                         paddingLeft: 100, paddingBottom: 100, height: 180)
+        decoLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor,
+                         paddingTop: 30, paddingLeft: 20, height: 30)
+        decoView.anchor(top: decoLabel.bottomAnchor, left: eventView.leftAnchor, paddingTop: 12,
+                        paddingLeft: 20, width: 60, height: 1)
+        eventLabel.anchor(top: decoView.bottomAnchor, left: eventView.leftAnchor, right: eventView.rightAnchor,
+                          paddingTop: 20, paddingLeft: 20, paddingRight: 20, height: 60)
         
     }
     
     func configureGuestUI() {
         view.addSubview(bgImageView)
-        view.addSubview(titleLabel)
-        bgImageView.backgroundColor = .darkGreen
+        bgImageView.image = UIImage(named: "bg_home")
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
-        titleLabel.centerY(inView: view)
-        titleLabel.centerX(inView: view)
     }
     
     @objc func tappedMoreBtn() {
-        
         UIView.animate(withDuration: 0.3, animations: {
             if self.moreView.alpha == 0 {
                 self.moreView.alpha = 0.7
@@ -218,13 +237,11 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                 
                 if self.upcomingDate != 0 {
                     self.eventLabel.text =
-                    "\(String(describing: self.upcomingEvent))\n\(String(describing: self.upcomingDate)) Days Left"
+                    "\(String(describing: self.upcomingEvent))\n\(String(describing: self.upcomingDate)) Day Left"
+
                 } else if self.upcomingEvent == "" {
                     self.eventLabel.text =
-                    "There's no upcoming event"
-                } else {
-                    self.eventLabel.text =
-                    "\(String(describing: self.upcomingEvent)) is Today!"
+                    "No upcoming event"
                 }
                 
             case .failure(let error):
@@ -240,11 +257,10 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
             switch result {
             case .success(let user):
                 self.currentUser = user
-                //                if self.currentUser?.paringUser != [] {
-                //                    MessageManager.shared.fetchMessage(userID: self.currentUser!.userID,
-                //                                                       user2UID: self.currentUser!.paringUser[0])
-                //                }
-                
+                guard user.userHomeBG != "" else {
+                    self.bgImageView.image = UIImage(named: "bg_home")
+                    return
+                }
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in homeVC")
@@ -275,7 +291,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     }
     
     // MARK: - Image picker controller delegate
-    
+        
     @objc func tappedBgBtn() {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
@@ -287,6 +303,11 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
+
+        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
+        animationView.play {_ in
+            self.stopAnimation(animationView: animationView)
+        }
         
         for result in results {
             
