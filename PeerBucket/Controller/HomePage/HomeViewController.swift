@@ -10,8 +10,10 @@ import UIKit
 import FirebaseStorage
 import FirebaseFirestore
 import FirebaseAuth
+import PhotosUI
+import Lottie
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
+class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                           UINavigationControllerDelegate {
     
     private let storage = Storage.storage().reference()
@@ -28,31 +30,45 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var bgImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    var titleLabel: UILabel = {
+//    var titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Signin to enjoy more feature"
+//        label.font = UIFont.bold(size: 26)
+//        label.textColor = .lightGray
+//        return label
+//    }()
+    
+    let blurEffect = UIBlurEffect(style: .light)
+
+    lazy var eventView: UIVisualEffectView = {
+        let effectView = UIVisualEffectView(effect: blurEffect)
+        effectView.clipsToBounds = true
+        effectView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        effectView.layer.cornerRadius = 50
+        return effectView
+    }()
+    
+    var decoLabel: UILabel = {
         let label = UILabel()
-        label.text = "Signin to enjoy more feature"
-        label.font = UIFont.bold(size: 26)
         label.textColor = .lightGray
+        label.font = UIFont.semiBold(size: 20)
+        label.text = "Upcoming Events"
         return label
     }()
     
-    var eventView: UIView = {
+    var decoView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .lightGray
-        view.layer.cornerRadius = 20
-        view.alpha = 0.2
+        view.backgroundColor = .white
         return view
     }()
     
     var eventLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .darkGray
-        label.font = UIFont.bold(size: 30)
+        label.textColor = .lightGray
+        label.font = UIFont.bold(size: 24)
         label.numberOfLines = 0
         return label
     }()
@@ -62,15 +78,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         button.addTarget(self, action: #selector(tappedMoreBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_drop"), for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.cornerRadius = 20
         return button
     }()
     
     var moreView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .darkGreen
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 25
         return view
     }()
     
@@ -79,7 +93,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         button.addTarget(self, action: #selector(tappedBgBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_bg"), for: .normal)
         button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -87,7 +100,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedEventBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_calendar"), for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -95,13 +107,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         let button = UIButton()
         button.addTarget(self, action: #selector(tappedChatBtn), for: .touchUpInside)
         button.setImage(UIImage(named: "icon_func_chat"), for: .normal)
-        button.layer.cornerRadius = 10
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         moreView.alpha = 0
+        view.backgroundColor = .darkGreen
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +127,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         }
         
         guard let currentUserUID = currentUserUID else {
-            // If user not login then hidden schedule & chat view
             configureGuestUI()
             return
         }
@@ -130,6 +142,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         
         view.addSubview(bgImageView)
         view.addSubview(eventView)
+        view.addSubview(decoLabel)
+        view.addSubview(decoView)
         view.addSubview(eventLabel)
         
         view.addSubview(moreView)
@@ -139,48 +153,48 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
         moreView.addSubview(eventButton)
         moreView.addSubview(chatButton)
         
-        moreView.anchor(top: view.topAnchor, right: view.rightAnchor,
-                        paddingTop: 100, paddingRight: 20,
-                        width: 50, height: 250)
+        moreView.anchor(top: eventView.topAnchor, right: view.rightAnchor,
+                        paddingTop: 10, paddingRight: 20,
+                        width: 50, height: 220)
         moreButton.anchor(top: moreView.topAnchor, right: moreView.rightAnchor,
-                          width: 50, height: 50)
+                          width: 45, height: 45)
         bgButton.anchor(top: moreButton.bottomAnchor, right: moreView.rightAnchor,
-                        paddingTop: 10, paddingRight: 0, width: 50, height: 50)
+                        paddingRight: 0, width: 45, height: 45)
         eventButton.anchor(top: bgButton.bottomAnchor, right: moreView.rightAnchor,
-                           paddingTop: 5, paddingRight: 0, width: 50, height: 50)
+                           paddingRight: 0, width: 45, height: 45)
         chatButton.anchor(top: eventButton.bottomAnchor, right: moreView.rightAnchor,
-                          paddingTop: 5, paddingRight: 0, width: 50, height: 50)
+                          paddingRight: 0, width: 45, height: 45)
         
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
-        eventView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor,
-                         right: view.rightAnchor, paddingLeft: 20,
-                         paddingBottom: 120, paddingRight: 50, height: 150)
-        eventLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor,
-                          right: eventView.rightAnchor, paddingTop: 50, paddingLeft: 20, paddingRight: 20)
+        
+        eventView.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor,
+                         paddingLeft: 100, paddingBottom: 100, height: 180)
+        decoLabel.anchor(top: eventView.topAnchor, left: eventView.leftAnchor,
+                         paddingTop: 30, paddingLeft: 20, height: 30)
+        decoView.anchor(top: decoLabel.bottomAnchor, left: eventView.leftAnchor, paddingTop: 12,
+                        paddingLeft: 20, width: 60, height: 1)
+        eventLabel.anchor(top: decoView.bottomAnchor, left: eventView.leftAnchor, right: eventView.rightAnchor,
+                          paddingTop: 20, paddingLeft: 20, paddingRight: 20, height: 60)
         
     }
     
     func configureGuestUI() {
         view.addSubview(bgImageView)
-        view.addSubview(titleLabel)
-        bgImageView.backgroundColor = .darkGreen
+        bgImageView.image = UIImage(named: "bg_home")
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
-        titleLabel.centerY(inView: view)
-        titleLabel.centerX(inView: view)
     }
     
     @objc func tappedMoreBtn() {
-        
         UIView.animate(withDuration: 0.3, animations: {
             if self.moreView.alpha == 0 {
-                self.moreView.alpha = 0.5
+                self.moreView.alpha = 0.7
             } else {
                 self.moreView.alpha = 0
             }
         })
-                       
+        
     }
     
     @objc func tappedEventBtn() {
@@ -223,13 +237,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
                 
                 if self.upcomingDate != 0 {
                     self.eventLabel.text =
-                    "\(String(describing: self.upcomingEvent))\n\(String(describing: self.upcomingDate)) Days Left"
+                    "\(String(describing: self.upcomingEvent))\n\(String(describing: self.upcomingDate)) Day Left"
+
                 } else if self.upcomingEvent == "" {
                     self.eventLabel.text =
-                    "There's no upcoming event"
-                } else {
-                    self.eventLabel.text =
-                    "\(String(describing: self.upcomingEvent)) is Today!"
+                    "No upcoming event"
                 }
                 
             case .failure(let error):
@@ -245,11 +257,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
             switch result {
             case .success(let user):
                 self.currentUser = user
-                //                if self.currentUser?.paringUser != [] {
-                //                    MessageManager.shared.fetchMessage(userID: self.currentUser!.userID,
-                //                                                       user2UID: self.currentUser!.paringUser[0])
-                //                }
-                
+                guard user.userHomeBG != "" else {
+                    self.bgImageView.image = UIImage(named: "bg_home")
+                    return
+                }
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in homeVC")
@@ -280,53 +291,66 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     // MARK: - Image picker controller delegate
-    
+        
     @objc func tappedBgBtn() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
-        picker.allowsEditing = true
-        present(picker, animated: true)
+        self.present(picker, animated: true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        
-        picker.dismiss(animated: true, completion: nil)
-        
-        guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
-            return
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+
+        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
+        animationView.play {_ in
+            self.stopAnimation(animationView: animationView)
         }
         
-        guard let imageData = image.pngData() else {
-            return
-        }
-        
-        // upload to firebase storage
-        let imageName = NSUUID().uuidString
-        storage.child("homeImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+        for result in results {
             
-            guard error == nil else {
-                print("Fail to upload image")
-                return
-            }
-            
-            self.storage.child("homeImage/\(imageName).png").downloadURL(completion: { url, error in
-                guard let url = url, error == nil else {
+            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+                
+                guard error == nil else {
+                    print("Error \(error!.localizedDescription)")
                     return
                 }
-                let urlString = url.absoluteString
-                UserDefaults.standard.set(urlString, forKey: "url")
                 
-                // save to firebase
-                self.updateBGImage(urlString: urlString)
-                
-            })
+                if let image = image as? UIImage {
+                    guard let imageData = image.jpegData(compressionQuality: 0.5),
+                          let self = self else { return }
+                    
+                    let imageName = NSUUID().uuidString
+                    
+                    self.storage.child("homeImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+                        
+                        guard error == nil else {
+                            print("Fail to upload image")
+                            return
+                        }
+                        
+                        self.storage.child("homeImage/\(imageName).png").downloadURL(completion: { url, error in
+                            guard let url = url, error == nil else {
+                                return
+                            }
+                            let urlString = url.absoluteString
+                            UserDefaults.standard.set(urlString, forKey: "url")
+                            
+                            // save to firebase
+                            self.updateBGImage(urlString: urlString)
+                            
+                        })
+                        
+                    }
+                    print("Uploaded to firebase")
+                } else {
+                    print("There was an error.")
+                }
+            }
+            
         }
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
     }
     
     // fetch background image from firebase

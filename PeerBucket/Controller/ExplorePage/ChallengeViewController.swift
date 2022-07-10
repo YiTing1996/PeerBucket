@@ -16,31 +16,35 @@ class ChallengeViewController: UIViewController {
     
     lazy var clearButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedClearBtn), for: .touchUpInside)
         button.setTitle("Clear", for: .normal)
-        button.titleLabel?.font = UIFont.bold(size: 18)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.clipsToBounds = true
-        button.layer.borderWidth = 2.5
-        button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.darkGreen.cgColor
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen,
+                             border: 2.5, font: 20)
+        button.addTarget(self, action: #selector(tappedClearBtn), for: .touchUpInside)
+//        button.setTitle("Clear", for: .normal)
+//        button.titleLabel?.font = UIFont.bold(size: 18)
+//        button.setTitleColor(UIColor.darkGreen, for: .normal)
+//        button.clipsToBounds = true
+//        button.layer.borderWidth = 2.5
+//        button.layer.cornerRadius = 10
+//        button.layer.borderColor = UIColor.darkGreen.cgColor
         return button
     }()
     
     lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.darkGreen
-        button.addTarget(self, action: #selector(tappedShareBtn), for: .touchUpInside)
         button.setTitle("Share", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.bold(size: 18)
-        button.clipsToBounds = true
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 2.5
-        button.layer.borderColor = UIColor.darkGreen.cgColor
+        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray,
+                             border: 2.5, font: 20)
+        
+//        button.backgroundColor = UIColor.darkGreen
+        button.addTarget(self, action: #selector(tappedShareBtn), for: .touchUpInside)
+//        button.setTitle("Share", for: .normal)
+//        button.setTitleColor(UIColor.white, for: .normal)
+//        button.titleLabel?.font = UIFont.bold(size: 18)
+//        button.clipsToBounds = true
+//        button.layer.cornerRadius = 10
+//        button.layer.borderWidth = 2.5
+//        button.layer.borderColor = UIColor.darkGreen.cgColor
         return button
     }()
     
@@ -69,10 +73,10 @@ class ChallengeViewController: UIViewController {
                       right: view.rightAnchor, paddingBottom: 180)
         
         clearButton.anchor(top: bgView.bottomAnchor, left: view.leftAnchor,
-                           paddingTop: 20, paddingLeft: 80, width: 120, height: 50)
+                           paddingTop: 20, paddingLeft: 80, width: 100, height: 50)
         
-        shareButton.anchor(top: bgView.bottomAnchor, left: clearButton.rightAnchor,
-                           paddingTop: 20, paddingLeft: 20, width: 120, height: 50)
+        shareButton.anchor(top: bgView.bottomAnchor, right: view.rightAnchor,
+                           paddingTop: 20, paddingRight: 80, width: 100, height: 50)
         
     }
     

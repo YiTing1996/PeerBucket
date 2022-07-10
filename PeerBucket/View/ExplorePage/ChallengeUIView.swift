@@ -47,7 +47,9 @@ class ChallengeUIView: UIView {
     }
     
     func clearCanvas() {
-        // TODO: fix bug - 一開始進入直接按clear會crash
+        guard let path = path else {
+            return
+        }
         path.removeAllPoints()
         self.layer.sublayers = nil
         self.setNeedsDisplay()

@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYG-qK-hli">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -155,60 +154,88 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8G6-UM-j60">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8G6-UM-j60">
                                 <rect key="frame" x="0.0" y="206" width="414" height="690"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BUCKET" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRF-Gs-DQ9">
-                                        <rect key="frame" x="47" y="-1" width="274" height="70"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="60"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUCKET" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gRF-Gs-DQ9">
+                                        <rect key="frame" x="47" y="-5" width="294.5" height="81"/>
+                                        <fontDescription key="fontDescription" name="GillSans-BoldItalic" family="Gill Sans" pointSize="70"/>
                                         <color key="textColor" red="0.19215686269999999" green="0.30588235289999999" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="one_leg_up-2" translatesAutoresizingMaskIntoConstraints="NO" id="lco-dc-PMr">
-                                        <rect key="frame" x="-77" y="236" width="251" height="376"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="one_leg_up-2" translatesAutoresizingMaskIntoConstraints="NO" id="lco-dc-PMr">
+                                        <rect key="frame" x="-77" y="204" width="241" height="361"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="361" id="V4K-z6-Q2r"/>
+                                            <constraint firstAttribute="width" constant="241" id="vse-fc-EdX"/>
+                                        </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bangs 2" translatesAutoresizingMaskIntoConstraints="NO" id="uEL-Jy-kKz">
-                                        <rect key="frame" x="-125" y="139" width="292" height="153"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bangs 2" translatesAutoresizingMaskIntoConstraints="NO" id="uEL-Jy-kKz">
+                                        <rect key="frame" x="-125.5" y="107" width="292" height="153"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="153" id="Z9Q-fV-2hV"/>
+                                            <constraint firstAttribute="width" constant="292" id="lyG-t7-Iwm"/>
+                                        </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Concerned" translatesAutoresizingMaskIntoConstraints="NO" id="egP-X8-xJH">
-                                        <rect key="frame" x="-42" y="193" width="151" height="79"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Concerned" translatesAutoresizingMaskIntoConstraints="NO" id="egP-X8-xJH">
+                                        <rect key="frame" x="-42" y="161" width="151" height="79"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="151" id="ZSa-he-vuK"/>
+                                        </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Sunglasses 2" translatesAutoresizingMaskIntoConstraints="NO" id="vKa-xy-7Ke">
-                                        <rect key="frame" x="-28" y="200" width="97" height="52"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sunglasses 2" translatesAutoresizingMaskIntoConstraints="NO" id="vKa-xy-7Ke">
+                                        <rect key="frame" x="-28" y="168" width="97" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="Ew6-v1-hhP"/>
+                                            <constraint firstAttribute="width" constant="97" id="qS5-SE-05n"/>
+                                        </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sign in to enjoy personalized experience!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNF-dI-QgQ">
-                                        <rect key="frame" x="144" y="168" width="224" height="79"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="GillSans-SemiBold" family="Gill Sans" pointSize="18"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_avatar_logo 2" translatesAutoresizingMaskIntoConstraints="NO" id="kir-mB-x4k">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_avatar_logo 2" translatesAutoresizingMaskIntoConstraints="NO" id="kir-mB-x4k">
                                         <rect key="frame" x="-112" y="325" width="942" height="413"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="942" id="4rX-G6-EcN"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="egP-X8-xJH" firstAttribute="top" secondItem="gRF-Gs-DQ9" secondAttribute="bottom" constant="85" id="4rW-Dg-ypB"/>
+                                    <constraint firstItem="lco-dc-PMr" firstAttribute="top" secondItem="8G6-UM-j60" secondAttribute="top" constant="204" id="HMh-DI-7dc"/>
+                                    <constraint firstItem="uEL-Jy-kKz" firstAttribute="top" secondItem="gRF-Gs-DQ9" secondAttribute="bottom" constant="31" id="NQb-GK-9O8"/>
+                                    <constraint firstItem="uEL-Jy-kKz" firstAttribute="top" secondItem="8G6-UM-j60" secondAttribute="top" constant="107" id="PHM-Mu-Gs0"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gRF-Gs-DQ9" secondAttribute="trailing" constant="20" symbolic="YES" id="Rd0-wB-Dcy"/>
+                                    <constraint firstItem="vKa-xy-7Ke" firstAttribute="top" secondItem="gRF-Gs-DQ9" secondAttribute="bottom" constant="92" id="WdF-bq-T0s"/>
+                                    <constraint firstItem="uEL-Jy-kKz" firstAttribute="centerX" secondItem="vKa-xy-7Ke" secondAttribute="centerX" id="ZaF-GT-zYC"/>
+                                    <constraint firstItem="kir-mB-x4k" firstAttribute="leading" secondItem="8G6-UM-j60" secondAttribute="leading" constant="-112" id="g8e-SU-Vee"/>
+                                    <constraint firstItem="lco-dc-PMr" firstAttribute="leading" secondItem="8G6-UM-j60" secondAttribute="leading" constant="-77" id="huW-Md-PYN"/>
+                                    <constraint firstItem="kir-mB-x4k" firstAttribute="top" secondItem="egP-X8-xJH" secondAttribute="bottom" constant="85" id="rMC-Y2-mBs"/>
+                                    <constraint firstItem="egP-X8-xJH" firstAttribute="leading" secondItem="8G6-UM-j60" secondAttribute="leading" constant="-42" id="sPu-KP-LWJ"/>
+                                    <constraint firstItem="kir-mB-x4k" firstAttribute="top" secondItem="uEL-Jy-kKz" secondAttribute="bottom" constant="65" id="u68-K1-P8v"/>
+                                    <constraint firstItem="gRF-Gs-DQ9" firstAttribute="leading" secondItem="8G6-UM-j60" secondAttribute="leading" constant="47" id="wWF-V0-HNg"/>
+                                    <constraint firstAttribute="bottom" secondItem="kir-mB-x4k" secondAttribute="bottom" constant="-48" id="zS6-rq-U2E"/>
+                                    <constraint firstItem="vKa-xy-7Ke" firstAttribute="leading" secondItem="8G6-UM-j60" secondAttribute="leading" constant="-28" id="ziK-xy-073"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PEER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Njf-wv-cpq">
-                                <rect key="frame" x="46" y="152" width="151" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="55"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PEER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Njf-wv-cpq">
+                                <rect key="frame" x="54" y="135" width="195" height="87"/>
+                                <fontDescription key="fontDescription" name="GillSans-BoldItalic" family="Gill Sans" pointSize="75"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="85E-mc-AEA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Njf-wv-cpq" firstAttribute="top" secondItem="85E-mc-AEA" secondAttribute="top" constant="91" id="7Dc-aJ-W7y"/>
+                            <constraint firstAttribute="bottom" secondItem="8G6-UM-j60" secondAttribute="bottom" id="99f-vz-q41"/>
+                            <constraint firstItem="85E-mc-AEA" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Njf-wv-cpq" secondAttribute="trailing" symbolic="YES" id="NXR-im-KDU"/>
+                            <constraint firstItem="8G6-UM-j60" firstAttribute="leading" secondItem="85E-mc-AEA" secondAttribute="leading" id="WnY-gZ-vqZ"/>
+                            <constraint firstItem="8G6-UM-j60" firstAttribute="trailing" secondItem="85E-mc-AEA" secondAttribute="trailing" id="oaD-yR-V44"/>
+                            <constraint firstItem="8G6-UM-j60" firstAttribute="top" secondItem="85E-mc-AEA" secondAttribute="top" constant="162" id="xTl-im-0zD"/>
+                            <constraint firstItem="Njf-wv-cpq" firstAttribute="leading" secondItem="85E-mc-AEA" secondAttribute="leading" constant="54" id="xVN-36-q7b"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="descriptionLabel" destination="YNF-dI-QgQ" id="GP1-Di-Oyp"/>
                         <outlet property="grayView" destination="8G6-UM-j60" id="HLb-e3-aWn"/>
                         <outlet property="titleLabelGray" destination="Njf-wv-cpq" id="HyY-Dl-tQ0"/>
                         <outlet property="titleLabelGreen" destination="gRF-Gs-DQ9" id="VQ4-oV-biI"/>
@@ -368,30 +395,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-nk-skz">
-                                <rect key="frame" x="8" y="67" width="398" height="727"/>
+                                <rect key="frame" x="5" y="44" width="404" height="798"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BucketDetailTableViewCell" id="bBY-xL-y16" customClass="BucketDetailTableViewCell" customModule="PeerBucket" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="398" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="404" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bBY-xL-y16" id="BNF-Jd-oXu">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="404" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkj-Nz-FwG">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0V-Dl-9rX">
+                                <rect key="frame" x="0.0" y="441" width="414" height="455"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="455" id="gX4-Ot-rLQ"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="fWw-Yo-nrr" kind="embed" id="lXB-Lu-zEf"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RFK-uU-gu7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="cxa-nk-skz" firstAttribute="leading" secondItem="RFK-uU-gu7" secondAttribute="leading" constant="8" id="S7u-DT-RKe"/>
-                            <constraint firstItem="cxa-nk-skz" firstAttribute="top" secondItem="RFK-uU-gu7" secondAttribute="top" constant="23" id="fB5-7x-tvE"/>
-                            <constraint firstItem="RFK-uU-gu7" firstAttribute="bottom" secondItem="cxa-nk-skz" secondAttribute="bottom" constant="68" id="h0p-MC-Gn1"/>
-                            <constraint firstItem="RFK-uU-gu7" firstAttribute="trailing" secondItem="cxa-nk-skz" secondAttribute="trailing" constant="8" id="oMW-ho-cM6"/>
+                            <constraint firstItem="gkj-Nz-FwG" firstAttribute="top" secondItem="ALt-de-xTx" secondAttribute="top" id="8ue-Te-V2T"/>
+                            <constraint firstItem="j0V-Dl-9rX" firstAttribute="leading" secondItem="RFK-uU-gu7" secondAttribute="leading" id="GKK-L7-cTE"/>
+                            <constraint firstItem="j0V-Dl-9rX" firstAttribute="trailing" secondItem="RFK-uU-gu7" secondAttribute="trailing" id="OrB-wJ-L6E"/>
+                            <constraint firstItem="cxa-nk-skz" firstAttribute="leading" secondItem="RFK-uU-gu7" secondAttribute="leading" constant="5" id="S7u-DT-RKe"/>
+                            <constraint firstAttribute="bottom" secondItem="gkj-Nz-FwG" secondAttribute="bottom" id="WXY-aI-b2f"/>
+                            <constraint firstItem="cxa-nk-skz" firstAttribute="top" secondItem="RFK-uU-gu7" secondAttribute="top" id="fB5-7x-tvE"/>
+                            <constraint firstItem="RFK-uU-gu7" firstAttribute="bottom" secondItem="cxa-nk-skz" secondAttribute="bottom" constant="20" id="h0p-MC-Gn1"/>
+                            <constraint firstItem="RFK-uU-gu7" firstAttribute="trailing" secondItem="cxa-nk-skz" secondAttribute="trailing" constant="5" id="oMW-ho-cM6"/>
+                            <constraint firstItem="gkj-Nz-FwG" firstAttribute="trailing" secondItem="RFK-uU-gu7" secondAttribute="trailing" id="sqF-LG-rU9"/>
+                            <constraint firstItem="gkj-Nz-FwG" firstAttribute="leading" secondItem="RFK-uU-gu7" secondAttribute="leading" id="twE-ae-hgf"/>
+                            <constraint firstAttribute="bottom" secondItem="j0V-Dl-9rX" secondAttribute="bottom" id="tzx-yg-S3L"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blackView" destination="gkj-Nz-FwG" id="Pyq-UA-Ecw"/>
+                        <outlet property="containerView" destination="j0V-Dl-9rX" id="hX8-BY-gTi"/>
+                        <outlet property="menuBottomConstraint" destination="tzx-yg-S3L" id="i2h-dP-nDY"/>
                         <outlet property="tableView" destination="cxa-nk-skz" id="BqH-0V-0rB"/>
                     </connections>
                 </viewController>
@@ -410,17 +460,23 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_album" translatesAutoresizingMaskIntoConstraints="NO" id="m7T-mV-QuD">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jR5-vQ-fwT">
-                                <rect key="frame" x="65" y="592" width="41.5" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jR5-vQ-fwT">
+                                <rect key="frame" x="65" y="592" width="307" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="7UH-UD-x91"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="1SB-dr-I5k"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yAO-oz-d3v">
+                                <rect key="frame" x="61" y="194" width="311" height="380"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yAO-oz-d3v" secondAttribute="height" multiplier="311:380" id="dTD-cR-Xx3"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmX-Z6-mbB">
-                                <rect key="frame" x="65" y="623.5" width="32" height="21"/>
+                                <rect key="frame" x="65" y="644" width="32" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ImF-40-si3"/>
                                 </constraints>
@@ -428,27 +484,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yAO-oz-d3v">
-                                <rect key="frame" x="61" y="194" width="311" height="380"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="311" id="4k9-ib-1ov"/>
-                                    <constraint firstAttribute="height" constant="380" id="u5K-7W-AeN"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WhZ-qq-MeK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="m7T-mV-QuD" secondAttribute="bottom" id="1Jn-1g-1NS"/>
-                            <constraint firstItem="DmX-Z6-mbB" firstAttribute="top" secondItem="jR5-vQ-fwT" secondAttribute="bottom" constant="11.5" id="4Vr-A0-aVy"/>
+                            <constraint firstItem="DmX-Z6-mbB" firstAttribute="top" secondItem="jR5-vQ-fwT" secondAttribute="bottom" constant="2" id="4Vr-A0-aVy"/>
                             <constraint firstItem="m7T-mV-QuD" firstAttribute="trailing" secondItem="WhZ-qq-MeK" secondAttribute="trailing" id="64Z-4n-Zu2"/>
+                            <constraint firstItem="WhZ-qq-MeK" firstAttribute="trailing" secondItem="yAO-oz-d3v" secondAttribute="trailing" constant="42" id="6ny-CL-lJV"/>
                             <constraint firstItem="m7T-mV-QuD" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" id="8nf-HV-LUX"/>
                             <constraint firstItem="yAO-oz-d3v" firstAttribute="top" secondItem="WhZ-qq-MeK" secondAttribute="top" constant="150" id="Iky-uL-ntK"/>
                             <constraint firstItem="DmX-Z6-mbB" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" constant="65" id="Pt4-HD-S58"/>
                             <constraint firstItem="jR5-vQ-fwT" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" constant="65" id="plj-Yx-C5w"/>
                             <constraint firstItem="yAO-oz-d3v" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" constant="61" id="q5i-J4-Jag"/>
+                            <constraint firstItem="WhZ-qq-MeK" firstAttribute="trailing" secondItem="jR5-vQ-fwT" secondAttribute="trailing" constant="42" id="qcs-jW-3ZB"/>
                             <constraint firstItem="m7T-mV-QuD" firstAttribute="top" secondItem="mcX-V7-ZlC" secondAttribute="top" id="r5U-78-uIF"/>
                             <constraint firstItem="jR5-vQ-fwT" firstAttribute="top" secondItem="yAO-oz-d3v" secondAttribute="bottom" constant="18" id="snh-1j-4PK"/>
+                            <constraint firstItem="WhZ-qq-MeK" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DmX-Z6-mbB" secondAttribute="trailing" symbolic="YES" id="sqA-Ih-yF2"/>
                         </constraints>
                     </view>
                     <connections>
@@ -459,7 +511,69 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WoB-Cb-PA7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2437.68115942029" y="2161.6071428571427"/>
+            <point key="canvasLocation" x="2453.6231884057975" y="2175.6696428571427"/>
+        </scene>
+        <!--Live Text Controller-->
+        <scene sceneID="aUT-SA-mLn">
+            <objects>
+                <viewController storyboardIdentifier="liveVC" id="g9V-o4-Yg6" customClass="LiveTextController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v9j-Nv-lWJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your category" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vAH-b3-ksB">
+                                <rect key="frame" x="35" y="477" width="279" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan text by camera below" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5z-tj-wjc">
+                                <rect key="frame" x="35" y="97" width="205" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Pw5-iH-Ns2">
+                                <rect key="frame" x="35" y="519" width="344" height="269"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="269" id="jUg-ih-AKu"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LiveTextTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LiveTextTableViewCell" id="ZvG-py-qsd" customClass="LiveTextTableViewCell" customModule="PeerBucket" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="344" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZvG-py-qsd" id="wYF-Su-kdT">
+                                            <rect key="frame" x="0.0" y="0.0" width="344" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="rtJ-Yh-gNS"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Pw5-iH-Ns2" firstAttribute="leading" secondItem="rtJ-Yh-gNS" secondAttribute="leading" constant="35" id="2JE-hX-5PE"/>
+                            <constraint firstItem="Pw5-iH-Ns2" firstAttribute="top" secondItem="vAH-b3-ksB" secondAttribute="bottom" constant="21.5" id="3Jz-R7-0C0"/>
+                            <constraint firstItem="U5z-tj-wjc" firstAttribute="top" secondItem="rtJ-Yh-gNS" secondAttribute="top" constant="53" id="5cR-Wh-xa9"/>
+                            <constraint firstItem="rtJ-Yh-gNS" firstAttribute="trailing" secondItem="Pw5-iH-Ns2" secondAttribute="trailing" constant="35" id="9fx-W0-u5J"/>
+                            <constraint firstItem="rtJ-Yh-gNS" firstAttribute="trailing" secondItem="vAH-b3-ksB" secondAttribute="trailing" constant="100" id="AwJ-aq-HOV"/>
+                            <constraint firstItem="rtJ-Yh-gNS" firstAttribute="bottom" secondItem="Pw5-iH-Ns2" secondAttribute="bottom" constant="74" id="MHU-RB-SUd"/>
+                            <constraint firstItem="U5z-tj-wjc" firstAttribute="leading" secondItem="rtJ-Yh-gNS" secondAttribute="leading" constant="35" id="Q62-US-EWk"/>
+                            <constraint firstItem="rtJ-Yh-gNS" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U5z-tj-wjc" secondAttribute="trailing" symbolic="YES" id="aj0-eC-l0N"/>
+                            <constraint firstItem="vAH-b3-ksB" firstAttribute="leading" secondItem="rtJ-Yh-gNS" secondAttribute="leading" constant="35" id="kz7-Gl-h9D"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="categoryLabel" destination="vAH-b3-ksB" id="Xzw-pX-Lji"/>
+                        <outlet property="liveTextLabel" destination="U5z-tj-wjc" id="tNR-ov-6Nc"/>
+                        <outlet property="tableView" destination="Pw5-iH-Ns2" id="p1W-c1-ibK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RQz-KW-880" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3201.449275362319" y="2171.6517857142858"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="S5J-43-aPs">
@@ -508,10 +622,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nm-UK-Psi">
-                                <rect key="frame" x="34" y="253" width="344" height="397"/>
+                                <rect key="frame" x="37" y="253" width="340" height="397"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="397" id="0Qn-nl-nSf"/>
-                                    <constraint firstAttribute="width" constant="344" id="bBK-BU-i12"/>
+                                    <constraint firstAttribute="width" constant="340" id="bBK-BU-i12"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="nML-qW-QwV" kind="embed" id="Nej-1h-QCC"/>
@@ -525,7 +639,7 @@
                             <constraint firstItem="cTd-bF-HA2" firstAttribute="top" secondItem="hWq-6T-xJA" secondAttribute="top" id="S38-dr-Nc6"/>
                             <constraint firstItem="azz-bn-99B" firstAttribute="trailing" secondItem="cTd-bF-HA2" secondAttribute="trailing" id="U3n-dz-rf0"/>
                             <constraint firstItem="cTd-bF-HA2" firstAttribute="leading" secondItem="azz-bn-99B" secondAttribute="leading" id="Zjk-QO-0GM"/>
-                            <constraint firstItem="6nm-UK-Psi" firstAttribute="leading" secondItem="azz-bn-99B" secondAttribute="leading" constant="34" id="zJD-Iv-E5v"/>
+                            <constraint firstItem="6nm-UK-Psi" firstAttribute="centerX" secondItem="hWq-6T-xJA" secondAttribute="centerX" id="jlS-tb-kAq"/>
                             <constraint firstItem="azz-bn-99B" firstAttribute="bottom" secondItem="6nm-UK-Psi" secondAttribute="bottom" constant="163" id="zO7-if-Pw3"/>
                         </constraints>
                     </view>
@@ -707,7 +821,7 @@
             <objects>
                 <viewController id="nML-qW-QwV" customClass="QRCodeViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cAJ-ea-FJi">
-                        <rect key="frame" x="0.0" y="0.0" width="344" height="397"/>
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="397"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="2zJ-Fh-ExC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -725,490 +839,692 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ekI-8a-6ZL">
-                                <rect key="frame" x="0.0" y="88" width="414" height="389"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ekI-8a-6ZL">
+                                <rect key="frame" x="0.0" y="81" width="414" height="389"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Killer" translatesAutoresizingMaskIntoConstraints="NO" id="RKP-dU-pIL">
-                                        <rect key="frame" x="8" y="180" width="386" height="188"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Macbook" translatesAutoresizingMaskIntoConstraints="NO" id="RKP-dU-pIL">
+                                        <rect key="frame" x="25" y="213" width="345" height="168"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Bangs 2" translatesAutoresizingMaskIntoConstraints="NO" id="hWS-uL-JPg">
-                                        <rect key="frame" x="117" y="9" width="175" height="189"/>
+                                        <rect key="frame" x="120" y="47" width="170" height="183"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Concerned" translatesAutoresizingMaskIntoConstraints="NO" id="kza-ea-Qd9">
-                                        <rect key="frame" x="145" y="73" width="147" height="109"/>
+                                        <rect key="frame" x="148" y="109" width="147" height="109"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Glasses 2" translatesAutoresizingMaskIntoConstraints="NO" id="cA5-99-WoM">
-                                        <rect key="frame" x="117" y="77" width="159" height="84"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Sunglasses" translatesAutoresizingMaskIntoConstraints="NO" id="cA5-99-WoM">
+                                        <rect key="frame" x="120" y="116" width="157" height="76"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemMintColor"/>
+                                <color key="backgroundColor" red="1" green="0.62352941176470589" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7X-bX-rU1">
-                                <rect key="frame" x="0.0" y="564" width="414" height="332"/>
-                                <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hc-io-L71">
-                                        <rect key="frame" x="21" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Afro"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="SOd-J3-twO"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scg-vs-7W6">
-                                        <rect key="frame" x="123" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Medium 1"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="C2S-7Z-YeA"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYI-5J-3YK">
-                                        <rect key="frame" x="224" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Bangs 2"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="AhS-6X-kPD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyS-yM-qZK">
-                                        <rect key="frame" x="324" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Bantu Knots"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="wLw-6L-1IE"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBU-Jh-lEU">
-                                        <rect key="frame" x="22" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Bun"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="KPA-YN-BTX"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4BO-Zf-QDr">
-                                        <rect key="frame" x="124" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Bun 2"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="wTf-sl-hFh"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMe-62-vYR">
-                                        <rect key="frame" x="225" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Flat Top"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="BID-Bc-grR"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAT-PK-N2F">
-                                        <rect key="frame" x="325" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Twists"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="2ie-cf-7P9"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHc-ai-fK0">
-                                        <rect key="frame" x="21" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Cornrows 2"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="P1O-oO-dXi"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6y-fG-9d5">
-                                        <rect key="frame" x="123" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="hat-beanie"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="gYh-9w-nmi"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7l-71-l8E">
-                                        <rect key="frame" x="224" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Long"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="4Fu-uH-WBM"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qtu-JJ-X4S">
-                                        <rect key="frame" x="324" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Short 1"/>
-                                        <connections>
-                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="ukD-Ku-MTd"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="332" id="2J8-Qn-k3W"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" id="aRa-27-G2T">
-                                <rect key="frame" x="0.0" y="564" width="414" height="332"/>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="DhM-On-ALf">
+                                <rect key="frame" x="19" y="432" width="376" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="chageBackground:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="5ig-F8-Rv7"/>
+                                </connections>
+                            </slider>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7WO-AB-rgd">
+                                <rect key="frame" x="0.0" y="470" width="414" height="78"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KU-Xa-Ozi">
-                                        <rect key="frame" x="21" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Angry with Fang"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="fAt-k2-ug3"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yos-h1-YEI">
-                                        <rect key="frame" x="224" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Blank"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="4ap-ng-z2d"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bB-QO-Ien">
-                                        <rect key="frame" x="324" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Cute"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Z8U-XC-Xep"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0x-gg-ETd">
-                                        <rect key="frame" x="22" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Concerned"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="c1r-fG-eQ0"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k98-jt-zWk">
-                                        <rect key="frame" x="124" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Contempt"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Mwe-Hg-TBD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPh-Bv-wa8">
-                                        <rect key="frame" x="225" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Concerned Fear"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Le7-GZ-YsD"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jHs-dK-rx4">
-                                        <rect key="frame" x="325" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Driven"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="34i-XZ-med"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdu-Sy-QJl">
-                                        <rect key="frame" x="21" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Fear"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="478-Kp-H5b"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OfS-nc-cxf">
-                                        <rect key="frame" x="123" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Hectic"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="yM8-Dt-UYm"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2f-Ty-2vh">
-                                        <rect key="frame" x="224" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Loving Grin 1"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="zpo-Cp-Vjm"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2W-J7-IuC">
-                                        <rect key="frame" x="324" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Old"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="whI-aX-8B7"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMx-ee-zRH">
-                                        <rect key="frame" x="124" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Smile LOL"/>
-                                        <connections>
-                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="I1e-zO-IyQ"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <viewLayoutGuide key="safeArea" id="Uz2-NT-F3m"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="LTZ-RI-SK1">
-                                <rect key="frame" x="0.0" y="564" width="414" height="332"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLa-1w-CYu">
-                                        <rect key="frame" x="21" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" backgroundImage="xmark" catalog="system"/>
-                                        <connections>
-                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="lQX-mo-SO3"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGO-VU-n3e">
-                                        <rect key="frame" x="224" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Glasses 2"/>
-                                        <connections>
-                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="2DF-i8-gAg"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDD-9N-r0G">
-                                        <rect key="frame" x="324" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Glasses 3"/>
-                                        <connections>
-                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Bki-Ey-hVV"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oyd-IU-2G8">
-                                        <rect key="frame" x="22" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Glasses 4"/>
-                                        <connections>
-                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="pFi-cw-192"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqW-5c-YCT">
-                                        <rect key="frame" x="124" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Glasses 5"/>
-                                        <connections>
-                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="CJw-kE-ODl"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8k9-mv-BYG">
-                                        <rect key="frame" x="124" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Glasses"/>
-                                        <connections>
-                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="FZ8-rW-t6t"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <viewLayoutGuide key="safeArea" id="z7e-1z-pZ8"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" id="HSa-kV-ORc">
-                                <rect key="frame" x="0.0" y="564" width="414" height="332"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CMO-gU-HJH">
-                                        <rect key="frame" x="21" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Blazer Black Tee"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="E3i-8O-4QE"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE7-Ua-hqJ">
-                                        <rect key="frame" x="224" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Polo and Sweater"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="TAZ-Dd-zxs"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fe-2u-Ijh">
-                                        <rect key="frame" x="324" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Striped Tee"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="ZGb-dn-y55"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kB7-6S-bRJ">
-                                        <rect key="frame" x="22" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Gaming"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="2Jn-nK-M98"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="quu-fN-Kpf">
-                                        <rect key="frame" x="124" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Hoodie"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="b7t-im-XpG"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2b-mS-2HI">
-                                        <rect key="frame" x="225" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Tee 1"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="97t-dQ-AC6"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bca-fh-cxc">
-                                        <rect key="frame" x="325" y="111" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Sporty Tee"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="83P-65-yOt"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQk-0V-J3H">
-                                        <rect key="frame" x="21" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Fur Jacket"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="ehP-xp-Ghn"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OzQ-WR-nSb">
-                                        <rect key="frame" x="123" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Sweater"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="fRa-PY-s75"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uwv-3g-Jla">
-                                        <rect key="frame" x="224" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Macbook"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Q0B-Bs-sfK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="265-Un-Shb">
-                                        <rect key="frame" x="324" y="208" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Killer"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="AX0-GY-EZ1"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lrx-Jx-ts4">
-                                        <rect key="frame" x="124" y="13" width="67" height="67"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" backgroundImage="Button Shirt 2"/>
-                                        <connections>
-                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="DjR-HC-lgA"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <viewLayoutGuide key="safeArea" id="evL-fR-rS4"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7WO-AB-rgd">
-                                <rect key="frame" x="0.0" y="477" width="414" height="89"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9s8-Ue-ATd">
-                                        <rect key="frame" x="23" y="18" width="69" height="59"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" backgroundImage="Shaved 2"/>
-                                        <connections>
-                                            <action selector="selectHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="nwr-xx-aBx"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQx-FV-iRT">
-                                        <rect key="frame" x="227" y="22" width="62" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="">
-                                            <backgroundConfiguration key="background" image="Glasses 2"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="selectGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="LNu-ub-kKe"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOd-go-HYm">
-                                        <rect key="frame" x="329" y="23.5" width="67" height="52"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" backgroundImage="Tee Arms Crossed"/>
-                                        <connections>
-                                            <action selector="selectBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="m8F-wi-1dM"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKk-gd-tKl">
-                                        <rect key="frame" x="132" y="20" width="64" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" backgroundImage="Calm"/>
-                                        <connections>
-                                            <action selector="selectFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Bhd-Ow-5Uk"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="37" translatesAutoresizingMaskIntoConstraints="NO" id="soK-mr-MvL">
+                                        <rect key="frame" x="31.5" y="9" width="351" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9s8-Ue-ATd">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="9Oa-4k-bXG"/>
+                                                    <constraint firstAttribute="height" constant="60" id="KEf-Pu-dtf"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" backgroundImage="Shaved 2"/>
+                                                <connections>
+                                                    <action selector="selectHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="nwr-xx-aBx"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKk-gd-tKl">
+                                                <rect key="frame" x="97" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="Yjc-1W-qRD"/>
+                                                    <constraint firstAttribute="height" constant="60" id="joO-Xe-GEu"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" backgroundImage="Calm"/>
+                                                <connections>
+                                                    <action selector="selectFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Bhd-Ow-5Uk"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQx-FV-iRT">
+                                                <rect key="frame" x="194" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="2hh-M0-dAd"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="kWL-DU-A1A"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="">
+                                                    <backgroundConfiguration key="background" image="Glasses 2"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="selectGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="LNu-ub-kKe"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOd-go-HYm">
+                                                <rect key="frame" x="291" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="B5Z-av-C0d"/>
+                                                    <constraint firstAttribute="height" constant="60" id="s5A-eo-QdZ"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" backgroundImage="Tee Arms Crossed"/>
+                                                <connections>
+                                                    <action selector="selectBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="m8F-wi-1dM"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="89" id="qia-WH-9Qp"/>
+                                    <constraint firstItem="soK-mr-MvL" firstAttribute="centerX" secondItem="7WO-AB-rgd" secondAttribute="centerX" id="5Zy-5H-0qI"/>
+                                    <constraint firstItem="soK-mr-MvL" firstAttribute="centerY" secondItem="7WO-AB-rgd" secondAttribute="centerY" id="VHE-Uo-Z95"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48r-cD-RsM">
-                                <rect key="frame" x="0.0" y="407" width="414" height="62"/>
+                            <view contentMode="scaleToFill" id="LTZ-RI-SK1">
+                                <rect key="frame" x="0.0" y="551" width="414" height="332"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="DhM-On-ALf">
-                                        <rect key="frame" x="27" y="31" width="371" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <action selector="chageBackground:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="5ig-F8-Rv7"/>
-                                        </connections>
-                                    </slider>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="I5z-vD-w2y">
+                                        <rect key="frame" x="42" y="81.5" width="330" height="148"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Dyl-9F-3VD">
+                                                <rect key="frame" x="0.0" y="0.0" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLa-1w-CYu">
+                                                        <rect key="frame" x="0.0" y="2" width="60" height="55.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="hpF-t7-Pt3"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" backgroundImage="xmark" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="lQX-mo-SO3"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8k9-mv-BYG">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="4eb-Qn-YvK"/>
+                                                            <constraint firstAttribute="height" constant="60" id="bP0-NK-UiB"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Glasses"/>
+                                                        <connections>
+                                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="FZ8-rW-t6t"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BGO-VU-n3e">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="KX0-BR-B5e"/>
+                                                            <constraint firstAttribute="height" constant="60" id="sYr-HY-rV4"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Glasses 2"/>
+                                                        <connections>
+                                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="2DF-i8-gAg"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDD-9N-r0G">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="EiY-DP-XZc"/>
+                                                            <constraint firstAttribute="width" constant="60" id="dtN-xE-fFB"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Glasses 3"/>
+                                                        <connections>
+                                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Bki-Ey-hVV"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Uug-q4-h5m">
+                                                <rect key="frame" x="0.0" y="88" width="150" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oyd-IU-2G8">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="4hK-mZ-htR"/>
+                                                            <constraint firstAttribute="height" constant="60" id="guA-86-lE5"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Glasses 4"/>
+                                                        <connections>
+                                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="pFi-cw-192"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mqW-5c-YCT">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="Shb-D1-46E"/>
+                                                            <constraint firstAttribute="height" constant="60" id="Xtg-q9-E3J"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Glasses 5"/>
+                                                        <connections>
+                                                            <action selector="changeGlasses:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="CJw-kE-ODl"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
+                                <viewLayoutGuide key="safeArea" id="z7e-1z-pZ8"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="I5z-vD-w2y" firstAttribute="centerY" secondItem="z7e-1z-pZ8" secondAttribute="centerY" id="NYi-Ke-ghW"/>
+                                    <constraint firstItem="I5z-vD-w2y" firstAttribute="centerX" secondItem="z7e-1z-pZ8" secondAttribute="centerX" id="fWg-cQ-JUC"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" id="HSa-kV-ORc">
+                                <rect key="frame" x="0.0" y="551" width="414" height="332"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="wwH-Y3-5Ej">
+                                        <rect key="frame" x="42" y="35.5" width="330" height="240"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="SU1-dX-Mge">
+                                                <rect key="frame" x="0.0" y="0.0" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CMO-gU-HJH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="UJM-iN-5au"/>
+                                                            <constraint firstAttribute="width" constant="60" id="Zew-uf-wYc"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Blazer Black Tee"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="E3i-8O-4QE"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lrx-Jx-ts4">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="IFk-6T-Tgr"/>
+                                                            <constraint firstAttribute="width" constant="60" id="WHk-16-Y3U"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Button Shirt 2"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="DjR-HC-lgA"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE7-Ua-hqJ">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="Uhc-AL-8sR"/>
+                                                            <constraint firstAttribute="width" constant="60" id="wWI-7D-2M8"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Polo and Sweater"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="TAZ-Dd-zxs"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Fe-2u-Ijh">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="Qj8-9h-g5d"/>
+                                                            <constraint firstAttribute="height" constant="60" id="ko9-pY-noD"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Striped Tee"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="ZGb-dn-y55"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ygJ-gc-Ldz">
+                                                <rect key="frame" x="0.0" y="90" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kB7-6S-bRJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="qAr-hK-5Jm"/>
+                                                            <constraint firstAttribute="height" constant="60" id="t5c-vS-1cK"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Gaming"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="2Jn-nK-M98"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="quu-fN-Kpf">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="hbq-sy-KMj"/>
+                                                            <constraint firstAttribute="width" constant="60" id="lVm-QB-UAW"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Hoodie"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="b7t-im-XpG"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2b-mS-2HI">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="TEY-Qy-CaZ"/>
+                                                            <constraint firstAttribute="width" constant="60" id="f8c-QB-KxO"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Tee 1"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="97t-dQ-AC6"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bca-fh-cxc">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="EfB-WF-pJi"/>
+                                                            <constraint firstAttribute="height" constant="60" id="Xqx-lw-Aji"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Sporty Tee"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="83P-65-yOt"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="aVP-sF-GZH">
+                                                <rect key="frame" x="0.0" y="180" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JQk-0V-J3H">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="bgk-dQ-uPh"/>
+                                                            <constraint firstAttribute="width" constant="60" id="jYo-KF-SmT"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Fur Jacket"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="ehP-xp-Ghn"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OzQ-WR-nSb">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="OS2-tZ-yfs"/>
+                                                            <constraint firstAttribute="height" constant="60" id="qzc-kX-bGr"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Sweater"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="fRa-PY-s75"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uwv-3g-Jla">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="ZiE-8V-jfp"/>
+                                                            <constraint firstAttribute="height" constant="60" id="chh-zE-UzN"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Macbook"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Q0B-Bs-sfK"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="265-Un-Shb">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="iAy-GZ-4mb"/>
+                                                            <constraint firstAttribute="width" constant="60" id="s2f-YF-ycP"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Killer"/>
+                                                        <connections>
+                                                            <action selector="chageBody:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="AX0-GY-EZ1"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="evL-fR-rS4"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="wwH-Y3-5Ej" firstAttribute="centerY" secondItem="evL-fR-rS4" secondAttribute="centerY" id="HPv-Yc-UDf"/>
+                                    <constraint firstItem="wwH-Y3-5Ej" firstAttribute="centerX" secondItem="evL-fR-rS4" secondAttribute="centerX" id="PSK-0c-za1"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x7X-bX-rU1">
+                                <rect key="frame" x="0.0" y="551" width="414" height="332"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="a5A-Fc-se2">
+                                        <rect key="frame" x="42" y="46" width="330" height="240"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="9ZB-Ub-oyZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Hc-io-L71">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="VWF-Wb-qjh"/>
+                                                            <constraint firstAttribute="width" constant="60" id="oCU-PU-SFl"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Afro"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="SOd-J3-twO"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scg-vs-7W6">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="Wae-kB-DG3"/>
+                                                            <constraint firstAttribute="height" constant="60" id="eIz-T6-kcR"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Medium 1"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="C2S-7Z-YeA"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYI-5J-3YK">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="DHV-ZS-4GH"/>
+                                                            <constraint firstAttribute="width" constant="60" id="tld-Sm-dLZ"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Bangs 2"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="AhS-6X-kPD"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyS-yM-qZK">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="pRZ-It-yPW"/>
+                                                            <constraint firstAttribute="width" constant="60" id="pa1-3b-1y3"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Bantu Knots"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="wLw-6L-1IE"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="fla-Dh-6uu">
+                                                <rect key="frame" x="0.0" y="90" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBU-Jh-lEU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="IWd-R4-XEo"/>
+                                                            <constraint firstAttribute="height" constant="60" id="a4m-YG-peN"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Bun"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="KPA-YN-BTX"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4BO-Zf-QDr">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="bKe-Kb-AXm"/>
+                                                            <constraint firstAttribute="height" constant="60" id="nBr-lL-MAY"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Bun 2"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="wTf-sl-hFh"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MMe-62-vYR">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="BlY-pJ-AWS"/>
+                                                            <constraint firstAttribute="height" constant="60" id="ILL-UP-Yfd"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Flat Top"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="BID-Bc-grR"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EAT-PK-N2F">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="70X-Gf-Bqm"/>
+                                                            <constraint firstAttribute="height" constant="60" id="7VE-2K-L3f"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Twists"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="2ie-cf-7P9"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="J8b-eS-DDn">
+                                                <rect key="frame" x="0.0" y="180" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zHc-ai-fK0">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="Cdj-To-89Y"/>
+                                                            <constraint firstAttribute="height" constant="60" id="OtS-Ob-pHq"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Cornrows 2"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="P1O-oO-dXi"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z6y-fG-9d5">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="SiP-N7-PgW"/>
+                                                            <constraint firstAttribute="width" constant="60" id="akB-fy-ZQ6"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="hat-beanie"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="gYh-9w-nmi"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7l-71-l8E">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="05W-mm-zvm"/>
+                                                            <constraint firstAttribute="height" constant="60" id="m9d-QY-o4y"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Long"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="4Fu-uH-WBM"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qtu-JJ-X4S">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="RLg-SO-Wnm"/>
+                                                            <constraint firstAttribute="width" constant="60" id="fCz-oW-d7e"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Short 1"/>
+                                                        <connections>
+                                                            <action selector="changeHair:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="ukD-Ku-MTd"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="a5A-Fc-se2" firstAttribute="centerY" secondItem="x7X-bX-rU1" secondAttribute="centerY" id="n1E-om-lHH"/>
+                                    <constraint firstItem="a5A-Fc-se2" firstAttribute="centerX" secondItem="x7X-bX-rU1" secondAttribute="centerX" id="zYe-LI-xU7"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" id="aRa-27-G2T">
+                                <rect key="frame" x="0.0" y="551" width="414" height="332"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="qq6-V9-2yc">
+                                        <rect key="frame" x="42" y="35.5" width="330" height="240"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="fNM-tg-Ekd">
+                                                <rect key="frame" x="0.0" y="0.0" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8KU-Xa-Ozi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="1DG-hK-Jj1"/>
+                                                            <constraint firstAttribute="width" constant="60" id="Z1J-gy-Qhn"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Angry with Fang"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="fAt-k2-ug3"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMx-ee-zRH">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="TUf-67-Xar"/>
+                                                            <constraint firstAttribute="height" constant="60" id="eNO-wr-CHN"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Smile LOL"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="I1e-zO-IyQ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yos-h1-YEI">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="n3C-KZ-6Wz"/>
+                                                            <constraint firstAttribute="height" constant="60" id="ukl-iS-ZIj"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Blank"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="4ap-ng-z2d"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bB-QO-Ien">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="AvU-0Z-KgX"/>
+                                                            <constraint firstAttribute="height" constant="60" id="lgc-Ma-98n"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Cute"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Z8U-XC-Xep"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="qgt-pc-DJO">
+                                                <rect key="frame" x="0.0" y="90" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0x-gg-ETd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="XYo-4g-jOa"/>
+                                                            <constraint firstAttribute="width" constant="60" id="pyc-L0-eit"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Concerned"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="c1r-fG-eQ0"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k98-jt-zWk">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="2RB-b4-ZpH"/>
+                                                            <constraint firstAttribute="height" constant="60" id="C9g-PK-pHN"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Contempt"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Mwe-Hg-TBD"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPh-Bv-wa8">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="2og-zN-bYb"/>
+                                                            <constraint firstAttribute="width" constant="60" id="FGc-w0-74c"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Concerned Fear"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="Le7-GZ-YsD"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jHs-dK-rx4">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="0OA-3L-xsS"/>
+                                                            <constraint firstAttribute="width" constant="60" id="JHF-PA-jDh"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Driven"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="34i-XZ-med"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="fea-Lr-GIr">
+                                                <rect key="frame" x="0.0" y="180" width="330" height="60"/>
+                                                <subviews>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vdu-Sy-QJl">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="lwb-D8-Lfb"/>
+                                                            <constraint firstAttribute="width" constant="60" id="qZp-ou-iQg"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Fear"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="478-Kp-H5b"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OfS-nc-cxf">
+                                                        <rect key="frame" x="90" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="aSd-O2-NRZ"/>
+                                                            <constraint firstAttribute="height" constant="60" id="jOY-zL-okp"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Hectic"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="yM8-Dt-UYm"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2f-Ty-2vh">
+                                                        <rect key="frame" x="180" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="Mqg-Fs-nKa"/>
+                                                            <constraint firstAttribute="width" constant="60" id="uWi-8W-yWr"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Loving Grin 1"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="zpo-Cp-Vjm"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2W-J7-IuC">
+                                                        <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="TIh-l4-TKX"/>
+                                                            <constraint firstAttribute="height" constant="60" id="srs-vF-X4l"/>
+                                                        </constraints>
+                                                        <state key="normal" backgroundImage="Old"/>
+                                                        <connections>
+                                                            <action selector="changeFace:" destination="VHj-Mr-g1L" eventType="touchUpInside" id="whI-aX-8B7"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <viewLayoutGuide key="safeArea" id="Uz2-NT-F3m"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="qq6-V9-2yc" firstAttribute="centerY" secondItem="Uz2-NT-F3m" secondAttribute="centerY" id="Hyy-Ba-Cfp"/>
+                                    <constraint firstItem="qq6-V9-2yc" firstAttribute="centerX" secondItem="Uz2-NT-F3m" secondAttribute="centerX" id="nCE-h0-Qj7"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="yvx-so-Wsh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="aRa-27-G2T" firstAttribute="leading" secondItem="x7X-bX-rU1" secondAttribute="leading" id="0tH-xT-hWq"/>
-                            <constraint firstAttribute="bottom" secondItem="x7X-bX-rU1" secondAttribute="bottom" id="0vX-Lz-kze"/>
-                            <constraint firstItem="HSa-kV-ORc" firstAttribute="top" secondItem="x7X-bX-rU1" secondAttribute="top" id="1l2-y4-UKO"/>
-                            <constraint firstItem="7WO-AB-rgd" firstAttribute="top" secondItem="ekI-8a-6ZL" secondAttribute="bottom" id="3zV-pQ-jmH"/>
-                            <constraint firstItem="7WO-AB-rgd" firstAttribute="leading" secondItem="yvx-so-Wsh" secondAttribute="leading" id="7em-DO-uSG"/>
-                            <constraint firstItem="aRa-27-G2T" firstAttribute="trailing" secondItem="x7X-bX-rU1" secondAttribute="trailing" id="C3H-4G-anv"/>
-                            <constraint firstItem="ekI-8a-6ZL" firstAttribute="trailing" secondItem="yvx-so-Wsh" secondAttribute="trailing" id="JaW-qb-ThA"/>
-                            <constraint firstItem="HSa-kV-ORc" firstAttribute="trailing" secondItem="x7X-bX-rU1" secondAttribute="trailing" id="KIz-4T-Qrn"/>
-                            <constraint firstItem="LTZ-RI-SK1" firstAttribute="bottom" secondItem="x7X-bX-rU1" secondAttribute="bottom" id="Opx-8q-749"/>
-                            <constraint firstItem="ekI-8a-6ZL" firstAttribute="top" secondItem="yvx-so-Wsh" secondAttribute="top" id="Oyx-qP-6N1"/>
-                            <constraint firstItem="x7X-bX-rU1" firstAttribute="trailing" secondItem="yvx-so-Wsh" secondAttribute="trailing" id="UJX-mU-asY"/>
-                            <constraint firstItem="7WO-AB-rgd" firstAttribute="trailing" secondItem="yvx-so-Wsh" secondAttribute="trailing" id="XF8-1T-lQ6"/>
-                            <constraint firstItem="LTZ-RI-SK1" firstAttribute="trailing" secondItem="x7X-bX-rU1" secondAttribute="trailing" id="c7V-Gf-fUg"/>
-                            <constraint firstItem="HSa-kV-ORc" firstAttribute="leading" secondItem="x7X-bX-rU1" secondAttribute="leading" id="dJa-fx-Dba"/>
-                            <constraint firstItem="aRa-27-G2T" firstAttribute="bottom" secondItem="x7X-bX-rU1" secondAttribute="bottom" id="dWN-7t-XHc"/>
-                            <constraint firstItem="LTZ-RI-SK1" firstAttribute="top" secondItem="x7X-bX-rU1" secondAttribute="top" id="djA-da-NH8"/>
-                            <constraint firstItem="7WO-AB-rgd" firstAttribute="top" secondItem="ekI-8a-6ZL" secondAttribute="bottom" id="gZO-od-Uds"/>
-                            <constraint firstItem="ekI-8a-6ZL" firstAttribute="leading" secondItem="yvx-so-Wsh" secondAttribute="leading" id="pEU-TG-nnh"/>
-                            <constraint firstItem="x7X-bX-rU1" firstAttribute="top" secondItem="ekI-8a-6ZL" secondAttribute="bottom" constant="87" id="tdk-tY-A9G"/>
-                            <constraint firstItem="HSa-kV-ORc" firstAttribute="bottom" secondItem="x7X-bX-rU1" secondAttribute="bottom" id="w9j-5L-Ruc"/>
-                            <constraint firstItem="aRa-27-G2T" firstAttribute="top" secondItem="x7X-bX-rU1" secondAttribute="top" id="wCS-n9-z2B"/>
-                            <constraint firstItem="LTZ-RI-SK1" firstAttribute="leading" secondItem="x7X-bX-rU1" secondAttribute="leading" id="xbQ-Ql-cPq"/>
-                            <constraint firstItem="x7X-bX-rU1" firstAttribute="leading" secondItem="yvx-so-Wsh" secondAttribute="leading" id="zEG-nn-yHt"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oAL-Le-rty"/>
                     <connections>
+                        <outlet property="backgroundSlider" destination="DhM-On-ALf" id="ptD-Vb-PXf"/>
                         <outlet property="backgroundView" destination="ekI-8a-6ZL" id="TUu-9f-hOf"/>
                         <outlet property="body" destination="RKP-dU-pIL" id="DTq-CD-2ma"/>
                         <outlet property="bodyView" destination="HSa-kV-ORc" id="gpG-mw-f4I"/>
@@ -1218,29 +1534,27 @@
                         <outlet property="glassesView" destination="LTZ-RI-SK1" id="91f-yV-dat"/>
                         <outlet property="hair" destination="hWS-uL-JPg" id="vA6-Mt-w6Z"/>
                         <outlet property="hairView" destination="x7X-bX-rU1" id="7YE-q8-Fdc"/>
+                        <outlet property="selectionView" destination="7WO-AB-rgd" id="5mL-BR-Hio"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TGb-Ee-azT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4818.840579710145" y="1048.6607142857142"/>
+            <point key="canvasLocation" x="3900" y="1079"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="goi-kL-JHo">
+        <!--Add Schedule View Controller-->
+        <scene sceneID="tXy-4E-IjD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="J0q-cJ-cp5" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3D9-ph-kXT">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="VHj-Mr-g1L" kind="relationship" relationship="rootViewController" id="RIC-JI-F6G"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zKl-UB-ATn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="addScheduleVC" id="fWw-Yo-nrr" customClass="AddScheduleViewController" customModule="PeerBucket" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8OK-ZT-2oO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fX7-Ii-zfc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4to-nb-bPE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3908.6956521739135" y="1048.6607142857142"/>
+            <point key="canvasLocation" x="3207" y="1624"/>
         </scene>
     </scenes>
     <resources>
@@ -1283,6 +1597,7 @@
         <image name="Smile LOL" width="289" height="293"/>
         <image name="Sporty Tee" width="818" height="733"/>
         <image name="Striped Tee" width="818" height="733"/>
+        <image name="Sunglasses" width="392" height="138"/>
         <image name="Sunglasses 2" width="392" height="138"/>
         <image name="Sweater" width="818" height="733"/>
         <image name="Tee 1" width="818" height="733"/>
@@ -1291,20 +1606,17 @@
         <image name="bg_album" width="1080" height="1920"/>
         <image name="hat-beanie" width="473" height="567"/>
         <image name="icon_avatar_logo 2" width="739" height="980"/>
-        <image name="icon_tab_bucket_n" width="30" height="30"/>
+        <image name="icon_tab_bucket_n" width="29.5" height="30"/>
         <image name="icon_tab_home_n" width="28" height="30"/>
         <image name="icon_tab_new_n" width="30" height="30"/>
         <image name="icon_tab_profile_n" width="30" height="30"/>
         <image name="one_leg_up-2" width="1534" height="1856"/>
-        <image name="xmark" catalog="system" width="32" height="32"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

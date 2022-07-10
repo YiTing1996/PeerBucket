@@ -15,7 +15,6 @@
 		AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001480285E0E610098FC4E /* ScheduleDataModal.swift */; };
 		AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001482285E0E770098FC4E /* ScheduleManager.swift */; };
 		AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001484285E15910098FC4E /* AddScheduleViewController.swift */; };
-		AC001489285F58360098FC4E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001488285F58360098FC4E /* WebViewController.swift */; };
 		AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC140421286436CF00DD2566 /* AvatarViewController.swift */; };
 		AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
@@ -25,9 +24,7 @@
 		AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741A286190AD005D1A2D /* InviteViewController.swift */; };
 		AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741C2861B297005D1A2D /* ProfileViewController.swift */; };
 		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
-		AC2CBBDC2870357F003EF0FA /* LottieWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2CBBDB2870357F003EF0FA /* LottieWrapper.swift */; };
 		AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */; };
-		AC2CBBE42871B16F003EF0FA /* lottieLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = AC2CBBE32871B16F003EF0FA /* lottieLoading.json */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
@@ -50,7 +47,11 @@
 		AC72A102285AC2C0007FC767 /* BucketDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A101285AC2C0007FC767 /* BucketDataModal.swift */; };
 		AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A103285AC389007FC767 /* BucketListViewController.swift */; };
 		AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */; };
+		AC752A8F287334B1006756ED /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC752A8E287334B1006756ED /* WebViewController.swift */; };
 		AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */; };
+		AC8B43FD28755BB100A86A11 /* LiveTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B43FC28755BB100A86A11 /* LiveTextController.swift */; };
+		AC8B440128758AE900A86A11 /* LiveTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */; };
+		AC8B44052875B72C00A86A11 /* dreams.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC8B44042875B72C00A86A11 /* dreams.mp3 */; };
 		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
 		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
@@ -61,7 +62,11 @@
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
 		ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateHelper.swift */; };
 		ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7D09928631E54006AC04A /* TabBarController.swift */; };
-		ACFBCF6D286D83A10013B21B /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFBCF6C286D83A00013B21B /* MessageManager.swift */; };
+		ACCECFD2287950F9004AE116 /* lottieCongrats.json in Resources */ = {isa = PBXBuildFile; fileRef = ACCECFD1287950F9004AE116 /* lottieCongrats.json */; };
+		ACCECFDC28796C4E004AE116 /* CameraKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */; };
+		ACCECFE428799EDD004AE116 /* lottieLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = ACCECFE328799EDD004AE116 /* lottieLoading.json */; };
+		ACFA53B828769C9D00E0887D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA53B728769C9D00E0887D /* LaunchViewController.swift */; };
+		ACFA53B92876AD6900E0887D /* launchScreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = ACFA53B228768E3800E0887D /* launchScreen.mp4 */; };
 		ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8D0F286864960055D143 /* UILabelExtension.swift */; };
 		ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ACFC8D11286971780055D143 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -90,7 +95,6 @@
 		AC001480285E0E610098FC4E /* ScheduleDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataModal.swift; sourceTree = "<group>"; };
 		AC001482285E0E770098FC4E /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		AC001484285E15910098FC4E /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
-		AC001488285F58360098FC4E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AC140421286436CF00DD2566 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -100,9 +104,7 @@
 		AC2C741A286190AD005D1A2D /* InviteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
 		AC2C741C2861B297005D1A2D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
-		AC2CBBDB2870357F003EF0FA /* LottieWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieWrapper.swift; sourceTree = "<group>"; };
 		AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
-		AC2CBBE32871B16F003EF0FA /* lottieLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieLoading.json; sourceTree = "<group>"; };
 		AC6F0FF52869DA6200FD0F0E /* PeerBucket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeerBucket.entitlements; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,7 +130,11 @@
 		AC72A101285AC2C0007FC767 /* BucketDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDataModal.swift; sourceTree = "<group>"; };
 		AC72A103285AC389007FC767 /* BucketListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
 		AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketListCollectionViewCell.swift; sourceTree = "<group>"; };
+		AC752A8E287334B1006756ED /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		AC8B43FC28755BB100A86A11 /* LiveTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextController.swift; sourceTree = "<group>"; };
+		AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextTableViewCell.swift; sourceTree = "<group>"; };
+		AC8B44042875B72C00A86A11 /* dreams.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dreams.mp3; sourceTree = "<group>"; };
 		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
 		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
@@ -138,7 +144,11 @@
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
 		ACC3D272285B0EFA00676F46 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		ACC7D09928631E54006AC04A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		ACFBCF6C286D83A00013B21B /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
+		ACCECFD1287950F9004AE116 /* lottieCongrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieCongrats.json; sourceTree = "<group>"; };
+		ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraKeyboard.swift; sourceTree = "<group>"; };
+		ACCECFE328799EDD004AE116 /* lottieLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieLoading.json; sourceTree = "<group>"; };
+		ACFA53B228768E3800E0887D /* launchScreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = launchScreen.mp4; sourceTree = "<group>"; };
+		ACFA53B728769C9D00E0887D /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		ACFC8D0F286864960055D143 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
 		ACFC8D11286971780055D143 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1B5692D855830D747F29104 /* Pods-PeerBucket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PeerBucket.debug.xcconfig"; path = "Target Support Files/Pods-PeerBucket/Pods-PeerBucket.debug.xcconfig"; sourceTree = "<group>"; };
@@ -176,18 +186,19 @@
 			path = HomePage;
 			sourceTree = "<group>";
 		};
-		AC00147D285E07AB0098FC4E /* SchedulePage */ = {
+		AC00147D285E07AB0098FC4E /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
 				AC00147B285DC31F0098FC4E /* ScheduleCollectionViewCell.swift */,
 				AC00147E285E07F70098FC4E /* ScheduleHeaderView.swift */,
 			);
-			path = SchedulePage;
+			path = HomePage;
 			sourceTree = "<group>";
 		};
 		AC21CEA8285B567C00157B4D /* BucketPage */ = {
 			isa = PBXGroup;
 			children = (
+				AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */,
 				AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */,
 				AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */,
 			);
@@ -201,7 +212,6 @@
 				AC72A0F62859B54F007FC767 /* ExploreDetailViewController.swift */,
 				AC83545F285CDBF8001F3767 /* ChallengeViewController.swift */,
 				AC72A0FA285A1057007FC767 /* AddToBucketViewController.swift */,
-				AC001488285F58360098FC4E /* WebViewController.swift */,
 			);
 			path = ExplorePage;
 			sourceTree = "<group>";
@@ -209,6 +219,7 @@
 		AC21CEAA285B57A700157B4D /* BucketPage */ = {
 			isa = PBXGroup;
 			children = (
+				AC8B43FC28755BB100A86A11 /* LiveTextController.swift */,
 				AC72A103285AC389007FC767 /* BucketListViewController.swift */,
 				ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */,
 				ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */,
@@ -228,12 +239,12 @@
 			path = ProfilePage;
 			sourceTree = "<group>";
 		};
-		AC2CBBDA28703551003EF0FA /* Third Party Wrapper */ = {
+		AC2CBBE52872CA56003EF0FA /* ExplorePage */ = {
 			isa = PBXGroup;
 			children = (
-				AC2CBBDB2870357F003EF0FA /* LottieWrapper.swift */,
+				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
 			);
-			path = "Third Party Wrapper";
+			path = ExplorePage;
 			sourceTree = "<group>";
 		};
 		AC72A0BE285984CB007FC767 = {
@@ -262,9 +273,7 @@
 				AC72A0EA28598A38007FC767 /* View */,
 				AC72A0E828598A0E007FC767 /* Controller */,
 				AC72A0E928598A23007FC767 /* Extension */,
-				AC2CBBDA28703551003EF0FA /* Third Party Wrapper */,
 				AC72A0EB28598A4E007FC767 /* Resource */,
-				AC72A0D6285984CC007FC767 /* Assets.xcassets */,
 				AC72A0D0285984CB007FC767 /* Main.storyboard */,
 				AC72A0D8285984CC007FC767 /* LaunchScreen.storyboard */,
 				AC72A0DB285984CC007FC767 /* Info.plist */,
@@ -276,11 +285,10 @@
 		AC72A0E6285989F4007FC767 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				ACCECFE6287ABFB3004AE116 /* ProfilePage */,
+				AC2CBBE52872CA56003EF0FA /* ExplorePage */,
 				ACADB71E28605B5900D7C18E /* HomePage */,
 				ACADB71D28605B3300D7C18E /* BucketPage */,
-				ACFBCF6C286D83A00013B21B /* MessageManager.swift */,
-				ACADB7222860A26D00D7C18E /* UserManager.swift */,
-				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -288,12 +296,11 @@
 		AC72A0E828598A0E007FC767 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				ACCECFE5287ABD8A004AE116 /* Base */,
 				AC2C741E2861B71D005D1A2D /* ProfilePage */,
 				AC001478285DABAA0098FC4E /* HomePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
-				ACC7D09928631E54006AC04A /* TabBarController.swift */,
-				ACADB720286078B100D7C18E /* LoginViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -309,6 +316,7 @@
 				AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */,
 				ACFC8D0F286864960055D143 /* UILabelExtension.swift */,
 				AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */,
+				ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -316,7 +324,7 @@
 		AC72A0EA28598A38007FC767 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AC00147D285E07AB0098FC4E /* SchedulePage */,
+				AC00147D285E07AB0098FC4E /* HomePage */,
 				AC21CEA8285B567C00157B4D /* BucketPage */,
 				AC72A0FE285A2F45007FC767 /* ExplorePage */,
 			);
@@ -326,10 +334,14 @@
 		AC72A0EB28598A4E007FC767 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				AC2CBBE32871B16F003EF0FA /* lottieLoading.json */,
+				AC72A0D6285984CC007FC767 /* Assets.xcassets */,
+				ACCECFD1287950F9004AE116 /* lottieCongrats.json */,
+				ACCECFE328799EDD004AE116 /* lottieLoading.json */,
 				AC72A0CA285984CB007FC767 /* AppDelegate.swift */,
 				AC72A0CC285984CB007FC767 /* SceneDelegate.swift */,
 				ACFC8D11286971780055D143 /* GoogleService-Info.plist */,
+				ACFA53B228768E3800E0887D /* launchScreen.mp4 */,
+				AC8B44042875B72C00A86A11 /* dreams.mp3 */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -353,7 +365,6 @@
 			children = (
 				AC72A0FF285AC20C007FC767 /* BucketListManager.swift */,
 				AC72A101285AC2C0007FC767 /* BucketDataModal.swift */,
-				AC72A0E4285989EE007FC767 /* ExploreMockData.swift */,
 			);
 			path = BucketPage;
 			sourceTree = "<group>";
@@ -366,6 +377,26 @@
 				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
 			);
 			path = HomePage;
+			sourceTree = "<group>";
+		};
+		ACCECFE5287ABD8A004AE116 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				ACC7D09928631E54006AC04A /* TabBarController.swift */,
+				AC752A8E287334B1006756ED /* WebViewController.swift */,
+				ACADB720286078B100D7C18E /* LoginViewController.swift */,
+				ACFA53B728769C9D00E0887D /* LaunchViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		ACCECFE6287ABFB3004AE116 /* ProfilePage */ = {
+			isa = PBXGroup;
+			children = (
+				ACADB7222860A26D00D7C18E /* UserManager.swift */,
+				ACADB71B28604C5700D7C18E /* UserDataModal.swift */,
+			);
+			path = ProfilePage;
 			sourceTree = "<group>";
 		};
 		D13C32911BF3BB95CC277E6A /* Frameworks */ = {
@@ -390,6 +421,7 @@
 				AC72A0C5285984CB007FC767 /* Resources */,
 				FEFC87F9F31419D0A173444F /* [CP] Embed Pods Frameworks */,
 				ACADB70C285F83B800D7C18E /* Embed Frameworks */,
+				ACCECFE7287ACD7F004AE116 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -438,10 +470,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACFA53B92876AD6900E0887D /* launchScreen.mp4 in Resources */,
+				ACCECFE428799EDD004AE116 /* lottieLoading.json in Resources */,
 				AC72A0DA285984CC007FC767 /* LaunchScreen.storyboard in Resources */,
-				AC2CBBE42871B16F003EF0FA /* lottieLoading.json in Resources */,
 				ACFC8D12286971780055D143 /* GoogleService-Info.plist in Resources */,
 				AC72A0D7285984CC007FC767 /* Assets.xcassets in Resources */,
+				ACCECFD2287950F9004AE116 /* lottieCongrats.json in Resources */,
+				AC8B44052875B72C00A86A11 /* dreams.mp3 in Resources */,
 				AC72A0D2285984CB007FC767 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -489,6 +524,26 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		ACCECFE7287ACD7F004AE116 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		FEFC87F9F31419D0A173444F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -513,7 +568,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC001489285F58360098FC4E /* WebViewController.swift in Sources */,
 				ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */,
 				ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */,
 				ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */,
@@ -524,7 +578,9 @@
 				AC72A0ED28599135007FC767 /* ExploreCollectionViewCell.swift in Sources */,
 				AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */,
 				AC001475285CDD690098FC4E /* ChallengeUIView.swift in Sources */,
+				AC8B440128758AE900A86A11 /* LiveTextTableViewCell.swift in Sources */,
 				AC72A0F3285991FC007FC767 /* ChallengeHeaderView.swift in Sources */,
+				AC752A8F287334B1006756ED /* WebViewController.swift in Sources */,
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
 				AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */,
 				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
@@ -538,24 +594,25 @@
 				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
-				AC2CBBDC2870357F003EF0FA /* LottieWrapper.swift in Sources */,
 				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
 				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
 				ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */,
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
 				AC00147A285DABC10098FC4E /* ScheduleViewController.swift in Sources */,
 				AC72A0F92859C03A007FC767 /* ExploreDetailTableViewCell.swift in Sources */,
-				ACFBCF6D286D83A10013B21B /* MessageManager.swift in Sources */,
 				ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */,
 				AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */,
 				AC00147C285DC31F0098FC4E /* ScheduleCollectionViewCell.swift in Sources */,
 				AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */,
 				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
+				ACCECFDC28796C4E004AE116 /* CameraKeyboard.swift in Sources */,
+				AC8B43FD28755BB100A86A11 /* LiveTextController.swift in Sources */,
 				AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */,
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,
 				AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */,
 				ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */,
+				ACFA53B828769C9D00E0887D /* LaunchViewController.swift in Sources */,
 				AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */,
 				AC72A0F52859AF8B007FC767 /* UIColorExtension.swift in Sources */,
 				ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */,
@@ -712,7 +769,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
@@ -721,8 +779,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -745,7 +805,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
@@ -754,8 +814,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

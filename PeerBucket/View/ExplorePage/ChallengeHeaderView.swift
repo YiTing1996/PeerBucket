@@ -14,10 +14,9 @@ class ChallengeHeaderView: UICollectionReusableView {
     var headerLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .hightlightYellow
-//        label.layer.cornerRadius = 20
-        label.textColor = .lightGray
+        label.textColor = .white
         label.font = UIFont.bold(size: 20)
-        label.text = "#CHALLENGE #BUCKET"
+        label.text = " #CHALLENGE #BUCKET "
         return label
     }()
     

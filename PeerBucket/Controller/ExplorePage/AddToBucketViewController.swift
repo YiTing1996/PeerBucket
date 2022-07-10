@@ -50,7 +50,6 @@ class AddToBucketViewController: UIViewController {
         } else {
             self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
         }
-//        print(currentUserUID)
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -64,7 +63,6 @@ class AddToBucketViewController: UIViewController {
         super.viewWillAppear(animated)
         
         guard let currentUserUID = currentUserUID else { return }
-        userIDList.append(currentUserUID)
         getData(userID: currentUserUID)
         
     }
@@ -96,6 +94,7 @@ class AddToBucketViewController: UIViewController {
             switch result {
             case .success(let user):
                 
+                self.userIDList = [userID]
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }
@@ -124,6 +123,7 @@ class AddToBucketViewController: UIViewController {
             }
         }
     }
+    
 }
 
 // MARK: - Collection View
@@ -158,7 +158,7 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120, height: 120)
+        return CGSize(width: screenWidth/3.5, height: screenWidth/3.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
@@ -196,5 +196,4 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
         self.delegate?.didTappedClose()
         
     }
-    
 }

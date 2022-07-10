@@ -20,9 +20,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     weak var delegate: AddNewBucketDelegate?
     
     private let storage = Storage.storage().reference()
-    
-//    var currentUserUID = Auth.auth().currentUser?.uid
-    
+        
     var currentUserUID: String?
     
     var iconLabel: UILabel = {
@@ -43,11 +41,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     
     var categoryTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Type Category Here"
-        textField.layer.cornerRadius = 10
-        textField.layer.borderWidth = 0.5
-        textField.textColor = .darkGray
-        textField.setLeftPaddingPoints(amount: 10)
+        textField.setTextField(placeholder: "Type Category Here")
         return textField
     }()
 
@@ -60,13 +54,9 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .mediumGray
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 10
         button.setTitle("SUBMIT", for: .normal)
-        button.titleLabel?.font = UIFont.semiBold(size: 15)
         button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
         return button
     }()
     
@@ -83,7 +73,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-//        scrollView.showsHorizontalScrollIndicator = true
         return scrollView
     }()
     
@@ -153,7 +142,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         categoryTextField.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                                  paddingTop: 5, paddingLeft: 20, paddingRight: 20, height: 50)
         submitButton.anchor(top: categoryTextField.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
-                            paddingTop: 20, paddingLeft: 20, paddingRight: 20, width: 300, height: 50)
+                            paddingTop: 20, paddingLeft: 20, paddingRight: 20, height: 50)
         
     }
     

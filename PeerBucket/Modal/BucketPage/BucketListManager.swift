@@ -17,6 +17,8 @@ class BucketListManager {
     
     let dataBase = Firestore.firestore()
     
+    // MARK: - Fetch
+    
     // query bucket category by id of user
     func fetchBucketCategory(userID: String, completion: @escaping (Result<[BucketCategory], Error>) -> Void) {
         
@@ -39,7 +41,10 @@ class BucketListManager {
     // query bucket list by id of bucket category
     func fetchBucketList(categoryID: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
                 
-        dataBase.collection("bucketList").whereField("categoryId", isEqualTo: categoryID).getDocuments { (querySnapshot, error) in
+        dataBase.collection("bucketList")
+            .order(by: "createdTime", descending: true)
+            .whereField("categoryId", isEqualTo: categoryID)
+            .getDocuments { (querySnapshot, error) in
             
             if let error = error {
                 print("Error getting documents: \(error)")
@@ -98,7 +103,6 @@ class BucketListManager {
         
         let document = dataBase.collection("bucketCategory").document()
         bucketCategory.id = document.documentID
-        //        bucketList.createdTime = Date().millisecondsSince1970
         
         document.setData(bucketCategory.toDict) { error in
             

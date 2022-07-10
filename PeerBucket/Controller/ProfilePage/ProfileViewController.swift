@@ -26,61 +26,48 @@ class ProfileViewController: UIViewController {
     
     var avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 100
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     var inviteView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
-        view.layer.borderWidth = 0.5
-        view.layer.cornerRadius = 10
+        view.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
+        view.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
         return view
     }()
     
     var inviteLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGreen
-        label.text = "Invite Friends Joining"
-        label.font = UIFont.bold(size: 25)
+        label.text = "Invite Partner"
+        label.font = UIFont.bold(size: 28)
         label.numberOfLines = 0
         return label
     }()
     
     lazy var inviteButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
         button.setTitle("Scan QRCode", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.semiBold(size: 16)
+        button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
     lazy var myQRButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
         button.setTitle("Show QRCode", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.semiBold(size: 16)
+        button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
     var profileView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .lightGray
-        view.layer.borderWidth = 0.5
-        view.layer.cornerRadius = 10
+        view.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
+        view.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
         return view
     }()
     
@@ -88,32 +75,24 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.textColor = .darkGreen
         label.text = "Edit\nProfile"
-        label.font = UIFont.bold(size: 25)
+        label.font = UIFont.bold(size: 28)
         label.numberOfLines = 0
         return label
     }()
     
     lazy var nameButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedNameBtn), for: .touchUpInside)
         button.setTitle("Edit Name", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.semiBold(size: 16)
+        button.addTarget(self, action: #selector(tappedNameBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
     lazy var avatarButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor.lightGray
-        button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
         button.setTitle("Edit Avatar", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.layer.borderWidth = 0.5
-        button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.semiBold(size: 16)
+        button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
+        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
         return button
     }()
     
@@ -121,7 +100,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.textColor = .darkGreen
         label.text = "Welcome!"
-        label.font = UIFont.bold(size: 30)
+        label.font = UIFont.bold(size: 32)
         label.numberOfLines = 0
         return label
     }()
@@ -135,20 +114,24 @@ class ProfileViewController: UIViewController {
             UIAction(title: "Sign Out", handler: { _ in
                 self.tappedSignoutBtn()
             }),
-            UIAction(title: "Block User", handler: { _ in
+            UIAction(title: "Disconnect Partner", handler: { _ in
                 self.tappedBlockBtn()
             }),
             UIAction(title: "Delete Account", handler: { _ in
                 self.tappedDeleteBtn()
+            }),
+            UIAction(title: "Privacy Policy", handler: { _ in
+                self.tappedPrivacyBtn()
             })
         ])
         return button
     }()
-        
-    var currentUser: User?
-    var currentUserUID: String?
     
     lazy var menuBarItem = UIBarButtonItem(customView: self.settingButton)
+    
+    var currentUser: User?
+    var paringUser: User?
+    var currentUserUID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,7 +140,7 @@ class ProfileViewController: UIViewController {
         configureAnchor()
         
         navigationItem.rightBarButtonItem = menuBarItem
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -177,24 +160,31 @@ class ProfileViewController: UIViewController {
             return
         }
         
-        fetchUserData(userID: currentUserUID)
+        fetchUserData(identityType: .currentUser, userID: currentUserUID)
         
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        avatarImageView.clipsToBounds = true
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2.08
+    }
+    
     func configureUI() {
-
+        
         view.addSubview(nameLabel)
         view.addSubview(nameButton)
         view.addSubview(avatarImageView)
+        
         view.addSubview(inviteView)
         view.addSubview(inviteLabel)
-        view.addSubview(inviteButton)
-        view.addSubview(myQRButton)
+        inviteView.addSubview(inviteButton)
+        inviteView.addSubview(myQRButton)
         
         view.addSubview(profileView)
         view.addSubview(profileLabel)
-        view.addSubview(avatarButton)
-        view.addSubview(nameButton)
+        profileView.addSubview(avatarButton)
+        profileView.addSubview(nameButton)
         
         menuBottomConstraint.constant = -500
         blackView.backgroundColor = .black
@@ -207,38 +197,48 @@ class ProfileViewController: UIViewController {
     }
     
     func configureAnchor() {
-                
-        avatarImageView.anchor(top: view.topAnchor, paddingTop: 100,
-                               width: 250, height: 250)
+
+        avatarImageView.anchor(top: view.topAnchor, paddingTop: 90, width: screenHeight * 0.3, height: screenHeight * 0.3)
         avatarImageView.centerX(inView: view)
-        
+
         nameLabel.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor,
-                         paddingTop: 20, paddingLeft: 20, width: 300, height: 50)
+                         paddingTop: 10, paddingLeft: 20, width: 300, height: 50)
         
-        inviteView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
-                          right: view.rightAnchor, paddingTop: 20,
-                          paddingLeft: 20, paddingRight: 20, height: 150)
-        inviteLabel.anchor(top: inviteView.topAnchor, left: inviteView.leftAnchor,
-                           paddingTop: 20, paddingLeft: 20, width: 150)
-        inviteButton.anchor(top: inviteView.topAnchor, right: inviteView.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 150, height: 50)
-        myQRButton.anchor(top: inviteButton.bottomAnchor, right: inviteView.rightAnchor,
-                          paddingTop: 10, paddingRight: 20, width: 150, height: 50)
-        
-        profileView.anchor(top: inviteView.bottomAnchor, left: view.leftAnchor,
-                          right: view.rightAnchor, paddingTop: 10,
-                          paddingLeft: 20, paddingRight: 20, height: 150)
+        profileView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
+                           right: view.rightAnchor, paddingTop: 10,
+                           paddingLeft: 20, paddingRight: 20, height: screenHeight * 0.18)
         profileLabel.anchor(top: profileView.topAnchor, left: profileView.leftAnchor,
-                           paddingTop: 20, paddingLeft: 20, width: 150)
+                            paddingTop: 20, paddingLeft: 20, width: 150)
+        
+        profileLabel.centerY(inView: profileView)
+        profileLabel.anchor(left: profileView.leftAnchor, paddingLeft: 20, width: 150)
+        
         avatarButton.anchor(top: profileView.topAnchor, right: profileView.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 150, height: 50)
+                            paddingTop: 20, paddingRight: 20, width: 150, height: screenHeight * 0.06)
         nameButton.anchor(top: avatarButton.bottomAnchor, right: profileView.rightAnchor,
-                          paddingTop: 10, paddingRight: 20, width: 150, height: 50)
+                          paddingTop: 10, paddingRight: 20, width: 150, height: screenHeight * 0.06)
+        
+        inviteView.anchor(top: profileView.bottomAnchor, left: view.leftAnchor,
+                          right: view.rightAnchor, paddingTop: 10,
+                          paddingLeft: 20, paddingRight: 20, height: screenHeight * 0.18)
+        inviteLabel.centerY(inView: inviteView)
+        inviteLabel.anchor(left: inviteView.leftAnchor, paddingLeft: 20, width: 150)
+        
+        inviteButton.anchor(top: inviteView.topAnchor, right: inviteView.rightAnchor,
+                            paddingTop: 20, paddingRight: 20, width: 150, height: screenHeight * 0.06)
+        myQRButton.anchor(top: inviteButton.bottomAnchor, right: inviteView.rightAnchor,
+                          paddingTop: 10, paddingRight: 20, width: 150, height: screenHeight * 0.06)
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? QRCodeViewController {
+            destination.delegate = self
+        }
+    }
+    
     @objc func tappedInviteBtn() {
-        guard currentUser?.paringUser != nil else {
+        guard currentUser?.paringUser == [] else {
             self.presentAlert(title: "Error", message: "Oops Already have a bucket peer")
             return
         }
@@ -248,8 +248,12 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func tappedQRBtn() {
+        guard currentUser?.paringUser == [] else {
+            self.presentAlert(title: "Error", message: "Oops Already have a bucket peer")
+            return
+        }
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = 200
+            self.menuBottomConstraint.constant = 140
             self.blackView.alpha = 0.5
         }
     }
@@ -259,26 +263,35 @@ class ProfileViewController: UIViewController {
         guard let avatarVC = avatarVC as? AvatarViewController else { return }
         avatarVC.delegate = self
         navigationController?.pushViewController(avatarVC, animated: true)
-        
     }
+    
+    @objc func tappedPrivacyBtn() {
+        let webVC = storyboard?.instantiateViewController(withIdentifier: "webVC")
+        guard let webVC = webVC as? WebViewController else { return }
+        webVC.link = "https://www.privacypolicies.com/live/a978eac4-298f-4f57-9525-3b1bf9c8e989"
+        self.present(webVC, animated: true)
+    }
+    
+    // MARK: - Firebase data process
     
     @objc func tappedSignoutBtn() {
         do {
             try Auth.auth().signOut()
-
+            
             let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginVC")
             guard let loginVC = loginVC as? LoginViewController else { return }
             loginVC.modalPresentationStyle = .fullScreen
             self.present(loginVC, animated: true)
             self.presentAlert()
             print("Successfully sign out")
-
+            
         } catch let signOutError as NSError {
             print("Error signing out:", signOutError)
-            self.presentAlert(title: "Error", message: "Something went wrong. Please try again later.")
+            self.presentAlert(title: "Error",
+                              message: "Something went wrong. Please try again later.")
         }
     }
-
+    
     @objc func tappedNameBtn() {
         
         self.presentInputAlert { name in
@@ -293,50 +306,38 @@ class ProfileViewController: UIViewController {
                             userName: name,
                             paringUser: currentUser.paringUser)
             
-            UserManager.shared.updateUserData(user: user) { result in
-                switch result {
-                case .success:
-                    self.fetchUserData(userID: currentUser.userID)
-                    DispatchQueue.main.async {
-                        self.nameLabel.text = "Hi \(name)!"
-                    }
-                    self.presentAlert()
-                case .failure(let error):
-                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                }
-            }
+            self.updateUserData(identityType: .currentUser, user: user)
         }
     }
     
-    // Clear paring user
     @objc func tappedBlockBtn() {
         
-        self.presentActionAlert(action: "Block", title: "Block User",
-                                message: "Do you want to block your paring user?") {
+        self.presentActionAlert(action: "Disconnect", title: "Disconnect Partner",
+                                message: "Do you want to disconnect with partner?") {
             
-            guard let currentUser = self.currentUser else {
+            guard let currentUser = self.currentUser,
+                  let paringUser = self.paringUser
+            else {
                 return
             }
             
-            let user = User(userID: currentUser.userID,
-                            userAvatar: currentUser.userAvatar,
-                            userHomeBG: currentUser.userHomeBG,
-                            userName: currentUser.userName,
-                            paringUser: [])
+            // update my paring status
+            let user1 = User(userID: currentUser.userID,
+                             userAvatar: currentUser.userAvatar,
+                             userHomeBG: currentUser.userHomeBG,
+                             userName: currentUser.userName,
+                             paringUser: [])
+            self.updateUserData(identityType: .currentUser, user: user1)
             
-            UserManager.shared.updateUserData(user: user) { result in
-                switch result {
-                case .success:
-                    self.presentAlert()
-                    
-                case .failure(let error):
-                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                }
-            }
+            // update paring user's paring status
+            let user2 = User(userID: paringUser.userID,
+                             userAvatar: paringUser.userAvatar,
+                             userHomeBG: paringUser.userHomeBG,
+                             userName: paringUser.userName,
+                             paringUser: [])
+            self.updateUserData(identityType: .paringUser, user: user2)
         }
     }
-    
-    // MARK: - Firebase data process
     
     @objc func tappedDeleteBtn() {
         
@@ -352,58 +353,104 @@ class ProfileViewController: UIViewController {
                         return
                     }
                     
-                    UserManager.shared.deleteUserData(uid: currentUserUID, completion: { [weak self] result in
-                        guard let self = self else { return }
-                        switch result {
-                        case .success:
-                            
-                            // back to loginVC
-                            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC")
-                            guard let loginVC = loginVC as? LoginViewController else { return }
-                            self.navigationController?.pushViewController(loginVC, animated: true)
-                            
-                            // present success
-                            self.presentAlert()
-                            print("Successfully delete account")
-                            
-                        case .failure(let error):
-                            self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                            print("Delete account error: \(error)")
-                        }
-                    })
+                    self.deleteUserData(userID: currentUserUID)
+                    
                 }
             }
         }
         
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? QRCodeViewController {
-            destination.delegate = self
+        // Disconnet partner
+        guard let paringUser = self.paringUser
+        else {
+            return
         }
+        
+        let user2 = User(userID: paringUser.userID,
+                         userAvatar: paringUser.userAvatar,
+                         userHomeBG: paringUser.userHomeBG,
+                         userName: paringUser.userName,
+                         paringUser: [])
+        self.updateUserData(identityType: .paringUser, user: user2)
     }
     
-    func fetchUserData(userID: String) {
-        
-        // fetch avatar photo from firebase
-        UserManager.shared.fetchUserData(userID: userID) { result in
+    func deleteUserData(userID: String) {
+        UserManager.shared.deleteUserData(uid: userID, completion: { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case .success(let user):
+            case .success:
                 
-                self.currentUser = user
+                // back to loginVC
+                let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC")
+                guard let loginVC = loginVC as? LoginViewController else { return }
+                loginVC.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(loginVC, animated: true)
                 
-                let url = URL(string: user.userAvatar)
-                self.avatarImageView.kf.setImage(with: url)
-                if user.userName != "" {
-                    self.nameLabel.text = "Hi, \(user.userName)"
-                }
+                // present success
+                self.presentAlert()
+                print("Successfully delete account")
                 
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+                print("Delete account error: \(error)")
+            }
+        })
+    }
+    
+    func fetchUserData(identityType: IdentityType, userID: String) {
+        
+        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let user):
+                //                print("successfully find user in inviteVC")
+                switch identityType {
+                case .currentUser:
+                    self.currentUser = user
+                    
+                    if user.userAvatar != "" {
+                        let url = URL(string: user.userAvatar)
+                        self.avatarImageView.kf.setImage(with: url)
+                    } else {
+                        self.avatarImageView.image = UIImage(named: "default_avatar")
+                    }
+
+                    if user.userName != "" {
+                        self.nameLabel.text = "Hi, \(user.userName)"
+                    }
+                    if user.paringUser != [] {
+                        self.fetchUserData(identityType: .paringUser,
+                                           userID: self.currentUser!.paringUser[0])
+                    }
+                case .paringUser:
+                    self.paringUser = user
+                }
+            case .failure(let error):
+                self.presentAlert(title: "Error",
+                                  message: error.localizedDescription + " Please try again")
+                print("can't find user in inviteVC")
             }
         }
     }
     
+    func updateUserData(identityType: IdentityType, user: User) {
+        UserManager.shared.updateUserData(user: user) { result in
+            switch result {
+            case .success:
+                self.presentAlert()
+                switch identityType {
+                case .currentUser:
+                    DispatchQueue.main.async {
+                        self.nameLabel.text = "Hi \(user.userName)!"
+                    }
+                case .paringUser:
+                    break
+                }
+            case .failure(let error):
+                self.presentAlert(title: "Error",
+                                  message: error.localizedDescription + " Please try again")
+            }
+        }
+    }
 }
 
 // MARK: - Delegate
@@ -421,7 +468,7 @@ extension ProfileViewController: AvatarViewControllerDelegate {
     
     func didTappedSubmit() {
         guard let currentUserUID = currentUserUID else { return }
-        fetchUserData(userID: currentUserUID)
+        fetchUserData(identityType: .currentUser, userID: currentUserUID)
     }
     
 }
