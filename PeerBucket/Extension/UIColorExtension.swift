@@ -13,5 +13,5 @@ extension UIColor {
 //    static let mediumGray = UIColor(red: 200 / 255, green: 200 / 255, blue: 200 / 255, alpha: 1.0)
     static let mediumGray = UIColor(red: 82 / 255, green: 87 / 255, blue: 93 / 255, alpha: 1.0)
     static let hightlightYellow = UIColor(red: 242 / 255, green: 161 / 255, blue: 84 / 255, alpha: 1.0)
-    static let lightYellow = UIColor(red: 247 / 255, green: 246 / 255, blue: 231 / 255, alpha: 1.0)
+    static let lightYellow = UIColor(red: 255 / 255, green: 159 / 255, blue: 16 / 255, alpha: 1.0)
 }

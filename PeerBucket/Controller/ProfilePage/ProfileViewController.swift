@@ -27,7 +27,6 @@ class ProfileViewController: UIViewController {
     var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "default_avatar")
         return imageView
     }()
     
@@ -239,7 +238,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func tappedInviteBtn() {
-        guard currentUser?.paringUser != nil else {
+        guard currentUser?.paringUser == [] else {
             self.presentAlert(title: "Error", message: "Oops Already have a bucket peer")
             return
         }
@@ -249,6 +248,10 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func tappedQRBtn() {
+        guard currentUser?.paringUser == [] else {
+            self.presentAlert(title: "Error", message: "Oops Already have a bucket peer")
+            return
+        }
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = 140
             self.blackView.alpha = 0.5
@@ -355,6 +358,19 @@ class ProfileViewController: UIViewController {
                 }
             }
         }
+        
+        // Disconnet partner
+        guard let paringUser = self.paringUser
+        else {
+            return
+        }
+        
+        let user2 = User(userID: paringUser.userID,
+                         userAvatar: paringUser.userAvatar,
+                         userHomeBG: paringUser.userHomeBG,
+                         userName: paringUser.userName,
+                         paringUser: [])
+        self.updateUserData(identityType: .paringUser, user: user2)
     }
     
     func deleteUserData(userID: String) {
@@ -390,8 +406,14 @@ class ProfileViewController: UIViewController {
                 switch identityType {
                 case .currentUser:
                     self.currentUser = user
-                    let url = URL(string: user.userAvatar)
-                    self.avatarImageView.kf.setImage(with: url)
+                    
+                    if user.userAvatar != "" {
+                        let url = URL(string: user.userAvatar)
+                        self.avatarImageView.kf.setImage(with: url)
+                    } else {
+                        self.avatarImageView.image = UIImage(named: "default_avatar")
+                    }
+
                     if user.userName != "" {
                         self.nameLabel.text = "Hi, \(user.userName)"
                     }

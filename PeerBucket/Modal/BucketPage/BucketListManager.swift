@@ -17,6 +17,8 @@ class BucketListManager {
     
     let dataBase = Firestore.firestore()
     
+    // MARK: - Fetch
+    
     // query bucket category by id of user
     func fetchBucketCategory(userID: String, completion: @escaping (Result<[BucketCategory], Error>) -> Void) {
         

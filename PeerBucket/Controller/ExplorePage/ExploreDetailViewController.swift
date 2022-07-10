@@ -178,8 +178,8 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         
         switch indexPath.row {
         case 0:
-            let fullScreenHeight = UIScreen.main.bounds.height
-            return CGFloat(fullScreenHeight*2.8/5)
+//            let fullScreenHeight = UIScreen.main.bounds.height
+            return CGFloat(screenHeight*2.8/5)
         default:
             return UITableView.automaticDimension
         }

@@ -210,20 +210,6 @@ extension InviteViewController {
                 // query既有的user取得資料
                 fetchUserData(identityType: .paringUser, userID: metadataObj.stringValue ?? "")
                 
-                // 如果已經有paring user 就不能再新增(TBC)
-//                guard currentUser?.paringUser != nil else {
-//                    self.presentAlert(title: "Error", message: "Oops!User \(String(describing: paringUser?.userName)) already have bucket peer")
-//
-//                    // 跳回首頁
-//                    let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
-//                    guard let tabBarVC = tabBarVC as? TabBarController else { return }
-//
-//                    let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-//                    sceneDelegate?.changeRootViewController(tabBarVC)
-//
-//                    return
-//                }
-                
                 guard let paringUserName = paringUser?.userName as? String else { return }
                 
                 self.presentActionAlert(

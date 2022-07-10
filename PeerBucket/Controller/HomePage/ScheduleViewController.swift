@@ -243,9 +243,7 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
             withReuseIdentifier: ScheduleCollectionViewCell.identifier, for: indexPath) as? ScheduleCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
-        eventCell.avatarImageView.image = UIImage(named: "icon_avatar_none")
-        
+                
         eventCell.configureCell(event: datesWithEvent[indexPath.row])
         
         eventCell.backgroundColor = .lightGray
@@ -345,8 +343,9 @@ extension ScheduleViewController {
                         self.createNotification(event: event)
                     }
 
-                case .success(.removed):
-                    break
+                case .success(.removed(data: let events)):
+                    UNUserNotificationCenter.current().removePendingNotificationRequests(
+                        withIdentifiers: events.compactMap { $0.id })
                     
                 case .failure(let error):
                     print("add notifications error", error)
@@ -359,13 +358,13 @@ extension ScheduleViewController {
     func createNotification(event: Schedule) {
 
         let content = UNMutableNotificationContent()
-        content.title = "Schedule"
+        content.title = "Schedule Today"
         content.subtitle = Date.dateFormatter.string(from: event.eventDate)
         content.body = event.event
         content.sound = .default
 
         let calendar = Calendar.current
-        let component = calendar.dateComponents([.month, .day, .hour, .minute], from: event.eventDate)
+        let component = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: event.eventDate)
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
 

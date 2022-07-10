@@ -17,18 +17,14 @@ class BucketDetailTableViewCell: UITableViewCell {
     
     lazy var doneButton: UIButton = {
         let button = UIButton()
-        //        button.backgroundColor = UIColor.lightGray
         button.setImage(UIImage(named: "icon_check"), for: .normal)
         button.addTarget(self, action: #selector(tappedDoneBtn), for: .touchUpInside)
-        //        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        //        button.layer.cornerRadius = 20
-        //        button.alpha = 0.5
         return button
     }()
     
     var bucketLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.font = UIFont.semiBold(size: 18)
         label.textColor = .darkGray
@@ -39,10 +35,6 @@ class BucketDetailTableViewCell: UITableViewCell {
         let view = UIView()
         view.backgroundColor = .lightGray
         view.layer.masksToBounds = false
-        //        view.layer.shadowColor = UIColor.darkGreen.cgColor
-        //        view.layer.shadowOffset = CGSize(width: 3.0, height: 3.0)
-        //        view.layer.shadowOpacity = 0.1
-        //        view.layer.shadowRadius = 6
         view.layer.borderColor = UIColor.darkGray.cgColor
         view.layer.borderWidth = 1
         view.layer.cornerRadius = 10
@@ -51,7 +43,7 @@ class BucketDetailTableViewCell: UITableViewCell {
     
     var dateLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.font = UIFont.semiBold(size: 15)
         label.textColor = .hightlightYellow
@@ -94,10 +86,10 @@ class BucketDetailTableViewCell: UITableViewCell {
         contentView.addSubview(borderView)
         
         doneButton.anchor(top: topAnchor, left: leftAnchor,
-                          paddingTop: 20, paddingLeft: 45,
+                          paddingTop: 20, paddingLeft: 40,
                           width: 30, height: 30)
         bucketLabel.anchor(top: topAnchor, left: doneButton.rightAnchor, right: rightAnchor,
-                           paddingTop: 18, paddingLeft: 20, paddingRight: 30, width: 50)
+                           paddingTop: 18, paddingLeft: 20, paddingRight: 30)
         
         dateLabel.anchor(top: bucketLabel.bottomAnchor, left: doneButton.rightAnchor,
                          paddingTop: 5, paddingLeft: 20)

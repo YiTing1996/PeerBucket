@@ -20,10 +20,10 @@ class BucketDetailViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     private let storage = Storage.storage().reference()
-        
+    
     var imageSwippedRow: Int?
     var scheduleSwippedRow: Int?
-
+    
     var imageUrlString: [String] = []
     var allListImages: [String] = []
     
@@ -55,9 +55,9 @@ class BucketDetailViewController: UIViewController {
         button.setImage(UIImage(named: "icon_album"), for: .normal)
         return button
     }()
-
+    
     lazy var menuBarItem = UIBarButtonItem(customView: self.memoryButton)
-        
+    
     var addListTextField: UITextField = {
         let textField = UITextField()
         textField.setTextField(placeholder: "Type New List Here")
@@ -74,7 +74,7 @@ class BucketDetailViewController: UIViewController {
     }
     
     var currentUserUID: String?
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,15 +110,16 @@ class BucketDetailViewController: UIViewController {
         
         let imageVC = self.storyboard?.instantiateViewController(withIdentifier: "imageVC")
         guard let imageVC = imageVC as? ImageDetailViewController else { return }
-
+        
         imageVC.selectedLists = self.allBucketList
-
-//        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .playOnce)
+        
+        //        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
         self.navigationController?.pushViewController(imageVC, animated: true)
-
-//        animationView.play { _ in
-//            self.navigationController?.pushViewController(imageVC, animated: true)
-//        }
+        
+        //        animationView.play { _ in
+        //            self.stopAnimation(animationView: animationView)
+        //            self.navigationController?.pushViewController(imageVC, animated: true)
+        //        }
         
     }
     
@@ -277,7 +278,7 @@ class BucketDetailViewController: UIViewController {
             }
         }
     }
-        
+    
     func updateBucketList(bucketList: BucketList) {
         BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
             switch result {
@@ -285,10 +286,8 @@ class BucketDetailViewController: UIViewController {
                 self.fetchFromFirebase()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
-                    let animationView = self.loadAnimation(name: "lottieCongrats", loopMode: .playOnce)
-                    animationView.play()
                 }
-
+                
             case .failure(let error):
                 self.presentAlert(title: "Error",
                                   message: error.localizedDescription + " Please try again")
@@ -309,6 +308,8 @@ class BucketDetailViewController: UIViewController {
         )
         
         updateBucketList(bucketList: bucketList)
+        let animationView = self.loadAnimation(name: "lottieCongrats", loopMode: .playOnce)
+        animationView.play()
     }
 }
 
@@ -348,7 +349,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
                 self.menuBottomConstraint.constant = 0
                 self.blackView.alpha = 0.5
             }
-
+            
             completionHandler(true)
         }
         
@@ -384,7 +385,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             return 80
         }
-    }    
+    }
 }
 
 // MARK: - Photo processor
@@ -392,6 +393,14 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
 extension BucketDetailViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
+        
+        // present animation
+        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
+        animationView.play { _ in
+            self.stopAnimation(animationView: animationView)
+        }
+        
+        self.imageUrlString = []
         
         for result in results {
             

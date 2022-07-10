@@ -45,7 +45,7 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     var descriptionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
-        label.numberOfLines = 5
+        label.numberOfLines = 6
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
@@ -118,9 +118,10 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         titleLabel.text = content.title
         descriptionLabel.anchor(top: titleLabel.bottomAnchor, left: contentView.leftAnchor,
                                 bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
-                                paddingTop: 15, paddingLeft: 10, paddingBottom: 10, paddingRight: 15)
+                                paddingTop: 15, paddingLeft: 10, paddingBottom: 10, paddingRight: 20)
         descriptionLabel.text = content.description
-        descriptionLabel.characterSpacing = 2
+//        descriptionLabel.characterSpacing = 10
+//        descriptionLabel.setLineSpacing()
         
         if descriptionLabel.text!.count > 1 {
             

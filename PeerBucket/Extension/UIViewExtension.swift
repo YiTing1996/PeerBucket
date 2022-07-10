@@ -105,21 +105,4 @@ extension UIView {
         
     }
     
-//    func float(duration: Double) {
-//        
-//        UIView.animate(
-//            withDuration: duration,
-//            delay: 0,
-//            options: [.autoreverse, .repeat],
-//            animations: {
-//                self.frame = CGRect(
-//                    x: self.frame.origin.x,
-//                    y: self.frame.origin.y - 10,
-//                    width: self.frame.size.width,
-//                    height: self.frame.size.height)
-//            },
-//            completion: nil
-//        )
-//    }
-    
 }

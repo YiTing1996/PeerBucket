@@ -21,12 +21,14 @@ class ScheduleManager {
     
     static let shared = ScheduleManager()
     
-    let dataBase = Firestore.firestore()
+    let dataBase = Firestore.firestore().collection("schedule")
+    
+    // MARK: - Fetch
     
     // fetch upcoming event
     func fetchSchedule(userID: String, completion: @escaping (Result<UpcomingSchedule, Error>) -> Void) {
         
-        dataBase.collection("schedule").whereField("senderId", isEqualTo: userID).getDocuments { querySnapshot, error in
+        dataBase.whereField("senderId", isEqualTo: userID).getDocuments { querySnapshot, error in
             
             if let error = error {
                 
@@ -65,7 +67,7 @@ class ScheduleManager {
     // fetch specific date's event
     func fetchSpecificSchedule(userID: String, date: Date, completion: @escaping (Result<[Schedule], Error>) -> Void) {
         
-        dataBase.collection("schedule").whereField("senderId", isEqualTo: userID).getDocuments { (querySnapshot, error) in
+        dataBase.whereField("senderId", isEqualTo: userID).getDocuments { (querySnapshot, error) in
             
             if let error = error {
                 
@@ -100,7 +102,7 @@ class ScheduleManager {
     
     func addSchedule(schedule: inout Schedule, completion: @escaping (Result<[Schedule], Error>) -> Void) {
         
-        let document = dataBase.collection("schedule").document()
+        let document = dataBase.document()
         schedule.id = document.documentID
         
         document.setData(schedule.toDict) { error in
@@ -117,7 +119,7 @@ class ScheduleManager {
     
     func updateSchedule(schedule: Schedule, completion: @escaping (Result<String, Error>) -> Void) {
         do {
-            try dataBase.collection("schedule").document(schedule.id).setData(from: schedule)
+            try dataBase.document(schedule.id).setData(from: schedule)
             completion(.success("update schedule: \(schedule.id)"))
         } catch {
             completion(.failure(error))
@@ -125,7 +127,7 @@ class ScheduleManager {
     }
     
     func deleteSchedule(id: String, completion: @escaping(Result<String, Error>) -> Void) {
-        dataBase.collection("schedule").document(id).delete { error in
+        dataBase.document(id).delete { error in
             if let error = error {
                 completion(.failure(error))
             } else {
@@ -138,7 +140,7 @@ class ScheduleManager {
     
     func listenSchedule(userID: String, completion: @escaping (Result<ListenerType<[Schedule]>, Error>) -> Void) {
         
-        dataBase.collection("schedule").whereField("senderId", isEqualTo: userID).addSnapshotListener { (querySnapshot, error) in
+        dataBase.whereField("senderId", isEqualTo: userID).addSnapshotListener { (querySnapshot, error) in
             
             if let querySnapshot = querySnapshot {
                 
@@ -165,4 +167,3 @@ class ScheduleManager {
         }
     }
 }
-
