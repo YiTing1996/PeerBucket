@@ -16,6 +16,37 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
+        
+    var alertImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "default_view")
+        imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    var alertLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.bold(size: 25)
+        label.textColor = .lightGray
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
+        button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
+        return button
+    }()
+    
+    @objc func tappedCloseBtn() {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
+            self.alertImageView.alpha = 0
+            self.blackView.alpha = 0
+            self.closeButton.isHidden = true
+        }
+    }
     
     lazy var addCategoryButton: UIButton = {
         let button = UIButton()
@@ -84,6 +115,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         configureUI()
+        configureAlertViewUI()
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -145,6 +177,28 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
+    func configureAlertViewUI() {
+        
+        view.addSubview(alertImageView)
+        alertImageView.addSubview(alertLabel)
+        view.addSubview(closeButton)
+            
+        alertImageView.centerX(inView: view)
+        alertImageView.centerY(inView: view)
+        alertImageView.anchor(width: 280, height: 250)
+        
+        alertLabel.centerY(inView: view)
+        alertLabel.anchor(right: alertImageView.rightAnchor, paddingRight: 20,
+                          width: 100, height: 50)
+        
+        closeButton.anchor(top: alertImageView.topAnchor,
+                           right: alertImageView.rightAnchor, paddingTop: 5,
+                           paddingRight: 5)
+        
+        closeButton.isHidden = true
+        alertImageView.alpha = 0
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? AddNewBucketViewController {
             destination.delegate = self
@@ -159,13 +213,19 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func tappedPickBtn() {
+        
         guard bucketLists != [] else { return }
         let unFinishedBucketList = bucketLists.filter { $0.status == false }
         guard unFinishedBucketList != [] else { return }
         let randomNum = Int.random(in: 0...unFinishedBucketList.count-1)
         let randomList = unFinishedBucketList[randomNum].list
-        self.presentAlert(title: "Today's Recommend",
-                          message: "Let's plan to finished bucket \(randomList)!")
+        
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
+            self.alertImageView.alpha = 1
+            self.alertLabel.text = randomList
+            self.blackView.alpha = 0.5
+            self.closeButton.isHidden = false
+        }
     }
     
     @objc func tappedLiveTextBtn() {
