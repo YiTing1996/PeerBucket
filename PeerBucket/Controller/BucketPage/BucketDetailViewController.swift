@@ -113,13 +113,13 @@ class BucketDetailViewController: UIViewController {
         
         imageVC.selectedLists = self.allBucketList
         
-        //        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
-        self.navigationController?.pushViewController(imageVC, animated: true)
+        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
+        //        self.navigationController?.pushViewController(imageVC, animated: true)
         
-        //        animationView.play { _ in
-        //            self.stopAnimation(animationView: animationView)
-        //            self.navigationController?.pushViewController(imageVC, animated: true)
-        //        }
+        animationView.play { _ in
+            self.stopAnimation(animationView: animationView)
+            self.navigationController?.pushViewController(imageVC, animated: true)
+        }
         
     }
     
@@ -309,7 +309,9 @@ class BucketDetailViewController: UIViewController {
         
         updateBucketList(bucketList: bucketList)
         let animationView = self.loadAnimation(name: "lottieCongrats", loopMode: .playOnce)
-        animationView.play()
+        animationView.play { _ in
+            self.stopAnimation(animationView: animationView)
+        }
     }
 }
 

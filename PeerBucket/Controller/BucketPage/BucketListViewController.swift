@@ -162,8 +162,10 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         guard bucketLists != [] else { return }
         let unFinishedBucketList = bucketLists.filter { $0.status == false }
         guard unFinishedBucketList != [] else { return }
-        let randomNum = Int.random(in: 0..<unFinishedBucketList.count)
-        self.presentAlert(title: "Today's Recommend", message: "Let's plan to finished bucket \(unFinishedBucketList[randomNum].list)!")
+        let randomNum = Int.random(in: 0...unFinishedBucketList.count-1)
+        let randomList = unFinishedBucketList[randomNum].list
+        self.presentAlert(title: "Today's Recommend",
+                          message: "Let's plan to finished bucket \(randomList)!")
     }
     
     @objc func tappedLiveTextBtn() {
@@ -348,14 +350,9 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        // TBC
-//        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
-//        animationView.play()
-        
         let detailBucketVC = storyboard?.instantiateViewController(withIdentifier: "BucketDetailViewController")
         guard let detailBucketVC = detailBucketVC as? BucketDetailViewController else { return }
         
-        // TODO: index out of range error
         selectedBucket = bucketCategories[indexPath.row]
         detailBucketVC.selectedBucket = selectedBucket
         navigationController?.pushViewController(detailBucketVC, animated: true)
