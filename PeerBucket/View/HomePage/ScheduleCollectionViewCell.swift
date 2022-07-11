@@ -37,23 +37,11 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
     var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.image = UIImage(named: "icon_avatar_none")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 30
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
-//    lazy var editButton: UIButton = {
-//        let button = UIButton()
-//        button.backgroundColor = UIColor.lightGray
-//        button.setImage(UIImage(named: "icon_delete"), for: .normal)
-//        button.addTarget(self, action: #selector(tappedEditBtn), for: .touchUpInside)
-//        button.setTitleColor(UIColor.darkGreen, for: .normal)
-//        button.layer.cornerRadius = 20
-//        button.alpha = 0.5
-//        return button
-//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,8 +61,8 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
         avatarImageView.anchor(left: leftAnchor, paddingLeft: 20,
                               width: 60, height: 60)
         eventLabel.anchor(top: topAnchor, left: avatarImageView.rightAnchor,
-                          paddingTop: 20, paddingLeft: 20,
-                          width: 150, height: 20)
+                          right: rightAnchor, paddingTop: 20, paddingLeft: 20,
+                          paddingRight: 20, height: 20)
         dateLabel.anchor(top: eventLabel.bottomAnchor, left: avatarImageView.rightAnchor,
                           paddingTop: 5, paddingLeft: 20,
                           width: 150, height: 20)

@@ -33,14 +33,6 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         return imageView
     }()
     
-//    var titleLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "Signin to enjoy more feature"
-//        label.font = UIFont.bold(size: 26)
-//        label.textColor = .lightGray
-//        return label
-//    }()
-    
     let blurEffect = UIBlurEffect(style: .light)
 
     lazy var eventView: UIVisualEffectView = {
@@ -356,7 +348,12 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     // fetch background image from firebase
     func downloadPhoto() {
         
-        UserManager.shared.fetchUserData(userID: currentUserUID!) { result in
+        guard self.currentUserUID != nil else {
+            print("Error: can't find paring user in home VC")
+            return
+        }
+        
+        UserManager.shared.fetchUserData(userID: currentUserUID ?? "") { result in
             switch result {
             case .success(let user):
                 

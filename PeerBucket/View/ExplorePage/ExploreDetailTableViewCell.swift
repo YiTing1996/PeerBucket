@@ -120,11 +120,11 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
                                 bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
                                 paddingTop: 15, paddingLeft: 10, paddingBottom: 10, paddingRight: 20)
         descriptionLabel.text = content.description
-//        descriptionLabel.characterSpacing = 10
-//        descriptionLabel.setLineSpacing()
         
-        if descriptionLabel.text!.count > 1 {
-            
+        guard let text = descriptionLabel.text else { return }
+        
+        if text.count > 1 {
+
             let readmoreFont = UIFont.italic(size: 15)
             let readmoreFontColor = UIColor.darkGreen
             DispatchQueue.main.async {

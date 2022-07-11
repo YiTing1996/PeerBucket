@@ -251,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				AC72A0C9285984CB007FC767 /* PeerBucket */,
+				ACFC8D11286971780055D143 /* GoogleService-Info.plist */,
 				AC72A0C8285984CB007FC767 /* Products */,
 				2F38F1B8333B2EF46986E455 /* Pods */,
 				D13C32911BF3BB95CC277E6A /* Frameworks */,
@@ -339,7 +340,6 @@
 				ACCECFE328799EDD004AE116 /* lottieLoading.json */,
 				AC72A0CA285984CB007FC767 /* AppDelegate.swift */,
 				AC72A0CC285984CB007FC767 /* SceneDelegate.swift */,
-				ACFC8D11286971780055D143 /* GoogleService-Info.plist */,
 				ACFA53B228768E3800E0887D /* launchScreen.mp4 */,
 				AC8B44042875B72C00A86A11 /* dreams.mp3 */,
 			);
@@ -542,7 +542,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n\"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\" -gsp \"${PROJECT_DIR}/GoogleService-Info.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\n";
 		};
 		FEFC87F9F31419D0A173444F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -769,12 +769,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow the access to use camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access to use live text feature.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -805,11 +805,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow the access to use camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera access to use live text feature.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

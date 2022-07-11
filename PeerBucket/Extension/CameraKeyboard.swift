@@ -126,7 +126,7 @@ class CameraKeyboard: UIView {
             if response {
                 self.setupAndStartCaptureSession()
             } else {
-                // TODO: ask for permission
+                
             }
         }
     }
