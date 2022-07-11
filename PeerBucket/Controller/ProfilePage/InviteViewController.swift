@@ -218,8 +218,13 @@ extension InviteViewController {
                     message: "Do you want to invite user \(paringUserName)?") {
                         
                         // 確認Invite -> 寫入自己＆partner的firebase
+                        guard self.currentUserUID != nil else {
+                            print("Error: can't find paring user in invite VC")
+                            return
+                        }
+                        
                         self.addSelfParing(paringUserID: metadataObj.stringValue ?? "")
-                        self.addOthersParing(paringUserID: self.currentUserUID!)
+                        self.addOthersParing(paringUserID: self.currentUserUID ?? "")
                         
                         // 跳回首頁
                         let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
