@@ -396,6 +396,8 @@ class ProfileViewController: UIViewController {
                                      paringUser: [])
                     self.updateUserData(identityType: .paringUser, user: user2)
                     
+                    UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    
                 }
             }
         }

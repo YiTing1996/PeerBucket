@@ -234,6 +234,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.getData(userID: self.currentUserUID ?? "",
                                  date: self.calendar.selectedDate ?? Date())
                 }
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
+
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
