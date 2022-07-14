@@ -40,33 +40,39 @@ class BucketListManager {
     
     // query bucket list by id of bucket category
     func fetchBucketList(categoryID: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
-                
+        
         dataBase.collection("bucketList")
             .order(by: "createdTime", descending: true)
             .whereField("categoryId", isEqualTo: categoryID)
             .getDocuments { (querySnapshot, error) in
-            
-            if let error = error {
-                print("Error getting documents: \(error)")
-                completion(.failure(error))
                 
-            } else {
-                
-                var bucketLists = [BucketList]()
-                
-                for document in querySnapshot!.documents {
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion(.failure(error))
                     
-                    do {
-                        if let bucketList = try document.data(as: BucketList?.self, decoder: Firestore.Decoder()) {
-                            bucketLists.append(bucketList)
-                        }
-                    } catch {
-                        completion(.failure(error))
+                } else {
+                    
+                    var bucketLists = [BucketList]()
+                    
+                    guard let querySnapshot = querySnapshot else {
+                        print("Error getting snapshot")
+                        return
                     }
+                    
+                    for document in querySnapshot.documents {
+                        
+                        do {
+                            if let bucketList = try document.data(as: BucketList?.self, decoder: Firestore.Decoder()) {
+                                bucketLists.append(bucketList)
+                            }
+                        } catch {
+                            completion(.failure(error))
+                        }
+                    }
+                    completion(.success(bucketLists))
                 }
-                completion(.success(bucketLists))
+                
             }
-        }
     }
     
     // query bucket list by id of bucket category
@@ -77,9 +83,7 @@ class BucketListManager {
             if let error = error {
                 print("Error getting documents: \(error)")
                 completion(.failure(error))
-                
             } else {
-                
                 var bucketLists = [BucketList]()
                 for document in querySnapshot!.documents {
                     do {
@@ -153,7 +157,7 @@ class BucketListManager {
     }
     
     func deleteBucketListByCategory(id: String, completion: @escaping(Result<String, Error>) -> Void) {
-
+        
         dataBase.collection("bucketList").whereField("categoryId", isEqualTo: id).getDocuments { (querySnapshot, error) in
             
             if let error = error {
@@ -161,7 +165,7 @@ class BucketListManager {
                 completion(.failure(error))
                 
             } else {
-                                
+                
                 for document in querySnapshot!.documents {
                     document.reference.delete()
                 }

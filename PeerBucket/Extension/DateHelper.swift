@@ -12,6 +12,15 @@ extension Date {
     static var dateFormatter: DateFormatter {
         
         let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.timeZone = TimeZone.current
+
+        return formatter
+    }
+    
+    static var timeFormatter: DateFormatter {
+        
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd HH:mm"
         formatter.timeZone = TimeZone.current
 

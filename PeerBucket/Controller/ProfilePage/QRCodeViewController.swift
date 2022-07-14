@@ -44,7 +44,6 @@ class QRCodeViewController: UIViewController {
     }()
     
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()

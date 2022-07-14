@@ -460,10 +460,10 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_album" translatesAutoresizingMaskIntoConstraints="NO" id="m7T-mV-QuD">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jR5-vQ-fwT">
-                                <rect key="frame" x="65" y="592" width="307" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jR5-vQ-fwT">
+                                <rect key="frame" x="65" y="592" width="307" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="1SB-dr-I5k"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="1SB-dr-I5k"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -475,8 +475,8 @@
                                     <constraint firstAttribute="width" secondItem="yAO-oz-d3v" secondAttribute="height" multiplier="311:380" id="dTD-cR-Xx3"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmX-Z6-mbB">
-                                <rect key="frame" x="65" y="644" width="32" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DmX-Z6-mbB">
+                                <rect key="frame" x="61" y="638" width="202" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ImF-40-si3"/>
                                 </constraints>
@@ -494,7 +494,7 @@
                             <constraint firstItem="WhZ-qq-MeK" firstAttribute="trailing" secondItem="yAO-oz-d3v" secondAttribute="trailing" constant="42" id="6ny-CL-lJV"/>
                             <constraint firstItem="m7T-mV-QuD" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" id="8nf-HV-LUX"/>
                             <constraint firstItem="yAO-oz-d3v" firstAttribute="top" secondItem="WhZ-qq-MeK" secondAttribute="top" constant="150" id="Iky-uL-ntK"/>
-                            <constraint firstItem="DmX-Z6-mbB" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" constant="65" id="Pt4-HD-S58"/>
+                            <constraint firstItem="DmX-Z6-mbB" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" constant="61" id="Pt4-HD-S58"/>
                             <constraint firstItem="jR5-vQ-fwT" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" constant="65" id="plj-Yx-C5w"/>
                             <constraint firstItem="yAO-oz-d3v" firstAttribute="leading" secondItem="WhZ-qq-MeK" secondAttribute="leading" constant="61" id="q5i-J4-Jag"/>
                             <constraint firstItem="WhZ-qq-MeK" firstAttribute="trailing" secondItem="jR5-vQ-fwT" secondAttribute="trailing" constant="42" id="qcs-jW-3ZB"/>

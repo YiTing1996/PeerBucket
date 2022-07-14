@@ -19,6 +19,7 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
 
     var eventTextField: UITextField = {
         let textField = UITextField()
+        textField.isUserInteractionEnabled = false
         textField.setTextField(placeholder: "Scan text will show here.")
         return textField
     }()

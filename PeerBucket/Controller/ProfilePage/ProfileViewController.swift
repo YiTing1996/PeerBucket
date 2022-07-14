@@ -197,10 +197,10 @@ class ProfileViewController: UIViewController {
     }
     
     func configureAnchor() {
-
+        
         avatarImageView.anchor(top: view.topAnchor, paddingTop: 90, width: screenHeight * 0.3, height: screenHeight * 0.3)
         avatarImageView.centerX(inView: view)
-
+        
         nameLabel.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor,
                          paddingTop: 10, paddingLeft: 20, width: 300, height: 50)
         
@@ -336,6 +336,17 @@ class ProfileViewController: UIViewController {
                              userName: paringUser.userName,
                              paringUser: [])
             self.updateUserData(identityType: .paringUser, user: user2)
+            
+            // delete chat room
+            MessageManager.shared.deletChat(uid: currentUser.userID) { result in
+                switch result {
+                case .success:
+                    print("Successfully delete chat")
+                case .failure:
+                    print("Delete chat fail")
+                }
+            }
+            
         }
     }
     
@@ -345,9 +356,26 @@ class ProfileViewController: UIViewController {
                                 message: "Do you want to delete your acccount?") {
             
             Auth.auth().currentUser?.delete { error in
+                
                 if let error = error {
-                    print("Error in profileVC: \(error)")
+                    
+                    let authErr = AuthErrorCode.Code(rawValue: error._code)
+                    
+                    if authErr == .requiresRecentLogin {
+                        // authentication
+                        self.presentActionAlert(action: "Login",
+                                                title: "Authentication Required",
+                                                message: """
+                                                Delete account requires authentication which needs to relogin.
+                                                Do you want to login again?
+                                                """) {
+                            // Signout
+                            self.tappedSignoutBtn()
+                        }
+                    }
+                    
                 } else {
+                    
                     print("Successfully delete account")
                     guard let currentUserUID = self.currentUserUID else {
                         return
@@ -355,22 +383,23 @@ class ProfileViewController: UIViewController {
                     
                     self.deleteUserData(userID: currentUserUID)
                     
+                    // Disconnet partner
+                    guard let paringUser = self.paringUser
+                    else {
+                        return
+                    }
+                    
+                    let user2 = User(userID: paringUser.userID,
+                                     userAvatar: paringUser.userAvatar,
+                                     userHomeBG: paringUser.userHomeBG,
+                                     userName: paringUser.userName,
+                                     paringUser: [])
+                    self.updateUserData(identityType: .paringUser, user: user2)
+                    
                 }
             }
         }
         
-        // Disconnet partner
-        guard let paringUser = self.paringUser
-        else {
-            return
-        }
-        
-        let user2 = User(userID: paringUser.userID,
-                         userAvatar: paringUser.userAvatar,
-                         userHomeBG: paringUser.userHomeBG,
-                         userName: paringUser.userName,
-                         paringUser: [])
-        self.updateUserData(identityType: .paringUser, user: user2)
     }
     
     func deleteUserData(userID: String) {
@@ -383,7 +412,7 @@ class ProfileViewController: UIViewController {
                 let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "loginVC")
                 guard let loginVC = loginVC as? LoginViewController else { return }
                 loginVC.modalPresentationStyle = .fullScreen
-                self.navigationController?.pushViewController(loginVC, animated: true)
+                self.present(loginVC, animated: true)
                 
                 // present success
                 self.presentAlert()
@@ -413,7 +442,7 @@ class ProfileViewController: UIViewController {
                     } else {
                         self.avatarImageView.image = UIImage(named: "default_avatar")
                     }
-
+                    
                     if user.userName != "" {
                         self.nameLabel.text = "Hi, \(user.userName)"
                     }
@@ -470,5 +499,4 @@ extension ProfileViewController: AvatarViewControllerDelegate {
         guard let currentUserUID = currentUserUID else { return }
         fetchUserData(identityType: .currentUser, userID: currentUserUID)
     }
-    
 }

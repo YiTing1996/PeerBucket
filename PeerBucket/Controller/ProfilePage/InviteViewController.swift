@@ -10,21 +10,7 @@ import UIKit
 import AVFoundation
 import FirebaseAuth
 
-// enum IdentityType: String, CaseIterable {
-//    case currentUser
-//    case paringUser
-// }
-
 class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    
-    var currentUser: User?
-    var paringUser: User?
-    
-    var outputTextView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = .lightGray
-        return textView
-    }()
     
     var qrCodeFrameView: UIView = {
         let view = UIView()
@@ -36,12 +22,13 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
+    var currentUser: User?
+    var paringUser: User?
     var currentUserUID: String?
-    //    var currentUserUID = Auth.auth().currentUser?.uid
+    var paringUserName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         callingScanner()
         
         if isBeta {
@@ -54,7 +41,10 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             return
         }
         
-        fetchUserData(identityType: .currentUser, userID: currentUserUID)
+//        fetchUserData(identityType: .currentUser, userID: currentUserUID)
+
+        fetchUserData(userID: currentUserUID)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,12 +63,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         self.tabBarController?.tabBar.isHidden = false
     }
     
-    func configureUI() {
-        view.addSubview(outputTextView)
-        outputTextView.anchor(bottom: view.bottomAnchor, paddingBottom: 20,
-                              width: view.frame.width, height: 50)
-
-    }
+    // MARK: - Firebase data process
     
     func addSelfParing(paringUserID: String) {
         
@@ -86,7 +71,6 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             return
         }
         
-        // 填入自己的資料
         let user = User(userID: currentUser.userID,
                         userAvatar: currentUser.userAvatar,
                         userHomeBG: currentUser.userHomeBG,
@@ -109,7 +93,6 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             return
         }
         
-        // 填入他人的資料
         let user = User(userID: paringUser.userID,
                         userAvatar: paringUser.userAvatar,
                         userHomeBG: paringUser.userHomeBG,
@@ -126,24 +109,62 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
     }
     
-    func fetchUserData(identityType: IdentityType, userID: String) {
+    func fetchUserData(userID: String) {
+//    func fetchUserData(identityType: IdentityType, userID: String) {
         
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
-//                print("successfully find user in inviteVC")
-                switch identityType {
-                case .currentUser:
-                    self.currentUser = user
-                case .paringUser:
-                    self.paringUser = user
-                }
+                self.currentUser = user
+//                self.currentUser = user
+//                switch identityType {
+//                case .currentUser:
+//                    self.currentUser = user
+//                case .paringUser:
+//                    self.paringUser = user
+//                }
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("can't find user in inviteVC")
             }
         }
+    }
+        
+    func fetchUser(userID: String) {
+        
+        UserManager.shared.checkParingUser(userID: userID) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let user):
+                self.paringUserName = user.userName
+                self.paringUser = user
+                
+                self.presentActionAlert(
+                    action: "Invite",
+                    title: "Invite your BucketPeer to chat and share bucket list!",
+                    message: "Do you want to invite user \(self.paringUserName)?") {
+                        
+                        guard self.currentUserUID != nil else {
+                            print("Error: can't find paring user in invite VC")
+                            return
+                        }
+                        
+                        self.addSelfParing(paringUserID: userID )
+                        self.addOthersParing(paringUserID: self.currentUserUID ?? "")
+                        
+                        let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
+                        guard let tabBarVC = tabBarVC as? TabBarController else { return }
+                        
+                        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                        sceneDelegate?.changeRootViewController(tabBarVC)
+                    }
+                
+            case .failure:
+                self.presentAlert(title: "Error", message: "Can't Find User")
+            }
+        }
+        
     }
     
 }
@@ -186,7 +207,6 @@ extension InviteViewController {
         
         view.addSubview(qrCodeFrameView)
         view.bringSubviewToFront(qrCodeFrameView)
-        view.bringSubviewToFront(outputTextView)
         
     }
     
@@ -194,7 +214,6 @@ extension InviteViewController {
         // 檢查metadataObjects 陣列為非空值，它至少需包含一個物件
         if metadataObjects.count == 0 {
             qrCodeFrameView.frame = CGRect.zero
-            outputTextView.text = "No QR code is detected"
             return
         }
         
@@ -202,39 +221,18 @@ extension InviteViewController {
         guard let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
         
         if metadataObj.type == AVMetadataObject.ObjectType.qr {
+            
             // 若發現的元資料與 QR code 元資料相同，便更新狀態標籤的文字並設定邊界
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
-            qrCodeFrameView.frame = barCodeObject!.bounds
+            guard let barCodeObject = barCodeObject else {
+                self.presentAlert(title: "Error", message: "Can't Find User")
+                return
+            }
+            qrCodeFrameView.frame = barCodeObject.bounds
             
             if metadataObj.stringValue != "" {
-                // query既有的user取得資料
-                fetchUserData(identityType: .paringUser, userID: metadataObj.stringValue ?? "")
-                
-                guard let paringUserName = paringUser?.userName as? String else { return }
-                
-                self.presentActionAlert(
-                    action: "Invite",
-                    title: "Invite your BucketPeer to chat and share bucket list!",
-                    message: "Do you want to invite user \(paringUserName)?") {
-                        
-                        // 確認Invite -> 寫入自己＆partner的firebase
-                        guard self.currentUserUID != nil else {
-                            print("Error: can't find paring user in invite VC")
-                            return
-                        }
-                        
-                        self.addSelfParing(paringUserID: metadataObj.stringValue ?? "")
-                        self.addOthersParing(paringUserID: self.currentUserUID ?? "")
-                        
-                        // 跳回首頁
-                        let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
-                        guard let tabBarVC = tabBarVC as? TabBarController else { return }
-                        
-                        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                        sceneDelegate?.changeRootViewController(tabBarVC)
-                    }
+                fetchUser(userID: metadataObj.stringValue ?? "")
             }
-            
         }
     }
     

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import Kingfisher
 import AVFoundation
+import Lottie
 
 struct MemoryData {
     var image: UIImage
@@ -21,8 +22,8 @@ class ImageDetailViewController: UIViewController {
     @IBOutlet weak var foreImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    
-    var selectedLists: [BucketList] = []
+        
+    var categoryID: String = ""
     
     var images: [UIImage] = []
     var titles: [String] = []
@@ -43,39 +44,79 @@ class ImageDetailViewController: UIViewController {
         return button
     }()
     
+    var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.semiBold(size: 12)
+        label.textColor = .darkGreen
+        label.text = "Tap to play"
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .darkGreen
-        
-        for selectedList in selectedLists {
-            for selectedImage in selectedList.images {
-                guard let data = try? Data(contentsOf: URL(string: selectedImage)!) else { return }
-                
-                memoryData.append(MemoryData(image: UIImage(data: data)!,
-                                             title: selectedList.list,
-                                             date: Date.dateFormatter.string(from: selectedList.createdTime)))
-                
-                foreImageView.image = memoryData[0].image
-                titleLabel.text = memoryData[0].title
-                dateLabel.text = memoryData[0].date
-            }
-        }
-        
         configureUI()
-        
+        fetchFromFirebase()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
         timer.invalidate()
         player?.pause()
     }
     
+    func fetchFromFirebase() {
+        
+        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
+        animationView.play()
+
+        BucketListManager.shared.fetchBucketList(categoryID: categoryID,
+                                                 completion: { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let bucketList):
+                
+                for list in bucketList where list.images != [] {
+                    for image in list.images {
+                        DispatchQueue.global().async {
+                            // perform url session at background thread
+                            guard let data = try? Data(contentsOf: URL(string: image)!) else { return }
+                            self.memoryData.append(MemoryData(image: UIImage(data: data)!,
+                                                              title: list.list,
+                                                              date: Date.dateFormatter.string(from: list.createdTime)))
+                            DispatchQueue.main.async {
+                                self.foreImageView.image = self.memoryData[0].image
+                                self.titleLabel.text = self.memoryData[0].title
+                                self.dateLabel.text = self.memoryData[0].date
+                                self.stopAnimation(animationView: animationView)
+                            }
+
+                        }
+                    }
+                }
+
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+    }
+    
     func configureUI() {
         view.addSubview(nextButton)
+        view.addSubview(descriptionLabel)
         nextButton.anchor(top: foreImageView.bottomAnchor, right: view.rightAnchor,
-                          paddingTop: 50, paddingRight: 25)
+                          paddingTop: 40, paddingRight: 30)
+        descriptionLabel.anchor(top: nextButton.bottomAnchor, right: view.rightAnchor,
+                                paddingTop: 5, paddingRight: 30, width: 60)
         
         titleLabel.font = UIFont.bold(size: 25)
         dateLabel.font = UIFont.semiBold(size: 20)
@@ -85,6 +126,7 @@ class ImageDetailViewController: UIViewController {
     }
     
     @objc func tappedNextBtn() {
+        
         if playSelect {
             playSelect = false
             self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self,
@@ -107,7 +149,6 @@ class ImageDetailViewController: UIViewController {
     @objc func playVideo() {
         
         // Image
-        
         if index < memoryData.count-1 {
             index += 1
         } else {
