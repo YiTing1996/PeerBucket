@@ -30,6 +30,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         label.font = UIFont.bold(size: 25)
         label.textColor = .lightGray
         label.numberOfLines = 0
+        label.textAlignment = .center
         return label
     }()
     
@@ -188,8 +189,8 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         alertImageView.anchor(width: 280, height: 250)
         
         alertLabel.centerY(inView: view)
-        alertLabel.anchor(right: alertImageView.rightAnchor, paddingRight: 20,
-                          width: 100, height: 50)
+        alertLabel.anchor(right: alertImageView.rightAnchor, paddingRight: 10,
+                          width: 120, height: 100)
         
         closeButton.anchor(top: alertImageView.topAnchor,
                            right: alertImageView.rightAnchor, paddingTop: 5,

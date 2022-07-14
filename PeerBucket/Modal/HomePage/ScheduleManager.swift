@@ -98,6 +98,38 @@ class ScheduleManager {
         
     }
     
+    // fetch specific date's event
+    func fetchMonthSchedule(userID: String, date: Date, completion: @escaping (Result<[Schedule], Error>) -> Void) {
+        
+        dataBase.whereField("senderId", isEqualTo: userID).getDocuments { (querySnapshot, error) in
+            
+            if let error = error {
+                
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+                
+            } else if let querySnapshot = querySnapshot {
+                
+                let events = querySnapshot.documents.compactMap({ querySnapshot in
+                    try? querySnapshot.data(as: Schedule.self)
+                })
+                
+                let eventsOnDate = events.compactMap { event -> Schedule? in
+                    if event.eventDate.hasSame(.month, as: date) &&
+                        event.eventDate.hasSame(.year, as: date) {
+                        return event
+                    } else {
+                        return nil
+                    }
+                }
+                
+                let monthEvents = eventsOnDate.sorted { $0.eventDate < $1.eventDate }
+                
+                completion(.success(monthEvents))
+            }
+        }
+    }
+    
     // MARK: - Add
     
     func addSchedule(schedule: inout Schedule, completion: @escaping (Result<[Schedule], Error>) -> Void) {

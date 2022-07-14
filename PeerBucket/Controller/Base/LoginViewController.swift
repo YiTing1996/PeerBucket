@@ -23,7 +23,6 @@ class LoginViewController: UIViewController {
         label.numberOfLines = 0
         label.textColor = .darkGray
         label.font = UIFont.semiBold(size: 15)
-        label.characterSpacing = 1.1
         label.text = "Signin means you agree on\nour policy below."
         return label
     }()

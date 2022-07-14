@@ -155,6 +155,16 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         let data: [String: Any] = [
             "users": users
         ]
+  
+//        MessageManager.shared.addChat(data: data) { result in
+//
+//            switch result {
+//            case .success:
+//                self.loadChat(userID: currentUserUID)
+//            case .failure:
+//                print("Error: Create chat error")
+//            }
+//        }
         
         let database = Firestore.firestore().collection("Chats")
         database.addDocument(data: data) { (error) in
@@ -165,6 +175,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                 self.loadChat(userID: currentUserUID)
             }
         }
+        
     }
     
     func loadChat(userID: String) {
@@ -311,11 +322,11 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     // MARK: - MessagesDisplayDelegate
     func backgroundColor(for message: MessageType, at indexPath: IndexPath,
                          in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .hightlightYellow: .lightYellow
+        return isFromCurrentSender(message: message) ? .darkGreen: .hightlightYellow
     }
     
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .white: .darkGray
+        return isFromCurrentSender(message: message) ? .lightGray: .white
     }
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,

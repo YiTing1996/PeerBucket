@@ -20,7 +20,7 @@ class BucketDetailViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     private let storage = Storage.storage().reference()
-    
+        
     var imageSwippedRow: Int?
     var scheduleSwippedRow: Int?
     
@@ -110,16 +110,9 @@ class BucketDetailViewController: UIViewController {
         
         let imageVC = self.storyboard?.instantiateViewController(withIdentifier: "imageVC")
         guard let imageVC = imageVC as? ImageDetailViewController else { return }
+        imageVC.categoryID = self.selectedBucket?.id ?? ""
         
-        imageVC.selectedLists = self.allBucketList
-        
-        let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
-        //        self.navigationController?.pushViewController(imageVC, animated: true)
-        
-        animationView.play { _ in
-            self.stopAnimation(animationView: animationView)
-            self.navigationController?.pushViewController(imageVC, animated: true)
-        }
+        self.navigationController?.pushViewController(imageVC, animated: true)
         
     }
     
@@ -188,7 +181,6 @@ class BucketDetailViewController: UIViewController {
             case .success(let bucketList):
                 self.allBucketList = bucketList
                 self.allListImages = []
-                
                 for list in self.allBucketList where list.images != [] {
                     self.allListImages += list.images
                 }
@@ -471,7 +463,7 @@ extension BucketDetailViewController: PHPickerViewControllerDelegate {
 // MARK: - Delegate
 
 extension BucketDetailViewController: BucketDetailTableViewCellDelegate, AddScheduleViewControllerDelegate {
-    
+
     func didTappedStatus(cell: UITableViewCell) {
         
         guard let indexPath = tableView.indexPath(for: cell) else { return }

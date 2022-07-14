@@ -82,6 +82,27 @@ class UserManager {
         }
     }
     
+    func checkParingUser(userID: String, completion: @escaping (Result<User, Error>) -> Void) {
+
+        dataBase.whereField("userID", isEqualTo: userID).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+                
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        if let user = try document.data(as: User?.self, decoder: Firestore.Decoder()) {
+                            completion(.success(user))
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+            }
+        }
+    }
+    
     // fetch user data
     func fetchUserData(userID: String, completion: @escaping (Result<User, Error>) -> Void) {
         dataBase.document(userID).getDocument { (querySnapshot, error) in
@@ -92,7 +113,7 @@ class UserManager {
             }
         }
     }
-    
+        
     // MARK: - Update
     
     // update user data (for adding paring user)

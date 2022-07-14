@@ -72,7 +72,7 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
     func configureCell(event: Schedule) {
         
         eventLabel.text = event.event
-        dateLabel.text = Date.dateFormatter.string(from: event.eventDate)
+        dateLabel.text = Date.timeFormatter.string(from: event.eventDate)
         
         // fetch avatar by senderID
         UserManager.shared.fetchUserData(userID: event.senderId) { result in
