@@ -46,7 +46,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var userIDList: [String] = [] {
         didSet {
-            scheduleListenerNotification()
+//            scheduleListenerNotification()
         }
     }
     
@@ -74,9 +74,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
         
         guard let currentUserUID = currentUserUID else { return }
-//        userIDList.append(currentUserUID)
         getData(userID: currentUserUID, date: Date())
-//        loadDateEvent(date: Date())
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -355,65 +353,5 @@ extension ScheduleViewController: AddScheduleViewControllerDelegate {
         guard let currentUserUID = currentUserUID else { return }
         getData(userID: currentUserUID, date: calendar.selectedDate ?? Date())
         
-    }
-}
-
-// MARK: - Notification
-
-extension ScheduleViewController {
-    
-    func scheduleListenerNotification() {
-        
-        for userID in userIDList {
-            ScheduleManager.shared.listenSchedule(userID: userID) { [weak self] result in
-
-                guard let self = self else { return }
-
-                switch result {
-                case .success(.added(data: let events)):
-                    for event in events {
-                        self.createNotification(event: event)
-                    }
-
-                case .success(.modified(data: let events)):
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(
-                        withIdentifiers: events.compactMap { $0.id })
-                    for event in events {
-                        self.createNotification(event: event)
-                    }
-
-                case .success(.removed(data: let events)):
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(
-                        withIdentifiers: events.compactMap { $0.id })
-                    
-                case .failure(let error):
-                    print("add notifications error", error)
-                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                }
-            }
-        }
-    }
-    
-    func createNotification(event: Schedule) {
-
-        let content = UNMutableNotificationContent()
-        content.title = "Schedule Today"
-        content.subtitle = Date.dateFormatter.string(from: event.eventDate)
-        content.body = event.event
-        content.sound = .default
-
-        let calendar = Calendar.current
-        let component = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: event.eventDate)
-
-        let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-
-        let request = UNNotificationRequest(identifier: event.id, content: content, trigger: trigger)
-
-        UNUserNotificationCenter.current().add(request) { error in
-            if error != nil {
-                print("add notification failed")
-                self.presentAlert(title: "Error", message: "Notification Error. Please try again later.")
-            }
-        }
     }
 }

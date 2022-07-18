@@ -135,6 +135,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
                 }
             }
             
+            createNotification(event: schedule)
             eventTextField.text = ""
             delegate?.didTappedClose()
             
@@ -142,4 +143,33 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
             presentAlert(title: "Error", message: "Please fill all the field")
         }
     }
+}
+
+// MARK: - Notification
+
+extension AddScheduleViewController {
+    
+    func createNotification(event: Schedule) {
+
+        let content = UNMutableNotificationContent()
+        content.title = "Schedule Today"
+        content.subtitle = Date.dateFormatter.string(from: event.eventDate)
+        content.body = event.event
+        content.sound = .default
+
+        let calendar = Calendar.current
+        let component = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: event.eventDate)
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
+
+        let request = UNNotificationRequest(identifier: event.id, content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if error != nil {
+                print("add notification failed")
+                self.presentAlert(title: "Error", message: "Notification Error. Please try again later.")
+            }
+        }
+    }
+    
 }
