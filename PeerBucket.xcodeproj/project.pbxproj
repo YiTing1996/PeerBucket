@@ -65,7 +65,6 @@
 		ACCECFD2287950F9004AE116 /* lottieCongrats.json in Resources */ = {isa = PBXBuildFile; fileRef = ACCECFD1287950F9004AE116 /* lottieCongrats.json */; };
 		ACCECFDC28796C4E004AE116 /* CameraKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */; };
 		ACCECFE428799EDD004AE116 /* lottieLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = ACCECFE328799EDD004AE116 /* lottieLoading.json */; };
-		ACF0F163287D3D5F00A03E1C /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF0F162287D3D5F00A03E1C /* MessageManager.swift */; };
 		ACFA53B828769C9D00E0887D /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFA53B728769C9D00E0887D /* LaunchViewController.swift */; };
 		ACFA53B92876AD6900E0887D /* launchScreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = ACFA53B228768E3800E0887D /* launchScreen.mp4 */; };
 		ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC8D0F286864960055D143 /* UILabelExtension.swift */; };
@@ -148,7 +147,6 @@
 		ACCECFD1287950F9004AE116 /* lottieCongrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieCongrats.json; sourceTree = "<group>"; };
 		ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraKeyboard.swift; sourceTree = "<group>"; };
 		ACCECFE328799EDD004AE116 /* lottieLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieLoading.json; sourceTree = "<group>"; };
-		ACF0F162287D3D5F00A03E1C /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		ACFA53B228768E3800E0887D /* launchScreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = launchScreen.mp4; sourceTree = "<group>"; };
 		ACFA53B728769C9D00E0887D /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		ACFC8D0F286864960055D143 /* UILabelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
@@ -377,7 +375,6 @@
 				AC001480285E0E610098FC4E /* ScheduleDataModal.swift */,
 				AC001482285E0E770098FC4E /* ScheduleManager.swift */,
 				ACADB71128603FC000D7C18E /* MessageDataModal.swift */,
-				ACF0F162287D3D5F00A03E1C /* MessageManager.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -598,7 +595,6 @@
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
 				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
-				ACF0F163287D3D5F00A03E1C /* MessageManager.swift in Sources */,
 				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
 				ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */,
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
@@ -773,7 +769,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -791,7 +787,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -809,7 +805,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
@@ -826,7 +822,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

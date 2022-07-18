@@ -336,17 +336,6 @@ class ProfileViewController: UIViewController {
                              userName: paringUser.userName,
                              paringUser: [])
             self.updateUserData(identityType: .paringUser, user: user2)
-            
-            // delete chat room
-            MessageManager.shared.deletChat(uid: currentUser.userID) { result in
-                switch result {
-                case .success:
-                    print("Successfully delete chat")
-                case .failure:
-                    print("Delete chat fail")
-                }
-            }
-            
         }
     }
     
@@ -395,7 +384,6 @@ class ProfileViewController: UIViewController {
                                      userName: paringUser.userName,
                                      paringUser: [])
                     self.updateUserData(identityType: .paringUser, user: user2)
-                    
                 }
             }
         }

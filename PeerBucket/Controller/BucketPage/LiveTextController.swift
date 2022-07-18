@@ -140,6 +140,7 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @objc func tappedSubmitBtn() {
         guard let title = self.eventTextField.text,
+              title != "",
               let currentUserUID = currentUserUID,
               let selectedRow = selectedRow
         else {
