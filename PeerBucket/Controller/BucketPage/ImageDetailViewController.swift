@@ -22,20 +22,15 @@ class ImageDetailViewController: UIViewController {
     @IBOutlet weak var foreImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-        
-    var categoryID: String = ""
-    
-    var images: [UIImage] = []
-    var titles: [String] = []
-    var dates: [String] = []
-    
-    var memoryData: [MemoryData] = []
     
     var index: Int = 1
     var timer = Timer()
     var playSelect = true
     
     var player: AVAudioPlayer?
+    
+    var memoryData: [MemoryData] = []
+    var allBucketList: [BucketList] = []
     
     lazy var nextButton: UIButton = {
         let button = UIButton()
@@ -57,7 +52,7 @@ class ImageDetailViewController: UIViewController {
         
         view.backgroundColor = .darkGreen
         configureUI()
-        fetchFromFirebase()
+        fetchDate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,42 +67,29 @@ class ImageDetailViewController: UIViewController {
         player?.pause()
     }
     
-    func fetchFromFirebase() {
+    func fetchDate() {
         
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
         animationView.play()
-
-        BucketListManager.shared.fetchBucketList(categoryID: categoryID,
-                                                 completion: { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let bucketList):
-                
-                for list in bucketList where list.images != [] {
-                    for image in list.images {
-                        DispatchQueue.global().async {
-                            // perform url session at background thread
-                            guard let data = try? Data(contentsOf: URL(string: image)!) else { return }
-                            self.memoryData.append(MemoryData(image: UIImage(data: data)!,
-                                                              title: list.list,
-                                                              date: Date.dateFormatter.string(from: list.createdTime)))
-                            DispatchQueue.main.async {
-                                self.foreImageView.image = self.memoryData[0].image
-                                self.titleLabel.text = self.memoryData[0].title
-                                self.dateLabel.text = self.memoryData[0].date
-                                self.stopAnimation(animationView: animationView)
-                            }
-
-                        }
+        
+        for list in allBucketList where list.images != [] {
+            for image in list.images {
+                DispatchQueue.global().async {
+                    // perform url session at background thread
+                    guard let data = try? Data(contentsOf: URL(string: image)!) else { return }
+                    self.memoryData.append(MemoryData(image: UIImage(data: data)!,
+                                                      title: list.list,
+                                                      date: Date.dateFormatter.string(from: list.createdTime)))
+                    DispatchQueue.main.async {
+                        self.foreImageView.image = self.memoryData[0].image
+                        self.titleLabel.text = self.memoryData[0].title
+                        self.dateLabel.text = self.memoryData[0].date
+                        self.stopAnimation(animationView: animationView)
                     }
+                    
                 }
-
-            case .failure(let error):
-                print(error.localizedDescription)
             }
-        })
+        }
     }
     
     func configureUI() {

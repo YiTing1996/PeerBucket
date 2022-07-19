@@ -106,7 +106,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     var shareBucketListCount: Int = 0
     var shareFinishedListCount: Int = 0
     
-    var selectedBucket: BucketCategory?
+    var selectedCategory: BucketCategory?
     var progress: Float?
     
     var currentUserUID: String?
@@ -414,8 +414,8 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
         let detailBucketVC = storyboard?.instantiateViewController(withIdentifier: "BucketDetailViewController")
         guard let detailBucketVC = detailBucketVC as? BucketDetailViewController else { return }
         
-        selectedBucket = bucketCategories[indexPath.row]
-        detailBucketVC.selectedBucket = selectedBucket
+        selectedCategory = bucketCategories[indexPath.row]
+        detailBucketVC.selectedCategory = selectedCategory
         navigationController?.pushViewController(detailBucketVC, animated: true)
         
     }

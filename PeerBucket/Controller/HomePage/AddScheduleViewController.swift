@@ -159,7 +159,7 @@ extension AddScheduleViewController {
 
         let calendar = Calendar.current
         let component = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: event.eventDate)
-
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
 
         let request = UNNotificationRequest(identifier: event.id, content: content, trigger: trigger)
