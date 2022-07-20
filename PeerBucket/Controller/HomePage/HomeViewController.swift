@@ -23,9 +23,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     var upcomingDate: Int = 0
     
     var currentUser: User?
-    
-    var currentUserUID: String?
-    
+        
     var profileVC: ProfileViewController?
     
     var bgImageView: UIImageView = {
@@ -111,12 +109,6 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid
-        }
         
         guard let currentUserUID = currentUserUID else {
             configureGuestUI()
@@ -348,7 +340,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     // fetch background image from firebase
     func downloadPhoto() {
         
-        guard self.currentUserUID != nil else {
+        guard currentUserUID != nil else {
             print("Error: can't find paring user in home VC")
             return
         }

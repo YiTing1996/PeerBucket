@@ -8,6 +8,12 @@
 import Foundation
 import FirebaseFirestoreSwift
 
+protocol BaseObject {
+    var listId: String {
+        get set
+    }
+}
+
 struct BucketCategory: Codable {
 
     var senderId: String
@@ -32,7 +38,7 @@ struct BucketCategory: Codable {
     }
 }
 
-struct BucketList: Codable, Equatable {
+struct BucketList: Codable, Equatable, BaseObject {
     
     var senderId: String
     var createdTime: Date

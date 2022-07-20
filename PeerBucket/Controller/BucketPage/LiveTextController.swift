@@ -35,18 +35,11 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
     let imagePicker = UIImagePickerController()
     
     var bucketCategories: [BucketCategory] = []
-    var currentUserUID: String?
     var userIDList: [String] = []
     var selectedRow: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         tableView.delegate = self
         tableView.dataSource = self

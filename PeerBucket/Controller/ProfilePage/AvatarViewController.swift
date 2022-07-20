@@ -21,7 +21,6 @@ class AvatarViewController: UIViewController {
     weak var delegate: AvatarViewControllerDelegate?
     
     var currentUser: User?
-    var currentUserUID: String?
     
     lazy var submitButton: UIButton = {
         let button = UIButton()
@@ -35,12 +34,6 @@ class AvatarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         guard let currentUserUID = currentUserUID else {
             return

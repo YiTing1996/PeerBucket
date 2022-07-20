@@ -131,7 +131,6 @@ class ProfileViewController: UIViewController {
     
     var currentUser: User?
     var paringUser: User?
-    var currentUserUID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,12 +144,6 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         guard let currentUserUID = currentUserUID else {
             let loginVC = storyboard?.instantiateViewController(withIdentifier: "loginVC")
@@ -186,7 +179,7 @@ class ProfileViewController: UIViewController {
         profileView.addSubview(avatarButton)
         profileView.addSubview(nameButton)
         
-        menuBottomConstraint.constant = -500
+        menuBottomConstraint.constant = hideMenuBottomConstraint
         blackView.backgroundColor = .black
         blackView.alpha = 0
         
@@ -366,7 +359,7 @@ class ProfileViewController: UIViewController {
                 } else {
                     
                     print("Successfully delete account")
-                    guard let currentUserUID = self.currentUserUID else {
+                    guard let currentUserUID = currentUserUID else {
                         return
                     }
                     
@@ -475,7 +468,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: QRCodeViewControllerDelegate {
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = -500
+            self.menuBottomConstraint.constant = hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
     }

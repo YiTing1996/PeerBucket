@@ -21,7 +21,6 @@ class AddToBucketViewController: UIViewController {
     
     var bucketCategories: [BucketCategory] = []
     
-    var currentUserUID: String?
     var userIDList: [String] = []
     
     lazy var cancelButton: UIButton = {
@@ -44,12 +43,6 @@ class AddToBucketViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         collectionView.delegate = self
         collectionView.dataSource = self

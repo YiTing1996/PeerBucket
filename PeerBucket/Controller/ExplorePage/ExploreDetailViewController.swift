@@ -18,7 +18,6 @@ class ExploreDetailViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     var content: ExploreBucket?
-    var currentUserUID: String?
     
     var ratingView: UIView = {
         let view = UIView()
@@ -67,12 +66,6 @@ class ExploreDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
-        
         view.addSubview(collectButton)
         collectButton.anchor(top: tableView.topAnchor, right: view.rightAnchor,
                              paddingTop: 50, paddingRight: 20)
@@ -80,7 +73,7 @@ class ExploreDetailViewController: UIViewController {
         
         blackView.backgroundColor = .black
         blackView.alpha = 0
-        menuBottomConstraint.constant = -500
+        menuBottomConstraint.constant = hideMenuBottomConstraint
         view.bringSubviewToFront(blackView)
         view.bringSubviewToFront(containerView)
         
@@ -199,7 +192,7 @@ extension ExploreDetailViewController: AddToBucketViewControllerDelegate {
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = -500
+            self.menuBottomConstraint.constant = hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
     }

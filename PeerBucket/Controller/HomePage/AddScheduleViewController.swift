@@ -18,7 +18,6 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     weak var delegate: AddScheduleViewControllerDelegate?
     
     var selectedDate: Date?
-    var currentUserUID: String?
     var buckteListTitle: String? {
         didSet {
             eventTextField.text = buckteListTitle
@@ -66,12 +65,6 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         configureUI()
         

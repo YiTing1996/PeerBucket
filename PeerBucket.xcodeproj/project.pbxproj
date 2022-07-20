@@ -26,6 +26,7 @@
 		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
 		AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */; };
 		AC6B88DD2886A9EF00AEE78F /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6B88DC2886A9EF00AEE78F /* NSObjectExtension.swift */; };
+		AC6B88E12887A83600AEE78F /* BaseVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6B88E02887A83600AEE78F /* BaseVariable.swift */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
@@ -107,6 +108,7 @@
 		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		AC6B88DC2886A9EF00AEE78F /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
+		AC6B88E02887A83600AEE78F /* BaseVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVariable.swift; sourceTree = "<group>"; };
 		AC6F0FF52869DA6200FD0F0E /* PeerBucket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeerBucket.entitlements; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				AC2CBBE52872CA56003EF0FA /* ExplorePage */,
 				ACADB71E28605B5900D7C18E /* HomePage */,
 				ACADB71D28605B3300D7C18E /* BucketPage */,
+				AC6B88E02887A83600AEE78F /* BaseVariable.swift */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
 				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
+				AC6B88E12887A83600AEE78F /* BaseVariable.swift in Sources */,
 				AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */,
 				ACC3D273285B0EFA00676F46 /* DateExtension.swift in Sources */,
 				AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */,

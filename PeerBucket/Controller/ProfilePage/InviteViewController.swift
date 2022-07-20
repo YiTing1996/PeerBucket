@@ -24,19 +24,12 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
     var currentUser: User?
     var paringUser: User?
-    var currentUserUID: String?
     var paringUserName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         callingScanner()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
-        
+
         guard let currentUserUID = currentUserUID else {
             return
         }
@@ -110,20 +103,11 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     func fetchUserData(userID: String) {
-//    func fetchUserData(identityType: IdentityType, userID: String) {
-        
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.currentUser = user
-//                self.currentUser = user
-//                switch identityType {
-//                case .currentUser:
-//                    self.currentUser = user
-//                case .paringUser:
-//                    self.paringUser = user
-//                }
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("can't find user in inviteVC")
@@ -145,13 +129,13 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     title: "Invite your BucketPeer to chat and share bucket list!",
                     message: "Do you want to invite user \(self.paringUserName)?") {
                         
-                        guard self.currentUserUID != nil else {
+                        guard currentUserUID != nil else {
                             print("Error: can't find paring user in invite VC")
                             return
                         }
                         
                         self.addSelfParing(paringUserID: userID )
-                        self.addOthersParing(paringUserID: self.currentUserUID ?? "")
+                        self.addOthersParing(paringUserID: currentUserUID ?? "")
                         
                         let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
                         guard let tabBarVC = tabBarVC as? TabBarController else { return }

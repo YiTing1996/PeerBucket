@@ -42,14 +42,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         return gesture
     }()
         
-    var currentUserUID: String?
-    
-    var userIDList: [String] = [] {
-        didSet {
-//            scheduleListenerNotification()
-        }
-    }
-    
+    var userIDList: [String] = []
+
     var datesWithEventString: [String] = []
     var datesWithEvent: [Schedule] = []
     var monthWithEvent: [Schedule] = []
@@ -58,12 +52,6 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         configueCalendarUI()
         configureUI()
@@ -114,7 +102,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         
         blackView.backgroundColor = .black
         blackView.alpha = 0
-        menuBottomConstraint.constant = -500
+        menuBottomConstraint.constant = hideMenuBottomConstraint
         containerView.layer.cornerRadius = 10
         
         view.addSubview(collectionView)
@@ -229,7 +217,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.datesWithEvent.remove(at: row)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
-                    self.getData(userID: self.currentUserUID ?? "",
+                    self.getData(userID: currentUserUID ?? "",
                                  date: self.calendar.selectedDate ?? Date())
                 }
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
@@ -345,7 +333,7 @@ extension ScheduleViewController: AddScheduleViewControllerDelegate {
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = -500
+            self.menuBottomConstraint.constant = hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
         

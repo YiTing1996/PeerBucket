@@ -20,9 +20,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     weak var delegate: AddNewBucketDelegate?
     
     private let storage = Storage.storage().reference()
-        
-    var currentUserUID: String?
-    
+            
     var iconLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
@@ -92,16 +90,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         view.layer.cornerRadius = 30
         view.clipsToBounds = true
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
     }
     

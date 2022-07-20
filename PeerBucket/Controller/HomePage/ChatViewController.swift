@@ -32,7 +32,6 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
     var user2UID: String = ""
     var currentUser: User?
-    var currentUserUID: String?
     var messages: [Message] = []
     
     override func viewDidLoad() {
@@ -56,13 +55,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         messagesCollectionView.backgroundColor = .lightGray
         messageInputBar.backgroundView.backgroundColor = .darkGreen
         messageInputBar.inputTextView.textColor = .white
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
-        
+
         guard let currentUserUID = currentUserUID else { return }
         fetchUserData(userID: currentUserUID)
 

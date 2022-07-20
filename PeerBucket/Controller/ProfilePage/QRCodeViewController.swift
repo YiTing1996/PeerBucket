@@ -42,17 +42,9 @@ class QRCodeViewController: UIViewController {
         button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
         return button
     }()
-    
-    var currentUserUID: String?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         guard let currentUserUID = currentUserUID else {
             return
