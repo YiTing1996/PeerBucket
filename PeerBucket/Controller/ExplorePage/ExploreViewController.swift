@@ -24,30 +24,24 @@ class ExploreViewController: UIViewController {
         return collectionView
     }()
     
-    var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "mock_avatar")
-        imageView.layer.cornerRadius = 20
-        return imageView
-    }()
+    lazy var imageView: UIImageView = create {
+//        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.clipsToBounds = true
+        $0.image = UIImage(named: "mock_avatar")
+        $0.layer.cornerRadius = 20
+    }
     
-    var nameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Recommend Bucket To You"
-        label.textColor = .darkGreen
-        label.font = UIFont.bold(size: 30)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var nameLabel: UILabel = create {
+//        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "Recommend Bucket To You"
+        $0.textColor = .darkGreen
+        $0.font = UIFont.bold(size: 30)
+        $0.numberOfLines = 0
+    }
     
-    var decoView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .darkGreen
-        return view
-    }()
+    lazy var decoView: UIView = create {
+        $0.backgroundColor = .darkGreen
+    }
     
     var currentTab: Int = 0 {
         didSet {
@@ -62,11 +56,12 @@ class ExploreViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         configureUI()
-        self.view.backgroundColor = .lightGray
-        collectionView.backgroundColor = .lightGray
     }
     
     func configureUI() {
+        view.backgroundColor = .lightGray
+        collectionView.backgroundColor = .lightGray
+        
         view.addSubview(nameLabel)
         view.addSubview(decoView)
         view.addSubview(collectionView)
@@ -80,6 +75,8 @@ class ExploreViewController: UIViewController {
                               paddingTop: 20, paddingLeft: 10, paddingBottom: 80,
                               paddingRight: 10)
     }
+    
+    // MARK: - CollectionView
     
     func configureLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { section, _ in

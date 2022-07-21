@@ -33,22 +33,18 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         return collectionView
     }()
     
-    lazy var longPressGesture: UILongPressGestureRecognizer = {
-        let gesture = UILongPressGestureRecognizer()
-        gesture.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
-        gesture.minimumPressDuration = 0.5
-        gesture.delaysTouchesBegan = true
-        gesture.delegate = self
-        return gesture
-    }()
+    lazy var longPressGesture: UILongPressGestureRecognizer = create {
+        $0.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
+        $0.minimumPressDuration = 0.5
+        $0.delaysTouchesBegan = true
+        $0.delegate = self
+    }
         
     var userIDList: [String] = []
 
     var datesWithEventString: [String] = []
     var datesWithEvent: [Schedule] = []
     var monthWithEvent: [Schedule] = []
-
-    var screenWidth = UIScreen.main.bounds.width
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,20 +126,19 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         let location = gestureReconizer.location(in: self.collectionView)
         let indexPath = self.collectionView.indexPathForItem(at: location)
         
-        if let indexPath = indexPath {
-            
-            self.presentActionAlert(action: "Delete", title: "Delete Event",
-                                    message: "Do you want to delete this event?") {
-                let deleteId = self.datesWithEvent[indexPath.row].id
-                self.deleteEvent(deleteId: deleteId, row: indexPath.row)
-            }
-            
-        } else {
+        guard let indexPath = indexPath else {
             print("Could not find index path")
+            return
+        }
+
+        self.presentActionAlert(action: "Delete", title: "Delete Event",
+                                message: "Do you want to delete this event?") {
+            let deleteId = self.datesWithEvent[indexPath.row].id
+            self.deleteEvent(deleteId: deleteId, row: indexPath.row)
         }
     }
     
-    // MARK: - Firebase data process
+    // MARK: - Firebase processor
     
     // get user data and event of the month by self & paring user ID
     func getData(userID: String, date: Date) {

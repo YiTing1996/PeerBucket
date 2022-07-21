@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     var upcomingDate: Int = 0
     
     var currentUser: User?
-        
+    
     var profileVC: ProfileViewController?
     
     var bgImageView: UIImageView = {
@@ -32,7 +32,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     }()
     
     let blurEffect = UIBlurEffect(style: .light)
-
+    
     lazy var eventView: UIVisualEffectView = {
         let effectView = UIVisualEffectView(effect: blurEffect)
         effectView.clipsToBounds = true
@@ -41,64 +41,48 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         return effectView
     }()
     
-    var decoLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .lightGray
-        label.font = UIFont.semiBold(size: 20)
-        label.text = "Upcoming Events"
-        return label
-    }()
+    lazy var decoLabel: UILabel = create {
+        $0.textColor = .lightGray
+        $0.font = UIFont.semiBold(size: 20)
+        $0.text = "Upcoming Events"
+    }
     
-    var decoView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        return view
-    }()
+    lazy var decoView: UIView = create {
+        $0.backgroundColor = .white
+    }
     
-    var eventLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .lightGray
-        label.font = UIFont.bold(size: 24)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var eventLabel: UILabel = create {
+        $0.textColor = .lightGray
+        $0.font = UIFont.bold(size: 24)
+        $0.numberOfLines = 0
+    }
     
-    lazy var moreButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(tappedMoreBtn), for: .touchUpInside)
-        button.setImage(UIImage(named: "icon_func_drop"), for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        return button
-    }()
+    lazy var moreButton: UIButton = create {
+        $0.addTarget(self, action: #selector(tappedMoreBtn), for: .touchUpInside)
+        $0.setImage(UIImage(named: "icon_func_drop"), for: .normal)
+        $0.setTitleColor(UIColor.darkGreen, for: .normal)
+    }
     
-    var moreView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 25
-        return view
-    }()
+    lazy var moreView: UIView = create {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.layer.cornerRadius = 25
+    }
     
-    lazy var bgButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(tappedBgBtn), for: .touchUpInside)
-        button.setImage(UIImage(named: "icon_func_bg"), for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        return button
-    }()
+    lazy var bgButton: UIButton = create {
+        $0.addTarget(self, action: #selector(tappedBgBtn), for: .touchUpInside)
+        $0.setImage(UIImage(named: "icon_func_bg"), for: .normal)
+        $0.setTitleColor(UIColor.darkGreen, for: .normal)
+    }
     
-    lazy var eventButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(tappedEventBtn), for: .touchUpInside)
-        button.setImage(UIImage(named: "icon_func_calendar"), for: .normal)
-        return button
-    }()
+    lazy var eventButton: UIButton = create {
+        $0.addTarget(self, action: #selector(tappedEventBtn), for: .touchUpInside)
+        $0.setImage(UIImage(named: "icon_func_calendar"), for: .normal)
+    }
     
-    lazy var chatButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(tappedChatBtn), for: .touchUpInside)
-        button.setImage(UIImage(named: "icon_func_chat"), for: .normal)
-        return button
-    }()
+    lazy var chatButton: UIButton = create {
+        $0.addTarget(self, action: #selector(tappedChatBtn), for: .touchUpInside)
+        $0.setImage(UIImage(named: "icon_func_chat"), for: .normal)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,8 +100,9 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         }
         
         configureUI()
+        configureConstraint()
         loadSchedule()
-        downloadPhoto()
+//        downloadPhoto()
         fetchUserData(userID: currentUserUID)
         
     }
@@ -136,6 +121,11 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         moreView.addSubview(bgButton)
         moreView.addSubview(eventButton)
         moreView.addSubview(chatButton)
+        
+    }
+    
+    // TODO: 改成vstack
+    func configureConstraint() {
         
         moreView.anchor(top: eventView.topAnchor, right: view.rightAnchor,
                         paddingTop: 10, paddingRight: 20,
@@ -160,7 +150,6 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                         paddingLeft: 20, width: 60, height: 1)
         eventLabel.anchor(top: decoView.bottomAnchor, left: eventView.leftAnchor, right: eventView.rightAnchor,
                           paddingTop: 20, paddingLeft: 20, paddingRight: 20, height: 60)
-        
     }
     
     func configureGuestUI() {
@@ -169,6 +158,9 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor)
     }
+    
+    
+    // MARK: - User interaction processor
     
     @objc func tappedMoreBtn() {
         UIView.animate(withDuration: 0.3, animations: {
@@ -199,7 +191,16 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
         }
     }
     
-    // MARK: - Firebase data process
+    @objc func tappedBgBtn() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true)
+    }
+    
+    // MARK: - Firebase processor
     
     // fetch upcoming event
     func loadSchedule() {
@@ -222,7 +223,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                 if self.upcomingDate != 0 {
                     self.eventLabel.text =
                     "\(String(describing: self.upcomingEvent))\n\(String(describing: self.upcomingDate)) Day Left"
-
+                    
                 } else if self.upcomingEvent == "" {
                     self.eventLabel.text =
                     "No upcoming event"
@@ -245,12 +246,36 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
                     self.bgImageView.image = UIImage(named: "bg_home")
                     return
                 }
+                
+                let url = URL(string: user.userHomeBG)
+                self.bgImageView.kf.setImage(with: url)
+                
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in homeVC")
             }
         }
     }
+    
+    // fetch background image from firebase
+//    func downloadPhoto() {
+//        guard currentUserUID != nil else {
+//            print("Error: can't find paring user in home VC")
+//            return
+//        }
+//
+//        UserManager.shared.fetchUserData(userID: currentUserUID ?? "") { result in
+//            switch result {
+//            case .success(let user):
+//
+//                let url = URL(string: user.userHomeBG)
+//                self.bgImageView.kf.setImage(with: url)
+//
+//            case .failure(let error):
+//                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+//            }
+//        }
+//    }
     
     func updateBGImage(urlString: String) {
         guard let currentUser = self.currentUser else {
@@ -267,94 +292,68 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
             switch result {
             case .success:
                 print("Successfully update home bg to firebase")
-                self.downloadPhoto()
+//                self.downloadPhoto()
+                self.fetchUserData(userID: currentUser.userID)
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
     }
     
-    // MARK: - Image picker controller delegate
-        
-    @objc func tappedBgBtn() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        self.present(picker, animated: true)
-    }
+    // MARK: - Photo processor
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
-
+        
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
         animationView.play {_ in
             self.stopAnimation(animationView: animationView)
         }
         
         for result in results {
-            
-            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-                
-                guard error == nil else {
-                    print("Error \(error!.localizedDescription)")
-                    return
-                }
-                
-                if let image = image as? UIImage {
-                    guard let imageData = image.jpegData(compressionQuality: 0.5),
-                          let self = self else { return }
-                    
-                    let imageName = NSUUID().uuidString
-                    
-                    self.storage.child("homeImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
-                        
-                        guard error == nil else {
-                            print("Fail to upload image")
-                            return
-                        }
-                        
-                        self.storage.child("homeImage/\(imageName).png").downloadURL(completion: { url, error in
-                            guard let url = url, error == nil else {
-                                return
-                            }
-                            let urlString = url.absoluteString
-                            UserDefaults.standard.set(urlString, forKey: "url")
-                            
-                            // save to firebase
-                            self.updateBGImage(urlString: urlString)
-                            
-                        })
-                        
-                    }
-                    print("Uploaded to firebase")
-                } else {
-                    print("There was an error.")
-                }
-            }
-            
+            compressImage(result: result)
         }
     }
     
-    // fetch background image from firebase
-    func downloadPhoto() {
-        
-        guard currentUserUID != nil else {
-            print("Error: can't find paring user in home VC")
-            return
-        }
-        
-        UserManager.shared.fetchUserData(userID: currentUserUID ?? "") { result in
-            switch result {
-            case .success(let user):
-                
-                let url = URL(string: user.userHomeBG)
-                self.bgImageView.kf.setImage(with: url)
-                
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+    func compressImage(result: PHPickerResult) {
+        result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+            
+            guard let image = image as? UIImage,
+                  let imageData = image.jpegData(compressionQuality: 0.5),
+                  let self = self,
+                  error == nil
+            else {
+                print("Error fetch image")
+                return
             }
+            
+            let imageName = NSUUID().uuidString
+            self.uploadImage(imageName: imageName, imageData: imageData)
+        }
+    }
+    
+    func uploadImage(imageName: String, imageData: Data) {
+        Storage.storage().reference().child("homeImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+            guard error == nil else {
+                print("Fail to upload image")
+                return
+            }
+            self.downloadImage(imageName: imageName)
+            print("Uploaded to firebase")
+        }
+    }
+    
+    func downloadImage(imageName: String) {
+        
+        Storage.storage().reference().child("homeImage/\(imageName).png").downloadURL { url, error in
+            
+            guard let url = url, error == nil else {
+                return
+            }
+            
+            let urlString = url.absoluteString
+            UserDefaults.standard.set(urlString, forKey: "url")
+            self.updateBGImage(urlString: urlString)
         }
     }
 }

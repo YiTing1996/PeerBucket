@@ -16,21 +16,17 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var liveTextLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
-
-    var eventTextField: UITextField = {
-        let textField = UITextField()
-        textField.isUserInteractionEnabled = false
-        textField.setTextField(placeholder: "Scan text will show here.")
-        return textField
-    }()
     
-    lazy var submitButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("SUBMIT", for: .normal)
-        button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
-        return button
-    }()
+    lazy var eventTextField: UITextField = create {
+        $0.isUserInteractionEnabled = false
+        $0.setTextField(placeholder: "Scan text will show here.")
+    }
+    
+    lazy var submitButton: UIButton = create {
+        $0.setTitle("SUBMIT", for: .normal)
+        $0.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
+    }
     
     let imagePicker = UIImagePickerController()
     
@@ -67,12 +63,12 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     private var cameraInputView: CameraKeyboard = {
-           let view = CameraKeyboard()
-           return view
+        let view = CameraKeyboard()
+        return view
     }()
     
     func configureUI() {
-
+        
         liveTextLabel.font = UIFont.bold(size: 20)
         liveTextLabel.textColor = .darkGray
         categoryLabel.textColor = .darkGray
@@ -92,7 +88,23 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
-    // MARK: - Firebase data process
+    @objc func tappedSubmitBtn() {
+        guard let title = self.eventTextField.text,
+              title != "",
+              let currentUserUID = currentUserUID,
+              let selectedRow = selectedRow
+        else {
+            return
+        }
+        
+        addBucketList(userID: currentUserUID, list: title, row: selectedRow)
+        self.presentAlert(title: "Congrats", message: "Successfully add list!", completion: {
+            self.view.window!.rootViewController?.dismiss(animated: true)
+        })
+        
+    }
+    
+    // MARK: - Firebase processor
     
     func getData(userID: String) {
         
@@ -100,28 +112,13 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                
                 self.userIDList = [userID]
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }
                 
-                self.bucketCategories = []
                 for userID in self.userIDList {
-                    BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
-                        
-                        guard let self = self else { return }
-                        
-                        switch result {
-                        case .success(let bucketLists):
-                            self.bucketCategories += bucketLists
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                        }
-                    }
+                    self.fetchBucketCategory(userID: userID)
                 }
                 
             case .failure(let error):
@@ -131,21 +128,30 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
-    @objc func tappedSubmitBtn() {
-        guard let title = self.eventTextField.text,
-              title != "",
-              let currentUserUID = currentUserUID,
-              let selectedRow = selectedRow
-        else {
-            return
+    func fetchBucketCategory(userID: String) {
+        self.bucketCategories = []
+        BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let bucketLists):
+                self.bucketCategories += bucketLists
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
-                
+    }
+    
+    func addBucketList(userID: String, list: String, row: Int) {
         var bucketList: BucketList = BucketList(
-            senderId: currentUserUID,
+            senderId: userID,
             createdTime: Date(),
             status: false,
-            list: title,
-            categoryId: bucketCategories[selectedRow].id,
+            list: list,
+            categoryId: bucketCategories[row].id,
             listId: "",
             images: []
         )
@@ -155,21 +161,14 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
             switch result {
             case .success:
                 self.presentAlert()
-//                self.presentAlert(title: "Congrats", message: "Successfully add list!", completion: {
-//                    self.view.window!.rootViewController?.dismiss(animated: true)
-//                })
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
-        
-        self.presentAlert(title: "Congrats", message: "Successfully add list!", completion: {
-            self.view.window!.rootViewController?.dismiss(animated: true)
-        })
-        
     }
+    
 }
- 
+
 // MARK: - TableView
 
 extension LiveTextController: UITableViewDelegate, UITableViewDataSource {

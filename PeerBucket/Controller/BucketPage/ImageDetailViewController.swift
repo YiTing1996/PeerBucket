@@ -32,25 +32,20 @@ class ImageDetailViewController: UIViewController {
     var memoryData: [MemoryData] = []
     var allBucketList: [BucketList] = []
     
-    lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon_func_next"), for: .normal)
-        button.addTarget(self, action: #selector(tappedNextBtn), for: .touchUpInside)
-        return button
-    }()
+    lazy var nextButton: UIButton = create {
+        $0.setImage(UIImage(named: "icon_func_next"), for: .normal)
+        $0.addTarget(self, action: #selector(tappedNextBtn), for: .touchUpInside)
+    }
     
-    var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.semiBold(size: 12)
-        label.textColor = .darkGreen
-        label.text = "Tap to play"
-        return label
-    }()
+    lazy var descriptionLabel: UILabel = create {
+        $0.font = UIFont.semiBold(size: 12)
+        $0.textColor = .darkGreen
+        $0.text = "Tap to play"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .darkGreen
         configureUI()
         fetchDate()
     }
@@ -93,6 +88,7 @@ class ImageDetailViewController: UIViewController {
     }
     
     func configureUI() {
+        view.backgroundColor = .darkGreen
         view.addSubview(nextButton)
         view.addSubview(descriptionLabel)
         nextButton.anchor(top: foreImageView.bottomAnchor, right: view.rightAnchor,
@@ -104,7 +100,6 @@ class ImageDetailViewController: UIViewController {
         dateLabel.font = UIFont.semiBold(size: 20)
         titleLabel.textColor = .darkGray
         dateLabel.textColor = .darkGray
-        
     }
     
     @objc func tappedNextBtn() {
@@ -115,10 +110,18 @@ class ImageDetailViewController: UIViewController {
                                               selector: #selector(self.playVideo),
                                               userInfo: nil, repeats: true)
             // Music
-            if let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") {
-                player = try? AVAudioPlayer(contentsOf: url)
-                player?.play()
+            guard let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") else {
+                print("Error find url")
+                return
             }
+            
+            player = try? AVAudioPlayer(contentsOf: url)
+            player?.play()
+            
+//            if let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") {
+//                player = try? AVAudioPlayer(contentsOf: url)
+//                player?.play()
+//            }
             
         } else {
             playSelect = true

@@ -60,7 +60,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var progressView: UIProgressView = create {
         $0.progressTintColor = UIColor.hightlightYellow
         $0.trackTintColor = UIColor.darkGreen
-        $0.progress = 0.8
+//        $0.progress = 0.8
     }
     
     lazy var titleLabel: UILabel = create {
@@ -170,9 +170,8 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         alertLabel.anchor(right: alertImageView.rightAnchor, paddingRight: 10,
                           width: 120, height: 100)
         
-        closeButton.anchor(top: alertImageView.topAnchor,
-                           right: alertImageView.rightAnchor, paddingTop: 5,
-                           paddingRight: 5)
+        closeButton.anchor(top: alertImageView.topAnchor, right: alertImageView.rightAnchor,
+                           paddingTop: 5, paddingRight: 5)
         
         closeButton.isHidden = true
         alertImageView.alpha = 0
