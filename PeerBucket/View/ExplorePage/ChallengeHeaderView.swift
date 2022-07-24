@@ -11,14 +11,12 @@ import UIKit
 class ChallengeHeaderView: UICollectionReusableView {
     static let identifier = "ChallengeHeaderView"
     
-    var headerLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .hightlightYellow
-        label.textColor = .white
-        label.font = UIFont.bold(size: 20)
-        label.text = " #CHALLENGE #BUCKET "
-        return label
-    }()
+    lazy var headerLabel: UILabel = create {
+        $0.backgroundColor = .hightlightYellow
+        $0.textColor = .white
+        $0.font = UIFont.bold(size: 20)
+        $0.text = " #CHALLENGE #BUCKET "
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

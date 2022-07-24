@@ -10,19 +10,15 @@ import Kingfisher
 
 class AddToBucketCollectionViewCell: UICollectionViewCell {
     
-    var categoryLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGreen
-        label.font = UIFont.semiBold(size: 18)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var categoryLabel: UILabel = create {
+        $0.textColor = .darkGreen
+        $0.font = UIFont.semiBold(size: 18)
+        $0.numberOfLines = 0
+    }
     
-    var categoryImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    lazy var categoryImageView: UIImageView = create {
+        $0.contentMode = .scaleAspectFit
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

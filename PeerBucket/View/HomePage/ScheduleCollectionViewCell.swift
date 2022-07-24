@@ -18,30 +18,23 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
     
     weak var delegate: ScheduleCollectionViewCellDelegate?
     
-    var dateLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGray
-        label.numberOfLines = 0
-        label.font = UIFont.semiBold(size: 13)
-        return label
-    }()
+    lazy var dateLabel: UILabel = create {
+        $0.textColor = .darkGray
+        $0.numberOfLines = 0
+        $0.font = UIFont.semiBold(size: 13)
+    }
     
-    var eventLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGreen
-        label.numberOfLines = 0
-        label.font = UIFont.semiBold(size: 18)
-        return label
-    }()
+    lazy var eventLabel: UILabel = create {
+        $0.textColor = .darkGreen
+        $0.numberOfLines = 0
+        $0.font = UIFont.semiBold(size: 18)
+    }
     
-    var avatarImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 30
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var avatarImageView: UIImageView = create {
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 30
+        $0.contentMode = .scaleAspectFill
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

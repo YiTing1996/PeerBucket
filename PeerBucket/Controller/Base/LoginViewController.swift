@@ -14,18 +14,18 @@ import AuthenticationServices
 
 class LoginViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var grayView: UIView!
     @IBOutlet weak var titleLabelGreen: UILabel!
     @IBOutlet weak var titleLabelGray: UILabel!
 
-    var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = .darkGray
-        label.font = UIFont.semiBold(size: 15)
-        label.text = "Signin means you agree on\nour policy below."
-        return label
-    }()
+    lazy var descriptionLabel: UILabel = create {
+        $0.numberOfLines = 0
+        $0.textColor = .darkGray
+        $0.font = UIFont.semiBold(size: 15)
+        $0.text = "Signin means you agree on\nour policy below."
+    }
     
     lazy var appleButton: ASAuthorizationAppleIDButton = {
         let button = ASAuthorizationAppleIDButton(type: .default, style: .black)
@@ -33,21 +33,34 @@ class LoginViewController: UIViewController {
         return button
     }()
     
-    lazy var privacyButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("PRIVACY", for: .normal)
-        button.addTarget(self, action: #selector(tappedPrivacyBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
-        return button
-    }()
+    lazy var privacyButton: UIButton = create {
+        $0.setTitle("PRIVACY", for: .normal)
+        $0.addTarget(self, action: #selector(tappedPrivacyBtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
+    }
     
-    lazy var eulaButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("EULA", for: .normal)
-        button.addTarget(self, action: #selector(tappedEULABtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
-        return button
-    }()
+    lazy var eulaButton: UIButton = create {
+        $0.setTitle("EULA", for: .normal)
+        $0.addTarget(self, action: #selector(tappedEULABtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
+    }
+    
+    lazy var dismissButton: UIButton = create {
+        $0.setTitle("Cancel", for: .normal)
+        $0.addTarget(self, action: #selector(tappedDismiss), for: .touchUpInside)
+        $0.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, border: 0, font: 15)
+    }
+        
+    private var currentNonce: String?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        configureUI()
+        view.backgroundColor = .darkGreen
+    }
+    
+    // MARK: - User interaction handler
     
     @objc func tappedPrivacyBtn() {
         let webVC = storyboard?.instantiateViewController(withIdentifier: "webVC")
@@ -61,23 +74,6 @@ class LoginViewController: UIViewController {
         guard let webVC = webVC as? WebViewController else { return }
         webVC.link = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
         self.present(webVC, animated: true)
-    }
-    
-    lazy var dismissButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Cancel", for: .normal)
-        button.addTarget(self, action: #selector(tappedDismiss), for: .touchUpInside)
-        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, border: 0, font: 15)
-        return button
-    }()
-        
-    private var currentNonce: String?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        configureUI()
-        view.backgroundColor = .darkGreen
     }
     
     @objc func tappedAppleBtn() {

@@ -12,12 +12,10 @@ class ChallengeCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "ChallengeCollectionViewCell"
     
-    var mainImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var mainImageView: UIImageView = create {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.contentMode = .scaleAspectFill
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

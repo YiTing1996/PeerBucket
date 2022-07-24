@@ -15,6 +15,8 @@ protocol AddScheduleViewControllerDelegate: AnyObject {
 
 class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
+    // MARK: - Properties
+
     weak var delegate: AddScheduleViewControllerDelegate?
     
     var selectedDate: Date?
@@ -53,6 +55,8 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         $0.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
     }
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,6 +92,8 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    // MARK: - User interaction processor
+
     @objc func didChangedDate(_ sender: UIDatePicker) {
         selectedDate = sender.date
     }

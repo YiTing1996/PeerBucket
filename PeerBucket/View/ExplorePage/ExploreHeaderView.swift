@@ -18,24 +18,13 @@ class ExploreHeaderView: UICollectionReusableView {
     
     weak var delegate: ExploreHeaderViewDelegate?
     
-    var headerStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 2
-        return stackView
-    }()
+    lazy var headerStack: UIStackView = create {
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+        $0.spacing = 2
+    }
     
     var headerButton: [UIButton] = []
-    var centerXConstraint = NSLayoutConstraint()
-    
-    var indicatorView: UIView = {
-        let indicatorView = UIView()
-        indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        indicatorView.backgroundColor = UIColor.hightlightYellow
-        return indicatorView
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,13 +40,11 @@ class ExploreHeaderView: UICollectionReusableView {
     
     private func configureUI() {
         addSubview(headerStack)
-//        addSubview(indicatorView)
         
-        for index in 0...2 {
+        for index in 0...buttonTitle.count-1 {
             let button = UIButton(type: .system)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle(buttonTitle[index], for: .normal)
-//            button.setTitleColor(UIColor.white, for: .normal)
             button.layer.cornerRadius = 10
             button.titleLabel?.font = UIFont.bold(size: 18)
             button.addTarget(self, action: #selector(didTappedButton), for: .touchUpInside)
@@ -77,18 +64,12 @@ class ExploreHeaderView: UICollectionReusableView {
         
         headerStack.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
                            paddingTop: 5, paddingLeft: 5, paddingRight: 5)
-//        indicatorView.anchor(top: headerStack.bottomAnchor, paddingTop: 5, width: 100, height: 5)
-//        centerXConstraint = indicatorView.centerXAnchor.constraint(equalTo: headerButton[0].centerXAnchor)
-//        centerXConstraint.isActive = true
 
     }
     
     @objc func didTappedButton(button: UIButton) {
         
         UIView.animate(withDuration: 0.3, animations: {
-//            self.centerXConstraint.isActive = false
-//            self.centerXConstraint = self.indicatorView.centerXAnchor.constraint(equalTo: button.centerXAnchor)
-//            self.centerXConstraint.isActive = true
             
             for btn in self.headerButton {
                 if btn == button {

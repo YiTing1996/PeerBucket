@@ -10,7 +10,9 @@ import UIKit
 import AVFoundation
 
 class LaunchViewController: UIViewController {
-        
+    
+    // MARK: - Properties
+
     var player: AVPlayer = {
         guard let path = Bundle.main.path(forResource: "launchScreen", ofType: "mp4") else {
             fatalError("Invalid Video path")
@@ -25,6 +27,8 @@ class LaunchViewController: UIViewController {
         return playerLayer
     }()
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         

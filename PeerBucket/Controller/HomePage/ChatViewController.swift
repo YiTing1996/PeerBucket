@@ -15,7 +15,9 @@ import IQKeyboardManagerSwift
 
 class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                           MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
-        
+    
+    // MARK: - Properties
+
     lazy var backButton: UIButton = create {
         $0.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         $0.addTarget(self, action: #selector(tappedBackBtn), for: .touchUpInside)
@@ -32,6 +34,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     var currentUser: User?
     var messages: [Message] = []
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +66,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         IQKeyboardManager.shared.enable = true
     }
     
+    // MARK: - Configure UI
+
     func configureChatRoomUI() {
         self.title = "Chat"
         navigationItem.leftBarButtonItem = menuBarItem
@@ -72,6 +78,8 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         messageInputBar.inputTextView.textColor = .white
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedBackBtn() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -81,7 +89,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         return true
     }
 
-    // MARK: - Firebase processor
+    // MARK: - Firebase handler
     
     func fetchUserData(userID: String) {
         

@@ -13,97 +13,77 @@ import Kingfisher
 
 class ProfileViewController: UIViewController {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
     
-    var backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .darkGreen
-        view.layer.cornerRadius = 30
-        return view
-    }()
+    lazy var backgroundView: UIView = create {
+        $0.backgroundColor = .darkGreen
+        $0.layer.cornerRadius = 30
+    }
     
-    var avatarImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var avatarImageView: UIImageView = create {
+        $0.contentMode = .scaleAspectFill
+    }
     
-    var inviteView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
-        view.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
-        return view
-    }()
+    lazy var inviteView: UIView = create {
+        $0.backgroundColor = .lightGray
+        $0.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
+        $0.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
+    }
     
-    var inviteLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGreen
-        label.text = "Invite Partner"
-        label.font = UIFont.bold(size: 28)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var inviteLabel: UILabel = create {
+        $0.textColor = .darkGreen
+        $0.text = "Invite Partner"
+        $0.font = UIFont.bold(size: 28)
+        $0.numberOfLines = 0
+    }
     
-    lazy var inviteButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Scan QRCode", for: .normal)
-        button.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
-        return button
-    }()
+    lazy var inviteButton: UIButton = create {
+        $0.setTitle("Scan QRCode", for: .normal)
+        $0.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+    }
     
-    lazy var myQRButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Show QRCode", for: .normal)
-        button.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
-        return button
-    }()
+    lazy var myQRButton: UIButton = create {
+        $0.setTitle("Show QRCode", for: .normal)
+        $0.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+    }
     
-    var profileView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
-        view.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
-        return view
-    }()
+    lazy var profileView: UIView = create {
+        $0.backgroundColor = .lightGray
+        $0.setCornerRadius(borderColor: UIColor.darkGreen.cgColor, width: 0.7, radius: 10)
+        $0.setShadow(color: .darkGreen, opacity: 0.1, radius: 3, offset: CGSize(width: 2, height: 2))
+    }
     
-    var profileLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGreen
-        label.text = "Edit\nProfile"
-        label.font = UIFont.bold(size: 28)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var profileLabel: UILabel = create {
+        $0.textColor = .darkGreen
+        $0.text = "Edit\nProfile"
+        $0.font = UIFont.bold(size: 28)
+        $0.numberOfLines = 0
+    }
     
-    lazy var nameButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Edit Name", for: .normal)
-        button.addTarget(self, action: #selector(tappedNameBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
-        return button
-    }()
+    lazy var nameButton: UIButton = create {
+        $0.setTitle("Edit Name", for: .normal)
+        $0.addTarget(self, action: #selector(tappedNameBtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+    }
     
-    lazy var avatarButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Edit Avatar", for: .normal)
-        button.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
-        return button
-    }()
+    lazy var avatarButton: UIButton = create {
+        $0.setTitle("Edit Avatar", for: .normal)
+        $0.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+    }
     
-    var nameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGreen
-        label.text = "Welcome!"
-        label.font = UIFont.bold(size: 32)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var nameLabel: UILabel = create {
+        $0.textColor = .darkGreen
+        $0.text = "Welcome!"
+        $0.font = UIFont.bold(size: 32)
+        $0.numberOfLines = 0
+    }
     
     lazy var settingButton: UIButton = {
         let button = UIButton(type: .system)
@@ -131,6 +111,8 @@ class ProfileViewController: UIViewController {
     
     var currentUser: User?
     var paringUser: User?
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -162,6 +144,14 @@ class ProfileViewController: UIViewController {
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2.08
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? QRCodeViewController {
+            destination.delegate = self
+        }
+    }
+    
+    // MARK: - Configure UI
     
     func configureUI() {
         
@@ -224,11 +214,31 @@ class ProfileViewController: UIViewController {
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? QRCodeViewController {
-            destination.delegate = self
+    func updateUserUI(identityType: IdentityType, user: User) {
+        switch identityType {
+        case .currentUser:
+            self.currentUser = user
+            
+            if user.userAvatar != "" {
+                let url = URL(string: user.userAvatar)
+                self.avatarImageView.kf.setImage(with: url)
+            } else {
+                self.avatarImageView.image = UIImage(named: "default_avatar")
+            }
+            
+            if user.userName != "" {
+                self.nameLabel.text = "Hi \(user.userName) !"
+            }
+            if user.paringUser != [] {
+                self.fetchUserData(identityType: .paringUser,
+                                   userID: self.currentUser!.paringUser[0])
+            }
+        case .paringUser:
+            self.paringUser = user
         }
     }
+    
+    // MARK: - User interaction handler
     
     @objc func tappedInviteBtn() {
         guard currentUser?.paringUser == [] else {
@@ -265,8 +275,6 @@ class ProfileViewController: UIViewController {
         self.present(webVC, animated: true)
     }
     
-    // MARK: - Firebase data process
-    
     @objc func tappedSignoutBtn() {
         do {
             try Auth.auth().signOut()
@@ -293,13 +301,8 @@ class ProfileViewController: UIViewController {
                 return
             }
             
-            let user = User(userID: currentUser.userID,
-                            userAvatar: currentUser.userAvatar,
-                            userHomeBG: currentUser.userHomeBG,
-                            userName: name,
-                            paringUser: currentUser.paringUser)
-            
-            self.updateUserData(identityType: .currentUser, user: user)
+            self.updatedName = name
+            self.checkUserInfo(element: .name, identityType: .currentUser, user: currentUser)
         }
     }
     
@@ -314,21 +317,9 @@ class ProfileViewController: UIViewController {
                 return
             }
             
-            // update my paring status
-            let user1 = User(userID: currentUser.userID,
-                             userAvatar: currentUser.userAvatar,
-                             userHomeBG: currentUser.userHomeBG,
-                             userName: currentUser.userName,
-                             paringUser: [])
-            self.updateUserData(identityType: .currentUser, user: user1)
-            
-            // update paring user's paring status
-            let user2 = User(userID: paringUser.userID,
-                             userAvatar: paringUser.userAvatar,
-                             userHomeBG: paringUser.userHomeBG,
-                             userName: paringUser.userName,
-                             paringUser: [])
-            self.updateUserData(identityType: .paringUser, user: user2)
+            // update paring user status
+            self.checkUserInfo(element: .paring, identityType: .currentUser, user: currentUser)
+            self.checkUserInfo(element: .paring, identityType: .paringUser, user: paringUser)
         }
     }
     
@@ -339,49 +330,70 @@ class ProfileViewController: UIViewController {
             
             Auth.auth().currentUser?.delete { error in
                 
-                if let error = error {
+                guard error == nil else {
+                    let authErr = AuthErrorCode.Code(rawValue: error!._code)
                     
-                    let authErr = AuthErrorCode.Code(rawValue: error._code)
+                    guard authErr == .requiresRecentLogin else { return }
                     
-                    if authErr == .requiresRecentLogin {
-                        // authentication
-                        self.presentActionAlert(action: "Login",
-                                                title: "Authentication Required",
-                                                message: """
-                                                Delete account requires authentication which needs to relogin.
-                                                Do you want to login again?
-                                                """) {
-                            // Signout
-                            self.tappedSignoutBtn()
-                        }
-                    }
-                    
-                } else {
-                    
-                    print("Successfully delete account")
-                    guard let currentUserUID = currentUserUID else {
-                        return
-                    }
-                    
-                    self.deleteUserData(userID: currentUserUID)
-                    
-                    // Disconnet partner
-                    guard let paringUser = self.paringUser
-                    else {
-                        return
-                    }
-                    
-                    let user2 = User(userID: paringUser.userID,
-                                     userAvatar: paringUser.userAvatar,
-                                     userHomeBG: paringUser.userHomeBG,
-                                     userName: paringUser.userName,
-                                     paringUser: [])
-                    self.updateUserData(identityType: .paringUser, user: user2)
+                    self.presentActionAlert(action: "Login",
+                                            title: "Authentication Required",
+                                            message: """
+                                            Delete account requires authentication
+                                            which needs to relogin.
+                                            Do you want to login again?
+                                            """) {
+                        self.tappedSignoutBtn() }
+                    return
                 }
+                
+                // Delete account
+                guard let currentUserUID = currentUserUID else { return }
+                print("Successfully delete account")
+                self.deleteUserData(userID: currentUserUID)
+                
+                // Disconnet partner
+                guard let paringUser = self.paringUser else { return }
+                self.checkUserInfo(element: .paring, identityType: .paringUser, user: paringUser)
             }
         }
+    }
+    
+    // MARK: - Firebase handler
+    
+    func checkUserInfo(element: CheckElement, identityType: IdentityType, user: User) {
+        
+        switch element {
+        case .paring:
+            updatedParing = []
+            updatedName = user.userName
+        case .name:
+            updatedParing = user.paringUser
+        default:
+            break
+        }
+        
+        let updatedUser = formateDataModal(user: user)
+        guard let updatedUser = updatedUser else {
+            return
+        }
+        updateUserData(identityType: identityType, user: updatedUser)
+    }
+    
+    func formateDataModal(user: User?) -> User? {
+        
+        let newUserData: User = User(
+            userID: user?.userID ?? "",
+            userAvatar: user?.userAvatar ?? "",
+            userHomeBG: user?.userHomeBG ?? "",
+            userName: updatedName ?? user?.userName ?? "",
+            paringUser: updatedParing ?? user?.paringUser ?? []
+        )
+        return newUserData
         
     }
+    
+    var updatedName: String?
+    var updatedParing: [String]?
     
     func deleteUserData(userID: String) {
         UserManager.shared.deleteUserData(uid: userID, completion: { [weak self] result in
@@ -412,28 +424,7 @@ class ProfileViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                //                print("successfully find user in inviteVC")
-                switch identityType {
-                case .currentUser:
-                    self.currentUser = user
-                    
-                    if user.userAvatar != "" {
-                        let url = URL(string: user.userAvatar)
-                        self.avatarImageView.kf.setImage(with: url)
-                    } else {
-                        self.avatarImageView.image = UIImage(named: "default_avatar")
-                    }
-                    
-                    if user.userName != "" {
-                        self.nameLabel.text = "Hi, \(user.userName)"
-                    }
-                    if user.paringUser != [] {
-                        self.fetchUserData(identityType: .paringUser,
-                                           userID: self.currentUser!.paringUser[0])
-                    }
-                case .paringUser:
-                    self.paringUser = user
-                }
+                self.updateUserUI(identityType: identityType, user: user)
             case .failure(let error):
                 self.presentAlert(title: "Error",
                                   message: error.localizedDescription + " Please try again")
@@ -450,7 +441,7 @@ class ProfileViewController: UIViewController {
                 switch identityType {
                 case .currentUser:
                     DispatchQueue.main.async {
-                        self.nameLabel.text = "Hi \(user.userName)!"
+                        self.nameLabel.text = "Hi \(user.userName) !"
                     }
                 case .paringUser:
                     break

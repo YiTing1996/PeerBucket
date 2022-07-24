@@ -9,6 +9,8 @@ import UIKit
 
 class ExploreViewController: UIViewController {
     
+    // MARK: - Properties
+    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
         collectionView.register(ExploreCollectionViewCell.self, forCellWithReuseIdentifier: ExploreCollectionViewCell.identifier)
@@ -25,14 +27,12 @@ class ExploreViewController: UIViewController {
     }()
     
     lazy var imageView: UIImageView = create {
-//        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.clipsToBounds = true
         $0.image = UIImage(named: "mock_avatar")
         $0.layer.cornerRadius = 20
     }
     
     lazy var nameLabel: UILabel = create {
-//        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.text = "Recommend Bucket To You"
         $0.textColor = .darkGreen
         $0.font = UIFont.bold(size: 30)
@@ -54,7 +54,6 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         configureUI()
     }
     

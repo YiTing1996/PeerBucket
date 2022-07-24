@@ -10,19 +10,14 @@ import Kingfisher
 
 class LiveTextTableViewCell: UITableViewCell {
 
-    var categoryImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var categoryImageView: UIImageView = create {
+        $0.contentMode = .scaleAspectFill
+    }
     
-    var categoryLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.semiBold(size: 18)
-        label.textColor = .darkGray
-        return label
-    }()
+    lazy var categoryLabel: UILabel = create {
+        $0.font = UIFont.semiBold(size: 18)
+        $0.textColor = .darkGray
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

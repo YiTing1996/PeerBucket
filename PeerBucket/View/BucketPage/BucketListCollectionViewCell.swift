@@ -10,21 +10,15 @@ import Kingfisher
 
 class BucketListCollectionViewCell: UICollectionViewCell {
     
-    var categoryLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .darkGray
-        label.font = UIFont.semiBold(size: 20)
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var categoryLabel: UILabel = create {
+        $0.textColor = .darkGray
+        $0.font = UIFont.semiBold(size: 20)
+        $0.numberOfLines = 0
+    }
     
-    var categoryImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var categoryImageView: UIImageView = create {
+        $0.contentMode = .scaleAspectFill
+    }
         
     override func awakeFromNib() {
         super.awakeFromNib()

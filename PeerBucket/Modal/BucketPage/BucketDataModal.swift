@@ -8,10 +8,11 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-protocol BaseObject {
-    var listId: String {
-        get set
-    }
+enum CheckElement: String {
+    case image
+    case status
+    case paring
+    case name
 }
 
 struct BucketCategory: Codable {
@@ -38,7 +39,7 @@ struct BucketCategory: Codable {
     }
 }
 
-struct BucketList: Codable, Equatable, BaseObject {
+struct BucketList: Codable, Equatable {
     
     var senderId: String
     var createdTime: Date

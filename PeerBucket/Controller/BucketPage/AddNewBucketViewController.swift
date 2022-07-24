@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import FirebaseStorage
 import FirebaseAuth
 
 protocol AddNewBucketDelegate: AnyObject {
@@ -17,10 +16,10 @@ protocol AddNewBucketDelegate: AnyObject {
 class AddNewBucketViewController: UIViewController, UIImagePickerControllerDelegate,
                                     UINavigationControllerDelegate {
     
+    // MARK: - Properties
+
     weak var delegate: AddNewBucketDelegate?
-    
-    private let storage = Storage.storage().reference()
-            
+                
     lazy var iconLabel: UILabel = create {
         $0.textColor = .darkGray
         $0.font = UIFont.semiBold(size: 20)
@@ -63,12 +62,16 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     var selectedIconIndex: Int?
     var iconUrlString: String = ""
     var iconButton: [UIButton] = []
-    var iconButtonImage: [String] = ["icon_bucket_travel", "icon_bucket_movie", "icon_bucket_shopping",
-                                     "icon_bucket_swim", "icon_bucket_mountain", "icon_bucket_guitar",
-                                     "icon_bucket_book", "icon_bucket_favi", "icon_bucket_mountain2",
-                                     "icon_bucket_basketball", "icon_bucket_game", "icon_bucket_cook",
-                                     "icon_bucket_bar", "icon_bucket_diving"]
+    var iconButtonImage: [String] = [
+        "icon_bucket_travel", "icon_bucket_movie", "icon_bucket_shopping",
+        "icon_bucket_swim", "icon_bucket_mountain", "icon_bucket_guitar",
+        "icon_bucket_book", "icon_bucket_favi", "icon_bucket_mountain2",
+        "icon_bucket_basketball", "icon_bucket_game", "icon_bucket_cook",
+        "icon_bucket_bar", "icon_bucket_diving"
+    ]
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -76,7 +79,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         
     }
     
-    // MARK: - UI processor
+    // MARK: - UI handler
 
     func configureUI() {
         view.backgroundColor = .lightGray
@@ -130,7 +133,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         
     }
     
-    // MARK: - User interaction processor
+    // MARK: - User interaction handler
 
     @objc func tappedIconBtn(_ sender: UIButton) {
         sender.layer.borderWidth = 3
@@ -166,7 +169,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         delegate?.didTappedClose()
     }
     
-    // MARK: - Firebase processor
+    // MARK: - Firebase handler
 
     func addBucketCategory(userID: String, category: String) {
         var bucketCategory: BucketCategory = BucketCategory(
@@ -187,7 +190,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
         }
     }
     
-    // MARK: - Photo processor
+    // MARK: - Image handler
 
     func downloadIconImage() {
         

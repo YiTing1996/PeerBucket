@@ -12,6 +12,8 @@ import Lottie
 
 class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
@@ -60,7 +62,6 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var progressView: UIProgressView = create {
         $0.progressTintColor = UIColor.hightlightYellow
         $0.trackTintColor = UIColor.darkGreen
-//        $0.progress = 0.8
     }
     
     lazy var titleLabel: UILabel = create {
@@ -88,7 +89,9 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     var progress: Float?
     
     var userIDList: [String] = []
-        
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -121,7 +124,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // MARK: - UI processor
+    // MARK: - Configure UI
 
     func configureUI() {
         self.view.backgroundColor = .lightGray
@@ -196,7 +199,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // MARK: - User interaction processor
+    // MARK: - User interaction handler
 
     @objc func tappedCloseBtn() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
@@ -257,7 +260,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // MARK: - Firebase processor
+    // MARK: - Firebase handler
     
     func fetchUser(userID: String) {
         

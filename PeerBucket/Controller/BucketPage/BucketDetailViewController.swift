@@ -8,11 +8,12 @@
 import Foundation
 import UIKit
 import PhotosUI
-import FirebaseStorage
 import Lottie
 
 class BucketDetailViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
@@ -47,11 +48,6 @@ class BucketDetailViewController: UIViewController {
     
     lazy var menuBarItem = UIBarButtonItem(customView: self.memoryButton)
     
-    enum CheckElement: String {
-        case image
-        case status
-    }
-    
     var updatedImages: [String]?
     var updatedStatus: Bool?
     var updatedDate: Date?
@@ -67,6 +63,8 @@ class BucketDetailViewController: UIViewController {
     
     var scheduleVC = AddScheduleViewController()
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -271,6 +269,8 @@ class BucketDetailViewController: UIViewController {
                 updatedDate = Date()
                 updatedStatus = true
             }
+        default:
+            break
         }
         
         let updatedBucketList = formateDataModal(bucketList: bucketList)
@@ -425,7 +425,7 @@ extension BucketDetailViewController: PHPickerViewControllerDelegate {
     }
     
     func uploadImage(imageName: String, imageData: Data) {
-        Storage.storage().reference().child("listImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+        storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
             guard error == nil else {
                 print("Fail to upload image")
                 return
@@ -437,7 +437,7 @@ extension BucketDetailViewController: PHPickerViewControllerDelegate {
     
     func downloadImage(imageName: String) {
         
-        Storage.storage().reference().child("listImage/\(imageName).png").downloadURL { url, error in
+        storage.child("listImage/\(imageName).png").downloadURL { url, error in
             
             guard let url = url, error == nil else {
                 return

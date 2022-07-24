@@ -13,6 +13,8 @@ import Firebase
 
 class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    // MARK: - Properties
+
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -45,7 +47,9 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     var datesWithEventString: [String] = []
     var datesWithEvent: [Schedule] = []
     var monthWithEvent: [Schedule] = []
-        
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,6 +71,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         tabBarController?.tabBar.isHidden = false
     }
     
+    // MARK: - Configue UI
+
     func configueCalendarUI() {
         
         self.view.backgroundColor = .lightGray
@@ -118,6 +124,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    // MARK: - User interaction handler
+
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state != UIGestureRecognizer.State.ended {
             return
@@ -138,7 +146,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    // MARK: - Firebase processor
+    // MARK: - Firebase handler
     
     // get user data and event of the month by self & paring user ID
     func getData(userID: String, date: Date) {

@@ -11,6 +11,8 @@ import SwiftUI
 
 class ChallengeViewController: UIViewController {
     
+    // MARK: - Properties
+
     var bgView = ChallengeUIView()
     var bgImage: String = ""
     
@@ -32,6 +34,8 @@ class ChallengeViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - Configure UI
+
     func configureUI() {
         view.backgroundColor = .lightGray
         view.addSubview(bgView)
@@ -59,6 +63,8 @@ class ChallengeViewController: UIViewController {
         
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedClearBtn() {
         bgView.clearCanvas()
     }

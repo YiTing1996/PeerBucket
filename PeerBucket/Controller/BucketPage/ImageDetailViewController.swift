@@ -19,6 +19,8 @@ struct MemoryData {
 
 class ImageDetailViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var foreImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -43,6 +45,8 @@ class ImageDetailViewController: UIViewController {
         $0.text = "Tap to play"
     }
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,6 +66,8 @@ class ImageDetailViewController: UIViewController {
         player?.pause()
     }
     
+    // MARK: - Firebase data handler
+
     func fetchDate() {
         
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
@@ -87,6 +93,8 @@ class ImageDetailViewController: UIViewController {
         }
     }
     
+    // MARK: - UI handler
+
     func configureUI() {
         view.backgroundColor = .darkGreen
         view.addSubview(nextButton)
@@ -102,6 +110,8 @@ class ImageDetailViewController: UIViewController {
         dateLabel.textColor = .darkGray
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedNextBtn() {
         
         if playSelect {
@@ -117,11 +127,6 @@ class ImageDetailViewController: UIViewController {
             
             player = try? AVAudioPlayer(contentsOf: url)
             player?.play()
-            
-//            if let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") {
-//                player = try? AVAudioPlayer(contentsOf: url)
-//                player?.play()
-//            }
             
         } else {
             playSelect = true

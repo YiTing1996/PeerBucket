@@ -13,6 +13,9 @@ import AVFoundation
 
 class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    
+    // MARK: - Properties
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var liveTextLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -28,12 +31,19 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         $0.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
     }
     
+    private var cameraInputView: CameraKeyboard = {
+        let view = CameraKeyboard()
+        return view
+    }()
+    
     let imagePicker = UIImagePickerController()
     
     var bucketCategories: [BucketCategory] = []
     var userIDList: [String] = []
     var selectedRow: Int?
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,10 +72,7 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         cameraInputView.stopCamera()
     }
     
-    private var cameraInputView: CameraKeyboard = {
-        let view = CameraKeyboard()
-        return view
-    }()
+    // MARK: - Configure UI
     
     func configureUI() {
         
@@ -88,6 +95,8 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedSubmitBtn() {
         guard let title = self.eventTextField.text,
               title != "",
@@ -104,7 +113,7 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
-    // MARK: - Firebase processor
+    // MARK: - Firebase handler
     
     func getData(userID: String) {
         

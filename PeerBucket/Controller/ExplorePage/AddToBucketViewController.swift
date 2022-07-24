@@ -15,6 +15,8 @@ protocol AddToBucketViewControllerDelegate: AnyObject {
 
 class AddToBucketViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var collectionView: UICollectionView!
     
     weak var delegate: AddToBucketViewControllerDelegate?
@@ -35,7 +37,8 @@ class AddToBucketViewController: UIViewController {
         $0.numberOfLines = 0
     }
     
-    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,6 +58,8 @@ class AddToBucketViewController: UIViewController {
         
     }
     
+    // MARK: - Configure UI
+
     func configureUI() {
         
         view.layer.cornerRadius = 30
@@ -73,7 +78,7 @@ class AddToBucketViewController: UIViewController {
         delegate?.didTappedClose()
     }
     
-    // MARK: - Firebase data process
+    // MARK: - Firebase data handler
     
     func getData(userID: String) {
         

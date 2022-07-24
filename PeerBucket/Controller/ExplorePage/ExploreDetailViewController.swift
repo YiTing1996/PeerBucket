@@ -11,6 +11,8 @@ import FirebaseAuth
 
 class ExploreDetailViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
@@ -24,7 +26,6 @@ class ExploreDetailViewController: UIViewController {
         $0.layer.cornerRadius = 20
         $0.backgroundColor = .darkGreen
         $0.alpha = 0.95
-//        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
     lazy var webButton: UIButton = create {
@@ -47,6 +48,8 @@ class ExploreDetailViewController: UIViewController {
         $0.addTarget(self, action: #selector(tappedCollectBtn), for: .touchUpInside)
     }
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -82,6 +85,8 @@ class ExploreDetailViewController: UIViewController {
         }
     }
     
+    // MARK: - Configure UI
+
     func configureUI() {
         tableView.backgroundColor = .lightGray
         view.backgroundColor = .lightGray
@@ -118,6 +123,8 @@ class ExploreDetailViewController: UIViewController {
         ratingLabel.text = content?.rating
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedCollectBtn() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = 0

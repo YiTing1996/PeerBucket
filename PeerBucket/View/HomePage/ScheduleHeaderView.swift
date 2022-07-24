@@ -17,19 +17,15 @@ class ScheduleHeaderView: UICollectionReusableView {
     
     weak var delegate: ScheduleHeaderViewDelegate?
     
-    var headerLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGray
-        label.font = UIFont.semiBold(size: 20)
-        return label
-    }()
+    lazy var headerLabel: UILabel = create {
+        $0.textColor = .darkGray
+        $0.font = UIFont.semiBold(size: 20)
+    }
     
-    lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
-        button.setImage(UIImage(named: "icon_func_add"), for: .normal)
-        return button
-    }()
+    lazy var addButton: UIButton = create {
+        $0.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
+        $0.setImage(UIImage(named: "icon_func_add"), for: .normal)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
