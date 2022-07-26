@@ -13,7 +13,6 @@ import AVFoundation
 
 class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    
     // MARK: - Properties
     
     @IBOutlet weak var tableView: UITableView!

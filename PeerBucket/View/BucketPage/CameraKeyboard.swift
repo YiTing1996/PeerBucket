@@ -101,7 +101,7 @@ class CameraKeyboard: UIView {
         ])
     }
 
-    // MARK: keyboard
+    // MARK: - keyboard
     @objc
     private func keyboardWillShow(_ notification: UIKit.Notification) {
         guard
@@ -119,7 +119,7 @@ class CameraKeyboard: UIView {
         stopCamera()
     }
 
-    // MARK: Camera
+    // MARK: - Camera
     public func startCamera() {
         AVCaptureDevice.requestAccess(for: AVMediaType.video) { [weak self] response in
             guard let self = self else { return }
@@ -212,7 +212,7 @@ class CameraKeyboard: UIView {
         videoOutput.connections.first?.videoOrientation = .portrait
     }
 
-    // MARK: text recognition
+    // MARK: - text recognition
     private func detectText(buffer: CVPixelBuffer) {
         let request = VNRecognizeTextRequest(completionHandler: textRecognitionHandler)
         request.recognitionLanguages = ["zh-Hant", "en-US"]

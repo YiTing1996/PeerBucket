@@ -43,7 +43,6 @@ class ExploreHeaderView: UICollectionReusableView {
         
         for index in 0...buttonTitle.count-1 {
             let button = UIButton(type: .system)
-            button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle(buttonTitle[index], for: .normal)
             button.layer.cornerRadius = 10
             button.titleLabel?.font = UIFont.bold(size: 18)

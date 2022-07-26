@@ -77,7 +77,7 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
     lazy var buttonHStack: UIStackView = create {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
-        $0.spacing = 5
+        $0.spacing = 6
     }
     
     var bucketCategories: [BucketCategory] = []
@@ -136,9 +136,9 @@ class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
         view.addSubview(progressLabel)
         view.addSubview(titleLabel)
 
-        buttonHStack.addArrangedSubview(addCategoryButton)
         buttonHStack.addArrangedSubview(randomPickButton)
         buttonHStack.addArrangedSubview(liveTextButton)
+        buttonHStack.addArrangedSubview(addCategoryButton)
 
         blackView.backgroundColor = .black
 
