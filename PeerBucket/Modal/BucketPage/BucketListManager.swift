@@ -123,7 +123,6 @@ class BucketListManager {
         
         let document = dataBase.collection("bucketList").document()
         bucketList.listId = document.documentID
-        bucketList.createdTime = Date()
         
         document.setData(bucketList.toDict) { error in
             

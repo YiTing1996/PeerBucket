@@ -13,6 +13,8 @@ import Firebase
 
 class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
+    // MARK: - Properties
+
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
@@ -33,37 +35,23 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         return collectionView
     }()
     
-    lazy var longPressGesture: UILongPressGestureRecognizer = {
-        let gesture = UILongPressGestureRecognizer()
-        gesture.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
-        gesture.minimumPressDuration = 0.5
-        gesture.delaysTouchesBegan = true
-        gesture.delegate = self
-        return gesture
-    }()
-        
-    var currentUserUID: String?
-    
-    var userIDList: [String] = [] {
-        didSet {
-//            scheduleListenerNotification()
-        }
+    lazy var longPressGesture: UILongPressGestureRecognizer = create {
+        $0.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
+        $0.minimumPressDuration = 0.5
+        $0.delaysTouchesBegan = true
+        $0.delegate = self
     }
-    
+        
+    var userIDList: [String] = []
+
     var datesWithEventString: [String] = []
     var datesWithEvent: [Schedule] = []
     var monthWithEvent: [Schedule] = []
+    
+    // MARK: - Lifecycle
 
-    var screenWidth = UIScreen.main.bounds.width
-        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         configueCalendarUI()
         configureUI()
@@ -83,6 +71,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         tabBarController?.tabBar.isHidden = false
     }
     
+    // MARK: - Configue UI
+
     func configueCalendarUI() {
         
         self.view.backgroundColor = .lightGray
@@ -114,7 +104,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         
         blackView.backgroundColor = .black
         blackView.alpha = 0
-        menuBottomConstraint.constant = -500
+        menuBottomConstraint.constant = hideMenuBottomConstraint
         containerView.layer.cornerRadius = 10
         
         view.addSubview(collectionView)
@@ -134,6 +124,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    // MARK: - User interaction handler
+
     @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state != UIGestureRecognizer.State.ended {
             return
@@ -142,20 +134,19 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         let location = gestureReconizer.location(in: self.collectionView)
         let indexPath = self.collectionView.indexPathForItem(at: location)
         
-        if let indexPath = indexPath {
-            
-            self.presentActionAlert(action: "Delete", title: "Delete Event",
-                                    message: "Do you want to delete this event?") {
-                let deleteId = self.datesWithEvent[indexPath.row].id
-                self.deleteEvent(deleteId: deleteId, row: indexPath.row)
-            }
-            
-        } else {
+        guard let indexPath = indexPath else {
             print("Could not find index path")
+            return
+        }
+
+        self.presentActionAlert(action: "Delete", title: "Delete Event",
+                                message: "Do you want to delete this event?") {
+            let deleteId = self.datesWithEvent[indexPath.row].id
+            self.deleteEvent(deleteId: deleteId, row: indexPath.row)
         }
     }
     
-    // MARK: - Firebase data process
+    // MARK: - Firebase handler
     
     // get user data and event of the month by self & paring user ID
     func getData(userID: String, date: Date) {
@@ -229,7 +220,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.datesWithEvent.remove(at: row)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
-                    self.getData(userID: self.currentUserUID ?? "",
+                    self.getData(userID: currentUserUID ?? "",
                                  date: self.calendar.selectedDate ?? Date())
                 }
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
@@ -345,7 +336,7 @@ extension ScheduleViewController: AddScheduleViewControllerDelegate {
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = -500
+            self.menuBottomConstraint.constant = hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
         

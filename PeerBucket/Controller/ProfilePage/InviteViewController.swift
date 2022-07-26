@@ -12,37 +12,30 @@ import FirebaseAuth
 
 class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    var qrCodeFrameView: UIView = {
-        let view = UIView()
-        view.layer.borderColor = UIColor.green.cgColor
-        view.layer.borderWidth = 2
-        return view
-    }()
+    // MARK: - Properties
+
+    lazy var qrCodeFrameView: UIView = create {
+        $0.layer.borderColor = UIColor.green.cgColor
+        $0.layer.borderWidth = 2
+    }
     
     var captureSession = AVCaptureSession()
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
     var currentUser: User?
     var paringUser: User?
-    var currentUserUID: String?
     var paringUserName: String = ""
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         callingScanner()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
-        
+
         guard let currentUserUID = currentUserUID else {
             return
         }
         
-//        fetchUserData(identityType: .currentUser, userID: currentUserUID)
-
         fetchUserData(userID: currentUserUID)
         
     }
@@ -62,8 +55,8 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         self.tabBarController?.tabBar.isHidden = false
     }
-    
-    // MARK: - Firebase data process
+        
+    // MARK: - Firebase handler
     
     func addSelfParing(paringUserID: String) {
         
@@ -110,20 +103,11 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     func fetchUserData(userID: String) {
-//    func fetchUserData(identityType: IdentityType, userID: String) {
-        
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.currentUser = user
-//                self.currentUser = user
-//                switch identityType {
-//                case .currentUser:
-//                    self.currentUser = user
-//                case .paringUser:
-//                    self.paringUser = user
-//                }
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("can't find user in inviteVC")
@@ -145,13 +129,13 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                     title: "Invite your BucketPeer to chat and share bucket list!",
                     message: "Do you want to invite user \(self.paringUserName)?") {
                         
-                        guard self.currentUserUID != nil else {
+                        guard currentUserUID != nil else {
                             print("Error: can't find paring user in invite VC")
                             return
                         }
                         
                         self.addSelfParing(paringUserID: userID )
-                        self.addOthersParing(paringUserID: self.currentUserUID ?? "")
+                        self.addOthersParing(paringUserID: currentUserUID ?? "")
                         
                         let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
                         guard let tabBarVC = tabBarVC as? TabBarController else { return }
@@ -173,17 +157,16 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
 extension InviteViewController {
     
     func callingScanner() {
-        // 取得後置鏡頭來擷取影片
+        
         guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             print("Failed to get the camera device")
             return
         }
         
         do {
-            // 使用前一個裝置物件來取得 AVCaptureDeviceInput 類別的實例
+            
             let input = try AVCaptureDeviceInput(device: captureDevice)
             
-            // 在擷取 session 設定輸入裝置
             captureSession.addInput(input)
             
         } catch {
@@ -191,15 +174,12 @@ extension InviteViewController {
             return
         }
         
-        // 初始化一個 AVCaptureMetadataOutput 物件並將其設定做為擷取 session 的輸出裝置
         let captureMetadataOutput = AVCaptureMetadataOutput()
         captureSession.addOutput(captureMetadataOutput)
         
-        // 設定委派並使用預設的調度佇列來執行回呼（call back）
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
         
-        // 初始化影片預覽層，並將其作為子層加入 viewPreview 視圖的圖層中
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoPreviewLayer?.frame = view.layer.bounds
@@ -211,18 +191,16 @@ extension InviteViewController {
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        // 檢查metadataObjects 陣列為非空值，它至少需包含一個物件
+        
         if metadataObjects.count == 0 {
             qrCodeFrameView.frame = CGRect.zero
             return
         }
         
-        // 取得元資料（metadata）物件
         guard let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
         
         if metadataObj.type == AVMetadataObject.ObjectType.qr {
             
-            // 若發現的元資料與 QR code 元資料相同，便更新狀態標籤的文字並設定邊界
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             guard let barCodeObject = barCodeObject else {
                 self.presentAlert(title: "Error", message: "Can't Find User")

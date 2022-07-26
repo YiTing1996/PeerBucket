@@ -15,41 +15,32 @@ protocol AddToBucketViewControllerDelegate: AnyObject {
 
 class AddToBucketViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var collectionView: UICollectionView!
     
     weak var delegate: AddToBucketViewControllerDelegate?
     
     var bucketCategories: [BucketCategory] = []
-    
-    var currentUserUID: String?
+    var selectedBucketTitle: String?
     var userIDList: [String] = []
     
-    lazy var cancelButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
-        button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
-        return button
-    }()
+    lazy var cancelButton: UIButton = create {
+        $0.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
+        $0.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
+    }
     
-    var titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGray
-        label.font = UIFont.semiBold(size: 20)
-        label.text = "Select a bucket category you want to add !"
-        label.numberOfLines = 0
-        return label
-    }()
+    lazy var titleLabel: UILabel = create {
+        $0.textColor = .darkGray
+        $0.font = UIFont.semiBold(size: 20)
+        $0.text = "Select a bucket category you want to add !"
+        $0.numberOfLines = 0
+    }
     
-    var selectedBucketTitle: String?
-    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -67,6 +58,8 @@ class AddToBucketViewController: UIViewController {
         
     }
     
+    // MARK: - Configure UI
+
     func configureUI() {
         
         view.layer.cornerRadius = 30
@@ -85,7 +78,7 @@ class AddToBucketViewController: UIViewController {
         delegate?.didTappedClose()
     }
     
-    // MARK: - Firebase data process
+    // MARK: - Firebase data handler
     
     func getData(userID: String) {
         
@@ -99,27 +92,31 @@ class AddToBucketViewController: UIViewController {
                     self.userIDList.append(user.paringUser[0])
                 }
                 
-                self.bucketCategories = []
                 for userID in self.userIDList {
-                    BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
-                        
-                        guard let self = self else { return }
-                        
-                        switch result {
-                        case .success(let bucketLists):
-                            self.bucketCategories += bucketLists
-                            DispatchQueue.main.async {
-                                self.collectionView.reloadData()
-                            }
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                        }
-                    }
+                    self.fetchBucketCatgory(userID: userID)
                 }
                 
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in bucketListVC")
+            }
+        }
+    }
+    
+    func fetchBucketCatgory(userID: String) {
+        
+        self.bucketCategories = []
+        BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let bucketLists):
+                self.bucketCategories += bucketLists
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }

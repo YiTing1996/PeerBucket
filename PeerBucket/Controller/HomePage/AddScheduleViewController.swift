@@ -15,63 +15,50 @@ protocol AddScheduleViewControllerDelegate: AnyObject {
 
 class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
+    // MARK: - Properties
+
     weak var delegate: AddScheduleViewControllerDelegate?
     
     var selectedDate: Date?
-    var currentUserUID: String?
     var buckteListTitle: String? {
         didSet {
             eventTextField.text = buckteListTitle
         }
     }
     
-    var eventLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGray
-        label.font = UIFont.semiBold(size: 20)
-        label.text = "Add a new event below !"
-        return label
-    }()
+    lazy var eventLabel: UILabel = create {
+        $0.textColor = .darkGray
+        $0.font = UIFont.semiBold(size: 20)
+        $0.text = "Add a new event below !"
+    }
     
-    var eventTextField: UITextField = {
-        let textField = UITextField()
-        textField.setTextField(placeholder: "Type Event Name Here")
-        return textField
-    }()
+    lazy var eventTextField: UITextField = create {
+        $0.setTextField(placeholder: "Type Event Name Here")
+    }
     
-    lazy var datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        datePicker.timeZone = TimeZone.current
-        datePicker.addTarget(self, action: #selector(didChangedDate(_:)), for: .valueChanged)
-        datePicker.setValue(UIColor.darkGray, forKeyPath: "textColor")
-        datePicker.backgroundColor = .lightGray
-        datePicker.preferredDatePickerStyle = .wheels
-        return datePicker
-    }()
+    lazy var datePicker: UIDatePicker = create {
+        $0.timeZone = TimeZone.current
+        $0.addTarget(self, action: #selector(didChangedDate(_:)), for: .valueChanged)
+        $0.setValue(UIColor.darkGray, forKeyPath: "textColor")
+        $0.backgroundColor = .lightGray
+        $0.preferredDatePickerStyle = .wheels
+    }
     
-    lazy var cancelButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
-        button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
-        return button
-    }()
+    lazy var cancelButton: UIButton = create {
+        $0.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
+        $0.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
+    }
     
-    lazy var submitButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("SUBMIT", for: .normal)
-        button.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
-        button.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
-        return button
-    }()
+    lazy var submitButton: UIButton = create {
+        $0.setTitle("SUBMIT", for: .normal)
+        $0.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
+        $0.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
+    }
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         configureUI()
         
@@ -105,6 +92,8 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    // MARK: - User interaction processor
+
     @objc func didChangedDate(_ sender: UIDatePicker) {
         selectedDate = sender.date
     }
@@ -159,7 +148,7 @@ extension AddScheduleViewController {
 
         let calendar = Calendar.current
         let component = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: event.eventDate)
-
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
 
         let request = UNNotificationRequest(identifier: event.id, content: content, trigger: trigger)

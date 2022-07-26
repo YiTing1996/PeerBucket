@@ -16,46 +16,37 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     
     weak var delegate: ExploreDetailTableViewCellDelegate?
     
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.isPagingEnabled = true
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
-        return scrollView
-    }()
+    lazy var scrollView: UIScrollView = create {
+        $0.isPagingEnabled = true
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.showsHorizontalScrollIndicator = false
+        $0.delegate = self
+    }
     
-    var stackView: UIStackView = {
+    lazy var stackView: UIStackView = create {
         let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.clipsToBounds = true
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        return stackView
-    }()
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+        $0.alignment = .fill
+        $0.clipsToBounds = true
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
-    var titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.bold(size: 30)
-        label.textColor = UIColor.darkGreen
-        return label
-    }()
+    lazy var titleLabel: UILabel = create {
+        $0.font = UIFont.bold(size: 30)
+        $0.textColor = UIColor.darkGreen
+    }
     
-    var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGray
-        label.numberOfLines = 6
-        label.font = UIFont.systemFont(ofSize: 15)
-        return label
-    }()
+    lazy var descriptionLabel: UILabel = create {
+        $0.textColor = .darkGray
+        $0.numberOfLines = 6
+        $0.font = UIFont.systemFont(ofSize: 15)
+    }
     
-    lazy var tapMoreGesture: UITapGestureRecognizer = {
-        let gesture = UITapGestureRecognizer()
-        gesture.numberOfTapsRequired = 1
-        gesture.addTarget(self, action: #selector(handleTapGesture))
-        return gesture
-    }()
+    lazy var tapMoreGesture: UITapGestureRecognizer = create {
+        $0.numberOfTapsRequired = 1
+        $0.addTarget(self, action: #selector(handleTapGesture))
+    }
     
     var moreText: String = "Read More"
     

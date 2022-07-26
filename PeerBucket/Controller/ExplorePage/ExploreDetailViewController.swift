@@ -11,6 +11,8 @@ import FirebaseAuth
 
 class ExploreDetailViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var menuBottomConstraint: NSLayoutConstraint!
@@ -18,71 +20,44 @@ class ExploreDetailViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     
     var content: ExploreBucket?
-    var currentUserUID: String?
     
-    var ratingView: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.layer.cornerRadius = 20
-        view.backgroundColor = .darkGreen
-        view.alpha = 0.95
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    lazy var ratingView: UIView = create {
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 20
+        $0.backgroundColor = .darkGreen
+        $0.alpha = 0.95
+    }
     
-    lazy var webButton: UIButton = {
-        let button = UIButton()
-        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, font: 15)
-        button.setTitle("More Detail > ", for: .normal)
-        button.addTarget(self, action: #selector(tappedWebBtn), for: .touchUpInside)
-        return button
-    }()
+    lazy var webButton: UIButton = create {
+        $0.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, font: 15)
+        $0.setTitle("More Detail > ", for: .normal)
+        $0.addTarget(self, action: #selector(tappedWebBtn), for: .touchUpInside)
+    }
     
-    var ratingImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "icon_rating3")
-        return imageView
-    }()
+    lazy var ratingImageView: UIImageView = create {
+        $0.image = UIImage(named: "icon_rating3")
+    }
     
-    var ratingLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.bold(size: 20)
-        label.textColor = UIColor.lightGray
-        return label
-    }()
+    lazy var ratingLabel: UILabel = create {
+        $0.font = UIFont.bold(size: 20)
+        $0.textColor = UIColor.lightGray
+    }
     
-    lazy var collectButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon_func_collect"), for: .normal)
-        button.addTarget(self, action: #selector(tappedCollectBtn), for: .touchUpInside)
-        return button
-    }()
+    lazy var collectButton: UIButton = create {
+        $0.setImage(UIImage(named: "icon_func_collect"), for: .normal)
+        $0.addTarget(self, action: #selector(tappedCollectBtn), for: .touchUpInside)
+    }
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.backgroundColor = .lightGray
-        view.backgroundColor = .lightGray
-        
+
         tableView.dataSource = self
         tableView.delegate = self
         
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
-        
-        view.addSubview(collectButton)
-        collectButton.anchor(top: tableView.topAnchor, right: view.rightAnchor,
-                             paddingTop: 50, paddingRight: 20)
         configureRatingView()
-        
-        blackView.backgroundColor = .black
-        blackView.alpha = 0
-        menuBottomConstraint.constant = -500
-        view.bringSubviewToFront(blackView)
-        view.bringSubviewToFront(containerView)
+        configureUI()
         
     }
     
@@ -110,6 +85,23 @@ class ExploreDetailViewController: UIViewController {
         }
     }
     
+    // MARK: - Configure UI
+
+    func configureUI() {
+        tableView.backgroundColor = .lightGray
+        view.backgroundColor = .lightGray
+        
+        view.addSubview(collectButton)
+        collectButton.anchor(top: tableView.topAnchor, right: view.rightAnchor,
+                             paddingTop: 50, paddingRight: 20)
+        
+        blackView.backgroundColor = .black
+        blackView.alpha = 0
+        menuBottomConstraint.constant = hideMenuBottomConstraint
+        view.bringSubviewToFront(blackView)
+        view.bringSubviewToFront(containerView)
+    }
+    
     func configureRatingView() {
         
         view.addSubview(ratingView)
@@ -131,6 +123,8 @@ class ExploreDetailViewController: UIViewController {
         ratingLabel.text = content?.rating
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedCollectBtn() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = 0
@@ -146,6 +140,8 @@ class ExploreDetailViewController: UIViewController {
     }
     
 }
+
+// MARK: - TableView
 
 extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -178,7 +174,6 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         
         switch indexPath.row {
         case 0:
-//            let fullScreenHeight = UIScreen.main.bounds.height
             return CGFloat(screenHeight*2.8/5)
         default:
             return UITableView.automaticDimension
@@ -199,7 +194,7 @@ extension ExploreDetailViewController: AddToBucketViewControllerDelegate {
     
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = -500
+            self.menuBottomConstraint.constant = hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
     }

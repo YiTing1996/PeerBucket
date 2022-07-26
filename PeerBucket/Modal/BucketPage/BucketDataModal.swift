@@ -6,6 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
+
+enum CheckElement: String {
+    case image
+    case status
+    case paring
+    case name
+}
 
 struct BucketCategory: Codable {
 
