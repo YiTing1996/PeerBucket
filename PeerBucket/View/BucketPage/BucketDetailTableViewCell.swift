@@ -15,63 +15,49 @@ class BucketDetailTableViewCell: UITableViewCell {
     
     weak var delegate: BucketDetailTableViewCellDelegate?
     
-    lazy var doneButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon_check"), for: .normal)
-        button.addTarget(self, action: #selector(tappedDoneBtn), for: .touchUpInside)
-        return button
-    }()
+    lazy var doneButton: UIButton = create {
+        $0.setImage(UIImage(named: "icon_check"), for: .normal)
+        $0.addTarget(self, action: #selector(tappedDoneBtn), for: .touchUpInside)
+    }
     
-    var bucketLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont.semiBold(size: 18)
-        label.textColor = .darkGray
-        return label
-    }()
+    lazy var bucketLabel: UILabel = create {
+        $0.numberOfLines = 0
+        $0.font = UIFont.semiBold(size: 18)
+        $0.textColor = .darkGray
+    }
     
-    var borderView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        view.layer.masksToBounds = false
-        view.layer.borderColor = UIColor.darkGray.cgColor
-        view.layer.borderWidth = 1
-        view.layer.cornerRadius = 10
-        return view
-    }()
+    lazy var borderView: UIView = create {
+        $0.backgroundColor = .lightGray
+        $0.layer.masksToBounds = false
+        $0.layer.borderColor = UIColor.darkGray.cgColor
+        $0.layer.borderWidth = 1
+        $0.layer.cornerRadius = 10
+    }
     
-    var dateLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.font = UIFont.semiBold(size: 15)
-        label.textColor = .hightlightYellow
-        return label
-    }()
+    lazy var dateLabel: UILabel = create {
+        $0.numberOfLines = 0
+        $0.font = UIFont.semiBold(size: 15)
+        $0.textColor = .hightlightYellow
+    }
     
-    var hStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 2
-        return stackView
-    }()
+    lazy var hStack: UIStackView = create {
+        $0.axis = .horizontal
+        $0.distribution = .fillEqually
+        $0.spacing = 2
+    }
     
-    lazy var scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.isPagingEnabled = true
-        scrollView.delegate = self
-        return scrollView
-    }()
+    lazy var scrollView: UIScrollView = create {
+        $0.isPagingEnabled = true
+        $0.delegate = self
+    }
     
-    var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.alpha = 0.6
-        pageControl.isUserInteractionEnabled = false
-        pageControl.currentPage = 0
-        pageControl.currentPageIndicatorTintColor = .thirdGray
-        pageControl.pageIndicatorTintColor = .secondGray
-        return pageControl
-    }()
+    lazy var pageControl: UIPageControl = create {
+        $0.alpha = 0.6
+        $0.isUserInteractionEnabled = false
+        $0.currentPage = 0
+        $0.currentPageIndicatorTintColor = .thirdGray
+        $0.pageIndicatorTintColor = .secondGray
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -87,6 +73,7 @@ class BucketDetailTableViewCell: UITableViewCell {
     
     func configureUI() {
         
+        self.backgroundColor = .lightGray
         addSubview(bucketLabel)
         addSubview(scrollView)
         addSubview(pageControl)

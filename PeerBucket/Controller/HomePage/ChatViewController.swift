@@ -15,16 +15,16 @@ import IQKeyboardManagerSwift
 
 class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                           MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
-        
-    lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-        button.addTarget(self, action: #selector(tappedBackBtn), for: .touchUpInside)
-        button.setTitle("Back", for: .normal)
-        button.setTitleColor(UIColor.darkGreen, for: .normal)
-        button.titleLabel?.font = UIFont.semiBold(size: 15)
-        return button
-    }()
+    
+    // MARK: - Properties
+
+    lazy var backButton: UIButton = create {
+        $0.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        $0.addTarget(self, action: #selector(tappedBackBtn), for: .touchUpInside)
+        $0.setTitle("Back", for: .normal)
+        $0.setTitleColor(UIColor.darkGreen, for: .normal)
+        $0.titleLabel?.font = UIFont.semiBold(size: 15)
+    }
     
     lazy var menuBarItem = UIBarButtonItem(customView: self.backButton)
     
@@ -32,16 +32,14 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
     
     var user2UID: String = ""
     var currentUser: User?
-    var currentUserUID: String?
     var messages: [Message] = []
     
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Chat"
-        navigationItem.leftBarButtonItem = menuBarItem
-        navigationItem.largeTitleDisplayMode = .never
-        
+        configureChatRoomUI()
         maintainPositionOnKeyboardFrameChanged = true
         scrollsToLastItemOnKeyboardBeginsEditing = true
         
@@ -50,19 +48,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
-//        messagesCollectionView.messageCellDelegate = self
-        
-        messagesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        messagesCollectionView.backgroundColor = .lightGray
-        messageInputBar.backgroundView.backgroundColor = .darkGreen
-        messageInputBar.inputTextView.textColor = .white
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
-        
+
         guard let currentUserUID = currentUserUID else { return }
         fetchUserData(userID: currentUserUID)
 
@@ -80,6 +66,20 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         IQKeyboardManager.shared.enable = true
     }
     
+    // MARK: - Configure UI
+
+    func configureChatRoomUI() {
+        self.title = "Chat"
+        navigationItem.leftBarButtonItem = menuBarItem
+        navigationItem.largeTitleDisplayMode = .never
+        messagesCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        messagesCollectionView.backgroundColor = .lightGray
+        messageInputBar.backgroundView.backgroundColor = .darkGreen
+        messageInputBar.inputTextView.textColor = .white
+    }
+    
+    // MARK: - User interaction handler
+
     @objc func tappedBackBtn() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -88,19 +88,9 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+
+    // MARK: - Firebase handler
     
-//    func didTapMessage(in cell: MessageCollectionViewCell) {
-//        // handle message here
-//        guard let indexPath = messagesCollectionView.indexPath(for: cell) else {
-//            print("Can't find indexPath")
-//            return
-//        }
-//        self.presentActionAlert(action: "Pin", title: "Pin Message", message: "Pin a message to your favorrite") {
-//            // 存？
-//        }
-//    }
-    
-    // fetch current user's paring user and current user name
     func fetchUserData(userID: String) {
         
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
@@ -117,7 +107,7 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                 self.currentUser = user
                 print("Find paring user: \(String(describing: user.paringUser[0]))")
                 
-                self.loadChat(userID: userID)
+                self.checkChat(userID: userID)
                 
             case .failure(let error):
                 self.presentAlert(message: error.localizedDescription + " Please try again")
@@ -155,16 +145,6 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         let data: [String: Any] = [
             "users": users
         ]
-  
-//        MessageManager.shared.addChat(data: data) { result in
-//
-//            switch result {
-//            case .success:
-//                self.loadChat(userID: currentUserUID)
-//            case .failure:
-//                print("Error: Create chat error")
-//            }
-//        }
         
         let database = Firestore.firestore().collection("Chats")
         database.addDocument(data: data) { (error) in
@@ -172,13 +152,13 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
                 print("Unable to create chat! \(error)")
                 return
             } else {
-                self.loadChat(userID: currentUserUID)
+                self.checkChat(userID: currentUserUID)
             }
         }
         
     }
     
-    func loadChat(userID: String) {
+    func checkChat(userID: String) {
         
         // Fetch all the chats which has current user in it
         let database = Firestore.firestore().collection("Chats")
@@ -187,52 +167,52 @@ class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
         
         database.getDocuments { (chatQuerySnap, error) in
             
-            if let error = error {
-                print("Error: \(error)")
+            guard let queryCount = chatQuerySnap?.documents.count,
+                  error == nil else {
+                print("Error load chat")
                 return
-            } else {
+            }
+            
+            if queryCount == 0 {
+                // create new chat room for user
+                self.createNewChat()
+            } else if queryCount >= 1 {
                 
-                guard let queryCount = chatQuerySnap?.documents.count else {
-                    return
-                }
-                
-                if queryCount == 0 {
-                    // create new chat room for user
-                    self.createNewChat()
-                } else if queryCount >= 1 {
-                    
-                    for doc in chatQuerySnap!.documents {
-                        let chat = Chat(dictionary: doc.data())
-                        
-                        // Get the chat which has user2 id
-                        guard chat?.users.contains(self.user2UID) != nil else {
-                            print("Some errors happens in chatVC")
-                            return
-                        }
-                        
-                        self.docReference = doc.reference
-                        doc.reference.collection("thread")
-                            .order(by: "created", descending: false)
-                            .addSnapshotListener(includeMetadataChanges: true, listener: { (threadQuery, error) in
-                                if let error = error {
-                                    print("Error: \(error)")
-                                    return
-                                } else {
-                                    self.messages.removeAll()
-                                    for message in threadQuery!.documents {
-                                        
-                                        let msg = Message(dictionary: message.data())
-                                        self.messages.append(msg!)
-                                    }
-                                    self.messagesCollectionView.reloadData()
-                                    self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)
-                                }
-                            })
-                    }
+                for doc in chatQuerySnap!.documents {
+                    self.loadChat(doc: doc)
                     
                 }
             }
         }
+    }
+    
+    func loadChat(doc: QueryDocumentSnapshot) {
+        let chat = Chat(dictionary: doc.data())
+        
+        // Get the chat which has user2 id
+        guard chat?.users.contains(self.user2UID) != nil else {
+            print("Some errors happens in chatVC")
+            return
+        }
+        
+        self.docReference = doc.reference
+        doc.reference.collection("thread")
+            .order(by: "created", descending: false)
+            .addSnapshotListener(includeMetadataChanges: true, listener: { (threadQuery, error) in
+                if let error = error {
+                    print("Error: \(error)")
+                    return
+                } else {
+                    self.messages.removeAll()
+                    for message in threadQuery!.documents {
+                        
+                        let msg = Message(dictionary: message.data())
+                        self.messages.append(msg!)
+                    }
+                    self.messagesCollectionView.reloadData()
+                    self.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)
+                }
+            })
     }
     
     private func insertNewMessage(_ message: Message) {

@@ -15,44 +15,33 @@ protocol QRCodeViewControllerDelegate: AnyObject {
 
 class QRCodeViewController: UIViewController {
     
+    // MARK: - Properties
+    
     weak var delegate: QRCodeViewControllerDelegate?
     
     var qrcodeImage: CIImage?
     
-    var titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGreen
-        label.numberOfLines = 0
-        label.font = UIFont.semiBold(size: 20)
-        label.text = "Here's your QRCode"
-        return label
-    }()
+    lazy var titleLabel: UILabel = create {
+        $0.textColor = .darkGreen
+        $0.numberOfLines = 0
+        $0.font = UIFont.semiBold(size: 20)
+        $0.text = "Here's your QRCode"
+    }
     
-    lazy var bgImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .hightlightYellow
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var bgImageView: UIImageView = create {
+        $0.backgroundColor = .hightlightYellow
+        $0.contentMode = .scaleAspectFill
+    }
     
-    lazy var cancelButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
-        button.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
-        return button
-    }()
+    lazy var cancelButton: UIButton = create {
+        $0.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
+        $0.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
+    }
     
-    var currentUserUID: String?
-    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         guard let currentUserUID = currentUserUID else {
             return
@@ -63,6 +52,8 @@ class QRCodeViewController: UIViewController {
 
     }
     
+    // MARK: - Configure UI
+
     func configureUI() {
         
         view.addSubview(titleLabel)
@@ -80,28 +71,24 @@ class QRCodeViewController: UIViewController {
                             paddingTop: 10, paddingRight: 10, width: 50, height: 50)
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedCloseBtn() {
         delegate?.didTappedClose()
     }
     
     func createQRCode(_ text: String) {
     
-        // 將文字資料轉換成Data
         let data = text.data(using: .isoLatin1)
-        // 用CIFilter轉換，建立新的 CoreImage 濾波器（利用 CIQRCodeGenerator ）來指定一些參數，
-        // 然後即可獲得輸出的圖片，也就是 QR Code 圖片。
         let qrFilter = CIFilter(name: "CIQRCodeGenerator")
-        // 這是要轉換成 QR Code 圖片的初始資料
         qrFilter?.setValue(data, forKey: "inputMessage")
         qrFilter?.setValue("Q", forKey: "inputCorrectionLevel")
         
-        // 修正QRCode模糊度
         if let qrcodeImage = qrFilter?.outputImage {
             let qrWidth = UIScreen.main.bounds.width / 3 * 2 - 64
             let scaleX = qrWidth / qrcodeImage.extent.width
             let scaleY = qrWidth / qrcodeImage.extent.height
             
-            // 取得調整後的圖片大小，用CGAffineTransform去做縮放
             let transformedImage = qrcodeImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
             bgImageView.image = UIImage(ciImage: transformedImage)
         }

@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import FirebaseStorage
 import FirebaseAuth
 
 protocol AvatarViewControllerDelegate: AnyObject {
@@ -16,31 +15,37 @@ protocol AvatarViewControllerDelegate: AnyObject {
 
 class AvatarViewController: UIViewController {
     
-    private let storage = Storage.storage().reference()
+    // MARK: - Properties
 
     weak var delegate: AvatarViewControllerDelegate?
     
     var currentUser: User?
-    var currentUserUID: String?
     
-    lazy var submitButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Submit", for: .normal)
-        button.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
-        button.setTextButton(bgColor: .clear, titleColor: .darkGreen, border: 0, font: 15)
-        return button
-    }()
+    lazy var submitButton: UIButton = create {
+        $0.setTitle("Submit", for: .normal)
+        $0.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
+        $0.setTextButton(bgColor: .clear, titleColor: .darkGreen, border: 0, font: 15)
+    }
     
     lazy var menuBarItem = UIBarButtonItem(customView: self.submitButton)
     
+    @IBOutlet weak var backgroundView: UIView!
+    @IBOutlet weak var hair: UIImageView!
+    @IBOutlet weak var face: UIImageView!
+    @IBOutlet weak var glasses: UIImageView!
+    @IBOutlet weak var body: UIImageView!
+    
+    @IBOutlet weak var backgroundSlider: UISlider!
+    @IBOutlet weak var selectionView: UIView!
+    @IBOutlet weak var hairView: UIView!
+    @IBOutlet weak var faceView: UIView!
+    @IBOutlet weak var glassesView: UIView!
+    @IBOutlet weak var bodyView: UIView!
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if isBeta {
-            self.currentUserUID = "AITNzRSyUdMCjV4WrQxT"
-        } else {
-            self.currentUserUID = Auth.auth().currentUser?.uid ?? nil
-        }
         
         guard let currentUserUID = currentUserUID else {
             return
@@ -57,6 +62,18 @@ class AvatarViewController: UIViewController {
         configureUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    // MARK: - Configure UI
+
     func configureUI() {
         backgroundView.anchor(top: view.topAnchor, left: view.leftAnchor,
                               bottom: selectionView.topAnchor, right: view.rightAnchor,
@@ -81,41 +98,7 @@ class AvatarViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var hair: UIImageView!
-    @IBOutlet weak var face: UIImageView!
-    @IBOutlet weak var glasses: UIImageView!
-    @IBOutlet weak var body: UIImageView!
-    
-    @IBOutlet weak var backgroundSlider: UISlider!
-    @IBOutlet weak var selectionView: UIView!
-    @IBOutlet weak var hairView: UIView!
-    @IBOutlet weak var faceView: UIView!
-    @IBOutlet weak var glassesView: UIView!
-    @IBOutlet weak var bodyView: UIView!
-    
-    @objc func tappedSubmit() {
-        let renderer = UIGraphicsImageRenderer(size: backgroundView.bounds.size)
-        let image = renderer.image(actions: { _ in
-           backgroundView.drawHierarchy(in: backgroundView.bounds, afterScreenUpdates: true)
-        })
-        avatarProcess(image: image)
-        self.presentAlert(title: "Congrats", message: "Avatar successfully update", completion: {
-            self.navigationController?.popViewController(animated: true)
-        })
-    }
-    
-    // MARK: - Firebase data process
+    // MARK: - Firebase handler
     
     func fetchUserData(userID: String) {
         
@@ -124,7 +107,6 @@ class AvatarViewController: UIViewController {
             switch result {
             case .success(let user):
                 self.currentUser = user
-//                print("current user is: \(String(describing: self.currentUser))")
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
                 print("Can't find user in avatarVC")
@@ -169,7 +151,7 @@ class AvatarViewController: UIViewController {
                 return
             }
             
-            self.storage.child("avatar/\(imageName).png").downloadURL(completion: { url, error in
+            storage.child("avatar/\(imageName).png").downloadURL(completion: { url, error in
                 guard let url = url, error == nil else {
                     return
                 }
@@ -183,6 +165,17 @@ class AvatarViewController: UIViewController {
     }
     
     // MARK: - Button actions
+    
+    @objc func tappedSubmit() {
+        let renderer = UIGraphicsImageRenderer(size: backgroundView.bounds.size)
+        let image = renderer.image(actions: { _ in
+           backgroundView.drawHierarchy(in: backgroundView.bounds, afterScreenUpdates: true)
+        })
+        avatarProcess(image: image)
+        self.presentAlert(title: "Congrats", message: "Avatar successfully update", completion: {
+            self.navigationController?.popViewController(animated: true)
+        })
+    }
     
     @IBAction func changeHair(_ sender: UIButton) {
         let image = sender.currentBackgroundImage

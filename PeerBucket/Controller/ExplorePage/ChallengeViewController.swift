@@ -11,50 +11,33 @@ import SwiftUI
 
 class ChallengeViewController: UIViewController {
     
+    // MARK: - Properties
+
     var bgView = ChallengeUIView()
     var bgImage: String = ""
     
-    lazy var clearButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Clear", for: .normal)
-        button.setTextButton(bgColor: .lightGray, titleColor: .darkGreen,
+    lazy var clearButton: UIButton = create {
+        $0.setTitle("Clear", for: .normal)
+        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen,
                              border: 2.5, font: 20)
-        button.addTarget(self, action: #selector(tappedClearBtn), for: .touchUpInside)
-//        button.setTitle("Clear", for: .normal)
-//        button.titleLabel?.font = UIFont.bold(size: 18)
-//        button.setTitleColor(UIColor.darkGreen, for: .normal)
-//        button.clipsToBounds = true
-//        button.layer.borderWidth = 2.5
-//        button.layer.cornerRadius = 10
-//        button.layer.borderColor = UIColor.darkGreen.cgColor
-        return button
-    }()
+        $0.addTarget(self, action: #selector(tappedClearBtn), for: .touchUpInside)
+    }
     
-    lazy var shareButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Share", for: .normal)
-        button.setTextButton(bgColor: .darkGreen, titleColor: .lightGray,
-                             border: 2.5, font: 20)
-        
-//        button.backgroundColor = UIColor.darkGreen
-        button.addTarget(self, action: #selector(tappedShareBtn), for: .touchUpInside)
-//        button.setTitle("Share", for: .normal)
-//        button.setTitleColor(UIColor.white, for: .normal)
-//        button.titleLabel?.font = UIFont.bold(size: 18)
-//        button.clipsToBounds = true
-//        button.layer.cornerRadius = 10
-//        button.layer.borderWidth = 2.5
-//        button.layer.borderColor = UIColor.darkGreen.cgColor
-        return button
-    }()
+    lazy var shareButton: UIButton = create {
+        $0.setTitle("Share", for: .normal)
+        $0.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, border: 2.5, font: 20)
+        $0.addTarget(self, action: #selector(tappedShareBtn), for: .touchUpInside)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        view.backgroundColor = .lightGray
     }
     
+    // MARK: - Configure UI
+
     func configureUI() {
+        view.backgroundColor = .lightGray
         view.addSubview(bgView)
         view.addSubview(clearButton)
         view.addSubview(shareButton)
@@ -80,6 +63,8 @@ class ChallengeViewController: UIViewController {
         
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedClearBtn() {
         bgView.clearCanvas()
     }

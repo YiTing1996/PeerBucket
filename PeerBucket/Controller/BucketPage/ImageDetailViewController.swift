@@ -19,17 +19,11 @@ struct MemoryData {
 
 class ImageDetailViewController: UIViewController {
     
+    // MARK: - Properties
+
     @IBOutlet weak var foreImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-        
-    var categoryID: String = ""
-    
-    var images: [UIImage] = []
-    var titles: [String] = []
-    var dates: [String] = []
-    
-    var memoryData: [MemoryData] = []
     
     var index: Int = 1
     var timer = Timer()
@@ -37,27 +31,27 @@ class ImageDetailViewController: UIViewController {
     
     var player: AVAudioPlayer?
     
-    lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "icon_func_next"), for: .normal)
-        button.addTarget(self, action: #selector(tappedNextBtn), for: .touchUpInside)
-        return button
-    }()
+    var memoryData: [MemoryData] = []
+    var allBucketList: [BucketList] = []
     
-    var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.semiBold(size: 12)
-        label.textColor = .darkGreen
-        label.text = "Tap to play"
-        return label
-    }()
+    lazy var nextButton: UIButton = create {
+        $0.setImage(UIImage(named: "icon_func_next"), for: .normal)
+        $0.addTarget(self, action: #selector(tappedNextBtn), for: .touchUpInside)
+    }
     
+    lazy var descriptionLabel: UILabel = create {
+        $0.font = UIFont.semiBold(size: 12)
+        $0.textColor = .darkGreen
+        $0.text = "Tap to play"
+    }
+    
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .darkGreen
         configureUI()
-        fetchFromFirebase()
+        fetchDate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,45 +66,37 @@ class ImageDetailViewController: UIViewController {
         player?.pause()
     }
     
-    func fetchFromFirebase() {
+    // MARK: - Firebase data handler
+
+    func fetchDate() {
         
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
         animationView.play()
-
-        BucketListManager.shared.fetchBucketList(categoryID: categoryID,
-                                                 completion: { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let bucketList):
-                
-                for list in bucketList where list.images != [] {
-                    for image in list.images {
-                        DispatchQueue.global().async {
-                            // perform url session at background thread
-                            guard let data = try? Data(contentsOf: URL(string: image)!) else { return }
-                            self.memoryData.append(MemoryData(image: UIImage(data: data)!,
-                                                              title: list.list,
-                                                              date: Date.dateFormatter.string(from: list.createdTime)))
-                            DispatchQueue.main.async {
-                                self.foreImageView.image = self.memoryData[0].image
-                                self.titleLabel.text = self.memoryData[0].title
-                                self.dateLabel.text = self.memoryData[0].date
-                                self.stopAnimation(animationView: animationView)
-                            }
-
-                        }
+        
+        for list in allBucketList where list.images != [] {
+            for image in list.images {
+                DispatchQueue.global().async {
+                    // perform url session at background thread
+                    guard let data = try? Data(contentsOf: URL(string: image)!) else { return }
+                    self.memoryData.append(MemoryData(image: UIImage(data: data)!,
+                                                      title: list.list,
+                                                      date: Date.dateFormatter.string(from: list.createdTime)))
+                    DispatchQueue.main.async {
+                        self.foreImageView.image = self.memoryData[0].image
+                        self.titleLabel.text = self.memoryData[0].title
+                        self.dateLabel.text = self.memoryData[0].date
+                        self.stopAnimation(animationView: animationView)
                     }
+                    
                 }
-
-            case .failure(let error):
-                print(error.localizedDescription)
             }
-        })
+        }
     }
     
+    // MARK: - UI handler
+
     func configureUI() {
+        view.backgroundColor = .darkGreen
         view.addSubview(nextButton)
         view.addSubview(descriptionLabel)
         nextButton.anchor(top: foreImageView.bottomAnchor, right: view.rightAnchor,
@@ -122,9 +108,10 @@ class ImageDetailViewController: UIViewController {
         dateLabel.font = UIFont.semiBold(size: 20)
         titleLabel.textColor = .darkGray
         dateLabel.textColor = .darkGray
-        
     }
     
+    // MARK: - User interaction handler
+
     @objc func tappedNextBtn() {
         
         if playSelect {
@@ -133,10 +120,13 @@ class ImageDetailViewController: UIViewController {
                                               selector: #selector(self.playVideo),
                                               userInfo: nil, repeats: true)
             // Music
-            if let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") {
-                player = try? AVAudioPlayer(contentsOf: url)
-                player?.play()
+            guard let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") else {
+                print("Error find url")
+                return
             }
+            
+            player = try? AVAudioPlayer(contentsOf: url)
+            player?.play()
             
         } else {
             playSelect = true

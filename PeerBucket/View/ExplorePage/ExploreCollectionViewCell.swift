@@ -12,12 +12,9 @@ class ExploreCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "ExploreCollectionViewCell"
     
-    var mainImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
+    lazy var mainImageView: UIImageView = create {
+        $0.contentMode = .scaleAspectFill
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

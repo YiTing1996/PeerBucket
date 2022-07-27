@@ -15,6 +15,8 @@
 		AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001480285E0E610098FC4E /* ScheduleDataModal.swift */; };
 		AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001482285E0E770098FC4E /* ScheduleManager.swift */; };
 		AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001484285E15910098FC4E /* AddScheduleViewController.swift */; };
+		AC0203C4288D936C006D0AB5 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0203C3288D936C006D0AB5 /* FirebaseConstants.swift */; };
+		AC0203C6288D939A006D0AB5 /* ScreenConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0203C5288D939A006D0AB5 /* ScreenConstants.swift */; };
 		AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC140421286436CF00DD2566 /* AvatarViewController.swift */; };
 		AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
@@ -25,11 +27,11 @@
 		AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741C2861B297005D1A2D /* ProfileViewController.swift */; };
 		AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */; };
 		AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */; };
+		AC6B88DD2886A9EF00AEE78F /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC6B88DC2886A9EF00AEE78F /* NSObjectExtension.swift */; };
 		AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CA285984CB007FC767 /* AppDelegate.swift */; };
 		AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CC285984CB007FC767 /* SceneDelegate.swift */; };
 		AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0CE285984CB007FC767 /* ExploreViewController.swift */; };
 		AC72A0D2285984CB007FC767 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC72A0D0285984CB007FC767 /* Main.storyboard */; };
-		AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0D3285984CB007FC767 /* PeerBucket.xcdatamodeld */; };
 		AC72A0D7285984CC007FC767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC72A0D6285984CC007FC767 /* Assets.xcassets */; };
 		AC72A0DA285984CC007FC767 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC72A0D8285984CC007FC767 /* LaunchScreen.storyboard */; };
 		AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC72A0E228598998007FC767 /* UIViewExtension.swift */; };
@@ -60,7 +62,7 @@
 		ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB7222860A26D00D7C18E /* UserManager.swift */; };
 		ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */; };
 		ACC3D271285ADF7300676F46 /* AddNewBucketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */; };
-		ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateHelper.swift */; };
+		ACC3D273285B0EFA00676F46 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC3D272285B0EFA00676F46 /* DateExtension.swift */; };
 		ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC7D09928631E54006AC04A /* TabBarController.swift */; };
 		ACCECFD2287950F9004AE116 /* lottieCongrats.json in Resources */ = {isa = PBXBuildFile; fileRef = ACCECFD1287950F9004AE116 /* lottieCongrats.json */; };
 		ACCECFDC28796C4E004AE116 /* CameraKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */; };
@@ -95,6 +97,8 @@
 		AC001480285E0E610098FC4E /* ScheduleDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataModal.swift; sourceTree = "<group>"; };
 		AC001482285E0E770098FC4E /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		AC001484285E15910098FC4E /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
+		AC0203C3288D936C006D0AB5 /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
+		AC0203C5288D939A006D0AB5 /* ScreenConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenConstants.swift; sourceTree = "<group>"; };
 		AC140421286436CF00DD2566 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -105,13 +109,13 @@
 		AC2C741C2861B297005D1A2D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AC2C741F2861B75B005D1A2D /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		AC6B88DC2886A9EF00AEE78F /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		AC6F0FF52869DA6200FD0F0E /* PeerBucket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeerBucket.entitlements; sourceTree = "<group>"; };
 		AC72A0C7285984CB007FC767 /* PeerBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeerBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC72A0CA285984CB007FC767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC72A0CC285984CB007FC767 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AC72A0CE285984CB007FC767 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		AC72A0D1285984CB007FC767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AC72A0D4285984CB007FC767 /* PeerBucket.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PeerBucket.xcdatamodel; sourceTree = "<group>"; };
 		AC72A0D6285984CC007FC767 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AC72A0D9285984CC007FC767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AC72A0DB285984CC007FC767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -142,7 +146,7 @@
 		ACADB7222860A26D00D7C18E /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		ACC3D26E285ADED400676F46 /* BucketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailViewController.swift; sourceTree = "<group>"; };
 		ACC3D270285ADF7300676F46 /* AddNewBucketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBucketViewController.swift; sourceTree = "<group>"; };
-		ACC3D272285B0EFA00676F46 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		ACC3D272285B0EFA00676F46 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		ACC7D09928631E54006AC04A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		ACCECFD1287950F9004AE116 /* lottieCongrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottieCongrats.json; sourceTree = "<group>"; };
 		ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraKeyboard.swift; sourceTree = "<group>"; };
@@ -195,12 +199,22 @@
 			path = HomePage;
 			sourceTree = "<group>";
 		};
+		AC0203C7288D9ACB006D0AB5 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				AC0203C5288D939A006D0AB5 /* ScreenConstants.swift */,
+				AC0203C3288D936C006D0AB5 /* FirebaseConstants.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		AC21CEA8285B567C00157B4D /* BucketPage */ = {
 			isa = PBXGroup;
 			children = (
 				AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */,
 				AC72A105285AC4FD007FC767 /* BucketListCollectionViewCell.swift */,
 				AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */,
+				ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */,
 			);
 			path = BucketPage;
 			sourceTree = "<group>";
@@ -274,11 +288,9 @@
 				AC72A0EA28598A38007FC767 /* View */,
 				AC72A0E828598A0E007FC767 /* Controller */,
 				AC72A0E928598A23007FC767 /* Extension */,
+				AC0203C7288D9ACB006D0AB5 /* Helper */,
 				AC72A0EB28598A4E007FC767 /* Resource */,
-				AC72A0D0285984CB007FC767 /* Main.storyboard */,
-				AC72A0D8285984CC007FC767 /* LaunchScreen.storyboard */,
 				AC72A0DB285984CC007FC767 /* Info.plist */,
-				AC72A0D3285984CB007FC767 /* PeerBucket.xcdatamodeld */,
 			);
 			path = PeerBucket;
 			sourceTree = "<group>";
@@ -297,11 +309,11 @@
 		AC72A0E828598A0E007FC767 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				ACCECFE5287ABD8A004AE116 /* Base */,
-				AC2C741E2861B71D005D1A2D /* ProfilePage */,
 				AC001478285DABAA0098FC4E /* HomePage */,
+				AC2C741E2861B71D005D1A2D /* ProfilePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
 				AC21CEA9285B579500157B4D /* ExplorePage */,
+				ACCECFE5287ABD8A004AE116 /* Base */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -309,7 +321,7 @@
 		AC72A0E928598A23007FC767 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				ACC3D272285B0EFA00676F46 /* DateHelper.swift */,
+				ACC3D272285B0EFA00676F46 /* DateExtension.swift */,
 				AC72A0E228598998007FC767 /* UIViewExtension.swift */,
 				AC72A0F42859AF8B007FC767 /* UIColorExtension.swift */,
 				AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */,
@@ -317,7 +329,7 @@
 				AC21CEAF285B5A0100157B4D /* UIViewControllerExtension.swift */,
 				ACFC8D0F286864960055D143 /* UILabelExtension.swift */,
 				AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */,
-				ACCECFDB28796C4E004AE116 /* CameraKeyboard.swift */,
+				AC6B88DC2886A9EF00AEE78F /* NSObjectExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -325,6 +337,8 @@
 		AC72A0EA28598A38007FC767 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AC72A0D0285984CB007FC767 /* Main.storyboard */,
+				AC72A0D8285984CC007FC767 /* LaunchScreen.storyboard */,
 				AC00147D285E07AB0098FC4E /* HomePage */,
 				AC21CEA8285B567C00157B4D /* BucketPage */,
 				AC72A0FE285A2F45007FC767 /* ExplorePage */,
@@ -584,10 +598,9 @@
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
 				AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */,
 				ACADB71C28604C5700D7C18E /* UserDataModal.swift in Sources */,
-				AC72A0D5285984CB007FC767 /* PeerBucket.xcdatamodeld in Sources */,
 				AC72A100285AC20C007FC767 /* BucketListManager.swift in Sources */,
 				AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */,
-				ACC3D273285B0EFA00676F46 /* DateHelper.swift in Sources */,
+				ACC3D273285B0EFA00676F46 /* DateExtension.swift in Sources */,
 				AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */,
 				AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */,
 				AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */,
@@ -595,6 +608,7 @@
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
 				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
+				AC0203C6288D939A006D0AB5 /* ScreenConstants.swift in Sources */,
 				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
 				ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */,
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
@@ -611,6 +625,7 @@
 				AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */,
 				AC835460285CDBF8001F3767 /* ChallengeViewController.swift in Sources */,
 				AC2CBBDE28703840003EF0FA /* UIButtonExtension.swift in Sources */,
+				AC6B88DD2886A9EF00AEE78F /* NSObjectExtension.swift in Sources */,
 				ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */,
 				ACFA53B828769C9D00E0887D /* LaunchViewController.swift in Sources */,
 				AC72A0CB285984CB007FC767 /* AppDelegate.swift in Sources */,
@@ -618,6 +633,7 @@
 				ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */,
 				AC72A0FB285A1057007FC767 /* AddToBucketViewController.swift in Sources */,
 				AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */,
+				AC0203C4288D936C006D0AB5 /* FirebaseConstants.swift in Sources */,
 				AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */,
 				AC72A0E5285989EE007FC767 /* ExploreMockData.swift in Sources */,
 				AC72A102285AC2C0007FC767 /* BucketDataModal.swift in Sources */,
@@ -769,7 +785,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -787,7 +803,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -805,7 +821,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PeerBucket/PeerBucket.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92P2C9TPVD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeerBucket/Info.plist;
@@ -822,7 +838,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.doreen.PeerBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -853,19 +869,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		AC72A0D3285984CB007FC767 /* PeerBucket.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				AC72A0D4285984CB007FC767 /* PeerBucket.xcdatamodel */,
-			);
-			currentVersion = AC72A0D4285984CB007FC767 /* PeerBucket.xcdatamodel */;
-			path = PeerBucket.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = AC72A0BF285984CB007FC767 /* Project object */;
 }

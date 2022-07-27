@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 
-var screenHeight = UIScreen.main.bounds.height
-var screenWidth = UIScreen.main.bounds.width
-
 extension UIView {
     
     func anchor(top: NSLayoutYAxisAnchor? = nil,
