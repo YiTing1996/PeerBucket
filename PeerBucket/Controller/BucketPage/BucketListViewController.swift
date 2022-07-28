@@ -374,7 +374,7 @@ extension BucketListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "BucketListCollectionViewCell",
+            withReuseIdentifier: BucketListCollectionViewCell.identifier,
             for: indexPath)
         guard let cell = cell as? BucketListCollectionViewCell else { return cell }
         

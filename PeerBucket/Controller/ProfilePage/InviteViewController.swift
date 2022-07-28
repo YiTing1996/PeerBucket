@@ -13,7 +13,7 @@ import FirebaseAuth
 class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     // MARK: - Properties
-
+    
     lazy var qrCodeFrameView: UIView = create {
         $0.layer.borderColor = UIColor.green.cgColor
         $0.layer.borderWidth = 2
@@ -27,11 +27,11 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     var paringUserName: String = ""
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         callingScanner()
-
+        
         guard let currentUserUID = currentUserUID else {
             return
         }
@@ -55,7 +55,29 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         self.tabBarController?.tabBar.isHidden = false
     }
-        
+    
+    func showInviteAlert(userID: String) {
+        self.presentActionAlert(
+            action: "Invite",
+            title: "Invite your BucketPeer to chat and share bucket list!",
+            message: "Do you want to invite user \(self.paringUserName)?") {
+                
+                guard currentUserUID != nil else {
+                    print("Error: can't find paring user in invite VC")
+                    return
+                }
+                
+                self.addSelfParing(paringUserID: userID)
+                self.addOthersParing(paringUserID: currentUserUID ?? "")
+                
+                let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
+                guard let tabBarVC = tabBarVC as? TabBarController else { return }
+                
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                sceneDelegate?.changeRootViewController(tabBarVC)
+            }
+    }
+    
     // MARK: - Firebase handler
     
     func addSelfParing(paringUserID: String) {
@@ -114,7 +136,7 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             }
         }
     }
-        
+    
     func fetchUser(userID: String) {
         
         UserManager.shared.checkParingUser(userID: userID) { [weak self] result in
@@ -123,34 +145,12 @@ class InviteViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             case .success(let user):
                 self.paringUserName = user.userName
                 self.paringUser = user
-                
-                self.presentActionAlert(
-                    action: "Invite",
-                    title: "Invite your BucketPeer to chat and share bucket list!",
-                    message: "Do you want to invite user \(self.paringUserName)?") {
-                        
-                        guard currentUserUID != nil else {
-                            print("Error: can't find paring user in invite VC")
-                            return
-                        }
-                        
-                        self.addSelfParing(paringUserID: userID )
-                        self.addOthersParing(paringUserID: currentUserUID ?? "")
-                        
-                        let tabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "tabBarVC")
-                        guard let tabBarVC = tabBarVC as? TabBarController else { return }
-                        
-                        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                        sceneDelegate?.changeRootViewController(tabBarVC)
-                    }
-                
+                self.showInviteAlert(userID: userID)
             case .failure:
                 self.presentAlert(title: "Error", message: "Can't Find User")
             }
         }
-        
     }
-    
 }
 
 // MARK: - QRCode Reader

@@ -29,7 +29,7 @@ class ExploreDetailViewController: UIViewController {
     }
     
     lazy var webButton: UIButton = create {
-        $0.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, font: 15)
+        $0.setTextBtn(bgColor: .darkGreen, titleColor: .lightGray, font: 15)
         $0.setTitle("More Detail > ", for: .normal)
         $0.addTarget(self, action: #selector(tappedWebBtn), for: .touchUpInside)
     }
@@ -151,7 +151,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExploreDetailTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ExploreDetailTableViewCell.identifier, for: indexPath)
         
         guard let exploreDetailCell = cell as? ExploreDetailTableViewCell,
               let content = content else { return cell }

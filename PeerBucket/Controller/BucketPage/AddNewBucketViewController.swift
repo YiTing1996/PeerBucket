@@ -44,7 +44,7 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     lazy var submitButton: UIButton = create {
         $0.setTitle("SUBMIT", for: .normal)
         $0.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
+        $0.setTextBtn(bgColor: .mediumGray, titleColor: .white, font: 15)
     }
     
     lazy var hStack: UIStackView = create {
@@ -62,13 +62,6 @@ class AddNewBucketViewController: UIViewController, UIImagePickerControllerDeleg
     var selectedIconIndex: Int?
     var iconUrlString: String = ""
     var iconButton: [UIButton] = []
-    var iconButtonImage: [String] = [
-        "icon_bucket_travel", "icon_bucket_movie", "icon_bucket_shopping",
-        "icon_bucket_swim", "icon_bucket_mountain", "icon_bucket_guitar",
-        "icon_bucket_book", "icon_bucket_favi", "icon_bucket_mountain2",
-        "icon_bucket_basketball", "icon_bucket_game", "icon_bucket_cook",
-        "icon_bucket_bar", "icon_bucket_diving"
-    ]
     
     // MARK: - Lifecycle
 

@@ -25,10 +25,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     
     var profileVC: ProfileViewController?
     
-    var bgImageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
+    lazy var bgImageView: UIImageView = create {_ in }
     
     let blurEffect = UIBlurEffect(style: .light)
     
@@ -111,11 +108,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
     
     @objc func tappedMoreBtn() {
         UIView.animate(withDuration: 0.3, animations: {
-            if self.moreView.alpha == 0 {
-                self.moreView.alpha = 0.7
-            } else {
-                self.moreView.alpha = 0
-            }
+            self.moreView.alpha = self.moreView.alpha == 0 ? 0.7: 0
         })
         
     }
@@ -157,7 +150,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate,
             return
         }
         
-        ScheduleManager.shared.fetchSchedule(userID: currentUserUID) { [weak self] result in
+        ScheduleManager.shared.fetchUpcomingSchedule(userID: currentUserUID) { [weak self] result in
             
             guard self != nil else { return }
             

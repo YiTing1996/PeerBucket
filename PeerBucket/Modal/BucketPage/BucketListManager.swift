@@ -49,16 +49,12 @@ class BucketListManager {
                 if let error = error {
                     print("Error getting documents: \(error)")
                     completion(.failure(error))
-                    
                 } else {
-                    
                     var bucketLists = [BucketList]()
-                    
                     guard let querySnapshot = querySnapshot else {
                         print("Error getting snapshot")
                         return
                     }
-                    
                     for document in querySnapshot.documents {
                         
                         do {
@@ -75,7 +71,7 @@ class BucketListManager {
             }
     }
     
-    // query bucket list by id of bucket category
+    // query bucket list by sender id
     func fetchBucketListBySender(senderId: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
         
         dataBase.collection("bucketList").whereField("senderId", isEqualTo: senderId).getDocuments { (querySnapshot, error) in
@@ -85,7 +81,11 @@ class BucketListManager {
                 completion(.failure(error))
             } else {
                 var bucketLists = [BucketList]()
-                for document in querySnapshot!.documents {
+                guard let querySnapshot = querySnapshot else {
+                    print("Error getting snapshot")
+                    return
+                }
+                for document in querySnapshot.documents {
                     do {
                         if let bucketList = try document.data(as: BucketList?.self, decoder: Firestore.Decoder()) {
                             bucketLists.append(bucketList)
@@ -97,7 +97,6 @@ class BucketListManager {
                 completion(.success(bucketLists))
             }
         }
-        
     }
     
     // MARK: - Add

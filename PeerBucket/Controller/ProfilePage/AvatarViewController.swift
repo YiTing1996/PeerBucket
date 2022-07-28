@@ -16,7 +16,7 @@ protocol AvatarViewControllerDelegate: AnyObject {
 class AvatarViewController: UIViewController {
     
     // MARK: - Properties
-
+    
     weak var delegate: AvatarViewControllerDelegate?
     
     var currentUser: User?
@@ -24,7 +24,7 @@ class AvatarViewController: UIViewController {
     lazy var submitButton: UIButton = create {
         $0.setTitle("Submit", for: .normal)
         $0.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
-        $0.setTextButton(bgColor: .clear, titleColor: .darkGreen, border: 0, font: 15)
+        $0.setTextBtn(bgColor: .clear, titleColor: .darkGreen, border: 0, font: 15)
     }
     
     lazy var menuBarItem = UIBarButtonItem(customView: self.submitButton)
@@ -43,7 +43,7 @@ class AvatarViewController: UIViewController {
     @IBOutlet weak var bodyView: UIView!
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,7 +58,7 @@ class AvatarViewController: UIViewController {
         bodyView.isHidden = true
         
         navigationItem.rightBarButtonItem = menuBarItem
-
+        
         configureUI()
     }
     
@@ -73,7 +73,7 @@ class AvatarViewController: UIViewController {
     }
     
     // MARK: - Configure UI
-
+    
     func configureUI() {
         backgroundView.anchor(top: view.topAnchor, left: view.leftAnchor,
                               bottom: selectionView.topAnchor, right: view.rightAnchor,
@@ -119,7 +119,7 @@ class AvatarViewController: UIViewController {
         guard let currentUser = self.currentUser else {
             return
         }
-
+        
         let user = User(userID: currentUser.userID,
                         userAvatar: urlString,
                         userHomeBG: currentUser.userHomeBG,
@@ -144,23 +144,28 @@ class AvatarViewController: UIViewController {
         }
         
         let imageName = NSUUID().uuidString
+        self.uploadImage(imageName: imageName, imageData: imageData)
+    }
+    
+    func uploadImage(imageName: String, imageData: Data) {
         storage.child("avatar/\(imageName).png").putData(imageData, metadata: nil) { _, error in
-            
             guard error == nil else {
                 print("Fail to upload image")
                 return
             }
-            
-            storage.child("avatar/\(imageName).png").downloadURL(completion: { url, error in
-                guard let url = url, error == nil else {
-                    return
-                }
-                let urlString = url.absoluteString
-                UserDefaults.standard.set(urlString, forKey: "url")
-                
-                self.saveAvatar(urlString: urlString)
-                
-            })
+            self.downloadImage(imageName: imageName)
+            print("Uploaded to firebase")
+        }
+    }
+    
+    func downloadImage(imageName: String) {
+        storage.child("avatar/\(imageName).png").downloadURL { url, error in
+            guard let url = url, error == nil else {
+                return
+            }
+            let urlString = url.absoluteString
+            UserDefaults.standard.set(urlString, forKey: "url")
+            self.saveAvatar(urlString: urlString)
         }
     }
     
@@ -169,7 +174,7 @@ class AvatarViewController: UIViewController {
     @objc func tappedSubmit() {
         let renderer = UIGraphicsImageRenderer(size: backgroundView.bounds.size)
         let image = renderer.image(actions: { _ in
-           backgroundView.drawHierarchy(in: backgroundView.bounds, afterScreenUpdates: true)
+            backgroundView.drawHierarchy(in: backgroundView.bounds, afterScreenUpdates: true)
         })
         avatarProcess(image: image)
         self.presentAlert(title: "Congrats", message: "Avatar successfully update", completion: {
@@ -197,7 +202,7 @@ class AvatarViewController: UIViewController {
         let image = sender.currentBackgroundImage
         body.image = image
     }
-
+    
     var colorValue: CGFloat = 0.5
     @IBAction func chageBackground(_ sender: UISlider) {
         // sender的index
@@ -211,7 +216,7 @@ class AvatarViewController: UIViewController {
         glassesView.isHidden = true
         bodyView.isHidden = true
     }
-   
+    
     @IBAction func selectFace(_ sender: UIButton) {
         hairView.isHidden = true
         faceView.isHidden = false

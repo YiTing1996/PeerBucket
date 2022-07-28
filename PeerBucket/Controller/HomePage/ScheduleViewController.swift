@@ -97,7 +97,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         calendar.anchor(top: view.topAnchor, left: view.leftAnchor,
                         right: view.rightAnchor, paddingTop: 100,
                         paddingLeft: 20, paddingRight: 20,
-                        width: screenWidth, height: screenHeight * 3 / 8 )
+                        height: screenHeight * 3 / 8 )
     }
     
     func configureUI() {
@@ -147,15 +147,15 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     // MARK: - Firebase handler
-    
+        
     // get user data and event of the month by self & paring user ID
     func getData(userID: String, date: Date) {
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
-                
                 self.userIDList = [userID]
+                
                 if user.paringUser != [] {
                     self.userIDList.append(user.paringUser[0])
                 }

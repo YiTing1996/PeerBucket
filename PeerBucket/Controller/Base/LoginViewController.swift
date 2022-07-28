@@ -36,19 +36,19 @@ class LoginViewController: UIViewController {
     lazy var privacyButton: UIButton = create {
         $0.setTitle("PRIVACY", for: .normal)
         $0.addTarget(self, action: #selector(tappedPrivacyBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
+        $0.setTextBtn(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
     }
     
     lazy var eulaButton: UIButton = create {
         $0.setTitle("EULA", for: .normal)
         $0.addTarget(self, action: #selector(tappedEULABtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
+        $0.setTextBtn(bgColor: .clear, titleColor: .darkGray, border: 0, font: 10)
     }
     
     lazy var dismissButton: UIButton = create {
         $0.setTitle("Cancel", for: .normal)
         $0.addTarget(self, action: #selector(tappedDismiss), for: .touchUpInside)
-        $0.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, border: 0, font: 15)
+        $0.setTextBtn(bgColor: .darkGreen, titleColor: .lightGray, border: 0, font: 15)
     }
         
     private var currentNonce: String?
