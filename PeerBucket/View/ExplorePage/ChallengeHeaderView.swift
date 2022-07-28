@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class ChallengeHeaderView: UICollectionReusableView {
+    
     static let identifier = "ChallengeHeaderView"
     
     lazy var headerLabel: UILabel = create {

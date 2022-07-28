@@ -10,6 +10,8 @@ import Kingfisher
 
 class BucketListCollectionViewCell: UICollectionViewCell {
     
+    static let identifier = "BucketListCollectionViewCell"
+    
     lazy var categoryLabel: UILabel = create {
         $0.textColor = .darkGray
         $0.font = UIFont.semiBold(size: 20)

@@ -14,7 +14,7 @@ protocol ScheduleCollectionViewCellDelegate: AnyObject {
 
 class ScheduleCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "eventCell"
+    static let identifier = "ScheduleCollectionViewCell"
     
     weak var delegate: ScheduleCollectionViewCellDelegate?
     
@@ -52,13 +52,13 @@ class ScheduleCollectionViewCell: UICollectionViewCell {
         
         avatarImageView.centerY(inView: self)
         avatarImageView.anchor(left: leftAnchor, paddingLeft: 20,
-                              width: 60, height: 60)
+                               width: 60, height: 60)
         eventLabel.anchor(top: topAnchor, left: avatarImageView.rightAnchor,
                           right: rightAnchor, paddingTop: 20, paddingLeft: 20,
                           paddingRight: 20, height: 20)
         dateLabel.anchor(top: eventLabel.bottomAnchor, left: avatarImageView.rightAnchor,
-                          paddingTop: 5, paddingLeft: 20,
-                          width: 150, height: 20)
+                         paddingTop: 5, paddingLeft: 20,
+                         width: 150, height: 20)
         
     }
     

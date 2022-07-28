@@ -20,11 +20,7 @@ extension UIViewController {
             completion()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alert.setTitlet(font: UIFont.semiBold(size: 20), color: UIColor.darkGray)
-        alert.setTint(color: UIColor.darkGray)
-        alert.setMessage(font: UIFont.regular(size: 15), color: UIColor.darkGray)
-        alert.setBackgroundColor(color: UIColor.lightGray)
+        alert.setAlertUI()
         
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
@@ -36,11 +32,7 @@ extension UIViewController {
                       message: String = "Success!",
                       completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.setTitlet(font: UIFont.semiBold(size: 20), color: UIColor.darkGray)
-        alert.setTint(color: UIColor.darkGray)
-        alert.setMessage(font: UIFont.regular(size: 15), color: UIColor.darkGray)
-        alert.setBackgroundColor(color: UIColor.lightGray)
+        alert.setAlertUI()
         
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             guard let completion = completion else { return }
@@ -56,11 +48,7 @@ extension UIViewController {
                            message: String = "Please insert your name below",
                            completion: ((String) -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        
-        alert.setTitlet(font: UIFont.semiBold(size: 20), color: UIColor.darkGray)
-        alert.setTint(color: UIColor.darkGray)
-        alert.setMessage(font: UIFont.regular(size: 15), color: UIColor.darkGray)
-        alert.setBackgroundColor(color: UIColor.lightGray)
+        alert.setAlertUI()
         
         alert.addTextField(configurationHandler: { (textField: UITextField!) -> Void in
             textField.placeholder = "Name"
@@ -100,6 +88,13 @@ extension UIViewController {
 }
 
 extension UIAlertController {
+    
+    func setAlertUI() {
+        self.setTitlet(font: UIFont.semiBold(size: 20), color: UIColor.darkGray)
+        self.setTint(color: UIColor.darkGray)
+        self.setMessage(font: UIFont.regular(size: 15), color: UIColor.darkGray)
+        self.setBackgroundColor(color: UIColor.lightGray)
+    }
     
     // Set background color of UIAlertController
     func setBackgroundColor(color: UIColor) {

@@ -314,3 +314,11 @@ let exploreGift = [
 
 let challengeList = ["challenge_hiking", "challenge_diving", "challenge_summer"]
 let challengeMainImage = ["challenge_hiking_1", "challenge_diving_1", "challenge_summer_1"]
+
+let iconButtonImage: [String] = [
+    "icon_bucket_travel", "icon_bucket_movie", "icon_bucket_shopping",
+    "icon_bucket_swim", "icon_bucket_mountain", "icon_bucket_guitar",
+    "icon_bucket_book", "icon_bucket_favi", "icon_bucket_mountain2",
+    "icon_bucket_basketball", "icon_bucket_game", "icon_bucket_cook",
+    "icon_bucket_bar", "icon_bucket_diving"
+]

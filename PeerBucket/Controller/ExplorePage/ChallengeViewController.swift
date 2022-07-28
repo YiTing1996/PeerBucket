@@ -18,14 +18,14 @@ class ChallengeViewController: UIViewController {
     
     lazy var clearButton: UIButton = create {
         $0.setTitle("Clear", for: .normal)
-        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen,
+        $0.setTextBtn(bgColor: .lightGray, titleColor: .darkGreen,
                              border: 2.5, font: 20)
         $0.addTarget(self, action: #selector(tappedClearBtn), for: .touchUpInside)
     }
     
     lazy var shareButton: UIButton = create {
         $0.setTitle("Share", for: .normal)
-        $0.setTextButton(bgColor: .darkGreen, titleColor: .lightGray, border: 2.5, font: 20)
+        $0.setTextBtn(bgColor: .darkGreen, titleColor: .lightGray, border: 2.5, font: 20)
         $0.addTarget(self, action: #selector(tappedShareBtn), for: .touchUpInside)
     }
     

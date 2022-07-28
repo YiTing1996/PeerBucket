@@ -13,6 +13,8 @@ protocol BucketDetailTableViewCellDelegate: AnyObject {
 
 class BucketDetailTableViewCell: UITableViewCell {
     
+    static let identifier = "BucketDetailTableViewCell"
+
     weak var delegate: BucketDetailTableViewCellDelegate?
     
     lazy var doneButton: UIButton = create {
@@ -107,16 +109,8 @@ class BucketDetailTableViewCell: UITableViewCell {
     
     func configureCell(bucketList: BucketList) {
         bucketLabel.text = bucketList.list
+        bucketList.status == true ? setFinishMode(date: bucketList.createdTime): setUnfinishMode()
         
-        if bucketList.status == true {
-            doneButton.setImage(UIImage(named: "icon_checked"), for: .normal)
-            dateLabel.text = Date.dateFormatter.string(from: bucketList.createdTime)
-            dateLabel.isHidden = false
-        } else {
-            doneButton.setImage(UIImage(named: "icon_check"), for: .normal)
-            dateLabel.isHidden = true
-        }
-                
         guard bucketList.images != [] else {
             hStack.isHidden = true
             pageControl.isHidden = true
@@ -128,24 +122,41 @@ class BucketDetailTableViewCell: UITableViewCell {
             hStack.removeArrangedSubview(hstackImage)
         }
         
-        if bucketList.images.count == 1 {
+        setPageControl(images: bucketList.images)
+        setImageStack(images: bucketList.images)
+    }
+    
+    func setPageControl(images: [String]) {
+        if images.count == 1 {
             pageControl.isHidden = true
         } else {
             pageControl.isHidden = false
-            pageControl.numberOfPages = bucketList.images.count
+            pageControl.numberOfPages = images.count
         }
-
-        for index in 0...bucketList.images.count-1 {
+    }
+    
+    func setImageStack(images: [String]) {
+        for index in 0...images.count-1 {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
             imageView.anchor(width: 240, height: 150)
             
-            let url = URL(string: bucketList.images[index])
+            let url = URL(string: images[index])
             imageView.kf.setImage(with: url)
             
             hStack.addArrangedSubview(imageView)
         }
-                
+    }
+    
+    func setFinishMode(date: Date) {
+        doneButton.setImage(UIImage(named: "icon_checked"), for: .normal)
+        dateLabel.text = Date.dateFormatter.string(from: date)
+        dateLabel.isHidden = false
+    }
+    
+    func setUnfinishMode() {
+        doneButton.setImage(UIImage(named: "icon_check"), for: .normal)
+        dateLabel.isHidden = true
     }
     
     @objc func tappedDoneBtn() {

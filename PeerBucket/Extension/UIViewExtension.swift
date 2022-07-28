@@ -73,18 +73,6 @@ extension UIView {
         }
     }
     
-    func setDimensions(width: CGFloat, height: CGFloat) {
-        translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant: width).isActive = true
-        heightAnchor.constraint(equalToConstant: height).isActive = true
-    }
-    
-    func addConstraintsToFillView(_ view: UIView) {
-        translatesAutoresizingMaskIntoConstraints = false
-        anchor(top: view.topAnchor, left: view.leftAnchor,
-               bottom: view.bottomAnchor, right: view.rightAnchor)
-    }
-    
     func setShadow(color: UIColor, opacity: Float, radius: CGFloat, offset: CGSize) {
         
         self.layer.masksToBounds = false

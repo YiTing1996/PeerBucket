@@ -340,7 +340,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BucketDetailTableViewCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: BucketDetailTableViewCell.identifier, for: indexPath)
         guard let bucketDetailCell = cell as? BucketDetailTableViewCell else { return cell }
         
         bucketDetailCell.delegate = self

@@ -134,8 +134,7 @@ extension AddToBucketViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "AddToBucketCollectionViewCell",
-            for: indexPath)
+            withReuseIdentifier: AddToBucketCollectionViewCell.identifier, for: indexPath)
         guard let cell = cell as? AddToBucketCollectionViewCell else { return cell }
         
         cell.layer.cornerRadius = 20
