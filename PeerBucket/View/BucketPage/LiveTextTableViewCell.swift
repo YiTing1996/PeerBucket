@@ -10,6 +10,8 @@ import Kingfisher
 
 class LiveTextTableViewCell: UITableViewCell {
 
+    static let identifier = "LiveTextTableViewCell"
+    
     lazy var categoryImageView: UIImageView = create {
         $0.contentMode = .scaleAspectFill
     }

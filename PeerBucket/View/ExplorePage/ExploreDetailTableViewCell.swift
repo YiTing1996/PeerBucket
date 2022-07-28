@@ -14,6 +14,8 @@ protocol ExploreDetailTableViewCellDelegate: AnyObject {
 
 class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     
+    static let identifier = "ExploreDetailTableViewCell"
+
     weak var delegate: ExploreDetailTableViewCellDelegate?
     
     lazy var scrollView: UIScrollView = create {
@@ -116,12 +118,10 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         
         if text.count > 1 {
 
-            let readmoreFont = UIFont.italic(size: 15)
-            let readmoreFontColor = UIColor.darkGreen
+//            let readmoreFont = UIFont.italic(size: 15)
+//            let readmoreFontColor = UIColor.darkGreen
             DispatchQueue.main.async {
-                self.descriptionLabel.addTrailing(with: "... ", moreText: self.moreText,
-                                                  moreTextFont: readmoreFont!,
-                                                  moreTextColor: readmoreFontColor)
+                self.descriptionLabel.addTrailing(moreText: self.moreText)
             }
         }
     }

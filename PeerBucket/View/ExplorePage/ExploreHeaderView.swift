@@ -21,7 +21,7 @@ class ExploreHeaderView: UICollectionReusableView {
     lazy var headerStack: UIStackView = create {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
-        $0.spacing = 2
+        $0.spacing = 5
     }
     
     var headerButton: [UIButton] = []
@@ -40,30 +40,25 @@ class ExploreHeaderView: UICollectionReusableView {
     
     private func configureUI() {
         addSubview(headerStack)
-        
+        setButtonStack()
+        headerStack.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor,
+                           right: rightAnchor, paddingTop: 5, paddingLeft: 5, paddingRight: 5)
+
+    }
+    
+    func setButtonStack() {
         for index in 0...buttonTitle.count-1 {
             let button = UIButton(type: .system)
             button.setTitle(buttonTitle[index], for: .normal)
-            button.layer.cornerRadius = 10
-            button.titleLabel?.font = UIFont.bold(size: 18)
             button.addTarget(self, action: #selector(didTappedButton), for: .touchUpInside)
             if index == 0 {
-                button.backgroundColor = .darkGreen
-                button.setTitleColor(UIColor.white, for: .normal)
+                button.setBoldTextBtn(bgColor: .darkGreen, titleColor: .white)
             } else {
-                button.backgroundColor = .lightGray
-                button.setTitleColor(UIColor.darkGreen, for: .normal)
+                button.setBoldTextBtn(bgColor: .lightGray, titleColor: .darkGreen)
             }
-            button.layer.borderWidth = 0.8
-            button.layer.borderColor = UIColor.darkGreen.cgColor
-            headerStack.spacing = 5
             headerStack.addArrangedSubview(button)
             headerButton.append(button)
         }
-        
-        headerStack.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor,
-                           paddingTop: 5, paddingLeft: 5, paddingRight: 5)
-
     }
     
     @objc func didTappedButton(button: UIButton) {
@@ -72,11 +67,9 @@ class ExploreHeaderView: UICollectionReusableView {
             
             for btn in self.headerButton {
                 if btn == button {
-                    btn.backgroundColor = .darkGreen
-                    btn.setTitleColor(UIColor.white, for: .normal)
+                    btn.setBoldTextBtn(bgColor: .darkGreen, titleColor: .white)
                 } else {
-                    btn.backgroundColor = .lightGray
-                    btn.setTitleColor(UIColor.darkGreen, for: .normal)
+                    btn.setBoldTextBtn(bgColor: .lightGray, titleColor: .darkGreen)
                 }
             }
             

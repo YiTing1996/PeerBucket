@@ -52,7 +52,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     lazy var submitButton: UIButton = create {
         $0.setTitle("SUBMIT", for: .normal)
         $0.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
+        $0.setTextBtn(bgColor: .mediumGray, titleColor: .white, font: 15)
     }
     
     // MARK: - Lifecycle
@@ -92,7 +92,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    // MARK: - User interaction processor
+    // MARK: - User interaction handler
 
     @objc func didChangedDate(_ sender: UIDatePicker) {
         selectedDate = sender.date
@@ -107,30 +107,31 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         guard let currentUserUID = currentUserUID else { return }
         
         if eventTextField.text != "" {
-            
-            var schedule: Schedule = Schedule(
-                senderId: currentUserUID,
-                event: eventTextField.text ?? "",
-                id: "",
-                eventDate: selectedDate ?? Date()
-            )
-            
-            ScheduleManager.shared.addSchedule(schedule: &schedule) { result in
-                switch result {
-                case .success:
-                    self.presentAlert()
-                case .failure(let error):
-                    self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                }
-            }
-            
-            createNotification(event: schedule)
+            addSchedule(userID: currentUserUID)
             eventTextField.text = ""
             delegate?.didTappedClose()
-            
         } else {
             presentAlert(title: "Error", message: "Please fill all the field")
         }
+    }
+    
+    func addSchedule(userID: String) {
+        var schedule: Schedule = Schedule(
+            senderId: userID,
+            event: eventTextField.text ?? "",
+            id: "",
+            eventDate: selectedDate ?? Date()
+        )
+        
+        ScheduleManager.shared.addSchedule(schedule: &schedule) { result in
+            switch result {
+            case .success:
+                self.presentAlert()
+            case .failure(let error):
+                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+            }
+        }
+        createNotification(event: schedule)
     }
 }
 

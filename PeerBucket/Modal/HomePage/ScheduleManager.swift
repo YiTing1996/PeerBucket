@@ -20,7 +20,7 @@ class ScheduleManager {
     // MARK: - Fetch
     
     // fetch upcoming event
-    func fetchSchedule(userID: String, completion: @escaping (Result<UpcomingSchedule, Error>) -> Void) {
+    func fetchUpcomingSchedule(userID: String, completion: @escaping (Result<UpcomingSchedule, Error>) -> Void) {
         
         dataBase.whereField("senderId", isEqualTo: userID).getDocuments { querySnapshot, error in
             
@@ -57,7 +57,7 @@ class ScheduleManager {
             }
         }
     }
-    
+        
     // fetch specific date's event
     func fetchSpecificSchedule(userID: String, date: Date, completion: @escaping (Result<[Schedule], Error>) -> Void) {
         

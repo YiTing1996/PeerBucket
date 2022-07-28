@@ -27,7 +27,7 @@ class LiveTextController: UIViewController, UIImagePickerControllerDelegate, UIN
     lazy var submitButton: UIButton = create {
         $0.setTitle("SUBMIT", for: .normal)
         $0.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .mediumGray, titleColor: .white, font: 15)
+        $0.setTextBtn(bgColor: .mediumGray, titleColor: .white, font: 15)
     }
     
     private var cameraInputView: CameraKeyboard = {
@@ -187,8 +187,7 @@ extension LiveTextController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LiveTextTableViewCell", for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: LiveTextTableViewCell.identifier, for: indexPath)
         guard let liveTextCell = cell as? LiveTextTableViewCell else { return cell }
         
         liveTextCell.configureCell(bucketList: bucketCategories[indexPath.row])

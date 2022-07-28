@@ -44,13 +44,13 @@ class ProfileViewController: UIViewController {
     lazy var inviteButton: UIButton = create {
         $0.setTitle("Scan QRCode", for: .normal)
         $0.addTarget(self, action: #selector(tappedInviteBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+        $0.setTextBtn(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
     }
     
     lazy var myQRButton: UIButton = create {
         $0.setTitle("Show QRCode", for: .normal)
         $0.addTarget(self, action: #selector(tappedQRBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+        $0.setTextBtn(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
     }
     
     lazy var profileView: UIView = create {
@@ -69,13 +69,13 @@ class ProfileViewController: UIViewController {
     lazy var nameButton: UIButton = create {
         $0.setTitle("Edit Name", for: .normal)
         $0.addTarget(self, action: #selector(tappedNameBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+        $0.setTextBtn(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
     }
     
     lazy var avatarButton: UIButton = create {
         $0.setTitle("Edit Avatar", for: .normal)
         $0.addTarget(self, action: #selector(tappedAvatarBtn), for: .touchUpInside)
-        $0.setTextButton(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
+        $0.setTextBtn(bgColor: .lightGray, titleColor: .darkGreen, border: 0.7, font: 15)
     }
     
     lazy var nameLabel: UILabel = create {
