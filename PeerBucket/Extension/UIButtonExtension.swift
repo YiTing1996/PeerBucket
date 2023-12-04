@@ -9,10 +9,8 @@ import Foundation
 import UIKit
 
 extension UIButton {
-    
     func setTextBtn(bgColor: UIColor, titleColor: UIColor, border: CGFloat = 1,
                     radius: CGFloat = 10, font: CGFloat) {
-        
         self.translatesAutoresizingMaskIntoConstraints = false
         self.setTitleColor(titleColor, for: .normal)
         self.titleLabel?.font = UIFont.semiBold(size: font)
@@ -21,7 +19,6 @@ extension UIButton {
         self.layer.cornerRadius = 10
         self.layer.borderWidth = border
         self.layer.borderColor = UIColor.darkGreen.cgColor
-        
     }
     
     func setBoldTextBtn(bgColor: UIColor, titleColor: UIColor, border: CGFloat = 1,
@@ -35,5 +32,4 @@ extension UIButton {
         self.layer.borderWidth = border
         self.layer.borderColor = UIColor.darkGreen.cgColor
     }
-    
 }

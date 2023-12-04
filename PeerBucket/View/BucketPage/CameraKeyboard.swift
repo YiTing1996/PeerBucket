@@ -9,7 +9,7 @@ import AVFoundation
 import UIKit
 import Vision
 
-class CameraKeyboard: UIView {
+final class CameraKeyboard: UIView {
     weak var textField: UITextField?
 
     private var captureSession: AVCaptureSession?
@@ -186,7 +186,7 @@ class CameraKeyboard: UIView {
 
     private func setupPreviewLayer(captureSession: AVCaptureSession) {
         guard previewLayer == nil else {
-            print("preview layer already exists")
+            Log.w("preview layer already exists")
             return
         }
 
@@ -230,7 +230,7 @@ class CameraKeyboard: UIView {
             do {
                 try handler.perform(requests)
             } catch let error {
-                print("Error: \(error)")
+                Log.e(error.localizedDescription)
             }
         }
     }

@@ -21,11 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enable = true
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { granted, _ in
-            if granted {
-                print("Allow notification")
-            } else {
-                print("Not allow notification")
-            }
+            Log.w("user notifacation authorization: \(granted)")
         }
         
         // show notification at foreground

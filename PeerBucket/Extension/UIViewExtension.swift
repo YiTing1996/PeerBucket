@@ -8,7 +8,20 @@
 import Foundation
 import UIKit
 
+extension UIStackView {
+    func addArrangedSubviews(_ views: [UIView]) {
+        views.forEach {
+            addArrangedSubview($0)
+        }
+    }
+}
+
 extension UIView {
+    func addSubviews(_ views: [UIView]) {
+        views.forEach {
+            addSubview($0)
+        }
+    }
     
     func anchor(top: NSLayoutYAxisAnchor? = nil,
                 left: NSLayoutXAxisAnchor? = nil,
@@ -48,33 +61,29 @@ extension UIView {
         }
     }
     
-    func center(inView view: UIView, yConstant: CGFloat? = 0) {
+    func center(inView view: UIView, yConstant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: yConstant!).isActive = true
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: yConstant).isActive = true
     }
     
-    func centerX(inView view: UIView, topAnchor: NSLayoutYAxisAnchor? = nil, paddingTop: CGFloat? = 0) {
+    func centerX(inView view: UIView, topAnchor: NSLayoutYAxisAnchor? = nil, paddingTop: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
         if let topAnchor = topAnchor {
-            self.topAnchor.constraint(equalTo: topAnchor, constant: paddingTop!).isActive = true
+            self.topAnchor.constraint(equalTo: topAnchor, constant: paddingTop).isActive = true
         }
     }
     
-    func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil, paddingLeft: CGFloat? = nil, constant: CGFloat? = 0) {
+    func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil, paddingLeft: CGFloat? = nil, constant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false
-        
-        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant!).isActive = true
-        
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
         if let leftAnchor = leftAnchor, let padding = paddingLeft {
             self.leftAnchor.constraint(equalTo: leftAnchor, constant: padding).isActive = true
         }
     }
     
     func setShadow(color: UIColor, opacity: Float, radius: CGFloat, offset: CGSize) {
-        
         self.layer.masksToBounds = false
         self.layer.shadowColor = color.cgColor
         self.layer.shadowOffset = offset
@@ -83,11 +92,8 @@ extension UIView {
     }
     
     func setCornerRadius(borderColor: CGColor, width: CGFloat, radius: CGFloat) {
-        
         self.layer.borderWidth = width
         self.layer.cornerRadius = radius
         self.layer.borderColor = borderColor
-        
     }
-    
 }

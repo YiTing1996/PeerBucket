@@ -5,23 +5,23 @@
 //  Created by 陳憶婷 on 2022/7/7.
 //
 
-import Foundation
 import UIKit
 import AVFoundation
 
-class LaunchViewController: UIViewController {
+final class LaunchViewController: UIViewController {
     
     // MARK: - Properties
 
-    var player: AVPlayer = {
+    private var player: AVPlayer = {
         guard let path = Bundle.main.path(forResource: "launchScreen", ofType: "mp4") else {
-            fatalError("Invalid Video path")
+            Log.e("invalid video path")
+            return .init()
         }
         let player = AVPlayer(url: URL(fileURLWithPath: path))
         return player
     }()
     
-    lazy var playerLayer: AVPlayerLayer = {
+    private lazy var playerLayer: AVPlayerLayer = {
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.videoGravity = .resizeAspectFill
         return playerLayer
@@ -31,27 +31,15 @@ class LaunchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.layer.addSublayer(self.playerLayer)
         player.play()
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let tabBarVC = storyboard.instantiateViewController(withIdentifier: "tabBarVC")
-            guard let tabBarVC = tabBarVC as? TabBarController else { return }
-
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            sceneDelegate?.changeRootViewController(tabBarVC)
-            
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) { [weak self] in
+            self?.routeToRoot()
         }
-        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         playerLayer.frame = view.bounds
-        
     }
-    
 }

@@ -10,7 +10,7 @@ import UIKit
 import PhotosUI
 import Lottie
 
-class BucketDetailViewController: UIViewController {
+final class BucketDetailViewController: UIViewController {
     
     // MARK: - Properties
 
@@ -19,65 +19,59 @@ class BucketDetailViewController: UIViewController {
     @IBOutlet weak var blackView: UIView!
     @IBOutlet weak var containerView: UIView!
     
-    lazy var longPressGesture: UILongPressGestureRecognizer = create {
+    private lazy var longPressGesture: UILongPressGestureRecognizer = create {
         $0.addTarget(self, action: #selector(longPressGestureRecognized(_:)))
         $0.minimumPressDuration = 0.5
         $0.delaysTouchesBegan = true
     }
     
-    lazy var submitButton: UIButton = create {
+    private lazy var submitButton: UIButton = create {
         $0.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
         $0.setImage(UIImage(named: "icon_func_upload"), for: .normal)
         $0.isHidden = true
     }
     
-    lazy var memoryButton: UIButton = create {
+    private lazy var memoryButton: UIButton = create {
         $0.addTarget(self, action: #selector(tappedMemoryBtn), for: .touchUpInside)
         $0.setImage(UIImage(named: "icon_album"), for: .normal)
     }
     
-    lazy var addListButton: UIButton = create {
+    private lazy var addListButton: UIButton = create {
         $0.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
         $0.setImage(UIImage(named: "icon_func_add"), for: .normal)
     }
     
-    lazy var addListTextField: UITextField = create {
-        $0.setTextField(placeholder: "Type New List Here")
+    private lazy var addListTextField: UITextField = create {
+        $0.setThemeTextField(placeholder: "Type New List Here")
         $0.isHidden = true
     }
+        
+    private var updatedImages: [String]?
+    private var updatedStatus: Bool?
+    private var updatedDate: Date?
     
-    lazy var menuBarItem = UIBarButtonItem(customView: self.memoryButton)
+    private var imageSwippedRow: Int?
+    private var scheduleSwippedRow: Int?
     
-    var updatedImages: [String]?
-    var updatedStatus: Bool?
-    var updatedDate: Date?
-    
-    var imageSwippedRow: Int?
-    var scheduleSwippedRow: Int?
-    
-    var imageUrlString: [String] = []
-    var allListImages: [String] = []
+    private var imageUrlString: [String] = []
+    private var allListImages: [String] = []
     
     var selectedCategory: BucketCategory?
-    var allBucketLists: [BucketList] = []
+    private var allBucketLists: [BucketList] = []
     
-    var scheduleVC = AddScheduleViewController()
+    private weak var scheduleVC: AddScheduleViewController?
     
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.addGestureRecognizer(longPressGesture)
-        
-        configureUI()
-        
         navigationItem.title = selectedCategory?.category
-        navigationItem.rightBarButtonItem = menuBarItem
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.memoryButton)
+        configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,60 +87,58 @@ class BucketDetailViewController: UIViewController {
     
     // MARK: - User interaction processor
     
-    @objc func tappedMemoryBtn() {
-        
-        guard allListImages != [] else {
-            self.presentAlert(title: "Error",
-                              message: "To use album feature, please add photo to list first")
+    @objc
+    private func tappedMemoryBtn() {
+        guard allListImages.isNotEmpty else {
+            presentAlert(
+                title: "Error",
+                message: "To use album feature, please add photo to list first")
             return
         }
-        
-        let imageVC = self.storyboard?.instantiateViewController(withIdentifier: "imageVC")
-        guard let imageVC = imageVC as? ImageDetailViewController else { return }
+        guard let imageVC = initFromStoryboard(with: .memory) as? ImageDetailViewController else { return }
         imageVC.allBucketList = self.allBucketLists
-        
-        self.navigationController?.pushViewController(imageVC, animated: true)
-        
+        navigationController?.pushViewController(imageVC, animated: true)
     }
     
-    @objc func tappedAddBtn() {
-        if addListTextField.isHidden == true {
-            showAddList()
-        } else {
-            hideAddList()
-        }
+    @objc
+    private func tappedAddBtn() {
+        addListTextField.isHidden ? showAddList() : hideAddList()
     }
     
-    @objc func tappedSubmitBtn() {
-        guard addListTextField.text != "" else {
+    @objc
+    private func tappedSubmitBtn() {
+        guard let text = addListTextField.text, text.isNotEmpty else {
             presentAlert(title: "Error", message: "Please fill all the field")
             return
         }
-        
         addBucketList()
         hideAddList()
     }
     
-    @objc func longPressGestureRecognized(_ sender: UILongPressGestureRecognizer) {
-        
-        guard let row = self.tableView.indexPathForRow(at: sender.location(in: self.tableView))?.row,
-              sender.state == .began else { return }
+    @objc
+    private func longPressGestureRecognized(_ sender: UILongPressGestureRecognizer) {
+        guard let row = tableView.indexPathForRow(at: sender.location(in: tableView))?.row,
+              sender.state == .began else {
+            return
+        }
         
         let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         feedbackGenerator.prepare()
         feedbackGenerator.impactOccurred()
         
-        self.presentActionAlert(action: "Delete", title: "Delete List",
-                                message: "Do you want to delete this list?") {
-            
-            let deleteId = self.allBucketLists[row].listId
-            self.deleteBucketList(deleteId: deleteId, row: row)
-        }
+        presentActionAlert(
+            action: "Delete",
+            title: "Delete List",
+            message: "Do you want to delete this list?") { [weak self] in
+                guard let self = self else { return }
+                let deleteId = self.allBucketLists[row].listId
+                self.deleteBucketList(deleteId: deleteId, row: row)
+            }
     }
     
-    // MARK: - UI processor
+    // MARK: - UI
     
-    func hideAddList() {
+    private func hideAddList() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.addListTextField.isHidden = true
             self.addListTextField.text = ""
@@ -155,7 +147,7 @@ class BucketDetailViewController: UIViewController {
         }
     }
     
-    func showAddList() {
+    private func showAddList() {
         UIView.animate(withDuration: 0.5) {
             self.addListTextField.isHidden = false
             self.addListTextField.text = ""
@@ -164,21 +156,21 @@ class BucketDetailViewController: UIViewController {
         }
     }
     
-    func hideScheduleMenu() {
+    private func hideScheduleMenu() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
     }
     
-    func showScheduleMenu() {
+    private func showScheduleMenu() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = 0
             self.blackView.alpha = 0.5
         }
     }
     
-    func showImagePicker() {
+    private func showImagePicker() {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = 5
@@ -187,18 +179,13 @@ class BucketDetailViewController: UIViewController {
         self.present(picker, animated: true)
     }
     
-    func configureUI() {
-        
-        view.addSubview(addListButton)
-        view.addSubview(addListTextField)
-        view.addSubview(submitButton)
+    private func configureUI() {
+        view.addSubviews([addListButton, addListTextField, submitButton])
         view.bringSubviewToFront(containerView)
-        
         view.backgroundColor = .lightGray
         tableView.backgroundColor = .lightGray
         blackView.backgroundColor = .black
         containerView.layer.cornerRadius = 10
-        
         hideScheduleMenu()
         
         addListButton.anchor(bottom: view.bottomAnchor, right: view.rightAnchor,
@@ -207,23 +194,19 @@ class BucketDetailViewController: UIViewController {
                             paddingBottom: 90, paddingRight: 2, width: 50, height: 50)
         addListTextField.anchor(bottom: view.bottomAnchor, right: submitButton.leftAnchor,
                                 paddingBottom: 90, paddingRight: 2, width: screenWidth * 0.6, height: 50)
-        
     }
     
     // MARK: - Firebase processor
     
-    func fetchFromFirebase() {
-        
-        BucketListManager.shared.fetchBucketList(categoryID: selectedCategory?.id ?? "",
-                                                 completion: { [weak self] result in
-            
+    private func fetchFromFirebase() {
+        guard let selectedCategory = selectedCategory else { return }
+        BucketListManager.shared.fetchBucketList(categoryID: selectedCategory.id) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .success(let bucketList):
                 self.allBucketLists = bucketList
                 self.allListImages = []
-                for list in self.allBucketLists where list.images != [] {
+                for list in self.allBucketLists where list.images.isNotEmpty {
                     self.allListImages += list.images
                 }
                 
@@ -231,30 +214,25 @@ class BucketDetailViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             case .failure(let error):
-                print(error.localizedDescription)
-            }
-            
-        })
-    }
-    
-    func addBucketList() {
-        
-        var newBucketList = formateDataModal(bucketList: nil)
-        
-        BucketListManager.shared.addBucketList(bucketList: &newBucketList!) { result in
-            switch result {
-            case .success:
-                self.presentAlert()
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+                Log.e(error.localizedDescription)
             }
         }
-        
-        self.fetchFromFirebase()
     }
     
-    func checkBucketList(element: CheckElement, bucketList: BucketList) {
-        
+    private func addBucketList() {
+        guard var newBucketList = formateDataModal(bucketList: nil) else { return }
+        BucketListManager.shared.addBucketList(bucketList: &newBucketList) { [weak self] result in
+            switch result {
+            case .success:
+                self?.presentAlert()
+            case .failure(let error):
+                self?.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
+            }
+        }
+        fetchFromFirebase()
+    }
+    
+    private func checkBucketList(element: CheckElement, bucketList: BucketList) {
         switch element {
         case .image:
             updatedImages = self.imageUrlString
@@ -262,13 +240,8 @@ class BucketDetailViewController: UIViewController {
             updatedDate = bucketList.createdTime
         case .status:
             updatedImages = bucketList.images
-            if bucketList.status == true {
-                updatedStatus = false
-                updatedDate = bucketList.createdTime
-            } else {
-                updatedDate = Date()
-                updatedStatus = true
-            }
+            updatedStatus = !bucketList.status
+            updatedDate = bucketList.status ? bucketList.createdTime : Date()
         default:
             break
         }
@@ -276,11 +249,9 @@ class BucketDetailViewController: UIViewController {
         let updatedBucketList = formateDataModal(bucketList: bucketList)
         guard let updatedBucketList = updatedBucketList else { return }
         updateBucketList(bucketList: updatedBucketList)
-        
     }
     
-    func formateDataModal(bucketList: BucketList?) -> BucketList? {
-        
+    private func formateDataModal(bucketList: BucketList?) -> BucketList? {
         guard let selectedCategory = selectedCategory,
               let currentUserUID = currentUserUID else {
             presentAlert(title: "Error", message: "Something went wrong. Please try again later")
@@ -297,34 +268,34 @@ class BucketDetailViewController: UIViewController {
             images: updatedImages ?? []
         )
         return newBucketList
-        
     }
     
-    func deleteBucketList(deleteId: String, row: Int) {
-        
-        BucketListManager.shared.deleteBucketList(id: deleteId) { result in
-            
+    private func deleteBucketList(deleteId: String, row: Int) {
+        BucketListManager.shared.deleteBucketList(id: deleteId) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success:
                 self.presentAlert()
                 self.allBucketLists.remove(at: row)
                 self.fetchFromFirebase()
             case .failure(let error):
-                self.presentAlert(title: "Error",
-                                  message: error.localizedDescription + " Please try again")
+                self.presentAlert(
+                    title: "Error",
+                    message: error.localizedDescription + " Please try again")
             }
         }
     }
     
     func updateBucketList(bucketList: BucketList) {
-        
-        BucketListManager.shared.updateBucketList(bucketList: bucketList) { result in
+        BucketListManager.shared.updateBucketList(bucketList: bucketList) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success:
                 self.fetchFromFirebase()
             case .failure(let error):
-                self.presentAlert(title: "Error",
-                                  message: error.localizedDescription + " Please try again")
+                self.presentAlert(
+                    title: "Error",
+                    message: error.localizedDescription + " Please try again")
             }
         }
     }
@@ -333,41 +304,33 @@ class BucketDetailViewController: UIViewController {
 // MARK: - TableView
 
 extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allBucketLists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: BucketDetailTableViewCell.identifier, for: indexPath)
-        guard let bucketDetailCell = cell as? BucketDetailTableViewCell else { return cell }
-        
-        bucketDetailCell.delegate = self
-        bucketDetailCell.configureCell(bucketList: allBucketLists[indexPath.row])
-        
-        return bucketDetailCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: BucketDetailTableViewCell.cellIdentifier, for: indexPath)
+        guard let cell = cell as? BucketDetailTableViewCell else {
+            return .init()
+        }
+        cell.delegate = self
+        cell.configureCell(bucketList: allBucketLists[indexPath.row])
+        return cell
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
         let scheduleAction = UIContextualAction(style: .destructive, title: "Schedule") { [weak self] (_, _, completion) in
-            guard let self = self else { return }
-            
+            guard let self = self, let scheduleVC = self.scheduleVC else { return }
             self.scheduleSwippedRow = indexPath.row
-            self.scheduleVC.eventTextField.text = self.allBucketLists[self.scheduleSwippedRow!].list
-            
+            scheduleVC.eventTextField.text = self.allBucketLists[indexPath.row].list
             self.showScheduleMenu()
-            
             completion(true)
         }
         
         let addPhotoAction = UIContextualAction(style: .destructive, title: "Add Photo") { [weak self] (_, _, completion) in
             guard let self = self else { return }
-            
             self.imageSwippedRow = indexPath.row
             self.showImagePicker()
-            
             completion(true)
         }
         
@@ -379,12 +342,7 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if allBucketLists[indexPath.row].images != [] {
-            return 250
-        } else {
-            return 80
-        }
+        allBucketLists[indexPath.row].images.isNotEmpty ? 250 : 80
     }
 }
 
@@ -393,64 +351,51 @@ extension BucketDetailViewController: UITableViewDelegate, UITableViewDataSource
 extension BucketDetailViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
-        
         // present animation
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(3))
         animationView.play { _ in
             self.stopAnimation(animationView: animationView)
         }
-        
         self.imageUrlString = []
-        
-        for result in results {
-            compressImage(result: result)
+        results.forEach {
+            compressImage(result: $0)
         }
     }
     
-    func compressImage(result: PHPickerResult) {
+    private func compressImage(result: PHPickerResult) {
         result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
-            
             guard let image = image as? UIImage,
                   let imageData = image.jpegData(compressionQuality: 0.5),
-                  let self = self,
-                  error == nil
-            else {
-                print("Error fetch image")
+                  let self = self, error == nil else {
+                Log.v(error?.localizedDescription)
                 return
             }
-            
             let imageName = NSUUID().uuidString
             self.uploadImage(imageName: imageName, imageData: imageData)
         }
     }
     
-    func uploadImage(imageName: String, imageData: Data) {
-        storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
-            guard error == nil else {
-                print("Fail to upload image")
+    private func uploadImage(imageName: String, imageData: Data) {
+        storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { [weak self]  _, error in
+            guard let self = self, error == nil else {
+                Log.e(error?.localizedDescription)
                 return
             }
             self.downloadImage(imageName: imageName)
-            print("Uploaded to firebase")
         }
     }
     
-    func downloadImage(imageName: String) {
-        
-        storage.child("listImage/\(imageName).png").downloadURL { url, error in
-            
-            guard let url = url, error == nil else {
+    private func downloadImage(imageName: String) {
+        storage.child("listImage/\(imageName).png").downloadURL { [weak self] url, error in
+            guard let self = self, let url = url, error == nil else {
+                Log.e(error?.localizedDescription)
                 return
             }
-            
             let urlString = url.absoluteString
             self.imageUrlString.append(urlString)
             UserDefaults.standard.set(urlString, forKey: "url")
-            
-            guard let swippedRow = self.imageSwippedRow, self.imageUrlString != [] else { return }
-            
+            guard let swippedRow = self.imageSwippedRow, self.imageUrlString.isNotEmpty else { return }
             self.checkBucketList(element: .image, bucketList: self.allBucketLists[swippedRow])
-            
         }
     }
 }
@@ -458,15 +403,12 @@ extension BucketDetailViewController: PHPickerViewControllerDelegate {
 // MARK: - Delegate
 
 extension BucketDetailViewController: BucketDetailTableViewCellDelegate, AddScheduleViewControllerDelegate {
-    
     func didTappedStatus(cell: UITableViewCell) {
-        
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         checkBucketList(element: .status, bucketList: allBucketLists[indexPath.row])
-        
         let animationView = self.loadAnimation(name: "lottieCongrats", loopMode: .playOnce)
-        animationView.play { _ in
-            self.stopAnimation(animationView: animationView)
+        animationView.play { [weak self] _ in
+            self?.stopAnimation(animationView: animationView)
         }
     }
     

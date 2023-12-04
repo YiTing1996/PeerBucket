@@ -5,14 +5,11 @@
 //  Created by 陳憶婷 on 2022/6/15.
 //
 
-import Foundation
 import UIKit
 
-class ChallengeHeaderView: UICollectionReusableView {
-    
-    static let identifier = "ChallengeHeaderView"
-    
-    lazy var headerLabel: UILabel = create {
+final class ChallengeHeaderView: UICollectionReusableView {
+        
+    private lazy var headerLabel: UILabel = create {
         $0.backgroundColor = .hightlightYellow
         $0.textColor = .white
         $0.font = UIFont.bold(size: 20)
@@ -29,5 +26,4 @@ class ChallengeHeaderView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

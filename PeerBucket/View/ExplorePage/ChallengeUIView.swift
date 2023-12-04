@@ -7,21 +7,13 @@
 
 import UIKit
 
-class ChallengeUIView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+final class ChallengeUIView: UIView {
     
-    var lineColor = UIColor.darkGreen
-    var lineWidth: CGFloat = 10
-    var path: UIBezierPath!
-    var touchPoint: CGPoint!
-    var startingPoint: CGPoint!
+    private var lineColor = UIColor.darkGreen
+    private var lineWidth: CGFloat = 10
+    private var path: UIBezierPath!
+    private var touchPoint: CGPoint!
+    private var startingPoint: CGPoint!
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         startingPoint = touches.first?.location(in: self)
@@ -36,7 +28,7 @@ class ChallengeUIView: UIView {
         draw()
     }
     
-    func draw() {
+    private func draw() {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
         shapeLayer.strokeColor = lineColor.cgColor
@@ -54,5 +46,4 @@ class ChallengeUIView: UIView {
         self.layer.sublayers = nil
         self.setNeedsDisplay()
     }
-    
 }

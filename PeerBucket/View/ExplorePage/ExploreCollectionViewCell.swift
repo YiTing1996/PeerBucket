@@ -5,14 +5,11 @@
 //  Created by 陳憶婷 on 2022/6/15.
 //
 
-import Foundation
 import UIKit
 
-class ExploreCollectionViewCell: UICollectionViewCell {
-    
-    static let identifier = "ExploreCollectionViewCell"
-    
-    lazy var mainImageView: UIImageView = create {
+final class ExploreCollectionViewCell: UICollectionViewCell {
+        
+    private lazy var mainImageView: UIImageView = create {
         $0.contentMode = .scaleAspectFill
     }
     
@@ -25,15 +22,15 @@ class ExploreCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureUI() {
+    private func configureUI() {
+        backgroundColor = UIColor.lightGray
+        clipsToBounds = true
+        layer.cornerRadius = frame.height / 15
         addSubview(mainImageView)
-        
         mainImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
-        
     }
     
     func configureCell(content: ExploreBucket) {
         mainImageView.image = content.images[0]
     }
-    
 }

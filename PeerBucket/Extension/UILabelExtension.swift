@@ -10,7 +10,6 @@ import UIKit
 
 @IBDesignable
 extension UILabel {
-    
     // read more
     func addTrailing(with trailingText: String = "...", moreText: String) {
         
@@ -37,7 +36,7 @@ extension UILabel {
                                                                 [NSAttributedString.Key.font: self.font!])
             let readMoreAttributed = NSMutableAttributedString(string: moreText,
                                                                attributes: [
-                                                                NSAttributedString.Key.font: moreTextFont!,
+                                                                NSAttributedString.Key.font: moreTextFont ?? .systemFont(ofSize: 14),
                                                                 NSAttributedString.Key.foregroundColor: moreTextColor])
             answerAttributed.append(readMoreAttributed)
             self.attributedText = answerAttributed
@@ -45,7 +44,6 @@ extension UILabel {
     }
     
     var visibleTextLength: Int {
-        
         let font: UIFont = self.font
         let mode: NSLineBreakMode = self.lineBreakMode
         let labelWidth: CGFloat = self.frame.size.width
@@ -83,8 +81,6 @@ extension UILabel {
                                                    context: nil).size.height <= labelHeight
             return prev
         }
-        
         return myText.count
     }
-    
 }

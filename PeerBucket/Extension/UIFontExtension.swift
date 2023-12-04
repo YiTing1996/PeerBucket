@@ -8,17 +8,14 @@
 import UIKit
 
 enum FontName: String {
-    
     case regular = "GillSans-Regular"
     case medium = "GillSans-Medium"
     case semiBold = "GillSans-Semibold"
     case bold = "GillSans-Bold"
     case italic = "GillSans-Italic"
-    
 }
 
 extension UIFont {
-    
     static func regular(size: CGFloat) -> UIFont? {
         return UIFont(name: FontName.regular.rawValue, size: size)
     }

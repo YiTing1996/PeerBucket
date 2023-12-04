@@ -65,6 +65,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
+    #warning("應該可以有更好的寫法？")
     func changeRootViewController(_ rootVC: UIViewController, animated: Bool = true) {
         guard let window = window else {
             return

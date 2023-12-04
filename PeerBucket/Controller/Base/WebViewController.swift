@@ -8,7 +8,7 @@
 import Foundation
 import WebKit
 
-class WebViewController: UIViewController {
+final class WebViewController: UIViewController {
     
     @IBOutlet weak var webView: WKWebView!
 
@@ -16,16 +16,12 @@ class WebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         guard let url = URL(string: link) else {
             self.presentAlert(title: "Error", message: "Something went wrong, try again later")
-            self.view.window!.rootViewController?.dismiss(animated: true)
+            UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true)
             return
         }
-        
         let urlRequest: URLRequest = URLRequest(url: url)
         webView.load(urlRequest)
-
     }
-    
 }

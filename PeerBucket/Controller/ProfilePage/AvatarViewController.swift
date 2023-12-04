@@ -13,22 +13,20 @@ protocol AvatarViewControllerDelegate: AnyObject {
     func didTappedSubmit()
 }
 
-class AvatarViewController: UIViewController {
+final class AvatarViewController: UIViewController {
     
     // MARK: - Properties
     
     weak var delegate: AvatarViewControllerDelegate?
     
-    var currentUser: User?
+    private var currentUser: User?
     
-    lazy var submitButton: UIButton = create {
+    private lazy var submitButton: UIButton = create {
         $0.setTitle("Submit", for: .normal)
         $0.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
         $0.setTextBtn(bgColor: .clear, titleColor: .darkGreen, border: 0, font: 15)
     }
-    
-    lazy var menuBarItem = UIBarButtonItem(customView: self.submitButton)
-    
+        
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var hair: UIImageView!
     @IBOutlet weak var face: UIImageView!
@@ -46,7 +44,6 @@ class AvatarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         guard let currentUserUID = currentUserUID else {
             return
         }
@@ -57,24 +54,19 @@ class AvatarViewController: UIViewController {
         glassesView.isHidden = true
         bodyView.isHidden = true
         
-        navigationItem.rightBarButtonItem = menuBarItem
-        
+        tabBarController?.tabBar.isHidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.submitButton)
         configureUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Configure UI
     
-    func configureUI() {
+    private func configureUI() {
         backgroundView.anchor(top: view.topAnchor, left: view.leftAnchor,
                               bottom: selectionView.topAnchor, right: view.rightAnchor,
                               height: screenHeight * 0.5)
@@ -95,13 +87,11 @@ class AvatarViewController: UIViewController {
         bodyView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
                         bottom: view.bottomAnchor, right: view.rightAnchor,
                         height: screenHeight * 0.4)
-        
     }
     
     // MARK: - Firebase handler
     
-    func fetchUserData(userID: String) {
-        
+    private func fetchUserData(userID: String) {
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -109,77 +99,66 @@ class AvatarViewController: UIViewController {
                 self.currentUser = user
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                print("Can't find user in avatarVC")
             }
         }
     }
     
-    func saveAvatar(urlString: String) {
-        
+    private func updateAvatar(urlString: String) {
         guard let currentUser = self.currentUser else {
             return
         }
-        
         let user = User(userID: currentUser.userID,
                         userAvatar: urlString,
                         userHomeBG: currentUser.userHomeBG,
                         userName: currentUser.userName,
                         paringUser: currentUser.paringUser)
-        
-        UserManager.shared.updateUserData(user: user) { result in
+        UserManager.shared.updateUserData(user: user) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success:
-                print("Successfully update avatar to firebase")
                 self.delegate?.didTappedSubmit()
             case .failure:
-                self.presentAlert(title: "Error",
-                                  message: "Something went wrong. Please try again later.")
+                self.presentAlert(
+                    title: "Error",
+                    message: "Something went wrong. Please try again later.")
             }
         }
     }
     
-    func avatarProcess(image: UIImage) {
+    private func uploadImage(image: UIImage) {
         guard let imageData = image.pngData() else {
             return
         }
-        
-        let imageName = NSUUID().uuidString
-        self.uploadImage(imageName: imageName, imageData: imageData)
-    }
-    
-    func uploadImage(imageName: String, imageData: Data) {
-        storage.child("avatar/\(imageName).png").putData(imageData, metadata: nil) { _, error in
+        let path = "avatar/\(NSUUID().uuidString).png"
+        storage.child(path).putData(imageData, metadata: nil) { [weak self] _, error in
             guard error == nil else {
-                print("Fail to upload image")
+                Log.e(error)
                 return
             }
-            self.downloadImage(imageName: imageName)
-            print("Uploaded to firebase")
-        }
-    }
-    
-    func downloadImage(imageName: String) {
-        storage.child("avatar/\(imageName).png").downloadURL { url, error in
-            guard let url = url, error == nil else {
-                return
+            storage.child(path).downloadURL { url, error in
+                guard let url = url, error == nil else {
+                    Log.e(error)
+                    return
+                }
+                let urlString = url.absoluteString
+                UserDefaults.standard.set(urlString, forKey: "url")
+                self?.updateAvatar(urlString: urlString)
             }
-            let urlString = url.absoluteString
-            UserDefaults.standard.set(urlString, forKey: "url")
-            self.saveAvatar(urlString: urlString)
         }
     }
     
     // MARK: - Button actions
     
-    @objc func tappedSubmit() {
+    @objc
+    private func tappedSubmit() {
         let renderer = UIGraphicsImageRenderer(size: backgroundView.bounds.size)
-        let image = renderer.image(actions: { _ in
+        let image = renderer.image { _ in
             backgroundView.drawHierarchy(in: backgroundView.bounds, afterScreenUpdates: true)
-        })
-        avatarProcess(image: image)
-        self.presentAlert(title: "Congrats", message: "Avatar successfully update", completion: {
-            self.navigationController?.popViewController(animated: true)
-        })
+        }
+        uploadImage(image: image)
+        presentAlert(title: "Congrats", message: "Avatar successfully update") { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func changeHair(_ sender: UIButton) {
@@ -203,10 +182,9 @@ class AvatarViewController: UIViewController {
         body.image = image
     }
     
-    var colorValue: CGFloat = 0.5
     @IBAction func chageBackground(_ sender: UISlider) {
         // sender的index
-        colorValue = CGFloat(sender.value)
+        let colorValue = CGFloat(sender.value)
         backgroundView.backgroundColor = UIColor(hue: colorValue, saturation: 0.8, brightness: 1, alpha: 1)
     }
     
@@ -236,5 +214,4 @@ class AvatarViewController: UIViewController {
         glassesView.isHidden = true
         bodyView.isHidden = false
     }
-    
 }

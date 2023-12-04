@@ -13,27 +13,27 @@ protocol QRCodeViewControllerDelegate: AnyObject {
     func didTappedClose()
 }
 
-class QRCodeViewController: UIViewController {
+final class QRCodeViewController: UIViewController {
     
     // MARK: - Properties
     
     weak var delegate: QRCodeViewControllerDelegate?
     
-    var qrcodeImage: CIImage?
+    private var qrcodeImage: CIImage?
     
-    lazy var titleLabel: UILabel = create {
+    private lazy var titleLabel: UILabel = create {
         $0.textColor = .darkGreen
         $0.numberOfLines = 0
         $0.font = UIFont.semiBold(size: 20)
         $0.text = "Here's your QRCode"
     }
     
-    lazy var bgImageView: UIImageView = create {
+    private lazy var bgImageView: UIImageView = create {
         $0.backgroundColor = .hightlightYellow
         $0.contentMode = .scaleAspectFill
     }
     
-    lazy var cancelButton: UIButton = create {
+    private lazy var cancelButton: UIButton = create {
         $0.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
         $0.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
     }
@@ -42,27 +42,19 @@ class QRCodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         guard let currentUserUID = currentUserUID else {
             return
         }
-        
         createQRCode(currentUserUID)
         configureUI()
-
     }
     
-    // MARK: - Configure UI
+    // MARK: - UI
 
     func configureUI() {
-        
-        view.addSubview(titleLabel)
-        view.addSubview(bgImageView)
-        view.addSubview(cancelButton)
-        
+        view.addSubviews([titleLabel, bgImageView, cancelButton])
         view.clipsToBounds = true
         view.layer.cornerRadius = 20
-        
         titleLabel.anchor(top: view.topAnchor, left: view.leftAnchor,
                           paddingTop: 20, paddingLeft: 20, width: 150)
         bgImageView.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
@@ -73,12 +65,12 @@ class QRCodeViewController: UIViewController {
     
     // MARK: - User interaction handler
 
-    @objc func tappedCloseBtn() {
+    @objc
+    private func tappedCloseBtn() {
         delegate?.didTappedClose()
     }
     
-    func createQRCode(_ text: String) {
-    
+    private func createQRCode( _ text: String) {
         let data = text.data(using: .isoLatin1)
         let qrFilter = CIFilter(name: "CIQRCodeGenerator")
         qrFilter?.setValue(data, forKey: "inputMessage")
@@ -88,11 +80,8 @@ class QRCodeViewController: UIViewController {
             let qrWidth = UIScreen.main.bounds.width / 3 * 2 - 64
             let scaleX = qrWidth / qrcodeImage.extent.width
             let scaleY = qrWidth / qrcodeImage.extent.height
-            
             let transformedImage = qrcodeImage.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
             bgImageView.image = UIImage(ciImage: transformedImage)
         }
-                
     }
-    
 }

@@ -13,30 +13,25 @@ protocol AddScheduleViewControllerDelegate: AnyObject {
     func didTappedClose()
 }
 
-class AddScheduleViewController: UIViewController, UITextFieldDelegate {
+final class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
 
     weak var delegate: AddScheduleViewControllerDelegate?
     
-    var selectedDate: Date?
-    var buckteListTitle: String? {
-        didSet {
-            eventTextField.text = buckteListTitle
-        }
-    }
-    
-    lazy var eventLabel: UILabel = create {
+    private var selectedDate: Date?
+
+    private lazy var eventLabel: UILabel = create {
         $0.textColor = .darkGray
         $0.font = UIFont.semiBold(size: 20)
         $0.text = "Add a new event below !"
     }
     
-    lazy var eventTextField: UITextField = create {
-        $0.setTextField(placeholder: "Type Event Name Here")
+    private(set) lazy var eventTextField: UITextField = create {
+        $0.setThemeTextField(placeholder: "Type Event Name Here")
     }
     
-    lazy var datePicker: UIDatePicker = create {
+    private lazy var datePicker: UIDatePicker = create {
         $0.timeZone = TimeZone.current
         $0.addTarget(self, action: #selector(didChangedDate(_:)), for: .valueChanged)
         $0.setValue(UIColor.darkGray, forKeyPath: "textColor")
@@ -44,12 +39,12 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         $0.preferredDatePickerStyle = .wheels
     }
     
-    lazy var cancelButton: UIButton = create {
+    private lazy var cancelButton: UIButton = create {
         $0.setImage(UIImage(named: "icon_func_cancel"), for: .normal)
         $0.addTarget(self, action: #selector(tappedCloseBtn), for: .touchUpInside)
     }
     
-    lazy var submitButton: UIButton = create {
+    private lazy var submitButton: UIButton = create {
         $0.setTitle("SUBMIT", for: .normal)
         $0.addTarget(self, action: #selector(tappedSubmitBtn), for: .touchUpInside)
         $0.setTextBtn(bgColor: .mediumGray, titleColor: .white, font: 15)
@@ -59,20 +54,12 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureUI()
-        
         eventTextField.delegate = self
     }
     
     func configureUI() {
-        
-        view.addSubview(eventLabel)
-        view.addSubview(eventTextField)
-        view.addSubview(datePicker)
-        view.addSubview(cancelButton)
-        view.addSubview(submitButton)
-        
+        view.addSubviews([eventLabel, eventTextField, datePicker, cancelButton, submitButton])
         view.backgroundColor = .lightGray
         view.layer.cornerRadius = 30
         view.clipsToBounds = true
@@ -86,27 +73,26 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
                               paddingTop: 10, paddingLeft: 30, paddingRight: 30, height: 50)
         datePicker.anchor(top: eventTextField.bottomAnchor, left: view.leftAnchor,
                           paddingTop: 20, paddingLeft: 30, height: 100)
-        
         submitButton.anchor(top: datePicker.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,
                             paddingTop: 20, paddingLeft: 30, paddingRight: 30, height: 50)
-        
     }
     
     // MARK: - User interaction handler
 
-    @objc func didChangedDate(_ sender: UIDatePicker) {
+    @objc
+    private func didChangedDate(_ sender: UIDatePicker) {
         selectedDate = sender.date
     }
     
-    @objc func tappedCloseBtn() {
+    @objc
+    private func tappedCloseBtn() {
         delegate?.didTappedClose()
     }
     
-    @objc func tappedSubmitBtn() {
-        
+    @objc
+    private func tappedSubmitBtn() {
         guard let currentUserUID = currentUserUID else { return }
-        
-        if eventTextField.text != "" {
+        if let text = eventTextField.text, text.isNotEmpty {
             addSchedule(userID: currentUserUID)
             eventTextField.text = ""
             delegate?.didTappedClose()
@@ -115,7 +101,7 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    func addSchedule(userID: String) {
+    private func addSchedule(userID: String) {
         var schedule: Schedule = Schedule(
             senderId: userID,
             event: eventTextField.text ?? "",
@@ -133,14 +119,8 @@ class AddScheduleViewController: UIViewController, UITextFieldDelegate {
         }
         createNotification(event: schedule)
     }
-}
-
-// MARK: - Notification
-
-extension AddScheduleViewController {
     
-    func createNotification(event: Schedule) {
-
+    private func createNotification(event: Schedule) {
         let content = UNMutableNotificationContent()
         content.title = "Schedule Today"
         content.subtitle = Date.dateFormatter.string(from: event.eventDate)
@@ -148,18 +128,17 @@ extension AddScheduleViewController {
         content.sound = .default
 
         let calendar = Calendar.current
-        let component = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: event.eventDate)
+        var component = calendar.dateComponents([.year, .month, .day], from: event.eventDate)
+        component.hour = 12
+        component.minute = 5
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: component, repeats: false)
-
         let request = UNNotificationRequest(identifier: event.id, content: content, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { error in
-            if error != nil {
-                print("add notification failed")
-                self.presentAlert(title: "Error", message: "Notification Error. Please try again later.")
+            if let error = error {
+                self.presentAlert(title: "Error", message: error.localizedDescription)
             }
         }
     }
-    
 }

@@ -5,13 +5,12 @@
 //  Created by 陳憶婷 on 2022/6/18.
 //
 
-import Foundation
 import UIKit
 import FSCalendar
 import FirebaseFirestore
 import Firebase
 
-class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
+final class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
 
@@ -21,48 +20,43 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     fileprivate weak var calendar: FSCalendar!
     
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         layout.scrollDirection = .vertical
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(ScheduleCollectionViewCell.self,
-                                forCellWithReuseIdentifier: ScheduleCollectionViewCell.identifier)
+                                forCellWithReuseIdentifier: ScheduleCollectionViewCell.cellIdentifier)
         collectionView.register(ScheduleHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: ScheduleHeaderView.identifier)
+                                withReuseIdentifier: ScheduleHeaderView.headerIdentifier)
         return collectionView
     }()
     
-    lazy var longPressGesture: UILongPressGestureRecognizer = create {
+    private lazy var longPressGesture: UILongPressGestureRecognizer = create {
         $0.addTarget(self, action: #selector(handleLongPress(gestureReconizer:)))
         $0.minimumPressDuration = 0.5
         $0.delaysTouchesBegan = true
         $0.delegate = self
     }
         
-    var userIDList: [String] = []
-
-    var datesWithEventString: [String] = []
-    var datesWithEvent: [Schedule] = []
-    var monthWithEvent: [Schedule] = []
+    private var userIDList: [String] = []
+    private var datesWithEvent: [Schedule] = []
+    private var monthWithEvent: [Schedule] = []
     
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configueCalendarUI()
         configureUI()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         guard let currentUserUID = currentUserUID else { return }
-        getData(userID: currentUserUID, date: Date())
+        fetchData(userID: currentUserUID, date: Date())
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -73,9 +67,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Configue UI
 
-    func configueCalendarUI() {
-        
-        self.view.backgroundColor = .lightGray
+    private func configueCalendarUI() {
+        view.backgroundColor = .lightGray
         collectionView.backgroundColor = .lightGray
         
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 320, height: 300))
@@ -100,8 +93,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                         height: screenHeight * 3 / 8 )
     }
     
-    func configureUI() {
-        
+    private func configureUI() {
         blackView.backgroundColor = .black
         blackView.alpha = 0
         menuBottomConstraint.constant = hideMenuBottomConstraint
@@ -126,7 +118,8 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - User interaction handler
 
-    @objc func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+    @objc
+    private func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         if gestureReconizer.state != UIGestureRecognizer.State.ended {
             return
         }
@@ -135,7 +128,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
         let indexPath = self.collectionView.indexPathForItem(at: location)
         
         guard let indexPath = indexPath else {
-            print("Could not find index path")
+            Log.e("Cant find indexpath")
             return
         }
 
@@ -148,15 +141,14 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Firebase handler
         
-    // get user data and event of the month by self & paring user ID
-    func getData(userID: String, date: Date) {
+    /// get user data and event of the month by self & paring user ID
+    private func fetchData(userID: String, date: Date) {
         UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.userIDList = [userID]
-                
-                if user.paringUser != [] {
+                if user.paringUser.isNotEmpty {
                     self.userIDList.append(user.paringUser[0])
                 }
                 
@@ -168,31 +160,28 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 
             case .failure(let error):
                 self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                print("Can't find user in scheduleVC")
             }
         }
     }
     
-    func loadMonthEvent(date: Date, userID: String) {
+    private func loadMonthEvent(date: Date, userID: String) {
         self.monthWithEvent = []
         ScheduleManager.shared.fetchMonthSchedule(userID: userID, date: date) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .success(let events):
                 self.monthWithEvent += events
                 DispatchQueue.main.async {
                     self.calendar.reloadData()
                 }
-                
             case .failure(let error):
-                print(error.localizedDescription)
+                Log.e(error.localizedDescription)
             }
         }
     }
             
-    // fetch specific date's event by self & paring user ID
-    func loadDateEvent(date: Date) {
+    /// fetch specific date's event by self & paring user ID
+    private func loadDateEvent(date: Date) {
         self.datesWithEvent = []
         for userID in userIDList {
             ScheduleManager.shared.fetchSpecificSchedule(userID: userID, date: date) { [weak self] result in
@@ -200,19 +189,17 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 switch result {
                 case .success(let events):
                     self.datesWithEvent += events
-                    
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    Log.e(error.localizedDescription)
                 }
             }
         }
     }
     
-    func deleteEvent(deleteId: String, row: Int) {
-
+    private func deleteEvent(deleteId: String, row: Int) {
         ScheduleManager.shared.deleteSchedule(id: deleteId) { result in
             switch result {
             case .success:
@@ -220,7 +207,7 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
                 self.datesWithEvent.remove(at: row)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
-                    self.getData(userID: currentUserUID ?? "",
+                    self.fetchData(userID: currentUserUID ?? "",
                                  date: self.calendar.selectedDate ?? Date())
                 }
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
@@ -235,95 +222,71 @@ class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
 // MARK: - Calendar View
 
 extension ScheduleViewController: FSCalendarDelegate, FSCalendarDataSource {
-    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         loadDateEvent(date: date)
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-
         let dateString = Date.dateFormatter.string(from: date)
-
-        datesWithEventString = []
-
+        var datesWithEventString: [String] = []
         for date in monthWithEvent {
             let eventString = Date.dateFormatter.string(from: date.eventDate)
             datesWithEventString.append(eventString)
         }
-
-        if datesWithEventString.contains(dateString) {
-             return 1
-         }
-
-         return 0
+        return datesWithEventString.contains(dateString) ? 1 : 0
      }
-    
 }
 
 // MARK: - Collection View
 
 extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datesWithEvent.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let eventCell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ScheduleCollectionViewCell.identifier, for: indexPath) as? ScheduleCollectionViewCell else {
+            withReuseIdentifier: ScheduleCollectionViewCell.cellIdentifier,
+            for: indexPath) as? ScheduleCollectionViewCell else {
             return UICollectionViewCell()
         }
-                
         eventCell.configureCell(event: datesWithEvent[indexPath.row])
-        
-        eventCell.backgroundColor = .lightGray
-        eventCell.layer.borderWidth = 1
-        eventCell.layer.borderColor = UIColor.darkGray.cgColor
-        eventCell.layer.cornerRadius = 10
-        
         return eventCell
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenWidth-60, height: 90)
+        return CGSize(width: screenWidth - 60, height: 90)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        
-        return (screenWidth-360)/6
-        
+        return (screenWidth - 360) / 6
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: screenWidth-40, height: 50)
+        return CGSize(width: screenWidth - 40, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                         withReuseIdentifier: ScheduleHeaderView.identifier,
+                                                                         withReuseIdentifier: ScheduleHeaderView.headerIdentifier,
                                                                          for: indexPath)
-        
         guard let headerView = headerView as? ScheduleHeaderView else { return headerView }
         headerView.delegate = self
         headerView.configureHeader(eventCount: datesWithEvent.count)
-        
         return headerView
-        
     }
-    
 }
 
 // MARK: - Delegate
 
 extension ScheduleViewController: ScheduleHeaderViewDelegate {
-    
     func didTapAddButton() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = 0
@@ -333,7 +296,6 @@ extension ScheduleViewController: ScheduleHeaderViewDelegate {
 }
 
 extension ScheduleViewController: AddScheduleViewControllerDelegate {
-    
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
             self.menuBottomConstraint.constant = hideMenuBottomConstraint
@@ -342,7 +304,6 @@ extension ScheduleViewController: AddScheduleViewControllerDelegate {
         
         // refetch & reload data
         guard let currentUserUID = currentUserUID else { return }
-        getData(userID: currentUserUID, date: calendar.selectedDate ?? Date())
-        
+        fetchData(userID: currentUserUID, date: calendar.selectedDate ?? Date())
     }
 }

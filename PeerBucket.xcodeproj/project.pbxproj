@@ -54,6 +54,11 @@
 		AC8B43FD28755BB100A86A11 /* LiveTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B43FC28755BB100A86A11 /* LiveTextController.swift */; };
 		AC8B440128758AE900A86A11 /* LiveTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */; };
 		AC8B44052875B72C00A86A11 /* dreams.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AC8B44042875B72C00A86A11 /* dreams.mp3 */; };
+		ACA4501E2B1D75B200A250EB /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA4501D2B1D75B200A250EB /* Printer.swift */; };
+		ACA450222B1D93AF00A250EB /* CellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450212B1D93AF00A250EB /* CellExtension.swift */; };
+		ACA450242B1DC00100A250EB /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450232B1DC00100A250EB /* Info.swift */; };
+		ACA450262B1DE49000A250EB /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450252B1DE49000A250EB /* CollectionExtension.swift */; };
+		ACA450282B1DE82400A250EB /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450272B1DE82400A250EB /* UIApplicationExtension.swift */; };
 		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
 		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
@@ -139,6 +144,11 @@
 		AC8B43FC28755BB100A86A11 /* LiveTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextController.swift; sourceTree = "<group>"; };
 		AC8B440028758AE900A86A11 /* LiveTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextTableViewCell.swift; sourceTree = "<group>"; };
 		AC8B44042875B72C00A86A11 /* dreams.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = dreams.mp3; sourceTree = "<group>"; };
+		ACA4501D2B1D75B200A250EB /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
+		ACA450212B1D93AF00A250EB /* CellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellExtension.swift; sourceTree = "<group>"; };
+		ACA450232B1DC00100A250EB /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		ACA450252B1DE49000A250EB /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		ACA450272B1DE82400A250EB /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
 		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
@@ -204,6 +214,7 @@
 			children = (
 				AC0203C5288D939A006D0AB5 /* ScreenConstants.swift */,
 				AC0203C3288D936C006D0AB5 /* FirebaseConstants.swift */,
+				ACA4501D2B1D75B200A250EB /* Printer.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -309,6 +320,7 @@
 		AC72A0E828598A0E007FC767 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				ACA450232B1DC00100A250EB /* Info.swift */,
 				AC001478285DABAA0098FC4E /* HomePage */,
 				AC2C741E2861B71D005D1A2D /* ProfilePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
@@ -322,6 +334,8 @@
 			isa = PBXGroup;
 			children = (
 				ACC3D272285B0EFA00676F46 /* DateExtension.swift */,
+				ACA450272B1DE82400A250EB /* UIApplicationExtension.swift */,
+				ACA450252B1DE49000A250EB /* CollectionExtension.swift */,
 				AC72A0E228598998007FC767 /* UIViewExtension.swift */,
 				AC72A0F42859AF8B007FC767 /* UIColorExtension.swift */,
 				AC21CEAB285B57EE00157B4D /* UIFontExtension.swift */,
@@ -330,6 +344,7 @@
 				ACFC8D0F286864960055D143 /* UILabelExtension.swift */,
 				AC2CBBDD28703840003EF0FA /* UIButtonExtension.swift */,
 				AC6B88DC2886A9EF00AEE78F /* NSObjectExtension.swift */,
+				ACA450212B1D93AF00A250EB /* CellExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -586,14 +601,17 @@
 				ACADB721286078B100D7C18E /* LoginViewController.swift in Sources */,
 				ACC7D09A28631E54006AC04A /* TabBarController.swift in Sources */,
 				AC72A0E328598998007FC767 /* UIViewExtension.swift in Sources */,
+				ACA450262B1DE49000A250EB /* CollectionExtension.swift in Sources */,
 				AC72A0F1285991D3007FC767 /* ExploreHeaderView.swift in Sources */,
 				AC2C741D2861B297005D1A2D /* ProfileViewController.swift in Sources */,
+				ACA450222B1D93AF00A250EB /* CellExtension.swift in Sources */,
 				AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */,
 				AC72A0ED28599135007FC767 /* ExploreCollectionViewCell.swift in Sources */,
 				AC00147F285E07F70098FC4E /* ScheduleHeaderView.swift in Sources */,
 				AC001475285CDD690098FC4E /* ChallengeUIView.swift in Sources */,
 				AC8B440128758AE900A86A11 /* LiveTextTableViewCell.swift in Sources */,
 				AC72A0F3285991FC007FC767 /* ChallengeHeaderView.swift in Sources */,
+				ACA450242B1DC00100A250EB /* Info.swift in Sources */,
 				AC752A8F287334B1006756ED /* WebViewController.swift in Sources */,
 				AC72A0EF2859918C007FC767 /* ChallengeCollectionViewCell.swift in Sources */,
 				AC72A0CF285984CB007FC767 /* ExploreViewController.swift in Sources */,
@@ -602,6 +620,7 @@
 				AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */,
 				ACC3D273285B0EFA00676F46 /* DateExtension.swift in Sources */,
 				AC21CEAE285B58DB00157B4D /* UITextFieldExtension.swift in Sources */,
+				ACA4501E2B1D75B200A250EB /* Printer.swift in Sources */,
 				AC21CEAC285B57EE00157B4D /* UIFontExtension.swift in Sources */,
 				AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */,
 				AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */,
@@ -620,6 +639,7 @@
 				AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */,
 				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
+				ACA450282B1DE82400A250EB /* UIApplicationExtension.swift in Sources */,
 				ACCECFDC28796C4E004AE116 /* CameraKeyboard.swift in Sources */,
 				AC8B43FD28755BB100A86A11 /* LiveTextController.swift in Sources */,
 				AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */,

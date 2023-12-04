@@ -9,7 +9,42 @@ import UIKit
 import Lottie
 
 extension UIViewController {
+    enum PageIdentifier: String {
+        case schedule = "scheduleVC"
+        case chat = "chatVC"
+        case exploreDetail = "exploreDetailVC"
+        case challenge = "challengeVC"
+        case web = "webVC"
+        case memory = "imageVC"
+        case login = "loginVC"
+        case invite = "inviteVC"
+        case avatar = "avatarVC"
+        case live = "liveVC"
+        case bucketDetail = "BucketDetailViewController"
+    }
     
+    func initFromStoryboard(with identifier: PageIdentifier, storyboard: String = "Main") -> UIViewController {
+        let storyboard = UIStoryboard(name: storyboard, bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: identifier.rawValue)
+        return nextVC
+    }
+    
+    func routeToRoot() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabBarVC = storyboard.instantiateViewController(withIdentifier: "tabBarVC")
+        guard let tabBarVC = tabBarVC as? TabBarController else { return }
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        sceneDelegate?.changeRootViewController(tabBarVC)
+    }
+    
+    func routeToLaunchScreen() {
+        let launchVC = LaunchViewController()
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        sceneDelegate?.changeRootViewController(launchVC)
+    }
+}
+
+extension UIViewController {
     func presentActionAlert(action: String,
                             title: String,
                             message: String,
@@ -50,7 +85,7 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.setAlertUI()
         
-        alert.addTextField(configurationHandler: { (textField: UITextField!) -> Void in
+        alert.addTextField(configurationHandler: { (textField: UITextField) -> Void in
             textField.placeholder = "Name"
         })
         
@@ -88,7 +123,6 @@ extension UIViewController {
 }
 
 extension UIAlertController {
-    
     func setAlertUI() {
         self.setTitlet(font: UIFont.semiBold(size: 20), color: UIColor.darkGray)
         self.setTint(color: UIColor.darkGray)

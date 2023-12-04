@@ -11,10 +11,14 @@ import FirebaseAuth
 
 // Beta UID: "AITNzRSyUdMCjV4WrQxT"
 var currentUserUID: String? {
+    #if DEBUG
+    return "AITNzRSyUdMCjV4WrQxT"
+    #else
     guard let userID = Auth.auth().currentUser?.uid else {
         return nil
     }
     return userID
+    #endif
 }
 
 enum IdentityType: String, CaseIterable {
@@ -46,6 +50,10 @@ struct User: Codable {
             "userName": userName as Any,
             "paringUser": paringUser as Any
         ]
+    }
+    
+    static func dummy() -> Self {
+        User(userID: "", userAvatar: "", userHomeBG: "", userName: "", paringUser: [])
     }
 }
 

@@ -6,71 +6,64 @@
 //
 
 import UIKit
-import SwiftUI
 
 protocol ExploreDetailTableViewCellDelegate: AnyObject {
     func didTappedMore()
 }
 
-class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
+final class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     
-    static let identifier = "ExploreDetailTableViewCell"
-
     weak var delegate: ExploreDetailTableViewCellDelegate?
     
-    lazy var scrollView: UIScrollView = create {
+    private lazy var scrollView: UIScrollView = create {
         $0.isPagingEnabled = true
-        $0.translatesAutoresizingMaskIntoConstraints = false
         $0.showsHorizontalScrollIndicator = false
         $0.delegate = self
     }
     
-    lazy var stackView: UIStackView = create {
+    private lazy var stackView: UIStackView = create {
         let stackView = UIStackView()
         $0.axis = .horizontal
         $0.distribution = .fillEqually
         $0.alignment = .fill
         $0.clipsToBounds = true
-        $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    lazy var titleLabel: UILabel = create {
+    private lazy var titleLabel: UILabel = create {
         $0.font = UIFont.bold(size: 30)
         $0.textColor = UIColor.darkGreen
     }
     
-    lazy var descriptionLabel: UILabel = create {
+    private lazy var descriptionLabel: UILabel = create {
         $0.textColor = .darkGray
         $0.numberOfLines = 6
         $0.font = UIFont.systemFont(ofSize: 15)
     }
     
-    lazy var tapMoreGesture: UITapGestureRecognizer = create {
+    private lazy var tapMoreGesture: UITapGestureRecognizer = create {
         $0.numberOfTapsRequired = 1
         $0.addTarget(self, action: #selector(handleTapGesture))
     }
     
-    var moreText: String = "Read More"
+    private var shouldShowMore: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         self.backgroundColor = .lightGray
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
-    @objc func handleTapGesture() {
+    @objc
+    private func handleTapGesture() {
         if self.descriptionLabel.numberOfLines > 0 {
             self.descriptionLabel.numberOfLines = 0
-            self.moreText = "Show Less"
+            shouldShowMore = false
         } else {
             self.descriptionLabel.numberOfLines = 6
-            self.moreText = "Read More"
+            shouldShowMore = true
         }
         delegate?.didTappedMore()
     }
@@ -78,14 +71,12 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
     func configureImageCell(content: ExploreBucket) {
         contentView.addSubview(scrollView)
         scrollView.addSubview(stackView)
-
         scrollView.anchor(top: contentView.topAnchor, left: contentView.leftAnchor,
                           bottom: contentView.bottomAnchor, right: contentView.rightAnchor, paddingLeft: 10, paddingRight: 10)
-        
         scrollView.contentSize.height = stackView.frame.height
         stackView.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor, right: scrollView.rightAnchor)
         
-        for index in 0...content.images.count-1 {
+        for index in 0...content.images.count - 1 {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
@@ -115,13 +106,10 @@ class ExploreDetailTableViewCell: UITableViewCell, UIScrollViewDelegate {
         descriptionLabel.text = content.description
         
         guard let text = descriptionLabel.text else { return }
-        
-        if text.count > 1 {
 
-//            let readmoreFont = UIFont.italic(size: 15)
-//            let readmoreFontColor = UIColor.darkGreen
+        if text.count > 1 {
             DispatchQueue.main.async {
-                self.descriptionLabel.addTrailing(moreText: self.moreText)
+                self.descriptionLabel.addTrailing(moreText: self.shouldShowMore ? "Read More" : "Show Less")
             }
         }
     }

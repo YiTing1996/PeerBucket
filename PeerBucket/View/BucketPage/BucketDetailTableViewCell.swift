@@ -11,24 +11,22 @@ protocol BucketDetailTableViewCellDelegate: AnyObject {
     func didTappedStatus(cell: UITableViewCell)
 }
 
-class BucketDetailTableViewCell: UITableViewCell {
+final class BucketDetailTableViewCell: UITableViewCell {
     
-    static let identifier = "BucketDetailTableViewCell"
-
     weak var delegate: BucketDetailTableViewCellDelegate?
     
-    lazy var doneButton: UIButton = create {
+    private lazy var doneButton: UIButton = create {
         $0.setImage(UIImage(named: "icon_check"), for: .normal)
         $0.addTarget(self, action: #selector(tappedDoneBtn), for: .touchUpInside)
     }
     
-    lazy var bucketLabel: UILabel = create {
+    private lazy var bucketLabel: UILabel = create {
         $0.numberOfLines = 0
         $0.font = UIFont.semiBold(size: 18)
         $0.textColor = .darkGray
     }
     
-    lazy var borderView: UIView = create {
+    private lazy var borderView: UIView = create {
         $0.backgroundColor = .lightGray
         $0.layer.masksToBounds = false
         $0.layer.borderColor = UIColor.darkGray.cgColor
@@ -36,24 +34,24 @@ class BucketDetailTableViewCell: UITableViewCell {
         $0.layer.cornerRadius = 10
     }
     
-    lazy var dateLabel: UILabel = create {
+    private lazy var dateLabel: UILabel = create {
         $0.numberOfLines = 0
         $0.font = UIFont.semiBold(size: 15)
         $0.textColor = .hightlightYellow
     }
     
-    lazy var hStack: UIStackView = create {
+    private lazy var hStack: UIStackView = create {
         $0.axis = .horizontal
         $0.distribution = .fillEqually
         $0.spacing = 2
     }
     
-    lazy var scrollView: UIScrollView = create {
+    private lazy var scrollView: UIScrollView = create {
         $0.isPagingEnabled = true
         $0.delegate = self
     }
     
-    lazy var pageControl: UIPageControl = create {
+    private lazy var pageControl: UIPageControl = create {
         $0.alpha = 0.6
         $0.isUserInteractionEnabled = false
         $0.currentPage = 0
@@ -63,24 +61,16 @@ class BucketDetailTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
         configureUI()
     }
     
-    func configureUI() {
-        
+    private func configureUI() {
         self.backgroundColor = .lightGray
-        addSubview(bucketLabel)
-        addSubview(scrollView)
-        addSubview(pageControl)
-        addSubview(doneButton)
-        addSubview(dateLabel)
+        addSubviews([bucketLabel, scrollView, pageControl, doneButton, dateLabel])
         scrollView.addSubview(hStack)
         contentView.addSubview(borderView)
         
@@ -95,23 +85,19 @@ class BucketDetailTableViewCell: UITableViewCell {
         
         scrollView.anchor(top: dateLabel.bottomAnchor, left: doneButton.rightAnchor,
                           paddingTop: 10, paddingLeft: 10, width: 240, height: 150)
-        
         hStack.anchor(top: scrollView.topAnchor, left: scrollView.leftAnchor,
                       bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
-        
         borderView.anchor(top: contentView.topAnchor, left: contentView.leftAnchor,
                           bottom: contentView.bottomAnchor, right: contentView.rightAnchor,
                           paddingTop: 6, paddingLeft: 24, paddingBottom: 6, paddingRight: 24)
-        
         pageControl.anchor(bottom: scrollView.bottomAnchor, right: scrollView.rightAnchor)
-        
     }
     
     func configureCell(bucketList: BucketList) {
         bucketLabel.text = bucketList.list
         bucketList.status == true ? setFinishMode(date: bucketList.createdTime): setUnfinishMode()
-        
-        guard bucketList.images != [] else {
+
+        guard bucketList.images.isNotEmpty else {
             hStack.isHidden = true
             pageControl.isHidden = true
             return
@@ -126,7 +112,7 @@ class BucketDetailTableViewCell: UITableViewCell {
         setImageStack(images: bucketList.images)
     }
     
-    func setPageControl(images: [String]) {
+    private func setPageControl(images: [String]) {
         if images.count == 1 {
             pageControl.isHidden = true
         } else {
@@ -135,7 +121,7 @@ class BucketDetailTableViewCell: UITableViewCell {
         }
     }
     
-    func setImageStack(images: [String]) {
+    private func setImageStack(images: [String]) {
         for index in 0...images.count-1 {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
@@ -148,18 +134,19 @@ class BucketDetailTableViewCell: UITableViewCell {
         }
     }
     
-    func setFinishMode(date: Date) {
+    private func setFinishMode(date: Date) {
         doneButton.setImage(UIImage(named: "icon_checked"), for: .normal)
         dateLabel.text = Date.dateFormatter.string(from: date)
         dateLabel.isHidden = false
     }
     
-    func setUnfinishMode() {
+    private func setUnfinishMode() {
         doneButton.setImage(UIImage(named: "icon_check"), for: .normal)
         dateLabel.isHidden = true
     }
     
-    @objc func tappedDoneBtn() {
+    @objc
+    private func tappedDoneBtn() {
         delegate?.didTappedStatus(cell: self)
     }
 }
@@ -169,5 +156,4 @@ extension BucketDetailTableViewCell: UIScrollViewDelegate {
         let page = Int(scrollView.contentOffset.x / scrollView.bounds.width)
         pageControl.currentPage = page
     }
-    
 }

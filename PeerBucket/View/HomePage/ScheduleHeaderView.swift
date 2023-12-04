@@ -11,31 +11,27 @@ protocol ScheduleHeaderViewDelegate: AnyObject {
     func didTapAddButton()
 }
 
-class ScheduleHeaderView: UICollectionReusableView {
-    
-    static let identifier = "ScheduleHeaderView"
-    
+final class ScheduleHeaderView: UICollectionReusableView {
+        
     weak var delegate: ScheduleHeaderViewDelegate?
     
-    lazy var headerLabel: UILabel = create {
+    private lazy var headerLabel: UILabel = create {
         $0.textColor = .darkGray
         $0.font = UIFont.semiBold(size: 20)
     }
     
-    lazy var addButton: UIButton = create {
+    private lazy var addButton: UIButton = create {
         $0.addTarget(self, action: #selector(tappedAddBtn), for: .touchUpInside)
         $0.setImage(UIImage(named: "icon_func_add"), for: .normal)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(headerLabel)
-        addSubview(addButton)
+        addSubviews([headerLabel, addButton])
         headerLabel.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor,
                            paddingTop: 6, paddingLeft: 6, paddingBottom: 6)
         addButton.anchor(top: topAnchor, right: rightAnchor, paddingTop: 6, paddingRight: 6,
                          width: 50, height: 50)
-        
     }
     
     func configureHeader(eventCount: Int) {
@@ -52,8 +48,8 @@ class ScheduleHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func tappedAddBtn() {
+    @objc
+    private func tappedAddBtn() {
         delegate?.didTapAddButton()
     }
-    
 }

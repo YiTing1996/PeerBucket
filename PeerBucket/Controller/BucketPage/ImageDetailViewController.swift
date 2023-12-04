@@ -17,7 +17,7 @@ struct MemoryData {
     var date: String
 }
 
-class ImageDetailViewController: UIViewController {
+final class ImageDetailViewController: UIViewController {
     
     // MARK: - Properties
 
@@ -25,21 +25,21 @@ class ImageDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    var index: Int = 1
-    var timer = Timer()
-    var playSelect = true
+    private var index: Int = 1
+    private var timer = Timer()
+    private var playSelect = true
     
-    var player: AVAudioPlayer?
+    private var player: AVAudioPlayer?
     
-    var memoryData: [MemoryData] = []
+    private var memoryData: [MemoryData] = []
     var allBucketList: [BucketList] = []
     
-    lazy var nextButton: UIButton = create {
+    private lazy var nextButton: UIButton = create {
         $0.setImage(UIImage(named: "icon_func_next"), for: .normal)
         $0.addTarget(self, action: #selector(tappedNextBtn), for: .touchUpInside)
     }
     
-    lazy var descriptionLabel: UILabel = create {
+    private lazy var descriptionLabel: UILabel = create {
         $0.font = UIFont.semiBold(size: 12)
         $0.textColor = .darkGreen
         $0.text = "Tap to play"
@@ -49,31 +49,25 @@ class ImageDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tabBarController?.tabBar.isHidden = true
         configureUI()
         fetchDate()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
         timer.invalidate()
         player?.pause()
     }
     
     // MARK: - Firebase data handler
 
-    func fetchDate() {
-        
+    private func fetchDate() {
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
         animationView.play()
-        
-        for list in allBucketList where list.images != [] {
+        // TODO: 優化
+        for list in allBucketList where list.images.isNotEmpty {
             for image in list.images {
                 DispatchQueue.global().async {
                     // perform url session at background thread
@@ -95,7 +89,7 @@ class ImageDetailViewController: UIViewController {
     
     // MARK: - UI handler
 
-    func configureUI() {
+    private func configureUI() {
         view.backgroundColor = .darkGreen
         view.addSubview(nextButton)
         view.addSubview(descriptionLabel)
@@ -112,8 +106,8 @@ class ImageDetailViewController: UIViewController {
     
     // MARK: - User interaction handler
 
-    @objc func tappedNextBtn() {
-        
+    @objc
+    private func tappedNextBtn() {
         if playSelect {
             playSelect = false
             self.timer = Timer.scheduledTimer(timeInterval: 2.0, target: self,
@@ -124,20 +118,17 @@ class ImageDetailViewController: UIViewController {
                 print("Error find url")
                 return
             }
-            
             player = try? AVAudioPlayer(contentsOf: url)
             player?.play()
-            
         } else {
             playSelect = true
             timer.invalidate()
             player?.pause()
         }
-        
     }
     
-    @objc func playVideo() {
-        
+    @objc
+    private func playVideo() {
         // Image
         if index < memoryData.count-1 {
             index += 1
@@ -155,7 +146,5 @@ class ImageDetailViewController: UIViewController {
         foreImageView.image = memoryData[index].image
         titleLabel.text = memoryData[index].title
         dateLabel.text = memoryData[index].date
-        
     }
-    
 }
