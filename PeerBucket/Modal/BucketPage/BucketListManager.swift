@@ -15,48 +15,41 @@ class BucketListManager {
     
     static let shared = BucketListManager()
     
+    private init() {}
+
     let dataBase = Firestore.firestore()
     
     // MARK: - Fetch
     
-    // query bucket category by id of user
+    /// query bucket category by id of user
     func fetchBucketCategory(userID: String, completion: @escaping (Result<[BucketCategory], Error>) -> Void) {
-        
         dataBase.collection("bucketCategory").whereField("senderId", isEqualTo: userID).getDocuments { (querySnapshot, error) in
-            
             if let error = error {
-                
                 completion(.failure(error))
             } else if let querySnapshot = querySnapshot {
-                
                 let bucketLists = querySnapshot.documents.compactMap({ querySnapshot in
                     try? querySnapshot.data(as: BucketCategory.self)
                 })
-                
                 completion(.success(bucketLists))
             }
         }
     }
     
-    // query bucket list by id of bucket category
+    /// query bucket list by id of bucket category
     func fetchBucketList(categoryID: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
-        
         dataBase.collection("bucketList")
             .order(by: "createdTime", descending: true)
             .whereField("categoryId", isEqualTo: categoryID)
             .getDocuments { (querySnapshot, error) in
-                
                 if let error = error {
-                    print("Error getting documents: \(error)")
+                    Log.e(error.localizedDescription)
                     completion(.failure(error))
                 } else {
                     var bucketLists = [BucketList]()
                     guard let querySnapshot = querySnapshot else {
-                        print("Error getting snapshot")
                         return
                     }
                     for document in querySnapshot.documents {
-                        
                         do {
                             if let bucketList = try document.data(as: BucketList?.self, decoder: Firestore.Decoder()) {
                                 bucketLists.append(bucketList)
@@ -71,18 +64,15 @@ class BucketListManager {
             }
     }
     
-    // query bucket list by sender id
+    /// query bucket list by sender id
     func fetchBucketListBySender(senderId: String, completion: @escaping (Result<[BucketList], Error>) -> Void) {
-        
         dataBase.collection("bucketList").whereField("senderId", isEqualTo: senderId).getDocuments { (querySnapshot, error) in
-            
             if let error = error {
-                print("Error getting documents: \(error)")
+                Log.e(error.localizedDescription)
                 completion(.failure(error))
             } else {
                 var bucketLists = [BucketList]()
                 guard let querySnapshot = querySnapshot else {
-                    print("Error getting snapshot")
                     return
                 }
                 for document in querySnapshot.documents {
@@ -103,32 +93,26 @@ class BucketListManager {
     
     func addBucketCategory(bucketCategory: inout BucketCategory,
                            completion: @escaping (Result<[BucketCategory], Error>) -> Void) {
-        
         let document = dataBase.collection("bucketCategory").document()
         bucketCategory.id = document.documentID
-        
         document.setData(bucketCategory.toDict) { error in
-            
             if let error = error {
-                print("Error updating document: \(error)")
+                Log.e(error.localizedDescription)
             } else {
-                print("Document successfully updated")
+                Log.v("Document successfully updated")
             }
         }
     }
     
     func addBucketList(bucketList: inout BucketList,
                        completion: @escaping (Result<[BucketList], Error>) -> Void) {
-        
         let document = dataBase.collection("bucketList").document()
         bucketList.listId = document.documentID
-        
         document.setData(bucketList.toDict) { error in
-            
             if let error = error {
-                print("Error updating document: \(error)")
+                Log.e(error.localizedDescription)
             } else {
-                print("Document successfully updated")
+                Log.v("Document successfully updated")
             }
         }
     }
@@ -155,15 +139,11 @@ class BucketListManager {
     }
     
     func deleteBucketListByCategory(id: String, completion: @escaping(Result<String, Error>) -> Void) {
-        
         dataBase.collection("bucketList").whereField("categoryId", isEqualTo: id).getDocuments { (querySnapshot, error) in
-            
             if let error = error {
-                print("Error getting documents: \(error)")
+                Log.e(error.localizedDescription)
                 completion(.failure(error))
-                
             } else {
-                
                 for document in querySnapshot!.documents {
                     document.reference.delete()
                 }

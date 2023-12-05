@@ -14,14 +14,14 @@ class UserManager {
     
     static let shared = UserManager()
     
+    private init() {}
+
     let dataBase = Firestore.firestore().collection("user")
     
     // MARK: - Signin
     
     func signInWithApple(uid: String, name: String?, completion: @escaping (Result<(User, Bool), Error>) -> Void) {
-
         let document = dataBase.document(uid)
-        
         let user = User(userID: uid,
                         userAvatar: "",
                         userHomeBG: "",
@@ -47,7 +47,6 @@ class UserManager {
     
     // delete user data
     func deleteUserData(uid: String, completion: @escaping (Result<String, Error>) -> Void) {
-        
         dataBase.document(uid).delete { error in
             if let error = error {
                 completion(.failure(error))
@@ -78,9 +77,8 @@ class UserManager {
 
         dataBase.whereField("userID", isEqualTo: userID).getDocuments { (querySnapshot, error) in
             if let error = error {
-                print("Error getting documents: \(error)")
+                Log.e(error.localizedDescription)
                 completion(.failure(error))
-                
             } else {
                 for document in querySnapshot!.documents {
                     do {
@@ -114,9 +112,8 @@ class UserManager {
             try dataBase.document(user.userID).setData(from: user)
             completion(.success(user.userID))
         } catch {
-            print("update user data error: \(error)")
+            Log.e(error.localizedDescription)
             completion(.failure(error))
         }
     }
-    
 }
