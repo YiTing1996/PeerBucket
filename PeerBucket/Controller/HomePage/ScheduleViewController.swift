@@ -10,7 +10,7 @@ import FSCalendar
 import FirebaseFirestore
 import Firebase
 
-final class ScheduleViewController: UIViewController, UIGestureRecognizerDelegate {
+final class ScheduleViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
 
@@ -49,20 +49,28 @@ final class ScheduleViewController: UIViewController, UIGestureRecognizerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.tabBar.isHidden = true
         configueCalendarUI()
         configureUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let currentUserUID = currentUserUID else { return }
-        fetchData(userID: currentUserUID, date: Date())
-        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         tabBarController?.tabBar.isHidden = false
+    }
+    
+    override func configureAfterFetchUserData() {
+        guard let currentUser = currentUser else {
+            return
+        }
+        userIDList = [currentUser.userID]
+        if let paringUserID = currentUser.paringUser.first {
+            userIDList.append(paringUserID)
+        }
+        for userID in userIDList {
+            loadMonthEvent(date: Date(), userID: userID)
+        }
+        loadDateEvent(date: calendar.selectedDate ?? Date())
     }
     
     // MARK: - Configue UI
@@ -96,7 +104,7 @@ final class ScheduleViewController: UIViewController, UIGestureRecognizerDelegat
     private func configureUI() {
         blackView.backgroundColor = .black
         blackView.alpha = 0
-        menuBottomConstraint.constant = hideMenuBottomConstraint
+        menuBottomConstraint.constant = ScreenConstant.hideMenuBottomConstraint
         containerView.layer.cornerRadius = 10
         
         view.addSubview(collectionView)
@@ -140,29 +148,6 @@ final class ScheduleViewController: UIViewController, UIGestureRecognizerDelegat
     }
     
     // MARK: - Firebase handler
-        
-    /// get user data and event of the month by self & paring user ID
-    private func fetchData(userID: String, date: Date) {
-        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.userIDList = [userID]
-                if user.paringUser.isNotEmpty {
-                    self.userIDList.append(user.paringUser[0])
-                }
-                
-                for userID in self.userIDList {
-                    self.loadMonthEvent(date: Date(), userID: userID)
-                }
-                
-                self.loadDateEvent(date: date)
-                
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
     
     private func loadMonthEvent(date: Date, userID: String) {
         self.monthWithEvent = []
@@ -200,15 +185,15 @@ final class ScheduleViewController: UIViewController, UIGestureRecognizerDelegat
     }
     
     private func deleteEvent(deleteId: String, row: Int) {
-        ScheduleManager.shared.deleteSchedule(id: deleteId) { result in
+        ScheduleManager.shared.deleteSchedule(id: deleteId) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success:
                 self.presentAlert()
                 self.datesWithEvent.remove(at: row)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
-                    self.fetchData(userID: currentUserUID ?? "",
-                                 date: self.calendar.selectedDate ?? Date())
+                    self.fetchUserData()
                 }
                 UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [deleteId])
 
@@ -298,12 +283,9 @@ extension ScheduleViewController: ScheduleHeaderViewDelegate {
 extension ScheduleViewController: AddScheduleViewControllerDelegate {
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = hideMenuBottomConstraint
+            self.menuBottomConstraint.constant = ScreenConstant.hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
-        
-        // refetch & reload data
-        guard let currentUserUID = currentUserUID else { return }
-        fetchData(userID: currentUserUID, date: calendar.selectedDate ?? Date())
+        fetchUserData()
     }
 }

@@ -42,10 +42,10 @@ final class QRCodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let currentUserUID = currentUserUID else {
+        guard let currentUser = Info.shared.currentUser else {
             return
         }
-        createQRCode(currentUserUID)
+        createQRCode(currentUser.userID)
         configureUI()
     }
     

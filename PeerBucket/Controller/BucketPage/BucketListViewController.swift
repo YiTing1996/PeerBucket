@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import Lottie
 
-final class BucketListViewController: UIViewController, UIGestureRecognizerDelegate {
+final class BucketListViewController: BaseViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Properties
     
@@ -103,21 +103,26 @@ final class BucketListViewController: UIViewController, UIGestureRecognizerDeleg
         collectionView.addGestureRecognizer(longPressGesture)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let currentUserUID = currentUserUID else {
-            guard let loginVC = initFromStoryboard(with: .login) as? LoginViewController else { return }
-            loginVC.modalPresentationStyle = .fullScreen
-            self.present(loginVC, animated: true)
-            return
-        }
-        fetchUser(userID: currentUserUID)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? AddNewBucketViewController {
             destination.delegate = self
         }
+    }
+    
+    override func configureGuestUI() {
+        guard let loginVC = initFromStoryboard(with: .login) as? LoginViewController else { return }
+        loginVC.modalPresentationStyle = .fullScreen
+        present(loginVC, animated: true)
+    }
+    
+    override func configureAfterFetchUserData() {
+        guard let currentUser = currentUser else { return }
+        userIDList = [currentUser.userID]
+        if let paringUserId = currentUser.paringUser.first {
+            userIDList.append(paringUserId)
+        }
+        fetchBucketCategory()
+        fetchAllBucketList()
     }
     
     // MARK: - Configure UI
@@ -129,7 +134,7 @@ final class BucketListViewController: UIViewController, UIGestureRecognizerDeleg
         buttonHStack.addArrangedSubviews([randomPickButton, liveTextButton, addCategoryButton])
 
         blackView.backgroundColor = .black
-        menuBottomConstraint.constant = hideMenuBottomConstraint
+        menuBottomConstraint.constant = ScreenConstant.hideMenuBottomConstraint
         blackView.alpha = 0
         view.bringSubviewToFront(blackView)
         view.bringSubviewToFront(containerView)
@@ -243,23 +248,6 @@ final class BucketListViewController: UIViewController, UIGestureRecognizerDeleg
     }
     
     // MARK: - Firebase handler
-    
-    private func fetchUser(userID: String) {
-        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.userIDList = [userID]
-                if user.paringUser.isNotEmpty {
-                    self.userIDList.append(user.paringUser[0])
-                }
-                self.fetchBucketCategory()
-                self.fetchAllBucketList()
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
     
     private func fetchBucketCategory() {
         self.bucketCategories = []
@@ -377,16 +365,14 @@ extension BucketListViewController: UICollectionViewDelegateFlowLayout {
 extension BucketListViewController: AddNewBucketDelegate {
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = hideMenuBottomConstraint
+            self.menuBottomConstraint.constant = ScreenConstant.hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .repeat(1))
         animationView.play { [weak self] _ in
             self?.stopAnimation(animationView: animationView)
         }
-        
-        guard let currentUserUID = currentUserUID else { return }
-        fetchUser(userID: currentUserUID)
+        fetchUserData()
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }

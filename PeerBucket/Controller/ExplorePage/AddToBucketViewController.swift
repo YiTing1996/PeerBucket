@@ -12,7 +12,7 @@ protocol AddToBucketViewControllerDelegate: AnyObject {
     func didTappedClose()
 }
 
-final class AddToBucketViewController: UIViewController {
+final class AddToBucketViewController: BaseViewController {
     
     // MARK: - Properties
 
@@ -46,10 +46,15 @@ final class AddToBucketViewController: UIViewController {
         configureUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let currentUserUID = currentUserUID else { return }
-        getData(userID: currentUserUID)
+    override func configureAfterFetchUserData() {
+        guard let currentUser = currentUser else { return }
+        userIDList = [currentUser.userID]
+        if let paringUserId = currentUser.paringUser.first {
+            userIDList.append(paringUserId)
+        }
+        for userID in userIDList {
+            fetchBucketCatgory(userID: userID)
+        }
     }
     
     // MARK: - UI
@@ -73,24 +78,6 @@ final class AddToBucketViewController: UIViewController {
     
     // MARK: - Firebase data handler
     
-    private func getData(userID: String) {
-        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.userIDList = [userID]
-                if user.paringUser.isNotEmpty {
-                    self.userIDList.append(user.paringUser[0])
-                }
-                for userID in self.userIDList {
-                    self.fetchBucketCatgory(userID: userID)
-                }
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
-    
     private func fetchBucketCatgory(userID: String) {
         self.bucketCategories = []
         BucketListManager.shared.fetchBucketCategory(userID: userID) { [weak self] result in
@@ -106,7 +93,6 @@ final class AddToBucketViewController: UIViewController {
             }
         }
     }
-    
 }
 
 // MARK: - Collection View
@@ -139,9 +125,9 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let title = selectedBucketTitle, let currentUserUID = currentUserUID else { return }
+        guard let title = selectedBucketTitle, let currentUser = currentUser else { return }
         var bucketList: BucketList = BucketList(
-            senderId: currentUserUID,
+            senderId: currentUser.userID,
             createdTime: Date(),
             status: false,
             list: title,

@@ -64,20 +64,11 @@ final class ScheduleCollectionViewCell: UICollectionViewCell {
         eventLabel.text = event.event
         dateLabel.text = Date.timeFormatter.string(from: event.eventDate)
         
-        // fetch avatar by senderID
-        UserManager.shared.fetchUserData(userID: event.senderId) { result in
-            switch result {
-            case .success(let user):
-                guard user.userAvatar.isNotEmpty else {
-                    self.avatarImageView.image = UIImage(named: "icon_avatar_none")
-                    return
-                }
-                let url = URL(string: user.userAvatar)
-                self.avatarImageView.kf.setImage(with: url)
-                
-            case .failure:
-                Log.e("download avatar fail")
-            }
+        guard let currentUser = Info.shared.currentUser, currentUser.userAvatar.isNotEmpty else {
+            avatarImageView.image = UIImage(named: "icon_avatar_none")
+            return
         }
+        let url = URL(string: currentUser.userAvatar)
+        avatarImageView.kf.setImage(with: url)
     }
 }

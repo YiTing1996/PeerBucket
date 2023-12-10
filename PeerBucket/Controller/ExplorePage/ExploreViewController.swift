@@ -69,37 +69,60 @@ final class ExploreViewController: UIViewController {
     private func configureLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { section, _ in
             if section == 0 {
-                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5),
-                                                                    heightDimension: .fractionalHeight(0.6)))
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(0.5),
+                        heightDimension: .fractionalHeight(0.6)
+                    )
+                )
                 item.contentInsets.trailing = 16
                 item.contentInsets.bottom = 16
                 
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                                 heightDimension: .estimated(500)), subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(500)), subitems: [item]
+                )
                 
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .continuous
                 section.contentInsets.leading = 16
                 section.contentInsets.top = 16
                 section.boundarySupplementaryItems = [
-                    .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.08)),
-                    elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+                    .init(layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(0.08)
+                    ),
+                    elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading
+                    )
                 ]
                 return section
             } else {
-                let item = NSCollectionLayoutItem.init(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                         heightDimension: .fractionalHeight(0.5)))
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(0.5)
+                    )
+                )
                 item.contentInsets.trailing = 16
                 
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.8),
-                                                                                 heightDimension: .estimated(300)), subitems: [item])
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(0.8),
+                        heightDimension: .estimated(300)), subitems: [item]
+                )
+                
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .continuous
                 section.contentInsets.leading = 16
-                
                 section.boundarySupplementaryItems = [
-                    .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(0.08)),
-                          elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)
+                    .init(layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(0.08)
+                    ),
+                          elementKind: UICollectionView.elementKindSectionHeader,
+                          alignment: .topLeading
+                    )
                 ]
                 return section
             }

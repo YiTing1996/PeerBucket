@@ -122,7 +122,7 @@ final class BucketDetailTableViewCell: UITableViewCell {
     }
     
     private func setImageStack(images: [String]) {
-        for index in 0...images.count-1 {
+        for index in 0...images.count - 1 {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
             imageView.anchor(width: 240, height: 150)

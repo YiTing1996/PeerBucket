@@ -59,7 +59,20 @@ extension UIViewController {
         
         alert.addAction(cancelAction)
         alert.addAction(deleteAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func presentErrorAlert(title: String = "Error",
+                      message: String = "Something went wrong, please try again later.",
+                      completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.setAlertUI()
         
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            guard let completion = completion else { return }
+            completion()
+        }
+        alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
     
@@ -75,7 +88,6 @@ extension UIViewController {
         }
         
         alert.addAction(okAction)
-        
         present(alert, animated: true, completion: nil)
     }
     
@@ -98,7 +110,6 @@ extension UIViewController {
         
         alert.addAction(submitAction)
         alert.addAction(cancelAction)
-        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -119,7 +130,6 @@ extension UIViewController {
         animationView.alpha = 0
         animationView.isHidden = true
     }
-    
 }
 
 extension UIAlertController {

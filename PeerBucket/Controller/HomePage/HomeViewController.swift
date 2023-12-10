@@ -11,10 +11,9 @@ import FirebaseAuth
 import PhotosUI
 import Lottie
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: BaseViewController {
     
     // MARK: - Properties
-    private var currentUser: User?
         
     private lazy var bgImageView: UIImageView = create { _ in }
     
@@ -76,18 +75,33 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .darkGreen
-        guard currentUserUID != nil else {
-            configureGuestUI()
-            return
-        }
         configureUI()
+        guard let url = URL(string: currentUser?.userHomeBG ?? "") else { return }
+        bgImageView.kf.setImage(with: url)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let currentUserUID = currentUserUID else { return }
-        loadSchedule(userID: currentUserUID)
-        fetchUserData(userID: currentUserUID)
+        guard let currentUser = currentUser else { return }
+        loadSchedule(userID: currentUser.userID)
+    }
+    
+    override func configureGuestUI() {
+        view.addSubview(bgImageView)
+        bgImageView.image = UIImage(named: "bg_home")
+        bgImageView.anchor(
+            top: view.topAnchor, left: view.leftAnchor,
+            bottom: view.bottomAnchor, right: view.rightAnchor
+        )
+    }
+    
+    override func configureAfterFetchUserData() {
+        guard let currentUser = currentUser, currentUser.userHomeBG.isNotEmpty else {
+            self.bgImageView.image = UIImage(named: "bg_home")
+            return
+        }
+        let url = URL(string: currentUser.userHomeBG)
+        self.bgImageView.kf.setImage(with: url)
     }
     
     // MARK: - User interaction handler
@@ -155,44 +169,6 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private func fetchUserData(userID: String) {
-        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.currentUser = user
-                guard user.userHomeBG.isNotEmpty else {
-                    self.bgImageView.image = UIImage(named: "bg_home")
-                    return
-                }
-                let url = URL(string: user.userHomeBG)
-                self.bgImageView.kf.setImage(with: url)
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-                print("Can't find user in homeVC")
-            }
-        }
-    }
-    
-    private func updateBackground(urlString: String) {
-        guard let currentUser = self.currentUser else {
-            return
-        }
-        let user = User(userID: currentUser.userID,
-                        userAvatar: currentUser.userAvatar,
-                        userHomeBG: urlString,
-                        userName: currentUser.userName,
-                        paringUser: currentUser.paringUser)
-        UserManager.shared.updateUserData(user: user) { result in
-            switch result {
-            case .success:
-                self.fetchUserData(userID: currentUser.userID)
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
-    
     // MARK: - Image handler
     
     private func compressImage(result: PHPickerResult) {
@@ -219,14 +195,14 @@ final class HomeViewController: UIViewController {
     }
     
     private func downloadImage(imageName: String) {
-        storage.child("homeImage/\(imageName).png").downloadURL { url, error in
+        storage.child("homeImage/\(imageName).png").downloadURL { [weak self] url, error in
             guard let url = url, error == nil else {
                 Log.e(error)
                 return
             }
             let urlString = url.absoluteString
             UserDefaults.standard.set(urlString, forKey: "url")
-            self.updateBackground(urlString: urlString)
+            self?.updateUserData(homebg: urlString)
         }
     }
     
@@ -261,13 +237,6 @@ final class HomeViewController: UIViewController {
         eventLabel.anchor(top: decoView.bottomAnchor, left: eventView.leftAnchor, right: eventView.rightAnchor,
                           paddingTop: 20, paddingLeft: 20, paddingRight: 20, height: 60)
         
-    }
-    
-    private func configureGuestUI() {
-        view.addSubview(bgImageView)
-        bgImageView.image = UIImage(named: "bg_home")
-        bgImageView.anchor(top: view.topAnchor, left: view.leftAnchor,
-                           bottom: view.bottomAnchor, right: view.rightAnchor)
     }
 }
 

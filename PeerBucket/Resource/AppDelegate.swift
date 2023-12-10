@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
+        Info.shared.prepareForAppLaunch()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { granted, _ in
             Log.w("user notifacation authorization: \(granted)")

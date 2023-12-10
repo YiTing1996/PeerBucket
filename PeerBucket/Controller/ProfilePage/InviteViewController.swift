@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import FirebaseAuth
 
-final class InviteViewController: UIViewController {
+final class InviteViewController: BaseViewController {
     
     // MARK: - Properties
     
@@ -20,21 +20,13 @@ final class InviteViewController: UIViewController {
     
     private var captureSession = AVCaptureSession()
     private var videoPreviewLayer = AVCaptureVideoPreviewLayer()
-    
-    private var currentUser: User?
-    private var paringUser: User?
-//    private var paringUserName: String = ""
-    
+        
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarController?.tabBar.isHidden = true
         callingScanner()
-        guard let currentUserUID = currentUserUID else {
-            return
-        }
-        fetchUserData(userID: currentUserUID)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,48 +51,19 @@ final class InviteViewController: UIViewController {
             title: "Invite your BucketPeer to chat and share bucket list!",
             message: "Do you want to invite user \(paringUser.userName)?") { [weak self] in
                 guard let self = self else { return }
-                self.paringUser(for: currentUser, by: paringUser.userID)
-                self.paringUser(for: paringUser, by: currentUser.userID)
+                self.updateUserData(for: .currentUser, paringUser: [paringUser.userID])
+                self.updateUserData(for: .paringUser, paringUser: [currentUser.userID])
                 self.routeToRoot()
             }
     }
     
     // MARK: - Firebase handler
     
-    private func paringUser(for user: User, by id: String) {
-        let updatedUser = User(userID: user.userID,
-                        userAvatar: user.userAvatar,
-                        userHomeBG: user.userHomeBG,
-                        userName: user.userName,
-                        paringUser: [id])
-        UserManager.shared.updateUserData(user: updatedUser) { [weak self] result in
-            switch result {
-            case .success:
-                self?.presentAlert()
-            case .failure(let error):
-                self?.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
-    
-    private func fetchUserData(userID: String) {
-        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.currentUser = user
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
-    
     private func fetchUser(userID: String) {
         UserManager.shared.checkParingUser(userID: userID) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let user):
-                self.paringUser = user
+            case .success:
                 self.showInviteAlert(userID: userID)
             case .failure:
                 self.presentAlert(title: "Error", message: "Can't Find User")

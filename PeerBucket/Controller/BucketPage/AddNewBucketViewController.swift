@@ -141,9 +141,8 @@ final class AddNewBucketViewController: UIViewController, UIImagePickerControlle
     
     @objc
     private func tappedSubmitBtn() {
-        guard let text = categoryTextField.text,
-              text.isNotEmpty,
-              let currentUserUID = currentUserUID,
+        guard let text = categoryTextField.text, text.isNotEmpty,
+              let currentUserUID = Info.shared.currentUser?.userID,
               selectedIconIndex != nil,
               iconUrlString.isNotEmpty else {
             presentAlert(title: "Error", message: "Please fill all the field")

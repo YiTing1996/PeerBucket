@@ -91,7 +91,7 @@ final class AddScheduleViewController: UIViewController, UITextFieldDelegate {
     
     @objc
     private func tappedSubmitBtn() {
-        guard let currentUserUID = currentUserUID else { return }
+        guard let currentUserUID = Info.shared.currentUser?.userID else { return }
         if let text = eventTextField.text, text.isNotEmpty {
             addSchedule(userID: currentUserUID)
             eventTextField.text = ""

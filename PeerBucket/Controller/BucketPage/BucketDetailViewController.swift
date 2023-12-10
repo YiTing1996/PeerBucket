@@ -76,7 +76,7 @@ final class BucketDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchFromFirebase()
+        fetchBucketLists()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -158,7 +158,7 @@ final class BucketDetailViewController: UIViewController {
     
     private func hideScheduleMenu() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = hideMenuBottomConstraint
+            self.menuBottomConstraint.constant = ScreenConstant.hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
     }
@@ -198,7 +198,7 @@ final class BucketDetailViewController: UIViewController {
     
     // MARK: - Firebase processor
     
-    private func fetchFromFirebase() {
+    private func fetchBucketLists() {
         guard let selectedCategory = selectedCategory else { return }
         BucketListManager.shared.fetchBucketList(categoryID: selectedCategory.id) { [weak self] result in
             guard let self = self else { return }
@@ -229,7 +229,7 @@ final class BucketDetailViewController: UIViewController {
                 self?.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
             }
         }
-        fetchFromFirebase()
+        fetchBucketLists()
     }
     
     private func checkBucketList(element: CheckElement, bucketList: BucketList) {
@@ -253,8 +253,8 @@ final class BucketDetailViewController: UIViewController {
     
     private func formateDataModal(bucketList: BucketList?) -> BucketList? {
         guard let selectedCategory = selectedCategory,
-              let currentUserUID = currentUserUID else {
-            presentAlert(title: "Error", message: "Something went wrong. Please try again later")
+              let currentUserUID = Info.shared.currentUser?.userID else {
+            presentErrorAlert()
             return nil
         }
         
@@ -277,7 +277,7 @@ final class BucketDetailViewController: UIViewController {
             case .success:
                 self.presentAlert()
                 self.allBucketLists.remove(at: row)
-                self.fetchFromFirebase()
+                self.fetchBucketLists()
             case .failure(let error):
                 self.presentAlert(
                     title: "Error",
@@ -291,7 +291,7 @@ final class BucketDetailViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success:
-                self.fetchFromFirebase()
+                self.fetchBucketLists()
             case .failure(let error):
                 self.presentAlert(
                     title: "Error",

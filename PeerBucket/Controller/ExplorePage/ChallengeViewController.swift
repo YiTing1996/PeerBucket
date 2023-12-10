@@ -65,7 +65,7 @@ final class ChallengeViewController: UIViewController {
     @objc
     private func tappedShareBtn() {
         let renderer = UIGraphicsImageRenderer(size: bgView.bounds.size)
-        let image = renderer.image() { _ in
+        let image = renderer.image { _ in
            bgView.drawHierarchy(in: bgView.bounds, afterScreenUpdates: true)
         }
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)

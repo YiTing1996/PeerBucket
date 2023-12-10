@@ -31,7 +31,7 @@ final class LaunchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.layer.addSublayer(self.playerLayer)
+        view.layer.addSublayer(playerLayer)
         player.play()
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) { [weak self] in
             self?.routeToRoot()

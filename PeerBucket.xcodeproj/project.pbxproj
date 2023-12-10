@@ -15,8 +15,7 @@
 		AC001481285E0E610098FC4E /* ScheduleDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001480285E0E610098FC4E /* ScheduleDataModal.swift */; };
 		AC001483285E0E770098FC4E /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001482285E0E770098FC4E /* ScheduleManager.swift */; };
 		AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC001484285E15910098FC4E /* AddScheduleViewController.swift */; };
-		AC0203C4288D936C006D0AB5 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0203C3288D936C006D0AB5 /* FirebaseConstants.swift */; };
-		AC0203C6288D939A006D0AB5 /* ScreenConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0203C5288D939A006D0AB5 /* ScreenConstants.swift */; };
+		AC0203C4288D936C006D0AB5 /* ConstantAndEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0203C3288D936C006D0AB5 /* ConstantAndEnum.swift */; };
 		AC140422286436CF00DD2566 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC140421286436CF00DD2566 /* AvatarViewController.swift */; };
 		AC14832E286E9E9F003F7AB8 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */; };
 		AC21CEA7285B2EEB00157B4D /* BucketDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */; };
@@ -59,6 +58,7 @@
 		ACA450242B1DC00100A250EB /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450232B1DC00100A250EB /* Info.swift */; };
 		ACA450262B1DE49000A250EB /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450252B1DE49000A250EB /* CollectionExtension.swift */; };
 		ACA450282B1DE82400A250EB /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450272B1DE82400A250EB /* UIApplicationExtension.swift */; };
+		ACA4502A2B1F6F4400A250EB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA450292B1F6F4400A250EB /* BaseViewController.swift */; };
 		ACADB70D285F83CF00D7C18E /* Pods_PeerBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B2CAF8144FA3E1DB2655F7F /* Pods_PeerBucket.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		ACADB71028603B9000D7C18E /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB70F28603B9000D7C18E /* ChatViewController.swift */; };
 		ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACADB71128603FC000D7C18E /* MessageDataModal.swift */; };
@@ -102,8 +102,7 @@
 		AC001480285E0E610098FC4E /* ScheduleDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDataModal.swift; sourceTree = "<group>"; };
 		AC001482285E0E770098FC4E /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		AC001484285E15910098FC4E /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
-		AC0203C3288D936C006D0AB5 /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
-		AC0203C5288D939A006D0AB5 /* ScreenConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenConstants.swift; sourceTree = "<group>"; };
+		AC0203C3288D936C006D0AB5 /* ConstantAndEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantAndEnum.swift; sourceTree = "<group>"; };
 		AC140421286436CF00DD2566 /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		AC14832D286E9E9F003F7AB8 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		AC21CEA6285B2EEB00157B4D /* BucketDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -149,6 +148,7 @@
 		ACA450232B1DC00100A250EB /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		ACA450252B1DE49000A250EB /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		ACA450272B1DE82400A250EB /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
+		ACA450292B1F6F4400A250EB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		ACADB70F28603B9000D7C18E /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		ACADB71128603FC000D7C18E /* MessageDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDataModal.swift; sourceTree = "<group>"; };
 		ACADB71B28604C5700D7C18E /* UserDataModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataModal.swift; sourceTree = "<group>"; };
@@ -212,8 +212,7 @@
 		AC0203C7288D9ACB006D0AB5 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				AC0203C5288D939A006D0AB5 /* ScreenConstants.swift */,
-				AC0203C3288D936C006D0AB5 /* FirebaseConstants.swift */,
+				AC0203C3288D936C006D0AB5 /* ConstantAndEnum.swift */,
 				ACA4501D2B1D75B200A250EB /* Printer.swift */,
 			);
 			path = Helper;
@@ -321,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				ACA450232B1DC00100A250EB /* Info.swift */,
+				ACA450292B1F6F4400A250EB /* BaseViewController.swift */,
 				AC001478285DABAA0098FC4E /* HomePage */,
 				AC2C741E2861B71D005D1A2D /* ProfilePage */,
 				AC21CEAA285B57A700157B4D /* BucketPage */,
@@ -627,7 +627,6 @@
 				AC001485285E15910098FC4E /* AddScheduleViewController.swift in Sources */,
 				AC72A0FD285A1452007FC767 /* AddToBucketCollectionViewCell.swift in Sources */,
 				AC2C74202861B75B005D1A2D /* QRCodeViewController.swift in Sources */,
-				AC0203C6288D939A006D0AB5 /* ScreenConstants.swift in Sources */,
 				AC2C741B286190AD005D1A2D /* InviteViewController.swift in Sources */,
 				ACFC8D10286864970055D143 /* UILabelExtension.swift in Sources */,
 				ACADB7232860A26D00D7C18E /* UserManager.swift in Sources */,
@@ -636,6 +635,7 @@
 				ACC3D26F285ADED400676F46 /* BucketDetailViewController.swift in Sources */,
 				AC72A104285AC389007FC767 /* BucketListViewController.swift in Sources */,
 				AC00147C285DC31F0098FC4E /* ScheduleCollectionViewCell.swift in Sources */,
+				ACA4502A2B1F6F4400A250EB /* BaseViewController.swift in Sources */,
 				AC72A106285AC4FD007FC767 /* BucketListCollectionViewCell.swift in Sources */,
 				AC001477285DABA40098FC4E /* HomeViewController.swift in Sources */,
 				AC72A0F72859B54F007FC767 /* ExploreDetailViewController.swift in Sources */,
@@ -653,7 +653,7 @@
 				ACADB71228603FC000D7C18E /* MessageDataModal.swift in Sources */,
 				AC72A0FB285A1057007FC767 /* AddToBucketViewController.swift in Sources */,
 				AC21CEB0285B5A0100157B4D /* UIViewControllerExtension.swift in Sources */,
-				AC0203C4288D936C006D0AB5 /* FirebaseConstants.swift in Sources */,
+				AC0203C4288D936C006D0AB5 /* ConstantAndEnum.swift in Sources */,
 				AC72A0CD285984CB007FC767 /* SceneDelegate.swift in Sources */,
 				AC72A0E5285989EE007FC767 /* ExploreMockData.swift in Sources */,
 				AC72A102285AC2C0007FC767 /* BucketDataModal.swift in Sources */,

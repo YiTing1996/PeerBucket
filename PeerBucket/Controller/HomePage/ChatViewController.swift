@@ -29,9 +29,9 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
     private var docReference: DocumentReference?
     
     private var paringUserUID: String? {
-        currentUser.paringUser.first
+        currentUser?.paringUser.first
     }
-    var currentUser = User.dummy()
+    var currentUser: User?
     private var messages: [Message] = []
     
     // MARK: - Lifecycle
@@ -45,6 +45,9 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+        guard let currentUser = currentUser else {
+            return
+        }
         checkChat(userID: currentUser.userID)
     }
     
@@ -103,7 +106,7 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
     // MARK: - Custom messages handlers
     
     private func createNewChat() {
-        guard let currentUserUID = currentUserUID else {
+        guard let currentUserUID = currentUser?.userID, currentUserUID.isNotEmpty else {
             return
         }
         
@@ -200,6 +203,9 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
     
     func inputBar(_ inputBar: InputBarAccessoryView,
                   didPressSendButtonWith text: String) {
+        guard let currentUser = currentUser else {
+            return
+        }
         let message = Message(id: UUID().uuidString,
                               content: text,
                               created: Timestamp(),
@@ -219,7 +225,7 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
     // MARK: - MessagesDataSource
     
     func currentSender() -> SenderType {
-        return ChatUser(senderId: currentUser.userID, displayName: currentUser.userName)
+        return ChatUser(senderId: currentUser?.userID ?? .init(), displayName: currentUser?.userName ?? .init())
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -253,7 +259,7 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType,
                              at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
-        guard let currentUserUID = currentUserUID else {
+        guard let currentUserUID = currentUser?.userID else {
             return
         }
         if message.sender.senderId == currentUserUID {

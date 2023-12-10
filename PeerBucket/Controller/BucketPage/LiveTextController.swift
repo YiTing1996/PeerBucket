@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import AVFoundation
 
-final class LiveTextController: UIViewController {
+final class LiveTextController: BaseViewController {
     
     // MARK: - Properties
     
@@ -54,15 +54,15 @@ final class LiveTextController: UIViewController {
         eventTextField.reloadInputViews()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let currentUserUID = currentUserUID else { return }
-        fetchData(userID: currentUserUID)
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         cameraInputView.stopCamera()
+    }
+    
+    override func configureAfterFetchUserData() {
+        if let currentUser = currentUser, let paringUserId = currentUser.paringUser.first {
+            fetchBucketCategory(userID: paringUserId)
+        }
     }
     
     // MARK: - Configure UI
@@ -88,32 +88,17 @@ final class LiveTextController: UIViewController {
     @objc
     private func tappedSubmitBtn() {
         guard let title = eventTextField.text, title.isNotEmpty,
-              let currentUserUID = currentUserUID,
+              let currentUser = currentUser,
               let selectedRow = selectedRow else {
             return
         }
-        
-        addBucketList(userID: currentUserUID, list: title, row: selectedRow)
+        addBucketList(userID: currentUser.userID, list: title, row: selectedRow)
         presentAlert(title: "Congrats", message: "Successfully add list!") {
             UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true)
         }
     }
     
     // MARK: - Firebase handler
-    
-    private func fetchData(userID: String) {
-        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                if let paringUserId = user.paringUser.first, paringUserId.isNotEmpty {
-                    self.fetchBucketCategory(userID: paringUserId)
-                }
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
     
     private func fetchBucketCategory(userID: String) {
         self.bucketCategories = []

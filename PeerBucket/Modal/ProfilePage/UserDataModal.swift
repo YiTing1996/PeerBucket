@@ -9,23 +9,6 @@ import Foundation
 import MessageKit
 import FirebaseAuth
 
-// Beta UID: "AITNzRSyUdMCjV4WrQxT"
-var currentUserUID: String? {
-    #if DEBUG
-    return "AITNzRSyUdMCjV4WrQxT"
-    #else
-    guard let userID = Auth.auth().currentUser?.uid else {
-        return nil
-    }
-    return userID
-    #endif
-}
-
-enum IdentityType: String, CaseIterable {
-    case currentUser
-    case paringUser
-}
-
 struct User: Codable {
     
     var userID: String

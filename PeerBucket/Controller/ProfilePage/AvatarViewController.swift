@@ -13,14 +13,12 @@ protocol AvatarViewControllerDelegate: AnyObject {
     func didTappedSubmit()
 }
 
-final class AvatarViewController: UIViewController {
+final class AvatarViewController: BaseViewController {
     
     // MARK: - Properties
     
     weak var delegate: AvatarViewControllerDelegate?
-    
-    private var currentUser: User?
-    
+        
     private lazy var submitButton: UIButton = create {
         $0.setTitle("Submit", for: .normal)
         $0.addTarget(self, action: #selector(tappedSubmit), for: .touchUpInside)
@@ -44,16 +42,6 @@ final class AvatarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let currentUserUID = currentUserUID else {
-            return
-        }
-        fetchUserData(userID: currentUserUID)
-        
-        hairView.isHidden = false
-        faceView.isHidden = true
-        glassesView.isHidden = true
-        bodyView.isHidden = true
-        
         tabBarController?.tabBar.isHidden = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.submitButton)
         configureUI()
@@ -67,6 +55,10 @@ final class AvatarViewController: UIViewController {
     // MARK: - Configure UI
     
     private func configureUI() {
+        hairView.isHidden = false
+        faceView.isHidden = true
+        glassesView.isHidden = true
+        bodyView.isHidden = true
         backgroundView.anchor(top: view.topAnchor, left: view.leftAnchor,
                               bottom: selectionView.topAnchor, right: view.rightAnchor,
                               height: screenHeight * 0.5)
@@ -91,40 +83,6 @@ final class AvatarViewController: UIViewController {
     
     // MARK: - Firebase handler
     
-    private func fetchUserData(userID: String) {
-        UserManager.shared.fetchUserData(userID: userID) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.currentUser = user
-            case .failure(let error):
-                self.presentAlert(title: "Error", message: error.localizedDescription + " Please try again")
-            }
-        }
-    }
-    
-    private func updateAvatar(urlString: String) {
-        guard let currentUser = self.currentUser else {
-            return
-        }
-        let user = User(userID: currentUser.userID,
-                        userAvatar: urlString,
-                        userHomeBG: currentUser.userHomeBG,
-                        userName: currentUser.userName,
-                        paringUser: currentUser.paringUser)
-        UserManager.shared.updateUserData(user: user) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success:
-                self.delegate?.didTappedSubmit()
-            case .failure:
-                self.presentAlert(
-                    title: "Error",
-                    message: "Something went wrong. Please try again later.")
-            }
-        }
-    }
-    
     private func uploadImage(image: UIImage) {
         guard let imageData = image.pngData() else {
             return
@@ -142,7 +100,9 @@ final class AvatarViewController: UIViewController {
                 }
                 let urlString = url.absoluteString
                 UserDefaults.standard.set(urlString, forKey: "url")
-                self?.updateAvatar(urlString: urlString)
+                self?.updateUserData(avatar: urlString) {
+                    self?.delegate?.didTappedSubmit()
+                }
             }
         }
     }

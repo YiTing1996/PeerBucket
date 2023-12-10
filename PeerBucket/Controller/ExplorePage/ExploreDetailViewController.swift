@@ -55,12 +55,8 @@ final class ExploreDetailViewController: UIViewController {
         tableView.delegate = self
         configureRatingView()
         configureUI()
+        collectButton.isEnabled = !(Info.shared.currentUser == nil)
         tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        collectButton.isEnabled = !(currentUserUID == nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,7 +83,7 @@ final class ExploreDetailViewController: UIViewController {
         
         blackView.backgroundColor = .black
         blackView.alpha = 0
-        menuBottomConstraint.constant = hideMenuBottomConstraint
+        menuBottomConstraint.constant = ScreenConstant.hideMenuBottomConstraint
         view.bringSubviewToFront(blackView)
         view.bringSubviewToFront(containerView)
     }
@@ -173,7 +169,7 @@ extension ExploreDetailViewController: ExploreDetailTableViewCellDelegate {
 extension ExploreDetailViewController: AddToBucketViewControllerDelegate {
     func didTappedClose() {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0) {
-            self.menuBottomConstraint.constant = hideMenuBottomConstraint
+            self.menuBottomConstraint.constant = ScreenConstant.hideMenuBottomConstraint
             self.blackView.alpha = 0
         }
     }
