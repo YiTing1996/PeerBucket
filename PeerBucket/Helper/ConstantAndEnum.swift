@@ -9,8 +9,6 @@ import FirebaseFirestore
 import FirebaseStorage
 
 let storage = Storage.storage().reference()
-let screenHeight = UIScreen.main.bounds.height
-let screenWidth = UIScreen.main.bounds.width
 
 enum IdentityType: String, CaseIterable {
     case currentUser
@@ -19,4 +17,6 @@ enum IdentityType: String, CaseIterable {
 
 struct ScreenConstant {
     static let hideMenuBottomConstraint: CGFloat = -600
+    static let height = UIScreen.main.bounds.height
+    static let width = UIScreen.main.bounds.width
 }

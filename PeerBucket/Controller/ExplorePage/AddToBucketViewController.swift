@@ -116,7 +116,7 @@ extension AddToBucketViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenWidth / 3.5, height: screenWidth / 3.5)
+        return CGSize(width: ScreenConstant.width / 3.5, height: ScreenConstant.width / 3.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,

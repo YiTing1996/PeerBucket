@@ -165,7 +165,7 @@ final class ProfileViewController: BaseViewController {
         inviteView.addSubviews([inviteButton, myQRButton])
         profileView.addSubviews([avatarButton, nameButton])
 
-        avatarImageView.anchor(top: view.topAnchor, paddingTop: 90, width: screenHeight * 0.3, height: screenHeight * 0.3)
+        avatarImageView.anchor(top: view.topAnchor, paddingTop: 90, width: ScreenConstant.height * 0.3, height: ScreenConstant.height * 0.3)
         avatarImageView.centerX(inView: view)
         
         nameLabel.anchor(top: avatarImageView.bottomAnchor, left: view.leftAnchor,
@@ -173,7 +173,7 @@ final class ProfileViewController: BaseViewController {
         
         profileView.anchor(top: nameLabel.bottomAnchor, left: view.leftAnchor,
                            right: view.rightAnchor, paddingTop: 10,
-                           paddingLeft: 20, paddingRight: 20, height: screenHeight * 0.18)
+                           paddingLeft: 20, paddingRight: 20, height: ScreenConstant.height * 0.18)
         profileLabel.anchor(top: profileView.topAnchor, left: profileView.leftAnchor,
                             paddingTop: 20, paddingLeft: 20, width: 150)
         
@@ -181,20 +181,20 @@ final class ProfileViewController: BaseViewController {
         profileLabel.anchor(left: profileView.leftAnchor, paddingLeft: 20, width: 150)
         
         avatarButton.anchor(top: profileView.topAnchor, right: profileView.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 150, height: screenHeight * 0.06)
+                            paddingTop: 20, paddingRight: 20, width: 150, height: ScreenConstant.height * 0.06)
         nameButton.anchor(top: avatarButton.bottomAnchor, right: profileView.rightAnchor,
-                          paddingTop: 10, paddingRight: 20, width: 150, height: screenHeight * 0.06)
+                          paddingTop: 10, paddingRight: 20, width: 150, height: ScreenConstant.height * 0.06)
         
         inviteView.anchor(top: profileView.bottomAnchor, left: view.leftAnchor,
                           right: view.rightAnchor, paddingTop: 10,
-                          paddingLeft: 20, paddingRight: 20, height: screenHeight * 0.18)
+                          paddingLeft: 20, paddingRight: 20, height: ScreenConstant.height * 0.18)
         inviteLabel.centerY(inView: inviteView)
         inviteLabel.anchor(left: inviteView.leftAnchor, paddingLeft: 20, width: 150)
         
         inviteButton.anchor(top: inviteView.topAnchor, right: inviteView.rightAnchor,
-                            paddingTop: 20, paddingRight: 20, width: 150, height: screenHeight * 0.06)
+                            paddingTop: 20, paddingRight: 20, width: 150, height: ScreenConstant.height * 0.06)
         myQRButton.anchor(top: inviteButton.bottomAnchor, right: inviteView.rightAnchor,
-                          paddingTop: 10, paddingRight: 20, width: 150, height: screenHeight * 0.06)
+                          paddingTop: 10, paddingRight: 20, width: 150, height: ScreenConstant.height * 0.06)
         
     }
     

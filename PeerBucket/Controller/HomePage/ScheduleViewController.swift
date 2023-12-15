@@ -98,7 +98,7 @@ final class ScheduleViewController: BaseViewController, UIGestureRecognizerDeleg
         calendar.anchor(top: view.topAnchor, left: view.leftAnchor,
                         right: view.rightAnchor, paddingTop: 100,
                         paddingLeft: 20, paddingRight: 20,
-                        height: screenHeight * 3 / 8 )
+                        height: ScreenConstant.height * 3 / 8 )
     }
     
     private func configureUI() {
@@ -242,18 +242,18 @@ extension ScheduleViewController: UICollectionViewDelegateFlowLayout, UICollecti
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: screenWidth - 60, height: 90)
+        return CGSize(width: ScreenConstant.width - 60, height: 90)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return (screenWidth - 360) / 6
+        return (ScreenConstant.width - 360) / 6
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: screenWidth - 40, height: 50)
+        return CGSize(width: ScreenConstant.width - 40, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView,

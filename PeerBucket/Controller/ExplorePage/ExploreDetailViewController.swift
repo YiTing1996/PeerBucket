@@ -151,7 +151,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return CGFloat(screenHeight * 2.8 / 5)
+            return CGFloat(ScreenConstant.height * 2.8 / 5)
         default:
             return UITableView.automaticDimension
         }

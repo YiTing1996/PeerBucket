@@ -61,24 +61,24 @@ final class AvatarViewController: BaseViewController {
         bodyView.isHidden = true
         backgroundView.anchor(top: view.topAnchor, left: view.leftAnchor,
                               bottom: selectionView.topAnchor, right: view.rightAnchor,
-                              height: screenHeight * 0.5)
+                              height: ScreenConstant.height * 0.5)
         backgroundSlider.anchor(left: view.leftAnchor, bottom: backgroundView.bottomAnchor,
                                 right: view.rightAnchor, paddingLeft: 10, paddingBottom: 10,
                                 paddingRight: 10, height: 50)
         selectionView.anchor(left: view.leftAnchor, right: view.rightAnchor,
-                             height: screenHeight * 0.1)
+                             height: ScreenConstant.height * 0.1)
         hairView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
                         bottom: view.bottomAnchor, right: view.rightAnchor,
-                        height: screenHeight * 0.4)
+                        height: ScreenConstant.height * 0.4)
         faceView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
                         bottom: view.bottomAnchor, right: view.rightAnchor,
-                        height: screenHeight * 0.4)
+                        height: ScreenConstant.height * 0.4)
         glassesView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
                            bottom: view.bottomAnchor, right: view.rightAnchor,
-                           height: screenHeight * 0.4)
+                           height: ScreenConstant.height * 0.4)
         bodyView.anchor(top: selectionView.bottomAnchor, left: view.leftAnchor,
                         bottom: view.bottomAnchor, right: view.rightAnchor,
-                        height: screenHeight * 0.4)
+                        height: ScreenConstant.height * 0.4)
     }
     
     // MARK: - Firebase handler

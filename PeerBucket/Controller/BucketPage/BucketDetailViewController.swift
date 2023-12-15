@@ -193,7 +193,7 @@ final class BucketDetailViewController: UIViewController {
         submitButton.anchor(bottom: view.bottomAnchor, right: addListButton.leftAnchor,
                             paddingBottom: 90, paddingRight: 2, width: 50, height: 50)
         addListTextField.anchor(bottom: view.bottomAnchor, right: submitButton.leftAnchor,
-                                paddingBottom: 90, paddingRight: 2, width: screenWidth * 0.6, height: 50)
+                                paddingBottom: 90, paddingRight: 2, width: ScreenConstant.width * 0.6, height: 50)
     }
     
     // MARK: - Firebase processor
