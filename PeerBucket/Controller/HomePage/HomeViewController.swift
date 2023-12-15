@@ -195,14 +195,14 @@ final class HomeViewController: BaseViewController {
     }
     
     private func downloadImage(imageName: String) {
-        storage.child("homeImage/\(imageName).png").downloadURL { [weak self] url, error in
+        storage.child("homeImage/\(imageName).png").downloadURL { url, error in
             guard let url = url, error == nil else {
                 Log.e(error)
                 return
             }
             let urlString = url.absoluteString
             UserDefaults.standard.set(urlString, forKey: "url")
-            self?.updateUserData(homebg: urlString)
+            Info.shared.updateUserData(homebg: urlString)
         }
     }
     

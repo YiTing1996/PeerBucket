@@ -238,13 +238,13 @@ final class ProfileViewController: BaseViewController {
     
     @objc
     private func tappedSignoutBtn() {
-        Info.shared.signOut()
+        Info.shared.signOut(self)
     }
     
     @objc
     private func tappedNameBtn() {
-        presentInputAlert { [weak self] name in
-            self?.updateUserData(name: name)
+        presentInputAlert { name in
+            Info.shared.updateUserData(name: name)
         }
     }
     
@@ -256,8 +256,8 @@ final class ProfileViewController: BaseViewController {
                 return
             }
             // update paring user status
-            self.updateUserData(paringUser: [])
-            self.updateUserData(for: .paringUser, paringUser: [])
+            Info.shared.updateUserData(paringUser: [])
+            Info.shared.updateUserData(for: .paringUser, paringUser: [])
         }
     }
     
@@ -265,7 +265,7 @@ final class ProfileViewController: BaseViewController {
     private func tappedDeleteBtn() {
         presentActionAlert(action: "Delete", title: "Delete Account",
                                 message: "Do you want to delete your acccount?") {
-            Info.shared.deleteAccount()
+            Info.shared.deleteAccount(self)
         }
     }
 }

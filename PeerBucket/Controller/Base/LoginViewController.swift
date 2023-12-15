@@ -72,7 +72,7 @@ final class LoginViewController: UIViewController {
     
     @objc
     private func tappedAppleBtn() {
-        Info.shared.signIn()
+        Info.shared.signInWithApple(self)
     }
     
     @objc

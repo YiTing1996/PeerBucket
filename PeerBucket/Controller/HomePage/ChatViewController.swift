@@ -13,8 +13,7 @@ import InputBarAccessoryView
 import Kingfisher
 import IQKeyboardManagerSwift
 
-final class ChatViewController: MessagesViewController, InputBarAccessoryViewDelegate,
-                          MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
+final class ChatViewController: MessagesViewController {
     
     // MARK: - Properties
 
@@ -198,38 +197,15 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
             self?.messagesCollectionView.scrollToLastItem(at: .bottom, animated: true)
         }
     }
-    
-    // MARK: - InputBarAccessoryViewDelegate
-    
-    func inputBar(_ inputBar: InputBarAccessoryView,
-                  didPressSendButtonWith text: String) {
-        guard let currentUser = currentUser else {
-            return
-        }
-        let message = Message(id: UUID().uuidString,
-                              content: text,
-                              created: Timestamp(),
-                              senderID: currentUser.userID,
-                              senderName: currentUser.userName)
-        
-        // Insert new message on collection view
-        insertNewMessage(message)
-        // save message to firebase thread
-        save(message)
-        
-        inputBar.inputTextView.text = ""
-        messagesCollectionView.reloadData()
-        messagesCollectionView.scrollToLastItem(animated: true)
-    }
-    
-    // MARK: - MessagesDataSource
-    
+}
+
+extension ChatViewController: MessagesDataSource {
     func currentSender() -> SenderType {
-        return ChatUser(senderId: currentUser?.userID ?? .init(), displayName: currentUser?.userName ?? .init())
+        ChatUser(senderId: currentUser?.userID ?? .init(), displayName: currentUser?.userName ?? .init())
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
-        return messages[indexPath.section]
+        messages[indexPath.section]
     }
     
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -240,14 +216,15 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
             return messages.count
         }
     }
-    
-    // MARK: - MessagesLayoutDelegate
-    
+}
+
+extension ChatViewController: MessagesLayoutDelegate {
     func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
         return .zero
     }
-    
-    // MARK: - MessagesDisplayDelegate
+}
+
+extension ChatViewController: MessagesDisplayDelegate {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath,
                          in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .darkGreen: .hightlightYellow
@@ -272,5 +249,28 @@ final class ChatViewController: MessagesViewController, InputBarAccessoryViewDel
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
         let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight: .bottomLeft
         return .bubbleTail(corner, .curved)
+    }
+}
+
+extension ChatViewController: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView,
+                  didPressSendButtonWith text: String) {
+        guard let currentUser = currentUser else {
+            return
+        }
+        let message = Message(id: UUID().uuidString,
+                              content: text,
+                              created: Timestamp(),
+                              senderID: currentUser.userID,
+                              senderName: currentUser.userName)
+        
+        // Insert new message on collection view
+        insertNewMessage(message)
+        // save message to firebase thread
+        save(message)
+        
+        inputBar.inputTextView.text = ""
+        messagesCollectionView.reloadData()
+        messagesCollectionView.scrollToLastItem(animated: true)
     }
 }

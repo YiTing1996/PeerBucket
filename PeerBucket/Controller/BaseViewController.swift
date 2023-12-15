@@ -49,25 +49,4 @@ class BaseViewController: UIViewController {
             }
         }
     }
-    
-    func updateUserData(for identity: IdentityType = .currentUser, id: String? = nil, avatar: String? = nil,
-                        homebg: String? = nil, name: String? = nil, paringUser: [String]? = nil, completion: (() -> Void)? = nil) {
-        guard let user = currentUser else { return }
-        let updatedUser = User(
-            userID: id ?? user.userID,
-            userAvatar: avatar ?? user.userAvatar,
-            userHomeBG: homebg ?? user.userHomeBG,
-            userName: name ?? user.userName,
-            paringUser: paringUser ?? user.paringUser
-        )
-        UserManager.shared.updateUserData(user: updatedUser) { [weak self] result in
-            switch result {
-            case .success:
-                self?.fetchUserData(for: .currentUser)
-                self?.presentAlert()
-            case .failure:
-                self?.presentErrorAlert()
-            }
-        }
-    }
 }

@@ -100,7 +100,7 @@ final class AvatarViewController: BaseViewController {
                 }
                 let urlString = url.absoluteString
                 UserDefaults.standard.set(urlString, forKey: "url")
-                self?.updateUserData(avatar: urlString) {
+                Info.shared.updateUserData(avatar: urlString) {
                     self?.delegate?.didTappedSubmit()
                 }
             }

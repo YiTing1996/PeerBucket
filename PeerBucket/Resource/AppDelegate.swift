@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
-        Info.shared.prepareForAppLaunch()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) { granted, _ in
             Log.w("user notifacation authorization: \(granted)")
@@ -116,5 +115,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return .portrait
     }
-    
 }

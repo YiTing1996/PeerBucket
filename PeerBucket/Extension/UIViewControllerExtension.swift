@@ -63,8 +63,8 @@ extension UIViewController {
     }
     
     func presentErrorAlert(title: String = "Error",
-                      message: String = "Something went wrong, please try again later.",
-                      completion: (() -> Void)? = nil) {
+                           message: String = "Something went wrong, please try again later.",
+                           completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.setAlertUI()
         

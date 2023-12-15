@@ -51,8 +51,8 @@ final class InviteViewController: BaseViewController {
             title: "Invite your BucketPeer to chat and share bucket list!",
             message: "Do you want to invite user \(paringUser.userName)?") { [weak self] in
                 guard let self = self else { return }
-                self.updateUserData(for: .currentUser, paringUser: [paringUser.userID])
-                self.updateUserData(for: .paringUser, paringUser: [currentUser.userID])
+                Info.shared.updateUserData(for: .currentUser, paringUser: [paringUser.userID])
+                Info.shared.updateUserData(for: .paringUser, paringUser: [currentUser.userID])
                 self.routeToRoot()
             }
     }
