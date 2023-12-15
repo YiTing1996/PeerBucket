@@ -87,22 +87,12 @@ final class AvatarViewController: BaseViewController {
         guard let imageData = image.pngData() else {
             return
         }
-        let path = "avatar/\(NSUUID().uuidString).png"
-        storage.child(path).putData(imageData, metadata: nil) { [weak self] _, error in
-            guard error == nil else {
-                Log.e(error)
+        ImageService.shared.uploadImage(type: .avatar, data: imageData) { [weak self] urlString in
+            guard urlString.isNotEmpty else {
                 return
             }
-            storage.child(path).downloadURL { url, error in
-                guard let url = url, error == nil else {
-                    Log.e(error)
-                    return
-                }
-                let urlString = url.absoluteString
-                UserDefaults.standard.set(urlString, forKey: "url")
-                Info.shared.updateUserData(avatar: urlString) {
-                    self?.delegate?.didTappedSubmit()
-                }
+            Info.shared.updateUserData(avatar: urlString) {
+                self?.delegate?.didTappedSubmit()
             }
         }
     }

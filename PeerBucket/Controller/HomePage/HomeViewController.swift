@@ -172,37 +172,21 @@ final class HomeViewController: BaseViewController {
     // MARK: - Image handler
     
     private func compressImage(result: PHPickerResult) {
-        result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] (image, error) in
+        result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
             guard let image = image as? UIImage,
                   let imageData = image.jpegData(compressionQuality: 0.5),
-                  let self = self, error == nil else {
+                  error == nil else {
                 Log.e(error)
                 return
             }
-            let imageName = NSUUID().uuidString
-            self.uploadImage(imageName: imageName, imageData: imageData)
-        }
-    }
-    
-    private func uploadImage(imageName: String, imageData: Data) {
-        storage.child("homeImage/\(imageName).png").putData(imageData, metadata: nil) { _, error in
-            guard error == nil else {
-                Log.e(error)
-                return
+            ImageService.shared.uploadImage(type: .home, data: imageData) { [weak self] urlString in
+                guard urlString.isNotEmpty else {
+                    return
+                }
+                Info.shared.updateUserData(homebg: urlString) {
+                    self?.configureAfterFetchUserData()
+                }
             }
-            self.downloadImage(imageName: imageName)
-        }
-    }
-    
-    private func downloadImage(imageName: String) {
-        storage.child("homeImage/\(imageName).png").downloadURL { url, error in
-            guard let url = url, error == nil else {
-                Log.e(error)
-                return
-            }
-            let urlString = url.absoluteString
-            UserDefaults.standard.set(urlString, forKey: "url")
-            Info.shared.updateUserData(homebg: urlString)
         }
     }
     

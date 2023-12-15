@@ -177,14 +177,13 @@ final class AddNewBucketViewController: UIViewController, UIImagePickerControlle
 
     private func downloadIconImage() {
         guard let selectedIconIndex = selectedIconIndex else { return }
-        storage.child("categoryImage/\(iconButtonImage[selectedIconIndex]).png").downloadURL { [weak self] url, error in
-            guard let url = url, error == nil else {
+        let path = "\(ImageService.ImageType.category.rawValue)/\(iconButtonImage[selectedIconIndex]).png"
+        ImageService.shared.downloadImage(from: path) { [weak self] urlString in
+            guard urlString.isNotEmpty else {
                 return
             }
-            let urlString = url.absoluteString
             self?.iconUrlString = urlString
             Log.v("download url: \(urlString)")
-            UserDefaults.standard.set(urlString, forKey: "url")
         }
     }
 }

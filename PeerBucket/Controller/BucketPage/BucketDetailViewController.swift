@@ -370,32 +370,10 @@ extension BucketDetailViewController: PHPickerViewControllerDelegate {
                 Log.v(error?.localizedDescription)
                 return
             }
-            let imageName = NSUUID().uuidString
-            self.uploadImage(imageName: imageName, imageData: imageData)
-        }
-    }
-    
-    private func uploadImage(imageName: String, imageData: Data) {
-        storage.child("listImage/\(imageName).png").putData(imageData, metadata: nil) { [weak self]  _, error in
-            guard let self = self, error == nil else {
-                Log.e(error?.localizedDescription)
-                return
+            ImageService.shared.uploadImage(type: .list, data: imageData) { [weak self] urlString in
+                guard let self = self, let swippedRow = self.imageSwippedRow, urlString.isNotEmpty else { return }
+                self.checkBucketList(element: .image, bucketList: self.allBucketLists[swippedRow])
             }
-            self.downloadImage(imageName: imageName)
-        }
-    }
-    
-    private func downloadImage(imageName: String) {
-        storage.child("listImage/\(imageName).png").downloadURL { [weak self] url, error in
-            guard let self = self, let url = url, error == nil else {
-                Log.e(error?.localizedDescription)
-                return
-            }
-            let urlString = url.absoluteString
-            self.imageUrlString.append(urlString)
-            UserDefaults.standard.set(urlString, forKey: "url")
-            guard let swippedRow = self.imageSwippedRow, self.imageUrlString.isNotEmpty else { return }
-            self.checkBucketList(element: .image, bucketList: self.allBucketLists[swippedRow])
         }
     }
 }

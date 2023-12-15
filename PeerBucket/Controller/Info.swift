@@ -125,7 +125,7 @@ class Info: NSObject {
     func updateUserData(for identity: IdentityType = .currentUser, id: String? = nil,
                         avatar: String? = nil, homebg: String? = nil,
                         name: String? = nil, paringUser: [String]? = nil,
-                        completion: (() -> Void)? = nil) {
+                        completion: @escaping (() -> Void) = {}) {
         guard let user = currentUser else { return }
         let updatedUser = User(
             userID: id ?? user.userID,
@@ -137,9 +137,11 @@ class Info: NSObject {
         UserManager.shared.updateUserData(user: updatedUser) { [weak self] result in
             switch result {
             case .success:
-                self?.fetchUserData(identityType: .currentUser) { _ in }
+                self?.fetchUserData(identityType: .currentUser) { _ in
+                    completion()
+                }
             case .failure:
-                break
+                completion()
             }
         }
     }

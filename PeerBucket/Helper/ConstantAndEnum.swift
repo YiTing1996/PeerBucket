@@ -5,10 +5,7 @@
 //  Created by 陳憶婷 on 2022/7/24.
 //
 
-import FirebaseFirestore
-import FirebaseStorage
-
-let storage = Storage.storage().reference()
+import UIKit
 
 enum IdentityType: String, CaseIterable {
     case currentUser
