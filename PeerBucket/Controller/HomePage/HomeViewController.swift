@@ -80,12 +80,6 @@ final class HomeViewController: BaseViewController {
         bgImageView.kf.setImage(with: url)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard let currentUser = currentUser else { return }
-        loadSchedule(userID: currentUser.userID)
-    }
-    
     override func configureGuestUI() {
         view.addSubview(bgImageView)
         bgImageView.image = UIImage(named: "bg_home")
@@ -102,6 +96,7 @@ final class HomeViewController: BaseViewController {
         }
         let url = URL(string: currentUser.userHomeBG)
         self.bgImageView.kf.setImage(with: url)
+        self.loadSchedule(userID: currentUser.userID)
     }
     
     // MARK: - User interaction handler
