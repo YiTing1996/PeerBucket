@@ -66,24 +66,32 @@ final class ImageDetailViewController: UIViewController {
     private func fetchDate() {
         let animationView = self.loadAnimation(name: "lottieLoading", loopMode: .loop)
         animationView.play()
-        // TODO: 優化
-        for list in allBucketList where list.images.isNotEmpty {
-            for image in list.images {
-                DispatchQueue.global().async {
-                    // perform url session at background thread
-                    guard let data = try? Data(contentsOf: URL(string: image)!) else { return }
-                    self.memoryData.append(MemoryData(image: UIImage(data: data)!,
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        DispatchQueue.global().async {
+            let imageLists = self.allBucketList.filter { $0.images.isNotEmpty }
+            imageLists.enumerated().forEach { listIndex, list in
+                let images = list.images
+                images.enumerated().forEach { imageIndex, image in
+                    guard let url = URL(string: image), let data = try? Data(contentsOf: url), let image = UIImage(data: data) else {
+                        return
+                    }
+                    self.memoryData.append(MemoryData(image: image,
                                                       title: list.list,
                                                       date: Date.dateFormatter.string(from: list.createdTime)))
-                    DispatchQueue.main.async {
-                        self.foreImageView.image = self.memoryData[0].image
-                        self.titleLabel.text = self.memoryData[0].title
-                        self.dateLabel.text = self.memoryData[0].date
-                        self.stopAnimation(animationView: animationView)
+                    // leave dispatch group when finish last data
+                    if listIndex == imageLists.count - 1, imageIndex == images.count - 1 {
+                        dispatchGroup.leave()
                     }
-                    
                 }
             }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.foreImageView.image = self.memoryData.first?.image
+            self.titleLabel.text = self.memoryData.first?.title
+            self.dateLabel.text = self.memoryData.first?.date
+            self.stopAnimation(animationView: animationView)
         }
     }
     
@@ -115,7 +123,7 @@ final class ImageDetailViewController: UIViewController {
                                               userInfo: nil, repeats: true)
             // Music
             guard let url = Bundle.main.url(forResource: "dreams", withExtension: "mp3") else {
-                print("Error find url")
+                Log.e("Cant find mp3 url")
                 return
             }
             player = try? AVAudioPlayer(contentsOf: url)
@@ -129,10 +137,10 @@ final class ImageDetailViewController: UIViewController {
     
     @objc
     private func playVideo() {
-        // Image
-        if index < memoryData.count-1 {
+        if index < memoryData.count - 1 {
             index += 1
         } else {
+            // last image should transit to first one
             index = 0
         }
         
